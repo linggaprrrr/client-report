@@ -91,7 +91,7 @@ class ReportModel extends Model
 
     public function getAllClient()
     {
-        $query = $this->db->query("SELECT * FROM users WHERE role='client' ORDER BY id DESC");
+        $query = $this->db->query("SELECT * FROM users WHERE role='client' ORDER BY fullname ASC");
         return $query;
     }
 
