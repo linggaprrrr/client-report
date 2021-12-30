@@ -15,7 +15,7 @@ class CategoryModel extends Model
         $this->db = \Config\Database::connect();
     }
 
-    public function getCategory($id)
+    public function getCategory($id = null)
     {
         $query = $this->db->query("SELECT * FROM categories WHERE investment_id = '$id'")->getRow();
         return $query;

@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\CategoryModel;
 use App\Models\InvestmentModel;
+use App\Models\NewsModel;
 use App\Models\ReportModel;
 use App\Models\UserModel;
 use CodeIgniter\Database\BaseBuilder;
@@ -16,6 +17,7 @@ class Reports extends BaseController
     protected $investmentModel = "";
     protected $categoryModel = "";
     protected $userModel = "";
+    protected $newsModel = "";
     protected $spreadsheetReader;
     protected $db;
 
@@ -26,6 +28,7 @@ class Reports extends BaseController
         $this->investmentModel = new InvestmentModel();
         $this->categoryModel = new CategoryModel();
         $this->userModel = new UserModel();
+        $this->newsModel = new NewsModel();
         $this->db = \Config\Database::connect();
     }
 
@@ -44,9 +47,9 @@ class Reports extends BaseController
         $totalCostLeft = $this->reportModel->totalCostLeft();
         $totalFulfilled = $this->reportModel->totalFulfilled();
         $getAllReports = $this->reportModel->getAllReports();
-
+        $news = $this->newsModel->getLastNews();
         $data = [
-            'title' => 'RMS Dashboard | Smart Wholesale',
+            'tittle' => 'RMS Dashboard | Smart Wholesale',
             'menu' => 'Dashboard',
             'user' => $user,
             'totalInvest' => $totalInvest,
@@ -55,6 +58,7 @@ class Reports extends BaseController
             'totalCostLeft' => $totalCostLeft,
             'totalFulfilled' => $totalFulfilled,
             'getAllReports' => $getAllReports,
+            'news' => $news,
         ];
         return view('administrator/dashboard', $data);
     }
@@ -72,7 +76,7 @@ class Reports extends BaseController
         $getAllClient = $this->reportModel->getAllClient();
 
         $data = [
-            'title' => 'Client Activities | Smart Wholesale',
+            'tittle' => 'Client Activities | Smart Wholesale',
             'menu' => 'Client Activities',
             'totalClientUploaded' => $totalClientUploaded,
             'totalReport' => $totalReport,

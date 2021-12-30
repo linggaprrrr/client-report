@@ -6,18 +6,6 @@
 
 
     <div class="card">
-        <?php if (session()->getFlashdata('success')) : ?>
-            <div class="alert bg-success text-white alert-styled-left alert-dismissible m-2">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <span class="font-weight-semibold">Well done!</span> User Successfully Created <a href="#" class="alert-link"></a>
-            </div>
-        <?php endif ?>
-        <?php if (session()->getFlashdata('delete')) : ?>
-            <div class="alert bg-danger text-white alert-styled-left alert-dismissible m-2">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <span class="font-weight-semibold">Well done!</span> User Successfully Deleted <a href="#" class="alert-link"></a>
-            </div>
-        <?php endif ?>
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
@@ -77,7 +65,7 @@
                                             <span class="input-group-prepend">
                                                 <span class="input-group-text"><i class="icon-mail5"></i></span>
                                             </span>
-                                            <input type="email" class="form-control" name="email" value="" required>
+                                            <input type="email" class="form-control" name="email" value="">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -197,6 +185,7 @@
 
 <script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <script src="<?= base_url() ?>/assets/js/demo_pages/datatables_basic.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#password, #confirm_password').on('keyup', function() {

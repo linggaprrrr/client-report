@@ -4,18 +4,7 @@
 
 <div class="content">
     <div class="card">
-        <?php if (session()->getFlashdata('success')) : ?>
-            <div class="alert bg-success text-white alert-styled-left alert-dismissible m-2">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <span class="font-weight-semibold">Well done!</span> Your Profile Successfully Updated <a href="#" class="alert-link"></a>
-            </div>
-        <?php endif ?>
-        <?php if (session()->getFlashdata('failed')) : ?>
-            <div class="alert bg-danger text-white alert-styled-left alert-dismissible m-2">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <span class="font-weight-semibold">Failed!</span> Your Password Incorrect <a href="#" class="alert-link"></a>
-            </div>
-        <?php endif ?>
+
         <div class="card-body">
             <form action="<?= base_url('/update-setting') ?>" method="POST" enctype="multipart/form-data">
                 <?php csrf_field() ?>
@@ -26,7 +15,7 @@
                             <?php if (!empty($user['photo'])) : ?>
                                 <img class="img-fluid rounded-circle" id="output" src="<?= base_url() ?>/img/<?= $user['photo'] ?>" alt="Profile Picture" style="width:250px; height:250px;object-fit: contain;">
                             <?php else : ?>
-                                <img class="img-fluid rounded-circle" id="output" src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" style="width:250px; height:250px;object-fit: contain;" alt="Profile Picture">
+                                <img class="img-fluid rounded-circle" id="output" src="<?= base_url() ?>/assets/images/placeholders/user.png" style="width:250px; height:250px;object-fit: contain;" alt="Profile Picture">
                             <?php endif ?>
                             <div class="card-img-actions-overlay card-img rounded-circle">
                                 <a href="#" class="btn btn-white btn-icon btn-sm rounded-pill" id="uploadImg">
@@ -108,7 +97,8 @@
                 </div>
             </form>
         </div>
-
+        <button type="button" id="noty_created" style="display: none;"></button>
+        <button type="button" id="noty_deleted" style="display: none;"></button>
     </div>
     <!-- /blocks with chart -->
 
@@ -117,8 +107,17 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
+<script src="<?= base_url() ?>/assets/js/plugins/notifications/jgrowl.min.js"></script>
+<script src="<?= base_url() ?>/assets/js/plugins/notifications/noty.min.js"></script>
+<script src="<?= base_url() ?>/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
 <script>
     $(document).ready(function() {
+        <?php if (session()->getFlashdata('success')) : ?>
+            $('#noty_created').click();
+        <?php endif ?>
+        <?php if (session()->getFlashdata('failed')) : ?>
+            $('#noty_deleted').click();
+        <?php endif ?>
         $('#password, #confirm_password').on('keyup', function() {
             if ($('#password').val() == $('#confirm_password').val()) {
                 $('#message').html('Password Matching').css('color', 'green');
@@ -127,6 +126,18 @@
                 $('#message').html('Password not matching!').css('color', 'red');
 
         });
+    });
+    $('#noty_created').on('click', function() {
+        new Noty({
+            text: 'You successfully update your pofile.',
+            type: 'success'
+        }).show();
+    });
+    $('#noty_deleted').on('click', function() {
+        new Noty({
+            text: 'You password is incorrect, update failed.',
+            type: 'alert'
+        }).show();
     });
 </script>
 

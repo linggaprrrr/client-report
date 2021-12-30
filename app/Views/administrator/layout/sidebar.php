@@ -26,7 +26,7 @@
                 <?php if (!empty($user['photo'])) : ?>
                     <img class="img-fluid rounded-circle" src="<?= base_url() ?>/img/<?= $user['photo'] ?>" alt="Profile Picture" style="width:100px; height:100px;object-fit: contain;">
                 <?php else : ?>
-                    <img class="img-fluid rounded-circle" src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" width="150" height="150" alt="Profile Picture">
+                    <img class="img-fluid rounded-circle" src="<?= base_url() ?>/assets/images/placeholders/user.png" width="150" height="150" alt="Profile Picture">
                 <?php endif ?>
             </div>
 
@@ -66,7 +66,14 @@
                         </span>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="<?= base_url('/admin/news') ?>" class="nav-link">
+                        <i class="icon-newspaper"></i>
+                        <span>
+                            News Announcement
+                        </span>
+                    </a>
+                </li>
                 <!-- /main -->
 
 

@@ -1,0 +1,324 @@
+CRITICAL - 2021-12-28 00:02:56 --> Undefined index: creatd_it
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\tickets.php(109): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 109, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2021-12-28 00:03:01 --> Undefined index: created_it
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\tickets.php(109): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 109, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2021-12-28 00:03:10 --> Undefined index: ticket_at
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\tickets.php(109): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 109, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2021-12-28 00:03:18 --> A non well formed numeric value encountered
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(8, 'A non well form...', 'C:\\xampp\\htdocs...', 109, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\app\Views\client\tickets.php(109): date('D', '2021-12-27 23:1...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#5 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#8 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+CRITICAL - 2021-12-28 00:04:03 --> A non well formed numeric value encountered
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(8, 'A non well form...', 'C:\\xampp\\htdocs...', 109, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\app\Views\client\tickets.php(109): date('D', '2021-12-27 23:1...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#5 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#8 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+CRITICAL - 2021-12-28 00:04:22 --> A non well formed numeric value encountered
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(8, 'A non well form...', 'C:\\xampp\\htdocs...', 109, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\app\Views\client\tickets.php(109): date('Y-m-d', '2021-12-27 23:1...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#5 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#8 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+CRITICAL - 2021-12-28 00:05:37 --> Call to a member function format() on string
+#0 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2021-12-28 00:08:24 --> Call to a member function format() on string
+#0 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2021-12-28 00:11:54 --> Call to a member function format() on string
+#0 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/tickets', Array, true)
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(34): view('client/tickets', Array)
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->index()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2021-12-28 05:50:53 --> Undefined variable: user
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\layout\sidebar.php(34): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 34, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(432): CodeIgniter\View\View->render('client/layout/s...', NULL, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Views\client\layout\template.php(19): CodeIgniter\View\View->include('client/layout/s...')
+#5 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#7 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(230): CodeIgniter\View\View->render('client/layout/t...', Array, true)
+#8 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/read_tic...', Array, true)
+#9 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(60): view('client/read_tic...', Array)
+#10 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->showTicket('7507')
+#11 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#12 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#15 {main}
+CRITICAL - 2021-12-28 05:51:45 --> Undefined variable: menu
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\layout\template.php(31): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 31, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(230): CodeIgniter\View\View->render('client/layout/t...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/read_tic...', Array, true)
+#5 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(66): view('client/read_tic...', Array)
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->showTicket('7507')
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#8 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+CRITICAL - 2021-12-28 05:57:51 --> Undefined index: ticket_id
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\read_ticket.php(32): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 32, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/read_tic...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(66): view('client/read_tic...', Array)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->showTicket('7507')
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2021-12-28 06:04:23 --> syntax error, unexpected '?>', expecting variable (T_VARIABLE) or '{' or '$'
+#0 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/read_tic...', Array, true)
+#2 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Tickets.php(66): view('client/read_tic...', Array)
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Tickets->showTicket('7507')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tickets))
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2021-12-28 17:14:41 --> Trying to get property 'id' of non-object
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(37): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'C:\\xampp\\htdocs...', 37, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 17:17:19 --> Trying to get property 'id' of non-object
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(38): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'C:\\xampp\\htdocs...', 38, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 17:18:30 --> Trying to get property 'category_name' of non-object
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(72): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'C:\\xampp\\htdocs...', 72, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 17:30:38 --> Trying to get property 'id' of non-object
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(38): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'C:\\xampp\\htdocs...', 38, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 17:33:31 --> Too few arguments to function App\Models\ReportModel::getAllReportClient(), 0 passed in C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php on line 44 and exactly 1 expected
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(44): App\Models\ReportModel->getAllReportClient()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 18:07:02 --> Too few arguments to function App\Models\ReportModel::getAllReportClient(), 0 passed in C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php on line 44 and exactly 1 expected
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(44): App\Models\ReportModel->getAllReportClient()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 18:07:53 --> Too few arguments to function App\Models\ReportModel::getAllReportClient(), 0 passed in C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php on line 44 and exactly 1 expected
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(44): App\Models\ReportModel->getAllReportClient()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 18:08:04 --> Too few arguments to function App\Models\ReportModel::getAllReportClient(), 0 passed in C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php on line 44 and exactly 1 expected
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(44): App\Models\ReportModel->getAllReportClient()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 18:08:28 --> Too few arguments to function App\Models\InvestmentModel::investmentDate(), 0 passed in C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php on line 45 and exactly 1 expected
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(45): App\Models\InvestmentModel->investmentDate()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 18:31:29 --> Too few arguments to function App\Models\InvestmentModel::investmentDate(), 0 passed in C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php on line 45 and exactly 1 expected
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(45): App\Models\InvestmentModel->investmentDate()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 18:32:31 --> Too few arguments to function App\Models\InvestmentModel::investmentDate(), 0 passed in C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php on line 45 and exactly 1 expected
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(45): App\Models\InvestmentModel->investmentDate()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2021-12-28 18:34:09 --> Undefined variable: getVendorName
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\dashboard2.php(160): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 160, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/dashboar...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(37): view('client/dashboar...')
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2021-12-28 18:35:02 --> Undefined variable: vendorQty
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\dashboard2.php(220): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 220, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/dashboar...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(37): view('client/dashboar...')
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2021-12-28 18:35:21 --> Undefined variable: vendorQty
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\dashboard2.php(220): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 220, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/dashboar...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(37): view('client/dashboar...')
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2021-12-28 18:35:33 --> Undefined variable: title
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\layout\template.php(6): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 6, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(230): CodeIgniter\View\View->render('client/layout/t...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/dashboar...', Array, true)
+#5 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(37): view('client/dashboar...')
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#8 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+ERROR - 2021-12-28 22:36:58 --> Error connecting to the database: No connection could be made because the target machine actively refused it.
+
+CRITICAL - 2021-12-28 22:36:58 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it.
+
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseBuilder.php(1576): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\wholesales\client-report\system\Model.php(723): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Auth.php(38): CodeIgniter\Model->__call('getWhere', Array)
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Auth->loginProses()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2021-12-28 22:36:58 --> Uncaught ErrorException: print_r(): Property access is not allowed yet in C:\xampp\htdocs\wholesales\client-report\app\Views\errors\html\error_exception.php:96
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'print_r(): Prop...', 'C:\\xampp\\htdocs...', 96, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\app\Views\errors\html\error_exception.php(96): print_r(Object(App\Controllers\Auth), true)
+#2 C:\xampp\htdocs\wholesales\client-report\system\Debug\Exceptions.php(229): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\Debug\Exceptions.php(232): CodeIgniter\Debug\Exceptions->CodeIgniter\Debug\{closure}()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Debug\Exceptions.php(116): CodeIgniter\Debug\Exceptions->render(Object(CodeIgniter\Database\Exceptions\DatabaseException), 500)
+#5 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(CodeIgniter\Database\Exceptions\DatabaseException))
+#6 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}

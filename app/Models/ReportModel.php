@@ -58,13 +58,14 @@ class ReportModel extends Model
         return $query;
     }
 
+
     public function getAllReports()
     {
         $query = $this->db->query("SELECT a.client_id, fullname, company, SUM(a.qty) as total_unit, SUM(original_value) as total_retail, SUM(a.bal) as client_cost, SUM(a.total_fulfilled) as total_fulfilled, (SUM(a.bal)-SUM(a.total_fulfilled)) as cost_left, (SUM(a.bal)-SUM(a.total_fulfilled)) as total_client_cost, (SUM(a.bal)/SUM(a.qty)) as avg_client_cost, (SUM(original_value)/SUM(qty)) as avg_unit_retail FROM (SELECT (SUM(investments.cost)/COUNT(*)) as bal, investments.client_id, SUM(qty) as qty, SUM(original_value) as original_value, SUM(reports.cost) as total_fulfilled FROM `investments` LEFT JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as a  JOIN users ON users.id = a.client_id GROUP BY client_id");
         return $query;
     }
 
-    public function getAllReportClient($id)
+    public function getAllReportClient($id = null)
     {
         $query = $this->db->query("SELECT * from reports WHERE investment_id = '$id' ");
         return $query;
@@ -105,7 +106,7 @@ class ReportModel extends Model
 
     public function getVendorName($id)
     {
-        $query = $this->db->query("SELECT SUM(qty) as qty, vendor FROM reports WHERE investment_id = '$id'  GROUP BY vendor ORDER BY qty");
+        $query = $this->db->query("SELECT SUM(qty) as qty, vendor FROM reports WHERE investment_id = '$id'  GROUP BY vendor ORDER BY qty DESC LIMIT 15");
         return $query;
     }
 }

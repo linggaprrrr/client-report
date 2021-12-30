@@ -53,8 +53,15 @@ $routes->get('/dashboard', 'Clients::index');
 $routes->post('/dashboard', 'Clients::index');
 $routes->get('/account-setting', 'Clients::accountSetting');
 $routes->post('/update-setting', 'Clients::updateSetting');
-$routes->get('/tickets', 'Clients::tickets');
-$routes->get('/client-summary', 'Clients::clientSummary');
+
+$routes->get('/news', 'News::index');
+$routes->get('/admin/news', 'News::news');
+$routes->post('/create-news', 'News::createNews');
+$routes->get('/news/(:num)', 'News::showNews/$1');
+$routes->post('/update-news', 'News::updateNews');
+$routes->delete('/delete-news/(:num)', 'News::deleteNews/$1');
+
+$routes->get('/purchase-inventory', 'Clients::purchaseInventory');
 
 
 /*

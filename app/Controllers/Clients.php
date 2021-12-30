@@ -6,6 +6,7 @@ use App\Models\CategoryModel;
 use App\Models\InvestmentModel;
 use App\Models\ReportModel;
 use App\Models\UserModel;
+use App\Models\NewsModel;
 
 class Clients extends BaseController
 {
@@ -13,6 +14,7 @@ class Clients extends BaseController
     protected $userModel = "";
     protected $investmentModel = "";
     protected $categoryModel = "";
+    protected $newsModel = "";
 
     public function __construct()
     {
@@ -20,6 +22,7 @@ class Clients extends BaseController
         $this->userModel = new UserModel();
         $this->investmentModel = new InvestmentModel();
         $this->categoryModel = new CategoryModel();
+        $this->newsModel = new NewsModel();
     }
 
     public function index()
@@ -31,8 +34,19 @@ class Clients extends BaseController
         $user = $this->userModel->find($userId);
         $investId = $this->investmentModel->getWhere(['client_id' => $user['id']])->getRow();
         $dateId = $this->request->getVar('investdate');
-
+        $news = $this->newsModel->getLastNews();
         if ($dateId == null) {
+            if ($user['role'] == 'client' and $investId == null) {
+                $data = [
+                    'tittle' => 'RMS Dashboard | Smart Wholesale',
+                    'menu' => 'Dashboard',
+                    'user' => $user,
+                    'news' => $news
+                ];
+
+                return view('client/dashboard2', $data);
+            }
+
             $lastInvestment = $this->investmentModel->getWhere(['client_id' => $user['id']])->getLastRow();
             $category = $this->categoryModel->getCategory($investId->id);
             $totalInvest = $this->investmentModel->totalClientInvestment($investId->id);
@@ -57,10 +71,8 @@ class Clients extends BaseController
         }
 
 
-
-
         $data = [
-            'title' => 'RMS Dashboard | Smart Wholesale',
+            'tittle' => 'RMS Dashboard | Smart Wholesale',
             'menu' => 'Dashboard',
             'user' => $user,
             'totalInvest' => $totalInvest,
@@ -72,7 +84,8 @@ class Clients extends BaseController
             'category' => $category->category_name,
             'investDate' => $investmentDate,
             'lastInvestment' => $lastInvestment,
-            'getVendorName' => $getVendorName
+            'getVendorName' => $getVendorName,
+            'news' => $news
         ];
         return view('client/dashboard', $data);
     }
@@ -85,7 +98,7 @@ class Clients extends BaseController
         }
         $user = $this->userModel->find($userId);
         $data = [
-            'title' => "Account Setting | Smart Wholesale",
+            'tittle' => "Account Setting | Smart Wholesale",
             'menu' => $user['fullname'] . "'s Setting",
             'user' => $user
         ];
@@ -148,13 +161,19 @@ class Clients extends BaseController
         return redirect()->back()->with('success', 'User Successfully Updated!');
     }
 
-
-    public function tickets()
+    public function purchaseInventory()
     {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        }
+        $user = $this->userModel->find($userId);
         $data = [
-            "title" => "Tickets | Smart Wholesale"
+            'tittle' => "Purchase Inventory | Smart Wholesale",
+            'menu' => "Purchase Inventory",
+            'user' => $user
         ];
 
-        return view('client/tickets', $data);
+        return view('client/purchase_inventory', $data);
     }
 }

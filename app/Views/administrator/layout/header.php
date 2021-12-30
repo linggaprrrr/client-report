@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/assets/images/favicon.png">
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/assets/images/fba-logo-only.png">
 <!-- Global stylesheets -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 <link href="<?= base_url() ?>/assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
 <!-- Theme JS files -->
 <script src="<?= base_url() ?>/assets/js/plugins/visualization/echarts/echarts.min.js"></script>
 
-<script src="<?= base_url() ?>assets/js/app.js"></script>
+<script src="<?= base_url() ?>/assets/js/app.js"></script>
 <script src="<?= base_url() ?>/assets/js/demo_charts/pages/dashboard_6/light/progress_sortable.js"></script>
 <script src="<?= base_url() ?>/assets/js/demo_charts/pages/dashboard_6/light/bars_grouped.js"></script>
 <!-- /theme JS files -->

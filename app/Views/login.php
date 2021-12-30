@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Smart Wholesale | Login Page</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="assets/images/fba-logo-only.png">
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -46,9 +46,9 @@
                             <div class="card-body">
                                 <div class="text-center mb-3">
                                     <div>
-                                        <img src="<?= base_url() ?>/assets/images/wholesales-logo-notext.png" style="width: 100px;">
+                                        <img src="<?= base_url() ?>/assets/images/fba-logo-only.png" style="width: 100px;">
                                     </div>
-                                    <h5 class="mb-0"><b>Smart Wholesale</b></h5>
+                                    <h5 class="mb-0"><b>Smart FBA</b></h5>
                                     <span class="d-block text-muted">Your credentials</span>
                                 </div>
                                 <?php if (session()->getFlashdata('error')) : ?>

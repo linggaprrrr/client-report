@@ -1,9 +1,9 @@
 <div class="navbar navbar-expand-xl navbar-light navbar-static px-0">
     <div class="d-flex flex-1 pl-3">
-        <div class="navbar-brand wmin-0 mr-1">
+        <div class="navbar-brand wmin-0 mr-1 p-1">
             <a href="<?= base_url('/') ?>" class="d-inline-block">
-                <img src="<?= base_url() ?>/assets/images/wholesales-logo.png" class="d-none d-sm-block" alt="">
-                <img src="<?= base_url() ?>/assets/images/favicon.png" class="d-sm-none" alt="" style="width: 100%;">
+                <img src="<?= base_url() ?>/assets/images/fba-logo.png" class="d-none d-sm-block" alt="FBA Logo" style="width: 255px">
+                <img src="<?= base_url() ?>/assets/images/fba-logo-only.png" class="d-sm-none" alt="" style="width: 100%;">
             </a>
         </div>
 
@@ -33,7 +33,7 @@
                     <?php if (!empty($user['photo'])) : ?>
                         <img class="img-fluid rounded-circle" src="<?= base_url() ?>/img/<?= $user['photo'] ?>" alt="Profile Picture" style="width:38px; height:38px;object-fit: contain;">
                     <?php else : ?>
-                        <img src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" class="rounded-circle" height="38" alt="">
+                        <img src="<?= base_url() ?>/assets/images/placeholders/user.png" class="rounded-circle" height="38" alt="">
                     <?php endif ?>
 
                     <span class="d-none d-xl-block ml-2"></span>

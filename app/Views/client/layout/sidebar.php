@@ -26,7 +26,7 @@
                 <?php if (!empty($user['photo'])) : ?>
                     <img class="img-fluid rounded-circle" src="<?= base_url() ?>/img/<?= $user['photo'] ?>" alt="Profile Picture" style="width:100px; height:100px;object-fit: contain;">
                 <?php else : ?>
-                    <img class="img-fluid rounded-circle" src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" width="150" height="150" alt="Profile Picture">
+                    <img class="img-fluid rounded-circle" src="<?= base_url() ?>/assets/images/placeholders/user.png" width="150" height="150" alt="Profile Picture">
                 <?php endif ?>
             </div>
 
@@ -51,18 +51,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/tickets') ?>" class="nav-link">
-                        <i class="icon-ticket"></i>
+                    <a href="<?= base_url('/news') ?>" class="nav-link">
+                        <i class="icon-newspaper"></i>
                         <span>
-                            Tickets
+                            News Announcement
                         </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/client-summary') ?>" class="nav-link">
-                        <i class="icon-pie-chart2"></i>
+                    <a href="<?= base_url('/purchase-inventory') ?>" class="nav-link">
+                        <i class="icon-cart4"></i>
                         <span>
-                            Summary
+                            Purchase Inventory
                         </span>
                     </a>
                 </li>

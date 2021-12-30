@@ -5,18 +5,7 @@
 <div class="content">
     <div class="card">
 
-        <?php if (session()->getFlashdata('success')) : ?>
-            <div class="alert bg-success text-white alert-styled-left alert-dismissible m-2">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <span class="font-weight-semibold">Well done!</span> Report Successfully Uploaded <a href="#" class="alert-link"></a>
-            </div>
-        <?php endif ?>
-        <?php if (session()->getFlashdata('delete')) : ?>
-            <div class="alert bg-danger text-white alert-styled-left alert-dismissible m-2">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <span class="font-weight-semibold">Well done!</span> Report Successfully Deleted <a href="#" class="alert-link"></a>
-            </div>
-        <?php endif ?>
+
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
 
             <div class="d-flex align-items-center mb-3 mb-lg-0">
@@ -144,7 +133,8 @@
         </table>
     </div>
     <!-- /blocks with chart -->
-
+    <button type="button" id="noty_created" style="display: none;"></button>
+    <button type="button" id="noty_deleted" style="display: none;"></button>
 </div>
 
 <?= $this->endSection() ?>
@@ -155,8 +145,33 @@
 <script src="<?= base_url() ?>/assets/js/plugins/pickers/daterangepicker.js"></script>
 <script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <script src="<?= base_url() ?>/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="<?= base_url() ?>/assets/js/plugins/notifications/jgrowl.min.js"></script>
+<script src="<?= base_url() ?>/assets/js/plugins/notifications/noty.min.js"></script>
+<script src="<?= base_url() ?>/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
 
 <script>
+    $(document).ready(function() {
+        <?php if (session()->getFlashdata('success')) : ?>
+            $('#noty_created').click();
+        <?php endif ?>
+        <?php if (session()->getFlashdata('delete')) : ?>
+            $('#noty_deleted').click();
+        <?php endif ?>
+    });
+
+    $('#noty_created').on('click', function() {
+        new Noty({
+            text: 'You successfully upload the report.',
+            type: 'success'
+        }).show();
+    });
+    $('#noty_deleted').on('click', function() {
+        new Noty({
+            text: 'You successfully delete the report.',
+            type: 'alert'
+        }).show();
+    });
+
     var input = document.getElementById('file-upload');
     var infoArea = document.getElementById('file-upload-filename');
 
