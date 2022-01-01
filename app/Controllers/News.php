@@ -29,7 +29,7 @@ class News extends BaseController
         $allNews = $this->newsModel->getNews();
 
         $data = [
-            'tittle' => "News Announcement | Smart Wholesale",
+            'tittle' => "News Announcement | Report Management System",
             'menu' => "News Announcement",
             'user' => $user,
             'news' => $news,
@@ -48,7 +48,7 @@ class News extends BaseController
         $news = $this->newsModel->getLastNews();
         $allNews = $this->newsModel->getNews();
         $data = [
-            'tittle' => "News Announcement | Smart Wholesale",
+            'tittle' => "News Announcement | Report Management System",
             'menu' => "News Announcement",
             'user' => $user,
             'news' => $news,

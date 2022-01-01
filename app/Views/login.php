@@ -5,52 +5,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Smart Wholesale | Login Page</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/fba-logo-only.png">
+    <title>Report Managmenet System | Login Page</title>
+    <link rel="icon" type="image/x-icon" href="<?= base_url() ?>/assets/images/favicon.png">
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link href="<?= base_url() ?>/assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
-    <link href="<?= base_url() ?>/assets/css/all.min.css" rel="stylesheet" type="text/css">
-    <!-- /global stylesheets -->
+    <link href="<?= base_url() ?>/assets/login/fonts/icomoon/style.css" rel="stylesheet" type="text/css">
 
-    <!-- Core JS files -->
-    <script src="<?= base_url() ?>/assets/js/main/jquery.min.js"></script>
-    <script src="<?= base_url() ?>/assets/js/main/bootstrap.bundle.min.js"></script>
-    <!-- /core JS files -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/login/css/owl.carousel.min.css">
 
-    <!-- Theme JS files -->
-    <script src="<?= base_url() ?>/assets/js/app.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/login/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/login/css/style.css">
     <!-- /theme JS files -->
 
 </head>
 
 <body>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="<?= base_url() ?>/assets/login/images/undraw_remotely_2j6y.png" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents" style="align-self: center;">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <h3>Sign In</h3>
+                            </div>
+                            <form class="login-form" method="POST" action="<?= base_url('/login-proccess') ?>">
 
-    <!-- Page content -->
-    <div class="page-content">
 
-        <!-- Main content -->
-        <div class="content-wrapper">
-
-            <!-- Inner content -->
-            <div class="content-inner">
-
-                <!-- Content area -->
-                <div class="content d-flex justify-content-center align-items-center">
-
-                    <!-- Login card -->
-                    <form class="login-form" method="POST" action="<?= base_url('/login-proccess') ?>">
-
-                        <div class="card mb-0">
-                            <div class="card-body">
-                                <div class="text-center mb-3">
-                                    <div>
-                                        <img src="<?= base_url() ?>/assets/images/fba-logo-only.png" style="width: 100px;">
-                                    </div>
-                                    <h5 class="mb-0"><b>Smart FBA</b></h5>
-                                    <span class="d-block text-muted">Your credentials</span>
-                                </div>
                                 <?php if (session()->getFlashdata('error')) : ?>
                                     <div class="alert alert-danger alert-dismissible show fade">
                                         <div class="alert-body">
@@ -60,51 +48,39 @@
                                         </div>
                                     </div>
                                 <?php endif ?>
-                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                    <input type="text" class="form-control" name="username" placeholder="Username" autofocus>
-                                    <div class="form-control-feedback">
-                                        <i class="icon-user text-muted"></i>
-                                    </div>
+                                <div class="form-group first mb-2">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" name="username" id="username">
+
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" name="password" id="password">
 
                                 </div>
 
-                                <div class="form-group form-group-feedback form-group-feedback-left">
-                                    <input type="password" class="form-control" name="password" placeholder="Password">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-lock2 text-muted"></i>
-                                    </div>
-                                </div>
 
-                                <div class="form-group d-flex align-items-center">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="remember" class="custom-control-input" checked>
-                                        <span class="custom-control-label">Remember</span>
+                                <div class="d-flex mb-3 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                                        <input type="checkbox" checked="checked" />
+                                        <div class="control__indicator"></div>
                                     </label>
-
-                                    <a href="login_password_recover.html" class="ml-auto">Forgot password?</a>
+                                    <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
                                 </div>
 
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                </div>
-                                <span class="form-text text-center text-muted">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
-                            </div>
+                                <input type="submit" value="Log In" class="btn btn-block btn-primary">
+                            </form>
+
                         </div>
-                    </form>
-                    <!-- /login card -->
-
+                    </div>
                 </div>
-                <!-- /content area -->
-
             </div>
-            <!-- /inner content -->
-
         </div>
-        <!-- /main content -->
-
     </div>
-    <!-- /page content -->
-
+    <script src="<?= base_url() ?>/assets/login/js/jquery-3.3.1.min.js"></script>
+    <script src="<?= base_url() ?>/assets/login/js/popper.min.js"></script>
+    <script src="<?= base_url() ?>/assets/login/js/bootstrap.min.js"></script>
+    <script src="<?= base_url() ?>/assets/login/js/main.js"></script>
 </body>
 
 </html>

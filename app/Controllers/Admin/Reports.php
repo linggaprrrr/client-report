@@ -49,7 +49,7 @@ class Reports extends BaseController
         $getAllReports = $this->reportModel->getAllReports();
         $news = $this->newsModel->getLastNews();
         $data = [
-            'tittle' => 'RMS Dashboard | Smart Wholesale',
+            'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',
             'user' => $user,
             'totalInvest' => $totalInvest,
@@ -76,7 +76,7 @@ class Reports extends BaseController
         $getAllClient = $this->reportModel->getAllClient();
 
         $data = [
-            'tittle' => 'Client Activities | Smart Wholesale',
+            'tittle' => 'Client Activities | Report Management System',
             'menu' => 'Client Activities',
             'totalClientUploaded' => $totalClientUploaded,
             'totalReport' => $totalReport,

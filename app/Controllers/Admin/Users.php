@@ -23,7 +23,7 @@ class Users extends BaseController
         $user = $this->userModel->find($userId);
         $getAllUsers = $this->userModel->getAllUser();
         $data = [
-            'tittle' => 'User Managmeent | Smart Wholesale',
+            'tittle' => 'User Managmeent | Report Management System',
             'menu'  => 'User Mangement',
             'user'  => $user,
             'users' => $getAllUsers,
@@ -56,7 +56,7 @@ class Users extends BaseController
         $user = $this->userModel->find($userId);
         $profile = $this->userModel->find($id);
         $data = [
-            'tittle' => "Account Setting | Smart Wholesale",
+            'tittle' => "Account Setting | Report Management System",
             'menu' => $user['fullname'] . "'s Setting",
             'user' => $user,
             'profile' => $profile
@@ -106,7 +106,7 @@ class Users extends BaseController
         }
         $user = $this->userModel->find($userId);
         $data = [
-            'tittle' => "Account Setting | Smart Wholesale",
+            'tittle' => "Account Setting | Report Management System",
             'menu' => $user['fullname'] . "'s Setting",
             'user' => $user
         ];

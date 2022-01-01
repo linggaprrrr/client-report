@@ -38,7 +38,7 @@ class Clients extends BaseController
         if ($dateId == null) {
             if ($user['role'] == 'client' and $investId == null) {
                 $data = [
-                    'tittle' => 'RMS Dashboard | Smart Wholesale',
+                    'tittle' => 'Dashboard | Report Management System',
                     'menu' => 'Dashboard',
                     'user' => $user,
                     'news' => $news
@@ -72,7 +72,7 @@ class Clients extends BaseController
 
 
         $data = [
-            'tittle' => 'RMS Dashboard | Smart Wholesale',
+            'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',
             'user' => $user,
             'totalInvest' => $totalInvest,
@@ -98,7 +98,7 @@ class Clients extends BaseController
         }
         $user = $this->userModel->find($userId);
         $data = [
-            'tittle' => "Account Setting | Smart Wholesale",
+            'tittle' => "Account Setting | Report Management System",
             'menu' => $user['fullname'] . "'s Setting",
             'user' => $user
         ];
@@ -169,7 +169,7 @@ class Clients extends BaseController
         }
         $user = $this->userModel->find($userId);
         $data = [
-            'tittle' => "Purchase Inventory | Smart Wholesale",
+            'tittle' => "Purchase Inventory | Report Management System",
             'menu' => "Purchase Inventory",
             'user' => $user
         ];
