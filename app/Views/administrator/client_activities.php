@@ -4,8 +4,6 @@
 
 <div class="content">
     <div class="card">
-
-
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
 
             <div class="d-flex align-items-center mb-3 mb-lg-0">
@@ -69,7 +67,7 @@
                                     <div class="form-group">
                                         <label>File:</label>
                                         <label class="custom-file">
-                                            <input type="file" name="file" class="custom-file-input" id="file-upload" accept=".csv">
+                                            <input type="file" name="file" class="custom-file-input" id="file-upload" accept="">
                                             <span class="custom-file-label" id="file-upload-filename">Choose file</span>
                                         </label>
                                         <span class="form-text text-muted">Accepted formats: csv. Max file size 10Mb</span>

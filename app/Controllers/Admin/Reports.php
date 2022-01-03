@@ -171,7 +171,129 @@ class Reports extends BaseController
         return redirect()->back()->with('delete', 'Report Successfully Deleted!');
     }
 
+    public function plReport()
+    {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $totalClientUploaded = $this->reportModel->totalClientUploaded();
+        $totalReport = $this->reportModel->totalReport();
+        $getAllFiles = $this->reportModel->getPLReport();
+        $getAllClient = $this->reportModel->getAllClient();
+
+        $data = [
+            'tittle' => 'P&L Report | Report Management System',
+            'menu' => 'P&L Report',
+            'totalClientUploaded' => $totalClientUploaded,
+            'totalReport' => $totalReport,
+            'getAllFiles' => $getAllFiles,
+            'getAllClient' => $getAllClient,
+            'user' => $user
+        ];
+
+        return view('administrator/pl_reports', $data);
+    }
+
+    public function uploadPLReport()
+    {
+        $client = $this->request->getVar('client');
+        $report = $this->request->getFile('file');
+        $chart = $this->request->getFile('chart');
+        $ext = $chart->getClientExtension();
+        if ($ext == 'xls') {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+        $spreadsheet = $render->load($chart);
+        $data = $spreadsheet->getActiveSheet()->toArray();
+        $chartTitle = array();
+        $monthData = array();
+        $type = array();
+        foreach ($data as $idx => $row) {
+            if (!empty($row[0])) {
+                array_push($chartTitle, $row[0]);
+                array_push($chartTitle, $row[18]);
+            } else {
+                if (!empty($row[2]) || !empty($row[3]) || !empty($row[4])) {
+                    $month = array();
+                    if (strpos($row[2], '%') !== false) {
+                        for ($i = 2; $i < 14; $i++) {
+                            $temp = str_replace('%', '', $row[$i]);
+                            $temp = str_replace(',', '', $temp);
+                            array_push($month, $temp);
+                        }
+
+                        array_push($type, 'percentage');
+                    } elseif (strpos($row[2], '$') !== false) {
+                        for ($i = 2; $i < 14; $i++) {
+                            $temp = str_replace('$', '', $row[$i]);
+                            $temp = str_replace(',', '', $temp);
+                            array_push($month, $temp);
+                        }
+
+                        array_push($type, 'currency');
+                    } else {
+                        for ($i = 2; $i < 14; $i++) {
+                            array_push($month, $row[$i]);
+                        }
+                        array_push($type, 'num');
+                    }
+                    array_push($monthData, $month);
+                    $month = array();
+
+
+                    if (strpos($row[20], '%') !== false) {
+                        for ($i = 20; $i < 32; $i++) {
+                            $temp = str_replace('%', '', $row[$i]);
+                            $temp = str_replace(',', '', $temp);
+                            array_push($month, $temp);
+                        }
+
+                        array_push($type, 'percentage');
+                    } elseif (strpos($row[20], '$') !== false) {
+                        for ($i = 20; $i < 32; $i++) {
+                            $temp = str_replace('$', '', $row[$i]);
+                            $temp = str_replace(',', '', $temp);
+                            array_push($month, $temp);
+                        }
+                        array_push($type, 'currency');
+                    } else {
+                        for ($i = 20; $i < 32; $i++) {
+                            array_push($month, $row[$i]);
+                        }
+                        array_push($type, 'num');
+                    }
+
+
+                    array_push($monthData, $month);
+                }
+            }
+        }
+        for ($i = 0; $i < count($chartTitle); $i++) {
+            $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
+        }
+        $fileName = time() . $report->getName();
+        $report->move('files', $fileName);
+        $this->db->query("INSERT into log_files(date, file, client_id) VALUES(NOW()," . $this->db->escape($fileName) . " , $client) ");
+        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
+    }
+
+    public function deletePLReport($id)
+    {
+        $this->reportModel->deletePLReport($id);
+        return redirect()->back()->with('delete', 'Report Successfully deleted!');
+    }
+
     public function test()
     {
+        $client = $this->request->getVar('client');
+        $date = $this->request->getVar('date');
+        $date = date('Y-m-d', strtotime($date));
+        $report = $this->request->getFile('file');
+        $reportName = $report->getTempName();
+        $csv_data = array_map('str_getcsv', file($reportName));
     }
 }

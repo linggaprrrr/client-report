@@ -176,4 +176,23 @@ class Clients extends BaseController
 
         return view('client/purchase_inventory', $data);
     }
+
+    public function plReport()
+    {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        }
+        $user = $this->userModel->find($userId);
+        $plReport = $this->reportModel->showPLReport($userId);
+        $downloadPLReport = $this->reportModel->downloadPLReport($userId);
+        $data = [
+            'tittle' => "P&L Report | Report Management System",
+            'menu' => "P&L Report",
+            'user' => $user,
+            'plReport' => $plReport,
+            'file' => $downloadPLReport
+        ];
+        return view('client/pl_report', $data);
+    }
 }

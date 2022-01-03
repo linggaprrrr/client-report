@@ -206,12 +206,11 @@
                         <?php
                         $vendorNames = array();
                         $vendorQty = array();
-                        foreach ($getVendorName->getResultArray() as $vendor) {
+                        foreach (array_reverse($getVendorName->getResultArray()) as $vendor) {
                             array_push($vendorNames, $vendor['vendor']);
                             array_push($vendorQty, $vendor['qty']);
                         }
-                        sort($vendorNames);
-                        sort($vendorQty);
+
                         $vendorNames = json_encode($vendorNames);
                         $vendorQty = json_encode($vendorQty);
                         ?>

@@ -109,4 +109,34 @@ class ReportModel extends Model
         $query = $this->db->query("SELECT SUM(qty) as qty, vendor FROM reports WHERE investment_id = '$id'  GROUP BY vendor ORDER BY qty DESC LIMIT 15");
         return $query;
     }
+
+    public function getPLReport()
+    {
+        $query = $this->db->query("SELECT log_files.client_id, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL");
+        return $query;
+    }
+
+    public function savePLReport($chartTitle, $monthData, $type, $client)
+    {
+        $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$type', '$client' ) ");
+        return $query;
+    }
+
+    public function showPLReport($id)
+    {
+        $query = $this->db->query("SELECT * FROM chart_pl WHERE client_id = $id");
+        return $query;
+    }
+
+    public function downloadPLReport($id)
+    {
+        $query = $this->db->query("SELECT * FROM log_files WHERE client_id = '$id' AND investment_id IS NULL ORDER BY id DESC LIMIT 1")->getRow();
+        return $query;
+    }
+
+    public function deletePLReport($id)
+    {
+        $this->db->query("DELETE FROM chart_pl  WHERE client_id = '$id' ");
+        $this->db->query("DELETE FROM log_files WHERE client_id = '$id' ");
+    }
 }

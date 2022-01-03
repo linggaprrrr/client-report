@@ -74,6 +74,14 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/admin/p-and-l-report') ?>" class="nav-link">
+                        <i class="icon-clipboard5"></i>
+                        <span>
+                            P & L Report
+                        </span>
+                    </a>
+                </li>
                 <!-- /main -->
 
 

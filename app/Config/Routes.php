@@ -47,6 +47,9 @@ $routes->post('/add-client', 'Admin\Users::addClient');
 $routes->delete('/delete-client/(:num)', 'Admin\Users::deleteClient/$1');
 $routes->get('/edit-client/(:num)', 'Admin\Users::editClient/$1');
 $routes->post('/update-client', 'Admin\Users::updateClient');
+$routes->get('/admin/p-and-l-report', 'Admin\Reports::plReport');
+$routes->post('/upload-pl-report', 'Admin\Reports::uploadPLReport');
+$routes->delete('/pl-report/(:num)', 'Admin\Reports::deletePLReport/$1');
 
 // client side
 $routes->get('/dashboard', 'Clients::index');
@@ -62,6 +65,7 @@ $routes->post('/update-news', 'News::updateNews');
 $routes->delete('/delete-news/(:num)', 'News::deleteNews/$1');
 
 $routes->get('/purchase-inventory', 'Clients::purchaseInventory');
+$routes->get('/pl-report', 'Clients::plReport');
 
 
 /*
