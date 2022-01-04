@@ -34,6 +34,7 @@
                         </div>
 
                         <div class="card-body">
+
                             <div class="chart-container">
                                 <?php
                                 $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
@@ -70,7 +71,7 @@
                                         },
                                         xAxis: [{
                                             type: 'category',
-                                            data: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                                             axisTick: {
                                                 alignWithLabel: true
                                             },

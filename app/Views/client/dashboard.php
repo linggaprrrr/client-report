@@ -89,9 +89,10 @@
                         <div class="form-group" style="width: 200px; text-align-last:center; font-weight: 700; font-size: 12px;text-transform: uppercase;">
                             <select class="form-control select-search" name="investdate" onchange="this.form.submit()" data-fouc>
                                 <?php if (!empty($investDate)) : ?>
+                                    <?php $idx = 1  ?>
                                     <?php foreach ($investDate->getResultArray() as $row) : ?>
                                         <?php $newDate = date("M-d-Y", strtotime($row['date'])); ?>
-                                        <?php if ($row['id'] == $lastInvestment->id) : ?>
+                                        <?php if ($idx == 1) : ?>
                                             <option value="<?= $row['id'] ?>" selected><?= strtoupper($newDate) ?></option>
                                         <?php else : ?>
                                             <option value="<?= $row['id'] ?>"><?= strtoupper($newDate) ?></option>
@@ -247,7 +248,7 @@
                                 legend: {},
                                 grid: {
                                     left: '35%',
-                                    right: '6%',
+                                    right: '8%',
                                     bottom: '3%',
                                     containLabel: false
                                 },

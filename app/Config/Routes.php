@@ -66,6 +66,7 @@ $routes->delete('/delete-news/(:num)', 'News::deleteNews/$1');
 
 $routes->get('/purchase-inventory', 'Clients::purchaseInventory');
 $routes->get('/pl-report', 'Clients::plReport');
+$routes->get('/test_json', 'Clients::test_json');
 
 
 /*

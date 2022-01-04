@@ -49,7 +49,17 @@ class InvestmentModel extends Model
 
     public function investmentDate($id)
     {
-        $query = $this->db->query("SELECT * FROM investments WHERE client_id ='$id'");
+        $query = $this->db->query("SELECT * FROM investments WHERE client_id ='$id' ORDER BY date ASC");
         return $query;
+    }
+
+    public function getInvestmentId($id)
+    {
+        $query = $this->db->query("SELECT * FROM investments WHERE client_id = '$id' ORDER BY date DESC")->getRow();
+        if (!is_null($query)) {
+            return $query->id;
+        } else {
+            return $query;
+        }
     }
 }

@@ -65,7 +65,8 @@ class Autoload extends AutoloadConfig
      * @var array<string, string>
      */
     public $classmap = [
-        'SpreadsheetReader' => APPPATH . '/Libraries/spreadsheet_reader/SpreadsheetReader.php'
+        'SpreadsheetReader' => APPPATH . '/Libraries/spreadsheet_reader/SpreadsheetReader.php',
+
     ];
 
     /**

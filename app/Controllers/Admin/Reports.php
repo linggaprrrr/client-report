@@ -91,71 +91,73 @@ class Reports extends BaseController
     public function uploadReport()
     {
         $client = $this->request->getVar('client');
+        $report = $this->request->getFile('file');
         $date = $this->request->getVar('date');
         $date = date('Y-m-d', strtotime($date));
-        $report = $this->request->getFile('file');
-        $reportName = $report->getTempName();
-        $csv_data = array_map('str_getcsv', file($reportName));
+        $ext = $report->getClientExtension();
+        if ($ext == 'xls') {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
 
+        $spreadsheet = $render->load($report);
+        $data = $spreadsheet->getActiveSheet()->toArray();
         $category = array();
         $reportData = array();
         $investment = array();
         $logFiles = array();
         $investmentLastId = "";
-        if (count($csv_data) > 0) {
-            $idx = 0;
-            foreach ($csv_data as $data) {
-                if ($idx == 1) {
-                    $tempInvest = str_replace('$', '', $data[5]);
-                    $tempInvest = str_replace(',', '', $tempInvest);
+        foreach ($data as $idx => $data) {
+            if ($idx == 1) {
+                $tempInvest = str_replace('$', '', $data[5]);
+                $tempInvest = str_replace(',', '', $tempInvest);
 
-                    $investment = array(
-                        "cost" => $tempInvest,
-                        "date" => $date,
-                        "client_id" => $client,
-                        "created_at" => date("Y-m-d H:i:s"),
-                        "updated_at" => date("Y-m-d H:i:s")
-                    );
+                $investment = array(
+                    "cost" => $tempInvest,
+                    "date" => $date,
+                    "client_id" => $client,
+                    "created_at" => date("Y-m-d H:i:s"),
+                    "updated_at" => date("Y-m-d H:i:s")
+                );
 
-                    $this->investmentModel->save($investment);
-                    $investmentLastId = $this->investmentModel->getLastId();
-                    $category = array(
-                        "category_name" => $data[1],
-                        "investment_id" => $investmentLastId,
-                        "created_at" => date("Y-m-d H:i:s"),
-                        "updated_at" => date("Y-m-d H:i:s")
-                    );
-                    $this->categoryModel->save($category);
-                } elseif ($idx > 2) {
-                    if (!empty($data[1])) {
-                        if (!empty($data[0])) {
-                            $retail = str_replace('$', '', $data[4]);
-                            $retail = str_replace(',', '', $retail);
-                            $original = str_replace('$', '', $data[5]);
-                            $original = str_replace(',', '', $original);
-                            $cost = str_replace('$', '', $data[6]);
-                            $cost = str_replace(',', '', $cost);
-                            $reportData = array(
-                                "sku" => $data[0],
-                                "item_description" => trim($data[1]),
-                                "cond" => $data[2],
-                                "qty" => $data[3],
-                                "retail_value" => $retail,
-                                "original_value" => $original,
-                                "cost" => $cost,
-                                "vendor" => $data[7],
-                                "client_id" => $client,
-                                "investment_id" => $investmentLastId,
-                                "created_at" => date("Y-m-d H:i:s"),
-                                "updated_at" => date("Y-m-d H:i:s")
-                            );
-                            $this->reportModel->save($reportData);
-                        }
-                    } else {
-                        continue;
+                $this->investmentModel->save($investment);
+                $investmentLastId = $this->investmentModel->getLastId();
+                $category = array(
+                    "category_name" => $data[1],
+                    "investment_id" => $investmentLastId,
+                    "created_at" => date("Y-m-d H:i:s"),
+                    "updated_at" => date("Y-m-d H:i:s")
+                );
+                $this->categoryModel->save($category);
+            } elseif ($idx > 2) {
+                if (!empty($data[1] || strcasecmp($data[1], "tracking") != 0)) {
+                    if (!empty($data[0])) {
+                        $retail = str_replace('$', '', $data[4]);
+                        $retail = str_replace(',', '', $retail);
+                        $original = str_replace('$', '', $data[5]);
+                        $original = str_replace(',', '', $original);
+                        $cost = str_replace('$', '', $data[6]);
+                        $cost = str_replace(',', '', $cost);
+                        $reportData = array(
+                            "sku" => $data[0],
+                            "item_description" => trim($data[1]),
+                            "cond" => $data[2],
+                            "qty" => $data[3],
+                            "retail_value" => $retail,
+                            "original_value" => $original,
+                            "cost" => $cost,
+                            "vendor" => $data[7],
+                            "client_id" => $client,
+                            "investment_id" => $investmentLastId,
+                            "created_at" => date("Y-m-d H:i:s"),
+                            "updated_at" => date("Y-m-d H:i:s")
+                        );
+                        $this->reportModel->save($reportData);
                     }
+                } else {
+                    continue;
                 }
-                $idx++;
             }
         }
         $fileName = time() . $report->getName();

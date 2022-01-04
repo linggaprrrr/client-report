@@ -22,11 +22,16 @@
     <div class="d-flex flex-xl-1 justify-content-xl-end order-0 order-xl-1 pr-3">
         <ul class="navbar-nav navbar-nav-underline flex-row">
             <li class="nav-item" style="align-self: center;">
-                <a href="#notifications" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="modal">
+                <a href="javascript:window.location.reload(true)" class="navbar-nav-link navbar-nav-link-toggler">
+                    <i class="icon-sync"></i>
+                </a>
+            </li>
+            <!-- <li class="nav-item" style="align-self: center;">
+                <a href="javascript:location.reload();" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="modal">
                     <i class="icon-bell2"></i>
                     <span class="badge badge-mark border-pink bg-pink"></span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav-item nav-item-dropdown-xl dropdown dropdown-user h-100">
                 <a href="#" class="navbar-nav-link navbar-nav-link-toggler d-flex align-items-center h-100 dropdown-toggle" data-toggle="dropdown">

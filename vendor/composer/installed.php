@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'c9d9adf4c4b704f3ed141e1e9d2727bc61ee8d45',
     'name' => 'codeigniter4/codeigniter4',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'codeigniter4/codeigniter4' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'c9d9adf4c4b704f3ed141e1e9d2727bc61ee8d45',
     ),
     'composer/pcre' => 
     array (

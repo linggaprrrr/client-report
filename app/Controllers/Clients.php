@@ -32,7 +32,8 @@ class Clients extends BaseController
             return redirect()->to(base_url('/login'));
         }
         $user = $this->userModel->find($userId);
-        $investId = $this->investmentModel->getWhere(['client_id' => $user['id']])->getRow();
+        $investId = $this->investmentModel->getInvestmentId($userId);
+        // dd($investId);
         $dateId = $this->request->getVar('investdate');
         $news = $this->newsModel->getLastNews();
         if ($dateId == null) {
@@ -47,16 +48,17 @@ class Clients extends BaseController
                 return view('client/dashboard2', $data);
             }
 
-            $lastInvestment = $this->investmentModel->getWhere(['client_id' => $user['id']])->getLastRow();
-            $category = $this->categoryModel->getCategory($investId->id);
-            $totalInvest = $this->investmentModel->totalClientInvestment($investId->id);
-            $totalUnit = $this->reportModel->totalUnit($investId->id);
-            $totalRetail = $this->reportModel->totalRetail($investId->id);
-            $totalCostLeft = $this->reportModel->totalCostLeft($investId->id);
-            $totalFulfilled = $this->reportModel->totalFulfilled($investId->id);
-            $getAllReportClient = $this->reportModel->getAllReportClient($investId->id);
+            $lastInvestment = $this->investmentModel->getWhere(['client_id' => $user['id']]);
+            // dd($lastInvestment);
+            $category = $this->categoryModel->getCategory($investId);
+            $totalInvest = $this->investmentModel->totalClientInvestment($investId);
+            $totalUnit = $this->reportModel->totalUnit($investId);
+            $totalRetail = $this->reportModel->totalRetail($investId);
+            $totalCostLeft = $this->reportModel->totalCostLeft($investId);
+            $totalFulfilled = $this->reportModel->totalFulfilled($investId);
+            $getAllReportClient = $this->reportModel->getAllReportClient($investId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
-            $getVendorName = $this->reportModel->getVendorName($investId->id);
+            $getVendorName = $this->reportModel->getVendorName($investId);
         } else {
             $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
             $category = $this->categoryModel->getCategory($dateId);
@@ -194,5 +196,16 @@ class Clients extends BaseController
             'file' => $downloadPLReport
         ];
         return view('client/pl_report', $data);
+    }
+
+    public function test_json()
+    {
+        d("kwkwkw");
+    }
+
+
+
+    public function ajaxDatatable()
+    {
     }
 }

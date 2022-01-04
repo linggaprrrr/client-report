@@ -67,7 +67,7 @@ class ReportModel extends Model
 
     public function getAllReportClient($id = null)
     {
-        $query = $this->db->query("SELECT * from reports WHERE investment_id = '$id' ");
+        $query = $this->db->query("SELECT * from reports WHERE investment_id = '$id' ORDER by ID DESC LIMIT 100");
         return $query;
     }
 
@@ -86,7 +86,7 @@ class ReportModel extends Model
 
     public function getAllFiles()
     {
-        $query = $this->db->query("SELECT investment_id, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' ");
+        $query = $this->db->query("SELECT investment_id, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' ORDER BY log_files.id DESC");
         return $query;
     }
 

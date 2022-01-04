@@ -1,0 +1,62 @@
+CRITICAL - 2022-01-03 02:06:20 --> Class 'Datatables' not found
+#0 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->test_json()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-01-03 02:14:53 --> syntax error, unexpected '}'
+#0 C:\xampp\htdocs\wholesales\client-report\system\Autoloader\Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs...')
+#1 C:\xampp\htdocs\wholesales\client-report\system\Autoloader\Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-01-03 19:18:29 --> Class 'PhpOffice\PhpSpreadsheet\Reader\Xlsx' not found
+#0 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadPLReport()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-01-03 19:19:25 --> Class 'PhpOffice\PhpSpreadsheet\Reader\Xlsx' not found
+#0 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadPLReport()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-01-03 22:17:29 --> Undefined variable: id
+#0 C:\xampp\htdocs\wholesales\client-report\app\Models\InvestmentModel.php(58): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 58, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(35): App\Models\InvestmentModel->getInvestmentId('10')
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-01-03 22:19:22 --> Trying to get property 'id' of non-object
+#0 C:\xampp\htdocs\wholesales\client-report\app\Models\InvestmentModel.php(59): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'C:\\xampp\\htdocs...', 59, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(35): App\Models\InvestmentModel->getInvestmentId('10')
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-01-03 22:31:13 --> Undefined property: CodeIgniter\Database\MySQLi\Result::$id
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\client\dashboard.php(94): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\xampp\\htdocs...', 94, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/dashboar...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(92): view('client/dashboar...', Array)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}

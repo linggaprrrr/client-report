@@ -164,6 +164,9 @@
                         if ($totalFulfilled->total_fulfilled != 0 || $totalInvest->total_client_cost != 0) {
                             $fulfilledPercent = ($totalFulfilled->total_fulfilled / $totalInvest->total_client_cost) * 100;
                             $clientCostPercent = 100 - $fulfilledPercent;
+                        } else {
+                            $fulfilledPercent = 0;
+                            $clientCostPercent = 0;
                         }
 
                         ?>

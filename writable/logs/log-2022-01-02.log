@@ -359,3 +359,141 @@ CRITICAL - 2022-01-02 17:12:25 --> Table 'rms.pl_report' doesn't exist
 #8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
 #10 {main}
+CRITICAL - 2022-01-02 18:53:06 --> Undefined variable: chart
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(103): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 103, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-01-02 18:53:20 --> Could not find zip member zip://C:\xampp\tmp\php2976.tmp#_rels/.rels
+#0 C:\xampp\htdocs\wholesales\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(392): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('C:\\xampp\\tmp\\ph...', '_rels/.rels')
+#1 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(103): PhpOffice\PhpSpreadsheet\Reader\Xlsx->load('C:\\xampp\\tmp\\ph...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-01-02 18:53:45 --> Could not find zip member zip://C:\xampp\tmp\php8C57.tmp#_rels/.rels
+#0 C:\xampp\htdocs\wholesales\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(392): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('C:\\xampp\\tmp\\ph...', '_rels/.rels')
+#1 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(104): PhpOffice\PhpSpreadsheet\Reader\Xlsx->load('C:\\xampp\\tmp\\ph...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+ERROR - 2022-01-02 18:58:58 --> Operand should contain 1 column(s)
+CRITICAL - 2022-01-02 18:58:58 --> Operand should contain 1 column(s)
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO `in...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `in...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `in...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseBuilder.php(1759): CodeIgniter\Database\BaseConnection->query('INSERT INTO `in...', Array, false)
+#4 C:\xampp\htdocs\wholesales\client-report\system\Model.php(239): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\wholesales\client-report\system\BaseModel.php(738): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\wholesales\client-report\system\Model.php(620): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\wholesales\client-report\system\BaseModel.php(658): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(124): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#10 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#11 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#14 {main}
+CRITICAL - 2022-01-02 20:08:15 --> Undefined variable: fulfilledPercent
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\administrator\dashboard.php(192): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 192, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/d...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(63): view('administrator/d...', Array)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-01-02 20:09:05 --> A non-numeric value encountered
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(148): CodeIgniter\Debug\Exceptions->errorHandler(2, 'A non-numeric v...', 'C:\\xampp\\htdocs...', 148, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-01-02 20:10:26 --> Call to undefined function App\Controllers\Admin\int()
+#0 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-01-02 20:29:55 --> Undefined variable: fulfilledPercent
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\administrator\dashboard.php(192): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 192, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/d...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(63): view('administrator/d...', Array)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-01-02 20:30:42 --> Undefined variable: fulfilledPercent
+#0 C:\xampp\htdocs\wholesales\client-report\app\Views\administrator\dashboard.php(194): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 194, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/d...', Array, true)
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(63): view('administrator/d...', Array)
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-01-02 20:39:36 --> Column 'id' in order clause is ambiguous
+CRITICAL - 2022-01-02 20:39:36 --> Column 'id' in order clause is ambiguous
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT investme...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT investme...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT investme...')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Models\ReportModel.php(89): CodeIgniter\Database\BaseConnection->query('SELECT investme...')
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(75): App\Models\ReportModel->getAllFiles()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->clientActivities()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-01-02 20:56:23 --> Call to undefined method CodeIgniter\Database\MySQLi\Result::order_by()
+#0 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-01-02 20:56:38 --> Call to undefined method App\Models\InvestmentModel::order_by
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(35): CodeIgniter\Model->__call('order_by', Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-01-02 20:57:15 --> Call to undefined method App\Models\InvestmentModel::order_by
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(35): CodeIgniter\Model->__call('order_by', Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-01-02 21:01:30 --> Call to undefined method App\Models\InvestmentModel::order_by
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(35): CodeIgniter\Model->__call('order_by', Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}

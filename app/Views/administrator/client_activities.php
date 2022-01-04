@@ -67,10 +67,10 @@
                                     <div class="form-group">
                                         <label>File:</label>
                                         <label class="custom-file">
-                                            <input type="file" name="file" class="custom-file-input" id="file-upload" accept="">
+                                            <input type="file" name="file" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                                             <span class="custom-file-label" id="file-upload-filename">Choose file</span>
                                         </label>
-                                        <span class="form-text text-muted">Accepted formats: csv. Max file size 10Mb</span>
+                                        <span class="form-text text-muted">Accepted formats: xls/xlsx. Max file size 10Mb</span>
                                     </div>
                                 </div>
 

@@ -9,7 +9,7 @@
 
     <div class="navbar-collapse collapse" id="navbar-footer">
         <span class="navbar-text">
-            &copy; 2022. <a href="http://buysmartwholesale.com/">Smart Wholesale</a>
+            &copy; 2022. <a href="http://buysmartwholesale.com/">Smart FBA</a>
         </span>
 
         <ul class="navbar-nav ml-lg-auto">

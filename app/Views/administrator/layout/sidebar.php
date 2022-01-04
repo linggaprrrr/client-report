@@ -82,6 +82,14 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/admin/assignment-report') ?>" class="nav-link">
+                        <i class="icon-copy"></i>
+                        <span>
+                            Assignment Report
+                        </span>
+                    </a>
+                </li>
                 <!-- /main -->
 
 
