@@ -12,7 +12,7 @@
     <?php endif ?>
 
     <?php
-    $no = 1;
+    $no = 0;
     ?>
     <div class="card text-right">
         <div class="card-body">
@@ -26,111 +26,133 @@
     <div class="row">
         <?php if ($plReport->getNumRows() > 0) : ?>
             <?php foreach ($plReport->getResultArray() as $row) : ?>
-                <div class="col-xl-6">
-                    <!-- Multi level donut chart -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title"><?= strtoupper($row['chart']) ?> </h5>
-                        </div>
+                <?php if (fmod($no, 2) == 0) : ?>
+                    <div class="col-xl-12">
+                        <!-- Multi level donut chart -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title"><b><?= strtoupper($row['chart']) ?></b> </h5>
+                            </div>
 
-                        <div class="card-body">
+                            <div class="card-body">
 
-                            <div class="chart-container">
-                                <?php
-                                $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
-                                $chartData = json_encode($data);
-                                $chartId = "viz_" . $no;
-                                $no++;
-                                ?>
-                                <div class="chart has-fixed-height" id="<?= $chartId ?>"></div>
+                                <div class="chart-container">
+                                    <?php
+                                    $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
+                                    $chartData = json_encode($data);
+                                    $chartId = "viz_" . $no;
+                                    $color = [
+                                        '#1990FF', '#618685',
+                                        '#3b3a30', '#618685',
+                                        '#563f46', '#618685',
+                                        '#838060', '#618685',
+                                        '#d96459', '#618685',
+                                        '#d9ad7c', '#618685',
+                                        '#667292', '#618685',
+                                        '#96897f', '#618685',
+                                        '#86af49', '#618685',
+                                    ];
 
-                                <script type="text/javascript">
-                                    var nameData = [],
-                                        valueData = [],
-                                        foregroundColor = '#1990FF',
-                                        backgroundColor = '#f5f5f5';
-                                    // Initialize the echarts instance based on the prepared dom
-                                    var myChart = echarts.init(document.getElementById('<?= $chartId ?>'));
-                                    // Specify the configuration items and data for the chart
-                                    option = {
-                                        textStyle: {
-                                            fontFamily: 'Roboto, Arial, Verdana, sans-serif',
-                                            fontSize: 11
-                                        },
-                                        tooltip: {
-                                            trigger: 'axis',
-                                            axisPointer: {
-                                                type: 'shadow'
-                                            }
-                                        },
-                                        grid: {
-                                            left: '3%',
-                                            right: '4%',
-                                            bottom: '3%',
-                                            containLabel: true
-                                        },
-                                        xAxis: [{
-                                            type: 'category',
-                                            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                                            axisTick: {
-                                                alignWithLabel: true
+
+
+                                    ?>
+                                    <div class="chart has-fixed-height" id="<?= $chartId ?>"></div>
+
+                                    <script type="text/javascript">
+                                        var nameData = [],
+                                            valueData = [],
+                                            foregroundColor = '<?= $color[$no] ?>';
+                                        // Initialize the echarts instance based on the prepared dom
+                                        var myChart = echarts.init(document.getElementById('<?= $chartId ?>'));
+                                        // Specify the configuration items and data for the chart
+                                        option = {
+                                            textStyle: {
+                                                fontFamily: 'Roboto, Arial, Verdana, sans-serif',
+                                                fontSize: 14
                                             },
-
-                                        }],
-                                        yAxis: [{
-                                            type: 'value',
-
-                                            axisLabel: {
-                                                <?php if ($row['type'] == "percentage") : ?>
-                                                    formatter: '{value}%'
-                                                <?php elseif ($row['type'] == "currency") : ?>
-                                                    formatter: '$ {value}'
-                                                <?php else : ?>
-                                                    formatter: '{value}'
-                                                <?php endif ?>
-
-                                            }
-                                        }],
-                                        series: [{
-                                            name: 'Direct',
-                                            type: 'bar',
-                                            data: <?= $chartData ?>,
-
-                                            label: {
-                                                <?php if ($row['type'] == "percentage") : ?>
-                                                    show: true,
-                                                    formatter: '{c}%'
-                                                <?php elseif ($row['type'] == "currency") : ?>
-                                                    show: true,
-                                                    formatter: '$ {c}'
-                                                <?php else : ?>
-                                                    show: true,
-                                                <?php endif ?>
+                                            tooltip: {
+                                                trigger: 'axis',
+                                                axisPointer: {
+                                                    type: 'cross'
+                                                }
                                             },
-
-                                            itemStyle: {
-                                                color: foregroundColor,
-                                                barBorderRadius: 0
+                                            grid: {
+                                                left: '3%',
+                                                right: '4%',
+                                                bottom: '3%',
+                                                containLabel: true
                                             },
-                                            z: 10,
-                                            showBackground: false,
-                                            backgroundStyle: {
-                                                barBorderRadius: 0,
-                                                color: backgroundColor
-                                            },
+                                            xAxis: [{
+                                                type: 'category',
+                                                data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                                axisTick: {
+                                                    alignWithLabel: true
+                                                },
+                                                axisLabel: {
+                                                    fontSize: 14,
+                                                    fontWeight: 'bold'
+                                                }
 
-                                        }]
-                                    };
 
-                                    // Display the chart using the configuration items and data just specified.
-                                    myChart.setOption(option);
-                                </script>
+                                            }],
+                                            yAxis: [{
+                                                type: 'value',
+
+                                                axisLabel: {
+                                                    fontSize: 14,
+                                                    fontWeight: 'bold',
+                                                    <?php if ($row['type'] == "percentage") : ?>
+                                                        formatter: '{value}%'
+                                                    <?php elseif ($row['type'] == "currency") : ?>
+                                                        formatter: '$ {value}'
+                                                    <?php else : ?>
+                                                        formatter: '{value}'
+                                                    <?php endif ?>
+
+                                                }
+                                            }],
+                                            series: [{
+                                                name: 'Total',
+                                                type: 'bar',
+
+                                                data: <?= $chartData ?>,
+
+                                                label: {
+                                                    verticalAlign: 'top',
+                                                    fontWeight: 'bold',
+                                                    position: 'insideTop',
+                                                    <?php if ($row['type'] == "percentage") : ?>
+                                                        show: true,
+                                                        formatter: '{c}%'
+                                                    <?php elseif ($row['type'] == "currency") : ?>
+                                                        show: true,
+                                                        formatter: '$ {c}'
+                                                    <?php else : ?>
+                                                        show: true,
+                                                    <?php endif ?>
+                                                },
+
+                                                itemStyle: {
+                                                    color: foregroundColor,
+                                                    barBorderRadius: 0
+                                                },
+                                                z: 10,
+                                                showBackground: false,
+
+                                            }]
+                                        };
+
+                                        // Display the chart using the configuration items and data just specified.
+                                        myChart.setOption(option);
+                                    </script>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- /multi level donut chart -->
+                        <!-- /multi level donut chart -->
 
-                </div>
+                    </div>
+                <?php endif ?>
+                <?php $no++; ?>
             <?php endforeach ?>
         <?php endif ?>
     </div>

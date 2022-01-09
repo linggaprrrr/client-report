@@ -50,6 +50,10 @@ $routes->post('/update-client', 'Admin\Users::updateClient');
 $routes->get('/admin/p-and-l-report', 'Admin\Reports::plReport');
 $routes->post('/upload-pl-report', 'Admin\Reports::uploadPLReport');
 $routes->delete('/pl-report/(:num)', 'Admin\Reports::deletePLReport/$1');
+$routes->get('/admin/assignment-report', 'Admin\Reports::assignmentReport');
+$routes->post('/upload-assignment', 'Admin\Reports::assignmentReportSubmit');
+$routes->get('/admin/checklist-report', 'Admin\Reports::checklistReport');
+$routes->post('/admin/checklist-report-save', 'Admin\Reports::checklistReportSave');
 
 // client side
 $routes->get('/dashboard', 'Clients::index');
@@ -67,6 +71,9 @@ $routes->delete('/delete-news/(:num)', 'News::deleteNews/$1');
 $routes->get('/purchase-inventory', 'Clients::purchaseInventory');
 $routes->get('/pl-report', 'Clients::plReport');
 $routes->get('/test_json', 'Clients::test_json');
+
+//json
+$routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');
 
 
 /*

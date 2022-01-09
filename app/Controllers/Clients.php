@@ -48,8 +48,7 @@ class Clients extends BaseController
                 return view('client/dashboard2', $data);
             }
 
-            $lastInvestment = $this->investmentModel->getWhere(['client_id' => $user['id']]);
-            // dd($lastInvestment);
+            $lastInvestment = $this->investmentModel->getLastDateOfInvestment($userId);
             $category = $this->categoryModel->getCategory($investId);
             $totalInvest = $this->investmentModel->totalClientInvestment($investId);
             $totalUnit = $this->reportModel->totalUnit($investId);
@@ -72,7 +71,7 @@ class Clients extends BaseController
             $getVendorName = $this->reportModel->getVendorName($dateId);
         }
 
-
+        // dd($lastInvestment);
         $data = [
             'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',

@@ -281,8 +281,6 @@
                     <div class="chart-container">
                         <div class="chart has-fixed-height" id="percentage"></div>
 
-
-                        ?>
                         <script type="text/javascript">
                             // Initialize the echarts instance based on the prepared dom
                             var myChart = echarts.init(document.getElementById('percentage'));
@@ -331,7 +329,7 @@
 
     </div>
 </div>
-
+<?= $this->include('client/layout/social_media.php') ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>

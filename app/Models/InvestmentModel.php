@@ -8,7 +8,7 @@ class InvestmentModel extends Model
 {
 
     protected $table = 'investments';
-    protected $allowedFields = ['cost', 'date', 'client_id'];
+    protected $allowedFields = ['cost', 'date', 'client_id', 'status'];
     protected $db = "";
 
     public function __construct()
@@ -61,5 +61,23 @@ class InvestmentModel extends Model
         } else {
             return $query;
         }
+    }
+
+    public function getCompany($id)
+    {
+        $query = $this->db->query("SELECT company, cost FROM users JOIN investments ON users.id = investments.client_id WHERE client_id = '$id' ")->getRow();
+        return $query;
+    }
+
+    public function getLastDateOfInvestment($id)
+    {
+        $query = $this->db->query("SELECT * FROM investments WHERE client_id = '$id' ORDER BY date DESC ")->getRow();
+        return $query;
+    }
+
+    public function getAllInvestment()
+    {
+        $query = $this->db->query("SELECT investments.*, users.fullname, users.company FROM investments JOIN users on investments.client_id = users.id WHERE users.role = 'client' ORDER by date DESC ");
+        return $query;
     }
 }

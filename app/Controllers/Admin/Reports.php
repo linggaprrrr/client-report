@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\AssignReportModel;
 use App\Models\CategoryModel;
 use App\Models\InvestmentModel;
 use App\Models\NewsModel;
@@ -18,6 +19,7 @@ class Reports extends BaseController
     protected $categoryModel = "";
     protected $userModel = "";
     protected $newsModel = "";
+    protected $assignReportModel = "";
     protected $spreadsheetReader;
     protected $db;
 
@@ -29,6 +31,7 @@ class Reports extends BaseController
         $this->categoryModel = new CategoryModel();
         $this->userModel = new UserModel();
         $this->newsModel = new NewsModel();
+        $this->assignReportModel = new AssignReportModel();
         $this->db = \Config\Database::connect();
     }
 
@@ -219,9 +222,9 @@ class Reports extends BaseController
                 array_push($chartTitle, $row[0]);
                 array_push($chartTitle, $row[18]);
             } else {
-                if (!empty($row[2]) || !empty($row[3]) || !empty($row[4])) {
+                if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
                     $month = array();
-                    if (strpos($row[2], '%') !== false) {
+                    if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
                         for ($i = 2; $i < 14; $i++) {
                             $temp = str_replace('%', '', $row[$i]);
                             $temp = str_replace(',', '', $temp);
@@ -229,7 +232,7 @@ class Reports extends BaseController
                         }
 
                         array_push($type, 'percentage');
-                    } elseif (strpos($row[2], '$') !== false) {
+                    } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
                         for ($i = 2; $i < 14; $i++) {
                             $temp = str_replace('$', '', $row[$i]);
                             $temp = str_replace(',', '', $temp);
@@ -247,7 +250,7 @@ class Reports extends BaseController
                     $month = array();
 
 
-                    if (strpos($row[20], '%') !== false) {
+                    if (strpos($row[20], '%') !== false || strpos($row[21], '%') !== false || strpos($row[22], '%') !== false || strpos($row[23], '%') !== false || strpos($row[24], '%') !== false || strpos($row[25], '%') !== false || strpos($row[26], '%') !== false || strpos($row[27], '%') !== false || strpos($row[28], '%') !== false || strpos($row[29], '%') !== false || strpos($row[30], '%') !== false || strpos($row[31], '%') !== false) {
                         for ($i = 20; $i < 32; $i++) {
                             $temp = str_replace('%', '', $row[$i]);
                             $temp = str_replace(',', '', $temp);
@@ -255,7 +258,7 @@ class Reports extends BaseController
                         }
 
                         array_push($type, 'percentage');
-                    } elseif (strpos($row[20], '$') !== false) {
+                    } elseif (strpos($row[20], '$') !== false || strpos($row[21], '$') !== false || strpos($row[22], '$') !== false || strpos($row[23], '$') !== false || strpos($row[24], '$') !== false || strpos($row[25], '$') !== false || strpos($row[26], '$') !== false || strpos($row[27], '$') !== false || strpos($row[28], '$') !== false || strpos($row[29], '$') !== false || strpos($row[30], '$') !== false || strpos($row[31], '$') !== false || strpos($row[32], '$') !== false) {
                         for ($i = 20; $i < 32; $i++) {
                             $temp = str_replace('$', '', $row[$i]);
                             $temp = str_replace(',', '', $temp);
@@ -274,6 +277,8 @@ class Reports extends BaseController
                 }
             }
         }
+
+
         for ($i = 0; $i < count($chartTitle); $i++) {
             $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
         }
@@ -287,6 +292,122 @@ class Reports extends BaseController
     {
         $this->reportModel->deletePLReport($id);
         return redirect()->back()->with('delete', 'Report Successfully deleted!');
+    }
+
+    public function assignmentReport()
+    {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $getAllClient = $this->assignReportModel->getAllClient();
+        // $getAllAssignReport = $this->assignReportModel->getAllAssignReport();
+        $data = [
+            'tittle' => 'Assignment Reports | Report Management System',
+            'menu' => 'BOX ASSIGNMENT FOR CLIENT FULFILLMENT',
+            'user' => $user,
+            'getAllClient' => $getAllClient,
+            'getAllAssignReport' => null
+        ];
+        return view('administrator/assignment_report', $data);
+    }
+
+    public function assignmentReportSubmit()
+    {
+        $report = $this->request->getFile('file');
+        $ext = $report->getClientExtension();
+
+        if ($ext == 'xls') {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+        $fileName = time() . $report->getName();
+
+        $spreadsheet = $render->load($report);
+        $data = $spreadsheet->getActiveSheet()->toArray();
+        $assignReport = array();
+
+        $insertId = 1;
+        $boxName = "";
+        $tempIdx = 0;
+        d($data[1]);
+        d($data);
+        dd(count($data));
+        for ($i = 0; $i < count($data); $i++) {
+            if ($i == 1) {
+                $tempIdx = 0;
+                // $this->db->query("INSERT into assign_reports(file, units, retails, originals, costs) VALUES(" . $this->db->escape($fileName) . ", $data[2], $data[3], $data[4], $data[5] ) ");
+                // $insertId = $this->assignReportModel->getLastId();
+            }
+            if ($i > 2) {
+                // if (($data[1] != "New" && !empty($data[1])) && (empty($data[2] || empty($data[3]) || empty($data[4]) || empty($data[5])))) {
+                //     $this->db->query("INSERT into assign_report_box(description, box_name, date, report_id) VALUES(" . $this->db->escape($data[0]) . ", $data[1], $data[6], $insertId)");
+                //     $boxName = $data[1];
+                // } else {
+                //     $tempIdx++;
+                //     $retail = str_replace('$', '', $data[3]);
+                //     $retail = str_replace(',', '', $retail);
+                //     $original = str_replace('$', '', $data[4]);
+                //     $original = str_replace(',', '', $original);
+                //     $cost = str_replace('$', '', $data[5]);
+                //     $cost = str_replace(',', '', $cost);
+                //     $assignReport = array(
+                //         'item_description' => $data[0],
+                //         'cond' => $data[1],
+                //         'qty' => $data[2],
+                //         'retail' => $retail,
+                //         'original' => $original,
+                //         'cost' => $cost,
+                //         'vendor' => $data[6],
+                //         'box_name' => $boxName
+                //     );
+                //     $this->assignReportModel->save($assignReport);
+                // }
+            } else {
+                continue;
+            }
+        }
+
+        // $report->move('files', $fileName);
+        // return redirect()->back()->with('success', 'Report Successfully Uploaded!');
+    }
+
+    public function getCompany($id)
+    {
+        $company = $this->investmentModel->getCompany($id);
+        echo json_encode($company);
+    }
+
+    public function checklistReport()
+    {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $getAllInvestment = $this->investmentModel->getAllInvestment();
+        // dd($getAllInvestment->getResultArray());
+        $data = [
+            'tittle' => 'Assignment Reports: Checklist Report | Report Management System',
+            'menu' => 'Checklist Report',
+            'user' => $user,
+            'getAllInvestment' => $getAllInvestment
+        ];
+        return view('administrator/checklist_report', $data);
+    }
+
+    public function checklistReportSave()
+    {
+        $post = $this->request->getVar();
+        for ($i = 0; $i < count($post['investment_id']); $i++) {
+            $this->investmentModel->save(array(
+                "id" => $post['investment_id'][$i],
+                "status" => $post['status'][$i],
+            ));
+        }
+        return redirect()->back()->with('success', 'Report Successfully saved!');
     }
 
     public function test()

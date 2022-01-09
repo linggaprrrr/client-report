@@ -1,0 +1,48 @@
+ERROR - 2022-01-07 02:19:05 --> Unknown column 'assign_report_details.report_id' in 'on clause'
+CRITICAL - 2022-01-07 02:19:05 --> Unknown column 'assign_report_details.report_id' in 'on clause'
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT assign_r...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT assign_r...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT assign_r...')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Models\AssignReportModel.php(31): CodeIgniter\Database\BaseConnection->query('SELECT assign_r...')
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(305): App\Models\AssignReportModel->getAllAssignReport()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignmentReport()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-01-07 02:19:45 --> Unknown column 'assign_report_details.report_id' in 'on clause'
+CRITICAL - 2022-01-07 02:19:45 --> Unknown column 'assign_report_details.report_id' in 'on clause'
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT assign_r...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT assign_r...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT assign_r...')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Models\AssignReportModel.php(31): CodeIgniter\Database\BaseConnection->query('SELECT assign_r...')
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(305): App\Models\AssignReportModel->getAllAssignReport()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignmentReport()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-01-07 02:19:53 --> Call to a member function getNumRows() on null
+#0 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/a...', Array, true)
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(313): view('administrator/a...', Array)
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignmentReport()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-01-07 02:20:18 --> Call to a member function getNumRows() on null
+#0 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/a...', Array, true)
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(313): view('administrator/a...', Array)
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignmentReport()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}

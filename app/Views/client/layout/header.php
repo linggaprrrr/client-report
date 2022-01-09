@@ -28,4 +28,115 @@
         font-family: 'Roboto';
         font-weight: bold;
     }
+
+
+    .effect {
+        width: 100%;
+        padding: 50px 0px 70px 0px;
+
+        bottom: 0;
+    }
+
+    .effect h2 {
+        font-size: 25px;
+        letter-spacing: 3px;
+    }
+
+    .effect:nth-child(2) {
+        margin-top: 0px;
+
+    }
+
+    .effect:nth-child(2n+1) {
+        background-color: #fff;
+    }
+
+    .effect:nth-child(2n+1) h2 {
+        color: #212121;
+    }
+
+    .effect .buttons {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .effect a:last-child {
+        margin-right: 0px;
+    }
+
+    /*common link styles !!!YOU NEED THEM*/
+    .effect {
+        /*display: flex; !!!uncomment this line !!!*/
+    }
+
+    .effect a {
+        text-decoration: none !important;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        margin-right: 20px;
+        font-size: 22px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .effect a i {
+        position: relative;
+        z-index: 3;
+    }
+
+    .effect a.fb {
+        background-color: #3b5998;
+    }
+
+    .effect a.tw {
+        background-color: #00aced;
+    }
+
+    .effect a.g-plus {
+        background-color: #dd4b39;
+    }
+
+    .effect a.dribbble {
+        background-color: #ea4c89;
+    }
+
+    .effect a.pinterest {
+        background-color: #cb2027;
+    }
+
+    .effect a.insta {
+        background-color: #464141;
+    }
+
+    .effect a.in {
+        background-color: #007bb6;
+    }
+
+    .effect a.vimeo {
+        background-color: #1ab7ea;
+    }
+
+    /* aeneas effect */
+    .effect.aeneas a {
+        transition: transform 0.4s linear 0s, border-top-left-radius 0.1s linear 0s, border-top-right-radius 0.1s linear 0.1s, border-bottom-right-radius 0.1s linear 0.2s, border-bottom-left-radius 0.1s linear 0.3s;
+    }
+
+    .effect.aeneas a i {
+        transition: transform 0.4s linear 0s;
+    }
+
+    .effect.aeneas a:hover {
+        transform: rotate(360deg);
+        border-radius: 50%;
+    }
+
+    .effect.aeneas a:hover i {
+        transform: rotate(-360deg);
+    }
 </style>

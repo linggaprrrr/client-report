@@ -92,7 +92,7 @@
                                     <?php $idx = 1  ?>
                                     <?php foreach ($investDate->getResultArray() as $row) : ?>
                                         <?php $newDate = date("M-d-Y", strtotime($row['date'])); ?>
-                                        <?php if ($idx == 1) : ?>
+                                        <?php if ($row['id'] == $lastInvestment->id) : ?>
                                             <option value="<?= $row['id'] ?>" selected><?= strtoupper($newDate) ?></option>
                                         <?php else : ?>
                                             <option value="<?= $row['id'] ?>"><?= strtoupper($newDate) ?></option>
@@ -396,7 +396,7 @@
 
     </div>
 </div>
-
+<?= $this->include('client/layout/social_media.php') ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
