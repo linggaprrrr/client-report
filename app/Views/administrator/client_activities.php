@@ -1,7 +1,19 @@
 <?= $this->extend('administrator/layout/template') ?>
 
 <?= $this->section('content') ?>
+<style>
+    .btn-upload {
+    padding: 10px 20px;
+    margin-left: 10px;
+    }
+    .upload-input-group {
+        margin-bottom: 10px;
+    }
 
+    .input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child) {
+    height: 45px;
+    }
+</style>
 <div class="content">
     <div class="card">
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
@@ -66,7 +78,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label>File:</label>
+                                        <!-- <div class="controls">
+                                        <div class="entry input-group upload-input-group">
+                                            <input class="form-control" name="file[]" type="file">
+                                            <input class="form-control ml-2" name="link[]" type="text" placeholder="www.google.com">
+                                            <button class="btn btn-upload btn-success btn-add" type="button">
+                                                <i class="icon-plus3"></i>
+                                            </button>
+                                        </div> -->
+
+                                    <!-- </div> -->
+
                                         <label class="custom-file">
+                                            
                                             <input type="file" name="file" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                                             <span class="custom-file-label" id="file-upload-filename">Choose file</span>
                                         </label>
@@ -86,7 +110,7 @@
                 </div>
             </div>
         </div>
-
+    
         <table class="table datatable-basic" style="font-size: 12px;">
             <thead>
                 <tr>
@@ -183,6 +207,29 @@
         // use fileName however fits your app best, i.e. add it into a div
         infoArea.textContent = '' + fileName;
     }
+    
+    // $(function () {
+    //         $(document).on('click', '.btn-add', function (e) {
+    //             e.preventDefault();
+
+    //             var controlForm = $('.controls:first'),
+    //                 currentEntry = $(this).parents('.entry:first'),
+    //                 newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+    //             newEntry.find('input').val('');
+    //             controlForm.find('.entry:not(:last) .btn-add')
+    //                 .removeClass('btn-add').addClass('btn-remove')
+    //                 .removeClass('btn-success').addClass('btn-danger')
+    //                 .html('<span class="icon-cross3"></span>');
+    //         }).on('click', '.btn-remove', function (e) {
+    //             $(this).parents('.entry:first').remove();
+
+    //             e.preventDefault();
+    //             return false;
+    //         });
+    //     });
+
+
 </script>
 
 <?= $this->endSection() ?>

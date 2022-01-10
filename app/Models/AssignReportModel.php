@@ -8,7 +8,7 @@ class AssignReportModel extends Model
 {
 
     protected $table = 'assign_report_details';
-    protected $allowedFields = ['box_name', 'box_value', 'order_date', 'client_id', 'total', 'report_id'];
+    protected $allowedFields = ['sku', 'item_description', 'cond', 'qty', 'retail', 'original', 'cost', 'vendor', 'box_name'];
     protected $db = "";
 
     public function __construct()
@@ -28,7 +28,7 @@ class AssignReportModel extends Model
 
     public function getAllAssignReport()
     {
-        $query = $this->db->query("SELECT assign_report_details.* FROM assign_reports JOIN assign_report_details ON assign_reports.id = assign_report_details.report_id WHERE assign_reports.status = 'incomplete' ");
+        $query = $this->db->query("SELECT assign_report_box.* FROM assign_report_box ");
         return $query;
     }
 

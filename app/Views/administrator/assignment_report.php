@@ -63,6 +63,32 @@
                     </tr>
                 </thead>
                 <tbody id="assign-body">
+                    <?php if ($getAllAssignReport->getNumRows() > 0) : ?>
+                        <?php $no = 1 ?>
+                        <?php foreach ($getAllAssignReport->getResultArray() as $row) : ?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= $row['box_name'] ?></td>
+                                <td><?= $row['status'] ?></td>
+                                <td class="value_box_<?= $no ?>"><?= $row['box_value'] ?></td>
+                                <td>
+                                <input type="text" class="daterange-single" name="date" value="10/01/2022" style="width: 90px; text-align:center">
+                                </td>
+                                <td>
+                                    <select class="form-control clientSelect select-search" name="client" id="box_<?= $no ?> " data-fouc>
+                                        <option>Select Client</option>
+                                        <?php foreach($getAllClient->getResultArray() as $client) : ?>
+                                            <option value="<?= $client['id'] ?>"><?= $client['fullname']?></option>
+                                        <?php  endforeach ?>
+                                    </select>
+                                </td>
+                                <td class="company_box_<?= $no ?>"></td>
+                                <td class="currentCost_box_<?= $no ?>" ></td>
+                                <td class="total_box_<?= $no ?>" ></td>
+                            </tr>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                </tbody>
 
             </table>
 
@@ -85,7 +111,6 @@
 <script src="<?= base_url() ?>/assets/js/plugins/notifications/jgrowl.min.js"></script>
 <script src="<?= base_url() ?>/assets/js/plugins/notifications/noty.min.js"></script>
 <script src="<?= base_url() ?>/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
-
 <script src="<?= base_url() ?>/assets/js/demo_pages/form_select2.js"></script>
 <script src="<?= base_url() ?>/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
 <script src="<?= base_url() ?>/assets//js/plugins/forms/selects/select2.min.js"></script>
@@ -121,24 +146,36 @@
         });
 
     });
-
+    var i = 1;
+    var tempTotal = 0;
+    var total = 0;
     $('.clientSelect').on('change', function() {
         var boxId = $(this).attr('id');
-        var valueBoxId = ".value_" + $(this).attr('id');
-        var valueBox = $('' + valueBoxId).val();
-        console.log(valueBox);
+        var valueBoxId = "value_" + $(this).attr('id');
+        var valueBox = $('.' + valueBoxId).html();
         var clientId = this.value;
+        
+        console.log(valueBox);
         $.get('/get-company/' + clientId, function(data) {
             if (data != 'null') {
                 var client = JSON.parse(data);
-                $('.company_' + boxId).html("<b>" + client['company'] + "</b>");
-                $('.currentCost_' + boxId).html("<b>" + numberWithCommas(client['cost']) + "</b>");
-                $('.total_' + boxId).html("<b>$" + numberWithCommas(parseFloat(client['cost']) - parseFloat(valueBox)) + "</b>")
-
+                if (i == 1) {
+                    tempTotal = parseFloat(client['cost']);
+                    i = 4;
+                }
+                $('.company_' + boxId).html("<b>22" + client['company'] + "</b>");
+                $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(client['cost']) + "</b>");
+                total = tempTotal - parseFloat(valueBox);
+                $('.total_' + boxId).html("<b>$ " + numberWithCommas(total.toFixed(2)) + "</b>");
+                tempTotal = total;
+                if (total < 0) {
+                    alert("minus");
+                }
+                console.log(total);
             } else {
-                $('.company' + boxId).html("");
-                $('.currentCost' + boxId).html("");
-                $('.total' + boxId).html("");
+                $('.company_' + boxId).html("");
+                $('.currentCost_' + boxId).html("");
+                $('.total_' + boxId).html("");
             }
 
         })
