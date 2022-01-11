@@ -117,13 +117,12 @@
                     <th style="width: 5%;">No.</th>
                     <th>Client Name</th>
                     <th>Company</th>
+                    <th>Investment Date</th>
                     <th>Total Unit</th>
                     <th>Total Retail</th>
                     <th>Total Client Cost</th>
                     <th>Total Fulfilled</th>
                     <th>Total Cost Left</th>
-                    <th>AVG Unit Client Cost</th>
-                    <th>AVG Unit Retail</th>
                 </tr>
             </thead>
             <tbody>
@@ -134,13 +133,15 @@
                             <td class="text-center"><?= $no++ ?></td>
                             <td><?= $row['fullname'] ?></td>
                             <td><?= $row['company'] ?></td>
+                            <td class="text-center font-weight-bold">
+                            <?php $newDate = date("M-d-Y", strtotime($row['investment_date'])); ?>
+                                <?= strtoupper($newDate) ?>
+                            </td>
                             <td class="text-center"><?= $row['total_unit'] ?></td>
                             <td class="text-center">$ <?= number_format($row['total_retail'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['client_cost'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['total_fulfilled'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['cost_left'], 2) ?></td>
-                            <td class="text-center">$ <?= number_format($row['avg_client_cost'], 2) ?></td>
-                            <td class="text-center">$ <?= number_format($row['avg_unit_retail'], 2) ?></td>
 
                         </tr>
                     <?php endforeach ?>
@@ -222,7 +223,6 @@
 
     </div>
 </div>
-<?= $this->include('client/layout/social_media.php') ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>

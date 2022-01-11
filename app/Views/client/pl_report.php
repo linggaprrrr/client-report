@@ -39,11 +39,10 @@
                                 <div class="chart-container">
                                     <?php
                                     $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
-                                    $avg = array_sum($temp);
-                                    $hasil = $avg / count(array_filter($temp));
+                                    $total = array_sum($temp);
+                                    $avg = $total / count(array_filter($temp));
 
-                                    $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec'], round($hasil, 0));
-
+                                    $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec'], round($avg, 0));
                                     $chartData = json_encode($data);
                                     $chartId = "viz_" . $no;
                                     $color = [
@@ -71,6 +70,25 @@
                                         var myChart = echarts.init(document.getElementById('<?= $chartId ?>'));
                                         // Specify the configuration items and data for the chart
                                         option = {
+                                            title: {
+                                                text: 'Total',
+                                                <?php if ($row['type'] == 'currency') : ?>
+                                                    subtext: '$ <?= number_format($total, 0) ?>'
+                                                <?php elseif ($row['type'] == 'percentage') : ?>                                                    
+                                                    subtext: '<?= number_format($total, 0) ?> %'
+                                                <?php else : ?>
+                                                    subtext: '<?= $total ?>'
+                                                    <?php endif ?>,
+                                                left: 'right',    
+                                                textStyle: {
+                                                    color: '#252b36',
+                                                    fontStyle: 'italic'
+                                                    
+                                                },
+                                                subtextStyle: {
+                                                    fontWeight: 'bold'
+                                                }                                            
+                                            },
                                             textStyle: {
                                                 fontFamily: 'Roboto, Arial, Verdana, sans-serif',
                                                 fontSize: 14

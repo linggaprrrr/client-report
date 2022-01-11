@@ -70,7 +70,7 @@
                                 <td><?= $no++ ?></td>
                                 <td><?= $row['box_name'] ?></td>
                                 <td><?= $row['status'] ?></td>
-                                <td class="value_box_<?= $no ?>"><?= $row['box_value'] ?></td>
+                                <td class="value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
                                 <td>
                                 <input type="text" class="daterange-single" name="date" value="10/01/2022" style="width: 90px; text-align:center">
                                 </td>
@@ -114,7 +114,7 @@
 <script src="<?= base_url() ?>/assets/js/demo_pages/form_select2.js"></script>
 <script src="<?= base_url() ?>/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
 <script src="<?= base_url() ?>/assets//js/plugins/forms/selects/select2.min.js"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
         <?php if (session()->getFlashdata('success')) : ?>
@@ -153,6 +153,8 @@
         var boxId = $(this).attr('id');
         var valueBoxId = "value_" + $(this).attr('id');
         var valueBox = $('.' + valueBoxId).html();
+        var valueBox = valueBox.substring(2);
+    
         var clientId = this.value;
         
         console.log(valueBox);
@@ -162,16 +164,21 @@
                 if (i == 1) {
                     tempTotal = parseFloat(client['cost']);
                     i = 4;
-                }
-                $('.company_' + boxId).html("<b>22" + client['company'] + "</b>");
-                $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(client['cost']) + "</b>");
+                }                
                 total = tempTotal - parseFloat(valueBox);
-                $('.total_' + boxId).html("<b>$ " + numberWithCommas(total.toFixed(2)) + "</b>");
-                tempTotal = total;
-                if (total < 0) {
-                    alert("minus");
+                if (total <= -500) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Total exceed $500.00!'
+                    })
+                } else {
+                    $('.company_' + boxId).html("<b>22" + client['company'] + "</b>");
+                    $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(client['cost']) + "</b>");
+                    $('.total_' + boxId).html("<b>$ " + numberWithCommas(total.toFixed(2)) + "</b>");
+                    tempTotal = total;
                 }
-                console.log(total);
+                
             } else {
                 $('.company_' + boxId).html("");
                 $('.currentCost_' + boxId).html("");

@@ -113,3 +113,42 @@ CRITICAL - 2022-01-10 10:08:00 --> Call to undefined method CodeIgniter\Database
 #7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
 #9 {main}
+ERROR - 2022-01-10 21:25:51 --> Unknown column 'investments.date' in 'field list'
+CRITICAL - 2022-01-10 21:25:51 --> Unknown column 'investments.date' in 'field list'
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT a.client...', 0)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.client...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.client...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Models\ReportModel.php(64): CodeIgniter\Database\BaseConnection->query('SELECT a.client...')
+#4 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(52): App\Models\ReportModel->getAllReports()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-01-10 21:26:19 --> Unknown column 'investments.date' in 'field list'
+CRITICAL - 2022-01-10 21:26:19 --> Unknown column 'investments.date' in 'field list'
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT a.client...', 0)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.client...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.client...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Models\ReportModel.php(64): CodeIgniter\Database\BaseConnection->query('SELECT a.client...')
+#4 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(52): App\Models\ReportModel->getAllReports()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-01-10 21:29:02 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' investments.date as investment_date, SUM(qty) as qty, SUM(original_value) as...' at line 1
+CRITICAL - 2022-01-10 21:29:02 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' investments.date as investment_date, SUM(qty) as qty, SUM(original_value) as...' at line 1
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT a.client...', 0)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.client...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.client...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Models\ReportModel.php(64): CodeIgniter\Database\BaseConnection->query('SELECT a.client...')
+#4 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(52): App\Models\ReportModel->getAllReports()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
