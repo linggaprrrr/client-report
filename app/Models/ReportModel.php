@@ -39,7 +39,7 @@ class ReportModel extends Model
     {
         if ($id == null) {
             $totalCost = $this->db->query("SELECT SUM(cost) as total_cost FROM reports")->getRow();
-            $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM investments")->getRow();
+            $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM (SELECT fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id ORDER BY fullname ASC ) as t;")->getRow();
         } else {
             $totalCost = $this->db->query("SELECT SUM(cost) as total_cost FROM reports WHERE investment_id = '$id'")->getRow();
             $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM investments WHERE id = '$id' ")->getRow();
