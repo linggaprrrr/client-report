@@ -68,6 +68,7 @@ class Reports extends BaseController
 
     public function clientActivities()
     {
+
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return view('login');
@@ -76,6 +77,7 @@ class Reports extends BaseController
         $totalClientUploaded = $this->reportModel->totalClientUploaded();
         $totalReport = $this->reportModel->totalReport();
         $getAllFiles = $this->reportModel->getAllFiles();
+        //dd($getAllFiles->getResultArray());
         $getAllClient = $this->reportModel->getAllClient();
 
         $data = [
@@ -94,82 +96,82 @@ class Reports extends BaseController
     public function uploadReport()
     {
         $client = $this->request->getVar('client');
-        // $link = $this->request->getVar('link');
+        $link = $this->request->getVar('link');
         $report = $this->request->getFile('file');
-        
+
         $date = $this->request->getVar('date');
         $date = date('Y-m-d', strtotime($date));
         $ext = $report->getClientExtension();
-                if ($ext == 'xls') {
-                    $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-                } else {
-                    $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-                }
-                $spreadsheet = $render->load($report);
-                $data = $spreadsheet->getActiveSheet()->toArray();
-                $category = array();
-                $reportData = array();
-                $investment = array();
-                $logFiles = array();
-                $investmentLastId = "";
-                foreach ($data as $idx => $data) {
-                    if ($idx == 1) {
-                        $tempInvest = str_replace('$', '', $data[5]);
-                        $tempInvest = str_replace(',', '', $tempInvest);
+        if ($ext == 'xls') {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+        $spreadsheet = $render->load($report);
+        $data = $spreadsheet->getActiveSheet()->toArray();
+        $category = array();
+        $reportData = array();
+        $investment = array();
+        $logFiles = array();
+        $investmentLastId = "";
+        foreach ($data as $idx => $data) {
+            if ($idx == 1) {
+                $tempInvest = str_replace('$', '', $data[5]);
+                $tempInvest = str_replace(',', '', $tempInvest);
 
-                        $investment = array(
-                            "cost" => $tempInvest,
-                            "date" => $date,
+                $investment = array(
+                    "cost" => $tempInvest,
+                    "date" => $date,
+                    "client_id" => $client,
+                    "created_at" => date("Y-m-d H:i:s"),
+                    "updated_at" => date("Y-m-d H:i:s")
+                );
+
+                $this->investmentModel->save($investment);
+                $investmentLastId = $this->investmentModel->getLastId();
+                $category = array(
+                    "category_name" => $data[1],
+                    "investment_id" => $investmentLastId,
+                    "created_at" => date("Y-m-d H:i:s"),
+                    "updated_at" => date("Y-m-d H:i:s")
+                );
+                $this->categoryModel->save($category);
+            } elseif ($idx > 2) {
+                if (!empty($data[1] || strcasecmp($data[1], "tracking") != 0)) {
+                    if (!empty($data[0])) {
+                        $retail = str_replace('$', '', $data[4]);
+                        $retail = str_replace(',', '', $retail);
+                        $original = str_replace('$', '', $data[5]);
+                        $original = str_replace(',', '', $original);
+                        $cost = str_replace('$', '', $data[6]);
+                        $cost = str_replace(',', '', $cost);
+                        $reportData = array(
+                            "sku" => $data[0],
+                            "item_description" => trim($data[1]),
+                            "cond" => $data[2],
+                            "qty" => $data[3],
+                            "retail_value" => $retail,
+                            "original_value" => $original,
+                            "cost" => $cost,
+                            "vendor" => $data[7],
                             "client_id" => $client,
-                            "created_at" => date("Y-m-d H:i:s"),
-                            "updated_at" => date("Y-m-d H:i:s")
-                        );
-
-                        $this->investmentModel->save($investment);
-                        $investmentLastId = $this->investmentModel->getLastId();
-                        $category = array(
-                            "category_name" => $data[1],
                             "investment_id" => $investmentLastId,
                             "created_at" => date("Y-m-d H:i:s"),
                             "updated_at" => date("Y-m-d H:i:s")
                         );
-                        $this->categoryModel->save($category);
-                    } elseif ($idx > 2) {
-                        if (!empty($data[1] || strcasecmp($data[1], "tracking") != 0)) {
-                            if (!empty($data[0])) {
-                                $retail = str_replace('$', '', $data[4]);
-                                $retail = str_replace(',', '', $retail);
-                                $original = str_replace('$', '', $data[5]);
-                                $original = str_replace(',', '', $original);
-                                $cost = str_replace('$', '', $data[6]);
-                                $cost = str_replace(',', '', $cost);
-                                $reportData = array(
-                                    "sku" => $data[0],
-                                    "item_description" => trim($data[1]),
-                                    "cond" => $data[2],
-                                    "qty" => $data[3],
-                                    "retail_value" => $retail,
-                                    "original_value" => $original,
-                                    "cost" => $cost,
-                                    "vendor" => $data[7],
-                                    "client_id" => $client,
-                                    "investment_id" => $investmentLastId,
-                                    "created_at" => date("Y-m-d H:i:s"),
-                                    "updated_at" => date("Y-m-d H:i:s")
-                                );
-                                $this->reportModel->save($reportData);
-                            }
-                        } else {
-                            continue;
-                        }
+                        $this->reportModel->save($reportData);
                     }
+                } else {
+                    continue;
                 }
-                $fileName = time() . $report->getName();
-                $report->move('files', $fileName);
-                $this->db->query("INSERT into log_files(date, file, client_id, investment_id) VALUES(NOW()," . $this->db->escape($fileName) . " ,$client, $investmentLastId) ");
-        
-        
-        
+            }
+        }
+        $fileName = time() . $report->getName();
+        $report->move('files', $fileName);
+        $this->db->query("INSERT into log_files(date, file, link, client_id, investment_id) VALUES(NOW()," . $this->db->escape($fileName) . ", " . $this->db->escape($link) . " ,$client, $investmentLastId) ");
+
+
+
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
@@ -319,8 +321,8 @@ class Reports extends BaseController
 
     public function assignmentReportSubmit()
     {
-        ini_set('max_execution_time', 0); 
-        ini_set('memory_limit','4048M');
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '4048M');
         $report = $this->request->getFile('file');
         $ext = $report->getClientExtension();
 
@@ -330,14 +332,14 @@ class Reports extends BaseController
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         }
         $fileName = time() . $report->getName();
-        
+
         $spreadsheet = $render->load($report);
-        
+
         $data = $spreadsheet->getActiveSheet()->toArray();
         $assignReport = array();
         $boxValue = 0;
         $insertId = 1;
-        
+
         foreach ($data as $idx => $row) {
             if ($idx == 1) {
                 $retail = str_replace('$', '', $row[4]);
@@ -348,11 +350,10 @@ class Reports extends BaseController
                 $cost = str_replace(',', '', $cost);
                 $this->db->query("INSERT INTO assign_reports(file, units, retails, originals, costs) VALUES(" . $this->db->escape($fileName) . ", $row[3], $retail, $original, $cost) ");
                 $insertId = $this->assignReportModel->getLastId();
-                
             }
-            if ($idx > 2) {                
-                if (!empty($row[9]) || (strcasecmp($row[9], "BOX") == 0 || strcasecmp($row[9], "SHIP") == 0 )) {
-                    if (!empty($row[4]) || !empty($row[5]) || !empty($row[6])) {                            
+            if ($idx > 2) {
+                if (!empty($row[9]) || (strcasecmp($row[9], "BOX") == 0 || strcasecmp($row[9], "SHIP") == 0)) {
+                    if (!empty($row[4]) || !empty($row[5]) || !empty($row[6])) {
                         $retail = str_replace('$', '', $row[4]);
                         $retail = str_replace(',', '', $retail);
                         $original = str_replace('$', '', $row[5]);
@@ -372,15 +373,14 @@ class Reports extends BaseController
                         );
                         $boxValue += $cost;
                         $this->assignReportModel->save($assignReport);
-                    } elseif (strcmp($row[9], "BOX") == 0 ) {                                    
-                        $this->db->query("INSERT INTO assign_report_box(box_name, box_value, description, date, messenger, report_id) VALUES('$row[2]', $boxValue ,".$this->db->escape($row[1]).", '$row[7]', '$row[0]', $insertId)");
+                    } elseif (strcmp($row[9], "BOX") == 0) {
+                        $this->db->query("INSERT INTO assign_report_box(box_name, box_value, description, date, messenger, report_id) VALUES('$row[2]', $boxValue ," . $this->db->escape($row[1]) . ", '$row[7]', '$row[0]', $insertId)");
                         $boxValue = 0;
                     }
                 } else {
                     continue;
                 }
             }
-            
         }
 
         $report->move('files', $fileName);
@@ -421,6 +421,14 @@ class Reports extends BaseController
             ));
         }
         return redirect()->back()->with('success', 'Report Successfully saved!');
+    }
+
+    public function updateLink()
+    {
+        $post = $this->request->getVar();
+        $id = $post['file_id'];
+        $this->db->query("UPDATE log_files SET link = " . $this->db->escape($post['link']) . " WHERE id='$id' ");
+        return redirect()->back()->with('link', 'Link Successfully updated!');
     }
 
     public function test()

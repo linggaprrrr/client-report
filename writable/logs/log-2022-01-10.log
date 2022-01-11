@@ -1,0 +1,115 @@
+ERROR - 2022-01-10 04:27:47 --> Unknown column 'link' in 'field list'
+CRITICAL - 2022-01-10 04:27:47 --> Unknown column 'link' in 'field list'
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT investme...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT investme...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT investme...')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Models\ReportModel.php(89): CodeIgniter\Database\BaseConnection->query('SELECT investme...')
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(78): App\Models\ReportModel->getAllFiles()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->clientActivities()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-01-10 04:28:32 --> Unknown column 'link' in 'field list'
+CRITICAL - 2022-01-10 04:28:32 --> Unknown column 'link' in 'field list'
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT investme...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT investme...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT investme...')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Models\ReportModel.php(89): CodeIgniter\Database\BaseConnection->query('SELECT investme...')
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(79): App\Models\ReportModel->getAllFiles()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->clientActivities()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-01-10 06:35:42 --> preg_match(): Compilation failed: missing terminating ] for character class at offset 39
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'preg_match(): C...', 'C:\\xampp\\htdocs...', 385, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(385): preg_match('#^update-link-s...', 'assets/js/main/...', Array)
+#2 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(155): CodeIgniter\Router\Router->checkRoutes('assets/js/main/...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(718): CodeIgniter\Router\Router->handle('assets/js/main/...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(359): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-01-10 06:35:43 --> preg_match(): Compilation failed: missing terminating ] for character class at offset 39
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'preg_match(): C...', 'C:\\xampp\\htdocs...', 385, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(385): preg_match('#^update-link-s...', 'assets/js/plugi...', Array)
+#2 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(155): CodeIgniter\Router\Router->checkRoutes('assets/js/plugi...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(718): CodeIgniter\Router\Router->handle('assets/js/plugi...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(359): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-01-10 06:35:43 --> preg_match(): Compilation failed: missing terminating ] for character class at offset 39
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'preg_match(): C...', 'C:\\xampp\\htdocs...', 385, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(385): preg_match('#^update-link-s...', 'assets/js/plugi...', Array)
+#2 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(155): CodeIgniter\Router\Router->checkRoutes('assets/js/plugi...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(718): CodeIgniter\Router\Router->handle('assets/js/plugi...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(359): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-01-10 06:35:43 --> preg_match(): Compilation failed: missing terminating ] for character class at offset 39
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'preg_match(): C...', 'C:\\xampp\\htdocs...', 385, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(385): preg_match('#^update-link-s...', 'assets/js/plugi...', Array)
+#2 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(155): CodeIgniter\Router\Router->checkRoutes('assets/js/plugi...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(718): CodeIgniter\Router\Router->handle('assets/js/plugi...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(359): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-01-10 06:35:50 --> preg_match(): Compilation failed: missing terminating ] for character class at offset 39
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'preg_match(): C...', 'C:\\xampp\\htdocs...', 385, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(385): preg_match('#^update-link-s...', 'update-link-spr...', Array)
+#2 C:\xampp\htdocs\wholesales\client-report\system\Router\Router.php(155): CodeIgniter\Router\Router->checkRoutes('update-link-spr...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(718): CodeIgniter\Router\Router->handle('update-link-spr...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(359): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-01-10 06:48:35 --> Too few arguments to function App\Controllers\Admin\Reports::updateLink(), 0 passed in C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php on line 824 and at least 1 expected
+#0 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->updateLink()
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-01-10 06:49:11 --> Undefined variable: link
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(429): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 429, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->updateLink()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+ERROR - 2022-01-10 10:05:06 --> Column 'investment_id' in where clause is ambiguous
+CRITICAL - 2022-01-10 10:05:06 --> Column 'investment_id' in where clause is ambiguous
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT reports....', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT reports....')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT reports....')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Models\ReportModel.php(70): CodeIgniter\Database\BaseConnection->query('SELECT reports....')
+#4 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(58): App\Models\ReportModel->getAllReportClient('11')
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-01-10 10:08:00 --> Call to undefined method CodeIgniter\Database\MySQLi\Result::getResultRow()
+#0 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/dashboar...', Array, true)
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(91): view('client/dashboar...', Array)
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}

@@ -84,10 +84,10 @@
                     </a>
                     <div class="effect aeneas" style="padding-top: 0px;">
                         <div class="buttons" style="bottom: 0; margin: 0px 35px 20px">
-                            <a href="https://www.facebook.com/SmartFBA" class="fb" title="Find us on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="https://www.youtube.com/c/smartfba" class="pinterest" title="Find us on Youtube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
-                            <a href="https://www.instagram.com/smartfba/" class="insta" title="Find us on Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="https://www.linkedin.com/company/smartfba/" class="in" title="Find us on Linked In"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="https://www.facebook.com/SmartFBA" target="_blank" class="fb" title="Find us on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="https://www.youtube.com/c/smartfba" target="_blank" class="pinterest" title="Find us on Youtube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                            <a href="https://www.instagram.com/smartfba/" target="_blank" class="insta" title="Find us on Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="https://www.linkedin.com/company/smartfba/" target="_blank" class="in" title="Find us on Linked In"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </li>

@@ -81,7 +81,10 @@
 
         <!--/Blue select-->
         <div class="card-header header-elements-sm-inline">
-            <h6 class="card-title">Overview: <span><b>RETAIL (NEW WITH TAGS) </b></span></h6>
+            <h6 class="card-title">Overview: <span><b>RETAIL (NEW WITH TAGS) </b></span>
+                <?php $temp = $getAllReports->getRowArray(0) ?>
+                
+            </h6>
             <div class="header-elements">
                 <form method="get" action="<?= base_url('/dashboard') ?>" class="form-inline">
                     <div class="form-group row">
@@ -102,10 +105,16 @@
                             </select>
                         </div>
                     </div>
+                    <?php if (!empty($temp['link'])) : ?>
+                        <div class="form-group row ml-4">
+                            <a href="<?= $temp['link'] ?>" class="btn btn-secondary" target="_blank"><i class="icon-google-drive mr-2"></i> Google Sheet</a>
+                        </div>
+                    <?php endif ?>
 
                 </form>
 
             </div>
+
         </div>
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div class="d-flex align-items-center mb-3 mb-lg-0">

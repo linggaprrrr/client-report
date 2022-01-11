@@ -3,15 +3,17 @@
 <?= $this->section('content') ?>
 <style>
     .btn-upload {
-    padding: 10px 20px;
-    margin-left: 10px;
+        padding: 10px 20px;
+        margin-left: 10px;
     }
+
     .upload-input-group {
         margin-bottom: 10px;
     }
 
-    .input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child) {
-    height: 45px;
+    .input-group>.custom-select:not(:last-child),
+    .input-group>.form-control:not(:last-child) {
+        height: 45px;
     }
 </style>
 <div class="content">
@@ -87,14 +89,23 @@
                                             </button>
                                         </div> -->
 
-                                    <!-- </div> -->
+                                        <!-- </div> -->
 
                                         <label class="custom-file">
-                                            
+
                                             <input type="file" name="file" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                                             <span class="custom-file-label" id="file-upload-filename">Choose file</span>
                                         </label>
                                         <span class="form-text text-muted">Accepted formats: xls/xlsx. Max file size 10Mb</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Google Spreadsheet Link:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"><i class="icon-link"></i></span>
+                                            </span>
+                                            <input type="text" class="form-control" name="link" required>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -110,8 +121,8 @@
                 </div>
             </div>
         </div>
-    
-        <table class="table datatable-basic" style="font-size: 12px;">
+
+        <table class="table datatable-basic" id="client_act" style="font-size: 12px;">
             <thead>
                 <tr>
                     <th style="width: 5%">No</th>
@@ -119,8 +130,9 @@
                     <th>Company Name</th>
                     <th>File Uploaded</th>
                     <th>Date Uploaded</th>
-                    <th>Download</th>
-                    <th>Action</th>
+                    <th class="text-center" style="width: 12%">Google Sheet</th>
+                    <th class="text-center" style="width: 10%">Download</th>
+                    <th class="text-center" style="width: 5px;"><i class="icon-arrow-down12"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -133,6 +145,13 @@
                             <td><?= $row['company'] ?></td>
                             <td><?= $row['file'] ?></td>
                             <td class="text-center"><?= $row['date'] ?></td>
+                            <td class="text-center">
+                                <?php if (!empty($row['link'])) : ?>
+                                    <a href="<?= $row['link'] ?>" target="_blank"><i class="icon-link"></i></a>
+                                <?php else : ?>
+                                    <a href="#" class="link" data-id="<?php echo $row['log_id'] ?>" style="color: red;"><i class="icon-unlink"></i></a>
+                                <?php endif ?>
+                            </td>
                             <td class="text-center"><a href="<?= base_url('files/' . $row['file']) ?>" download="<?= $row['file'] ?>"><i class="icon-download4"></i></a></td>
                             <td class="text-center">
                                 <div class="list-icons">
@@ -157,6 +176,7 @@
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>
     <button type="button" id="noty_deleted" style="display: none;"></button>
+    <button type="button" id="noty_link" style="display: none;"></button>
 </div>
 
 <?= $this->endSection() ?>
@@ -170,10 +190,14 @@
 <script src="<?= base_url() ?>/assets/js/plugins/notifications/jgrowl.min.js"></script>
 <script src="<?= base_url() ?>/assets/js/plugins/notifications/noty.min.js"></script>
 <script src="<?= base_url() ?>/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
     $(document).ready(function() {
         <?php if (session()->getFlashdata('success')) : ?>
+            $('#noty_created').click();
+        <?php endif ?>
+        <?php if (session()->getFlashdata('link')) : ?>
             $('#noty_created').click();
         <?php endif ?>
         <?php if (session()->getFlashdata('delete')) : ?>
@@ -187,6 +211,12 @@
             type: 'success'
         }).show();
     });
+    $('#noty_link').on('click', function() {
+        new Noty({
+            text: 'You successfully update the link.',
+            type: 'success'
+        }).show();
+    });
     $('#noty_deleted').on('click', function() {
         new Noty({
             text: 'You successfully delete the report.',
@@ -194,6 +224,25 @@
         }).show();
     });
 
+    $("#client_act").on("click", '.link', function() {
+        swal("Google Spreadsheet Link:", {
+                content: "input",
+            })
+            .then((value) => {
+                if (value.trim() === "") {
+                    swal("Link cant empty");
+                } else {
+                    var id = $(this).data("id");
+                    $.post("/update-link-spreadhsheet", {
+                        file_id: id,
+                        link: value
+                    }, function(data) {
+                        location.reload();
+                    });
+
+                }
+            });
+    });
     var input = document.getElementById('file-upload');
     var infoArea = document.getElementById('file-upload-filename');
 
@@ -207,7 +256,7 @@
         // use fileName however fits your app best, i.e. add it into a div
         infoArea.textContent = '' + fileName;
     }
-    
+
     // $(function () {
     //         $(document).on('click', '.btn-add', function (e) {
     //             e.preventDefault();
@@ -228,8 +277,6 @@
     //             return false;
     //         });
     //     });
-
-
 </script>
 
 <?= $this->endSection() ?>

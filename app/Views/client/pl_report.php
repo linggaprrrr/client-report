@@ -38,7 +38,12 @@
 
                                 <div class="chart-container">
                                     <?php
-                                    $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
+                                    $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
+                                    $avg = array_sum($temp);
+                                    $hasil = $avg / count(array_filter($temp));
+
+                                    $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec'], round($hasil, 0));
+
                                     $chartData = json_encode($data);
                                     $chartId = "viz_" . $no;
                                     $color = [
@@ -84,12 +89,12 @@
                                             },
                                             xAxis: [{
                                                 type: 'category',
-                                                data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                                data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'AVERAGE'],
                                                 axisTick: {
                                                     alignWithLabel: true
                                                 },
                                                 axisLabel: {
-                                                    fontSize: 14,
+                                                    fontSize: 12,
                                                     fontWeight: 'bold'
                                                 }
 
