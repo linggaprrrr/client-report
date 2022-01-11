@@ -14,14 +14,11 @@
     <?php
     $no = 0;
     ?>
-    <div class="card text-right">
-        <div class="card-body">
-            <?php if (!empty($file)) : ?>
-                <a href="<?= base_url('files/' . $file->file) ?>" download="<?= $file->file ?>" class=" btn btn-teal"><i class="icon-file-download mr-2"></i> Download Report</a>
-                <!-- <button type="button" class="btn btn-teal"><i class="icon-file-download mr-2"></i>Download Report</button> -->
-            <?php endif ?>
-
-        </div>
+    <div class="text-right mb-4" >
+        <?php if (!empty($file)) : ?>
+            <a href="<?= base_url('files/' . $file->file) ?>" download="<?= $file->file ?>" class=" btn btn-teal"><i class="icon-file-download mr-2"></i> Download Report</a>
+            <!-- <button type="button" class="btn btn-teal"><i class="icon-file-download mr-2"></i>Download Report</button> -->
+        <?php endif ?>
     </div>
     <div class="row">
         <?php if ($plReport->getNumRows() > 0) : ?>
