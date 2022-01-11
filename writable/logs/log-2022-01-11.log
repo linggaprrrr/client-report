@@ -10,3 +10,17 @@ CRITICAL - 2022-01-11 00:53:07 --> Undefined offset: 0
 #8 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #9 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
 #10 {main}
+CRITICAL - 2022-01-11 05:40:47 --> Invalid file: client/layout/social_media.php
+#0 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('client/layout/s...')
+#1 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(432): CodeIgniter\View\View->render('client/layout/s...', NULL, true)
+#2 C:\xampp\htdocs\wholesales\client-report\app\Views\client\dashboard2.php(332): CodeIgniter\View\View->include('client/layout/s...')
+#3 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Common.php(1097): CodeIgniter\View\View->render('client/dashboar...', Array, true)
+#6 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Clients.php(48): view('client/dashboar...', Array)
+#7 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Clients->index()
+#8 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#9 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#12 {main}

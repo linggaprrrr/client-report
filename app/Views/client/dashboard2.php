@@ -329,7 +329,6 @@
 
     </div>
 </div>
-<?= $this->include('client/layout/social_media.php') ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
