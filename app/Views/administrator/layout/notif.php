@@ -12,7 +12,7 @@
                 <div class="p-3">
                     <div class="d-flex mb-3">
                         <a href="#" class="mr-3">
-                            <img src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                            <img src="/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
                         </a>
                         <div class="flex-1">
                             <a href="#" class="font-weight-semibold">James</a> has completed the task <a href="#">Submit documents</a> from <a href="#">Onboarding</a> list
@@ -30,7 +30,7 @@
 
                     <div class="d-flex mb-3">
                         <a href="#" class="mr-3">
-                            <img src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                            <img src="/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
                         </a>
                         <div class="flex-1">
                             <a href="#" class="font-weight-semibold">Margo</a> was added to <span class="font-weight-semibold">Customer enablement</span> channel by <a href="#">William Whitney</a>
@@ -57,7 +57,7 @@
                 <div class="p-3">
                     <div class="d-flex mb-3">
                         <a href="#" class="mr-3">
-                            <img src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                            <img src="/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
                         </a>
                         <div class="flex-1">
                             <a href="#" class="font-weight-semibold">Christine</a> commented on your community <a href="#">post</a> from 10.12.2021
@@ -68,7 +68,7 @@
 
                     <div class="d-flex mb-3">
                         <a href="#" class="mr-3">
-                            <img src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                            <img src="/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
                         </a>
                         <div class="flex-1">
                             <a href="#" class="font-weight-semibold">Mike</a> added 1 new file(s) to <a href="#">Product management</a> project
@@ -109,7 +109,7 @@
 
                     <div class="d-flex mb-3">
                         <a href="#" class="mr-3">
-                            <img src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                            <img src="/assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
                         </a>
                         <div class="flex-1">
                             <a href="#" class="font-weight-semibold">Nick</a> requested your feedback and approval in support request <a href="#">#458</a>

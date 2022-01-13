@@ -159,7 +159,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 

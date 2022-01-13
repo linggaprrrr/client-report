@@ -71,7 +71,6 @@ class Clients extends BaseController
             $getVendorName = $this->reportModel->getVendorName($dateId);
         }
 
-        // dd($lastInvestment);
         $data = [
             'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',

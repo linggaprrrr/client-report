@@ -134,7 +134,7 @@
                             <td><?= $row['fullname'] ?></td>
                             <td><?= $row['company'] ?></td>
                             <td class="text-center font-weight-bold">
-                            <?php $newDate = date("M-d-Y", strtotime($row['investment_date'])); ?>
+                                <?php $newDate = date("M-d-Y", strtotime($row['investment_date'])); ?>
                                 <?= strtoupper($newDate) ?>
                             </td>
                             <td class="text-center"><?= $row['total_unit'] ?></td>
@@ -226,8 +226,8 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="<?= base_url() ?>/assets/js/plugins/ui/moment/moment.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="/assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/assets/js/demo_pages/datatables_basic.js"></script>
 
 <?= $this->endSection() ?>

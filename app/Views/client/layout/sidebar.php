@@ -25,9 +25,9 @@
         <div class="sidebar-section sidebar-section-body user-menu-vertical text-center pt-0">
             <div class="card-img-actions d-inline-block">
                 <?php if (!empty($user['photo'])) : ?>
-                    <img class="img-fluid rounded-circle" src="<?= base_url() ?>/img/<?= $user['photo'] ?>" alt="Profile Picture" style="width:100px; height:100px;object-fit: contain;">
+                    <img class="img-fluid rounded-circle" src="/img/<?= $user['photo'] ?>" alt="Profile Picture" style="width:100px; height:100px;object-fit: contain;">
                 <?php else : ?>
-                    <img class="img-fluid rounded-circle" src="<?= base_url() ?>/assets/images/placeholders/user.png" width="150" height="150" alt="Profile Picture">
+                    <img class="img-fluid rounded-circle" src="/assets/images/placeholders/user.png" width="150" height="150" alt="Profile Picture">
                 <?php endif ?>
             </div>
 
@@ -80,7 +80,7 @@
                 <li class="nav-item" style="margin-top: 150px;">
                     <h3 class="text-center font-weight-bold">Our Official Channel</h3>
                     <a href="https://www.youtube.com/watch?v=SbyUfvZDqoU&t" class="nav-link" target="_blank" style="justify-content: center;">
-                        <img src="<?= base_url() ?>/assets/images/youtube-channel.png" style="width: 80%;" >
+                        <img src="/assets/images/youtube-channel.png" style="width: 80%;">
                     </a>
                     <div class="effect aeneas" style="padding-top: 0px;">
                         <div class="buttons" style="bottom: 0; margin: 5px 35px 20px">

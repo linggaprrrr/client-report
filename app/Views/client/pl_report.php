@@ -14,7 +14,7 @@
     <?php
     $no = 0;
     ?>
-    <div class="text-right mb-4" >
+    <div class="text-right mb-4">
         <?php if (!empty($file)) : ?>
             <a href="<?= base_url('files/' . $file->file) ?>" download="<?= $file->file ?>" class=" btn btn-teal"><i class="icon-file-download mr-2"></i> Download Report</a>
             <!-- <button type="button" class="btn btn-teal"><i class="icon-file-download mr-2"></i>Download Report</button> -->
@@ -71,20 +71,22 @@
                                                 text: 'Total',
                                                 <?php if ($row['type'] == 'currency') : ?>
                                                     subtext: '$ <?= number_format($total, 0) ?>'
-                                                <?php elseif ($row['type'] == 'percentage') : ?>                                                    
+                                                <?php elseif ($row['type'] == 'percentage') : ?>
                                                     subtext: '<?= number_format($total, 0) ?> %'
                                                 <?php else : ?>
                                                     subtext: '<?= $total ?>'
-                                                    <?php endif ?>,
-                                                left: 'right',    
+                                                <?php endif ?>,
+                                                left: 'right',
                                                 textStyle: {
                                                     color: '#252b36',
-                                                    fontStyle: 'italic'
-                                                    
+                                                    fontStyle: 'italic',
+                                                    fontSize: 24
+
                                                 },
                                                 subtextStyle: {
-                                                    fontWeight: 'bold'
-                                                }                                            
+                                                    fontWeight: 'bolder',
+                                                    fontSize: 18
+                                                }
                                             },
                                             textStyle: {
                                                 fontFamily: 'Roboto, Arial, Verdana, sans-serif',
@@ -183,9 +185,9 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="<?= base_url() ?>/assets/js/plugins/ui/moment/moment.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="/assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/assets/js/demo_pages/datatables_basic.js"></script>
 
 
 <?= $this->endSection() ?>

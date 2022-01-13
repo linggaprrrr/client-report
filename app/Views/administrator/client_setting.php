@@ -13,9 +13,9 @@
                     <div class="col-lg-10" style="text-align: center;">
                         <div class="card-img-actions d-inline-block">
                             <?php if (!empty($profile['photo'])) : ?>
-                                <img class="img-fluid rounded-circle" id="output" src="<?= base_url() ?>/img/<?= $profile['photo'] ?>" alt="Profile Picture" style="width:250px; height:250px;object-fit: contain;">
+                                <img class="img-fluid rounded-circle" id="output" src="/img/<?= $profile['photo'] ?>" alt="Profile Picture" style="width:250px; height:250px;object-fit: contain;">
                             <?php else : ?>
-                                <img class="img-fluid rounded-circle" id="output" src="<?= base_url() ?>/assets/images/placeholders/placeholder.jpg" alt="Profile Picture" style="width:250px; height:250px;object-fit: contain;">
+                                <img class="img-fluid rounded-circle" id="output" src="/assets/images/placeholders/placeholder.jpg" alt="Profile Picture" style="width:250px; height:250px;object-fit: contain;">
                             <?php endif ?>
                             <div class="card-img-actions-overlay card-img rounded-circle">
                                 <a href="#" class="btn btn-white btn-icon btn-sm rounded-pill" id="uploadImg">
@@ -107,9 +107,9 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="<?= base_url() ?>/assets/js/plugins/notifications/jgrowl.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/notifications/noty.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
+<script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
+<script src="/assets/js/plugins/notifications/noty.min.js"></script>
+<script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
 <script>
     $(document).ready(function() {
         <?php if (session()->getFlashdata('success')) : ?>

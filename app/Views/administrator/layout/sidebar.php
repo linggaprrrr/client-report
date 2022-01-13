@@ -24,9 +24,9 @@
         <div class="sidebar-section sidebar-section-body user-menu-vertical text-center pt-0">
             <div class="card-img-actions d-inline-block">
                 <?php if (!empty($user['photo'])) : ?>
-                    <img class="img-fluid rounded-circle" src="<?= base_url() ?>/img/<?= $user['photo'] ?>" alt="Profile Picture" style="width:100px; height:100px;object-fit: contain;">
+                    <img class="img-fluid rounded-circle" src="/img/<?= $user['photo'] ?>" alt="Profile Picture" style="width:100px; height:100px;object-fit: contain;">
                 <?php else : ?>
-                    <img class="img-fluid rounded-circle" src="<?= base_url() ?>/assets/images/placeholders/user.png" width="150" height="150" alt="Profile Picture">
+                    <img class="img-fluid rounded-circle" src="/assets/images/placeholders/user.png" width="150" height="150" alt="Profile Picture">
                 <?php endif ?>
             </div>
 

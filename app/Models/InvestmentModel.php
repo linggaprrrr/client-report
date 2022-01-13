@@ -19,9 +19,9 @@ class InvestmentModel extends Model
     public function totalClientInvestment($id = null)
     {
         if ($id != null) {
-            $query = $this->db->query("SELECT SUM(cost) as total_client_cost FROM investments WHERE id = '$id' ")->getRow();
+            $query = $this->db->query("SELECT SUM(cost) as total_client_cost FROM (SELECT fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id WHERE investments.id = '$id' ORDER BY fullname ASC ) as t  ")->getRow();
         } else {
-            $query = $this->db->query("SELECT SUM(cost) as total_client_cost FROM investments")->getRow();
+            $query = $this->db->query("SELECT SUM(cost) as total_client_cost FROM (SELECT fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id ORDER BY fullname ASC ) as t  ")->getRow();
         }
         return $query;
     }

@@ -51,6 +51,7 @@ class Reports extends BaseController
         $totalFulfilled = $this->reportModel->totalFulfilled();
         $getAllReports = $this->reportModel->getAllReports();
         $news = $this->newsModel->getLastNews();
+
         $data = [
             'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',
@@ -77,8 +78,8 @@ class Reports extends BaseController
         $totalClientUploaded = $this->reportModel->totalClientUploaded();
         $totalReport = $this->reportModel->totalReport();
         $getAllFiles = $this->reportModel->getAllFiles();
-        //dd($getAllFiles->getResultArray());
         $getAllClient = $this->reportModel->getAllClient();
+        // dd($getAllFiles->getResultArray());
 
         $data = [
             'tittle' => 'Client Activities | Report Management System',

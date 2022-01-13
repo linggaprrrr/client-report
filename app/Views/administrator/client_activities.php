@@ -182,14 +182,14 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="<?= base_url() ?>/assets/js/plugins/ui/moment/moment.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/picker_date.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/pickers/daterangepicker.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/datatables_basic.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/notifications/jgrowl.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/notifications/noty.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
+<script src="/assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="/assets/js/demo_pages/picker_date.js"></script>
+<script src="/assets/js/plugins/pickers/daterangepicker.js"></script>
+<script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
+<script src="/assets/js/plugins/notifications/noty.min.js"></script>
+<script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>

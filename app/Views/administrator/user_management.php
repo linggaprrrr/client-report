@@ -183,8 +183,8 @@
 
 <?= $this->section('js') ?>
 
-<script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/assets/js/demo_pages/datatables_basic.js"></script>
 
 <script>
     $(document).ready(function() {

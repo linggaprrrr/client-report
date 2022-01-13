@@ -47,7 +47,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
 
 <script>
     /* ------------------------------------------------------------------------------

@@ -72,19 +72,19 @@
                                 <td><?= $row['status'] ?></td>
                                 <td class="value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
                                 <td>
-                                <input type="text" class="daterange-single" name="date" value="10/01/2022" style="width: 90px; text-align:center">
+                                    <input type="text" class="daterange-single" name="date" value="10/01/2022" style="width: 90px; text-align:center">
                                 </td>
                                 <td>
                                     <select class="form-control clientSelect select-search" name="client" id="box_<?= $no ?> " data-fouc>
                                         <option>Select Client</option>
-                                        <?php foreach($getAllClient->getResultArray() as $client) : ?>
-                                            <option value="<?= $client['id'] ?>"><?= $client['fullname']?></option>
-                                        <?php  endforeach ?>
+                                        <?php foreach ($getAllClient->getResultArray() as $client) : ?>
+                                            <option value="<?= $client['id'] ?>"><?= $client['fullname'] ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </td>
                                 <td class="company_box_<?= $no ?>"></td>
-                                <td class="currentCost_box_<?= $no ?>" ></td>
-                                <td class="total_box_<?= $no ?>" ></td>
+                                <td class="currentCost_box_<?= $no ?>"></td>
+                                <td class="total_box_<?= $no ?>"></td>
                             </tr>
                         <?php endforeach ?>
                     <?php endif ?>
@@ -103,17 +103,17 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="<?= base_url() ?>/assets/js/plugins/ui/moment/moment.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/picker_date.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/pickers/daterangepicker.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/datatables_basic.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/notifications/jgrowl.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/notifications/noty.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/form_select2.js"></script>
-<script src="<?= base_url() ?>/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
-<script src="<?= base_url() ?>/assets//js/plugins/forms/selects/select2.min.js"></script>
+<script src="/assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="/assets/js/demo_pages/picker_date.js"></script>
+<script src="/assets/js/plugins/pickers/daterangepicker.js"></script>
+<script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
+<script src="/assets/js/plugins/notifications/noty.min.js"></script>
+<script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
+<script src="/assets/js/demo_pages/form_select2.js"></script>
+<script src="/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+<script src="/assets//js/plugins/forms/selects/select2.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
@@ -154,9 +154,9 @@
         var valueBoxId = "value_" + $(this).attr('id');
         var valueBox = $('.' + valueBoxId).html();
         var valueBox = valueBox.substring(2);
-    
+
         var clientId = this.value;
-        
+
         console.log(valueBox);
         $.get('/get-company/' + clientId, function(data) {
             if (data != 'null') {
@@ -164,7 +164,7 @@
                 if (i == 1) {
                     tempTotal = parseFloat(client['cost']);
                     i = 4;
-                }                
+                }
                 total = tempTotal - parseFloat(valueBox);
                 if (total <= -500) {
                     Swal.fire({
@@ -178,7 +178,7 @@
                     $('.total_' + boxId).html("<b>$ " + numberWithCommas(total.toFixed(2)) + "</b>");
                     tempTotal = total;
                 }
-                
+
             } else {
                 $('.company_' + boxId).html("");
                 $('.currentCost_' + boxId).html("");

@@ -83,7 +83,7 @@
         <div class="card-header header-elements-sm-inline">
             <h6 class="card-title">Overview: <span><b>RETAIL (NEW WITH TAGS) </b></span>
                 <?php $temp = $getAllReports->getRowArray(0) ?>
-                
+
             </h6>
             <div class="header-elements">
                 <form method="get" action="<?= base_url('/dashboard') ?>" class="form-inline">
@@ -405,15 +405,14 @@
 
     </div>
 </div>
-<?= $this->include('client/layout/social_media.php') ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="<?= base_url() ?>/assets/js/plugins/ui/moment/moment.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/datatables_basic.js"></script>
-<script src="<?= base_url() ?>/assets/js/demo_pages/form_select2.js"></script>
-<script src="<?= base_url() ?>/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
-<script src="<?= base_url() ?>/assets//js/plugins/forms/selects/select2.min.js"></script>
+<script src="/assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="/assets/js/demo_pages/form_select2.js"></script>
+<script src="/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+<script src="/assets//js/plugins/forms/selects/select2.min.js"></script>
 
 <?= $this->endSection() ?>
