@@ -12,6 +12,9 @@
     <?php endif ?>
 
     <?php
+    $totalGrossProfit = 0;
+    $totalGrossSale = 0;
+    $totalNetProfit =0 ;
     $no = 0;
     ?>
     <div class="text-right mb-4">
@@ -21,6 +24,7 @@
         <?php endif ?>
     </div>
     <div class="row">
+        
         <?php if ($plReport->getNumRows() > 0) : ?>
             <?php foreach ($plReport->getResultArray() as $row) : ?>
                 <?php if (fmod($no, 2) == 0) : ?>
@@ -38,7 +42,21 @@
                                     $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
                                     $total = array_sum($temp);
                                     $avg = $total / count(array_filter($temp));
-
+                                    
+                                    if (strcasecmp($row['chart'], "Gross Sales") == 0) {
+                                        $totalGrossSale = $total;
+                                    } elseif (strcasecmp($row['chart'], "Gross Profit") ==  0 ) {
+                                        $totalGrossProfit = $total;
+                                    } elseif (strcasecmp($row['chart'], "Net Profit") == 0) {
+                                        $totalNetProfit = $total;
+                                    }
+                                    
+                                    if (strcasecmp($row['chart'], "Gross Profit Margin") == 0) {                                               
+                                        $total = $totalGrossProfit/$totalGrossSale;                                        
+                                    } elseif (strcasecmp($row['chart'], "Net Profit Margin") == 0) {
+                                        $total = $totalNetProfit/$totalGrossSale;
+                                    }
+                                    
                                     $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec'], round($avg, 0));
                                     $chartData = json_encode($data);
                                     $chartId = "viz_" . $no;
@@ -72,7 +90,7 @@
                                                 <?php if ($row['type'] == 'currency') : ?>
                                                     subtext: '$ <?= number_format($total, 0) ?>'
                                                 <?php elseif ($row['type'] == 'percentage') : ?>
-                                                    subtext: '<?= number_format($total, 0) ?> %'
+                                                    subtext: '<?= number_format($total, 2) ?> %'
                                                 <?php else : ?>
                                                     subtext: '<?= $total ?>'
                                                 <?php endif ?>,

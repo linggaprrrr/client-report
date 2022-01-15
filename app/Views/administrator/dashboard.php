@@ -23,7 +23,20 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-3">
+            <div class="card bg-secondary text-white">
+                <div class="card-header d-flex pb-1">
+                    <div>
+                        <span class="card-title font-weight-semibold">Total Cost Left</span>
+                        <h2 class="font-weight-bold mb-0">$ <?= number_format($totalCostLeft, 2) ?><small class="text-danger font-size-base ml-2"></small></h2>
+                    </div>
+                </div>
 
+                <div class="chart-container">
+                    <div class="chart" style="height: 50px"></div>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-3">
             <div class="card bg-danger text-white">
                 <div class="card-header d-flex pb-1">
@@ -55,20 +68,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="card bg-secondary text-white">
-                <div class="card-header d-flex pb-1">
-                    <div>
-                        <span class="card-title font-weight-semibold">Total Cost Left</span>
-                        <h2 class="font-weight-bold mb-0">$ <?= number_format($totalCostLeft, 2) ?><small class="text-danger font-size-base ml-2"></small></h2>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <div class="chart" style="height: 50px"></div>
-                </div>
-            </div>
-        </div>
+        
     </div>
     <div class="card">
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
@@ -123,13 +123,18 @@
                     <th>Total Client Cost</th>
                     <th>Total Fulfilled</th>
                     <th>Total Cost Left</th>
+                    <th class="text-center">Status</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if ($getAllReports->getNumRows() > 0) : ?>
                     <?php $no = 1; ?>
                     <?php foreach ($getAllReports->getResultArray() as $row) : ?>
-                        <tr>
+                        <?php if ($row['status'] == 'complete') :?>
+                        <tr class="table-info">
+                        <?php else : ?>
+                        <tr class="table-active">
+                        <?php endif ?>
                             <td class="text-center"><?= $no++ ?></td>
                             <td><?= $row['fullname'] ?></td>
                             <td><?= $row['company'] ?></td>
@@ -142,7 +147,11 @@
                             <td class="text-center">$ <?= number_format($row['client_cost'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['total_fulfilled'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['cost_left'], 2) ?></td>
-
+                            <?php if ($row['status'] == 'complete') :?>
+                                <td class="text-center font-weight-bold"><span class="badge badge-primary">COMPLETE</span></td>
+                            <?php else: ?>
+                                <td class="text-center font-weight-bold"><span class="badge badge-secondary">WORKING</span></td>
+                            <?php endif ?>
                         </tr>
                     <?php endforeach ?>
                 <?php endif ?>
