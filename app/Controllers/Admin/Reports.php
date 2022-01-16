@@ -394,6 +394,30 @@ class Reports extends BaseController
         echo json_encode($company);
     }
 
+    public function assignClient() {
+        $post = $this->request->getVar();
+        $boxId = substr($post['box_id'], 4);
+        $clientId = $post['client_id'];
+        $boxValue = $post['box_value'];
+        $total = 0;
+        $totalBox = $this->db->query("SELECT SUM(box_value) as total_box, MIN(client_cost_left) as cost_left FROM assign_report_box WHERE client_id='$clientId' ")->getRow();
+        dd($totalBox);
+        if (!is_null($totalBox->total_box)) {
+            $currentCost = $totalBox->total_box;
+        } else {
+            $getCostInvest = $this->db->query("SELECT cost FROM investments WHERE client_id='$clientId' ")->getRow();               
+            $total = $getCostInvest->cost - $boxValue; 
+        }
+        
+        
+        if ($total > -500) {
+            $this->db->query("UPDATE assign_report_box SET client_id='$clientId', client_cost_left='$total' WHERE id='$boxId' ");
+        }
+        echo $total;
+
+        
+    }
+
     public function checklistReport()
     {
         $userId = session()->get('user_id');

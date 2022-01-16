@@ -156,36 +156,39 @@
         var valueBox = valueBox.substring(2);
 
         var clientId = this.value;
+        $.post('/assign-client', {box_id: boxId, client_id: clientId, box_value: valueBox}, function(data){
+            console.log(data);
+        }); 
+        
 
-        console.log(valueBox);
-        $.get('/get-company/' + clientId, function(data) {
-            if (data != 'null') {
-                var client = JSON.parse(data);
-                if (i == 1) {
-                    tempTotal = parseFloat(client['cost']);
-                    i = 4;
-                }
-                total = tempTotal - parseFloat(valueBox);
-                if (total <= -500) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Total exceed $500.00!'
-                    })
-                } else {
-                    $('.company_' + boxId).html("<b>22" + client['company'] + "</b>");
-                    $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(client['cost']) + "</b>");
-                    $('.total_' + boxId).html("<b>$ " + numberWithCommas(total.toFixed(2)) + "</b>");
-                    tempTotal = total;
-                }
+        // $.get('/get-company/' + clientId, function(data) {
+        //     if (data != 'null') {
+        //         var client = JSON.parse(data);
+        //         if (i == 1) {
+        //             tempTotal = parseFloat(client['cost']);
+        //             i = 4;
+        //         }
+        //         total = tempTotal - parseFloat(valueBox);
+        //         if (total <= -500) {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Oops...',
+        //                 text: 'Total exceed $500.00!'
+        //             })
+        //         } else {
+        //             $('.company_' + boxId).html("<b>22" + client['company'] + "</b>");
+        //             $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(client['cost']) + "</b>");
+        //             $('.total_' + boxId).html("<b>$ " + numberWithCommas(total.toFixed(2)) + "</b>");
+        //             tempTotal = total;
+        //         }
 
-            } else {
-                $('.company_' + boxId).html("");
-                $('.currentCost_' + boxId).html("");
-                $('.total_' + boxId).html("");
-            }
+        //     } else {
+        //         $('.company_' + boxId).html("");
+        //         $('.currentCost_' + boxId).html("");
+        //         $('.total_' + boxId).html("");
+        //     }
 
-        })
+        // })
     });
     $('#noty_created').on('click', function() {
         new Noty({

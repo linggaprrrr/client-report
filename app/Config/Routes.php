@@ -75,7 +75,7 @@ $routes->get('/test_json', 'Clients::test_json');
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');
 $routes->post('/update-link-spreadhsheet', 'Admin\Reports::updateLink');
-
+$routes->post('/assign-client', 'Admin\Reports::assignClient');
 
 /*
  * --------------------------------------------------------------------

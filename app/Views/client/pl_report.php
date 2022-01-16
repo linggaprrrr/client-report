@@ -52,9 +52,9 @@
                                     }
                                     
                                     if (strcasecmp($row['chart'], "Gross Profit Margin") == 0) {                                               
-                                        $total = $totalGrossProfit/$totalGrossSale;                                        
+                                        $total = ($totalGrossProfit/$totalGrossSale) * 100;                                        
                                     } elseif (strcasecmp($row['chart'], "Net Profit Margin") == 0) {
-                                        $total = $totalNetProfit/$totalGrossSale;
+                                        $total = ($totalNetProfit/$totalGrossSale) * 100;
                                     }
                                     
                                     $data = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec'], round($avg, 0));
