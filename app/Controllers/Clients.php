@@ -202,9 +202,33 @@ class Clients extends BaseController
         d("kwkwkw");
     }
 
-
-
-    public function ajaxDatatable()
+    public function getStarted()
     {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        }
+        $user = $this->userModel->find($userId);
+        $data = [
+            'tittle' => "Get Started | Report Management System",
+            'menu' => "Get Started",
+            'user' => $user,
+        ];
+        return view('client/getstarted', $data);
+    }
+
+    public function brandApprovals()
+    {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        }
+        $user = $this->userModel->find($userId);
+        $data = [
+            'tittle' => "Brand Approvals | Report Management System",
+            'menu' => "Brand Approvals",
+            'user' => $user,
+        ];
+        return view('client/brand_approvals', $data);
     }
 }

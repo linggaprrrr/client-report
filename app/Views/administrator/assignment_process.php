@@ -4,48 +4,12 @@
 
 <div class="content">
     <div class="card">
-        <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
-            <div>
-                <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-file-upload mr-2"></i>Upload Report</button>
-                <div id="modal_form_upload" class="modal fade" tabindex="-1">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header bg-secondary text-white">
-                                <h5 class="modal-title">Upload Assignment Report</h5>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <form action="<?= base_url('upload-assignment') ?>" method="POST" enctype="multipart/form-data">
-                                <?php csrf_field() ?>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label>File:</label>
-                                        <label class="custom-file">
-                                            <input type="file" name="file" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
-                                            <span class="custom-file-label" id="file-upload-filename">Choose file</span>
-                                        </label>
-                                        <span class="form-text text-muted">Accepted formats: xls/xlsx. Max file size 10Mb</span>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <div class="text-right">
-                                        <button type="submit" class="btn btn-secondary">Save <i class="icon-paperplane ml-2"></i></button>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr class="m-0">
         <form class="wizard-form steps-async wizard clearfix" action="<?= base_url() ?>/save-assignment" method="post" data-fouc="" role="application" id="steps-uid-1">
             <?= csrf_field() ?>
             <div class="steps clearfix">
                 <ul role="tablist">
-                    <li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a id="steps-uid-1-t-0" href="#steps-uid-1-h-0" aria-controls="steps-uid-1-p-0" class=""><span class="current-info audible">current step: </span><span class="number">1</span> Box Assignment</a></li>
-                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-1-t-1" href="#steps-uid-1-h-1" aria-controls="steps-uid-1-p-1" class="disabled"><span class="number">2</span> Assignment Process</a></li>
+                    <li role="tab" class="disabled" aria-disabled="true" aria-selected="true"><a id="steps-uid-1-t-0" href="#steps-uid-1-h-0" aria-controls="steps-uid-1-p-0" class=""><span class="current-info audible">current step: </span><span class="number">1</span> Box Assignment</a></li>
+                    <li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a id="steps-uid-1-t-1" href="#steps-uid-1-h-1" aria-controls="steps-uid-1-p-1" class="disabled"><span class="number">2</span> Assignment Process</a></li>
                     <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-1-t-2" href="#steps-uid-1-h-2" aria-controls="steps-uid-1-p-2" class="disabled"><span class="number">3</span> Completed Assignment</a></li>
                 </ul>
             </div>
@@ -73,11 +37,11 @@
                                 <td><?= $row['status'] ?></td>
                                 <td class="value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
                                 <td>
-                                    <input type="text" class="daterange-single" name="date[]" style="width: 90px; text-align:center">
+                                    <input type="text" class="daterange-single" name="date[]" value="10/01/2022" style="width: 90px; text-align:center">
                                 </td>
                                 <td>
                                     <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
-                                        <option value="0">Select Client</option>
+                                        <option>Select Client</option>
                                         <?php foreach ($getAllClient->getResultArray() as $client) : ?>
                                             <option value="<?= $client['id'] ?>"><?= $client['fullname'] ?></option>
                                         <?php endforeach ?>
@@ -161,41 +125,34 @@
         var clientId = this.value;
 
         console.log(valueBox);
-        $.post('/assign-box', {
-            box_id: boxId,
-            client_id: clientId,
-            value_box: valueBox
-        }, function(data) {
+        $.get('/get-company/' + clientId, function(data) {
+            if (data != 'null') {
+                var client = JSON.parse(data);
+                if (i == 1) {
+                    tempTotal = parseFloat(client['cost']);
+                    i = 4;
+                }
+                total = tempTotal - parseFloat(valueBox);
+                if (total <= -500) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Total exceed $500.00!'
+                    })
+                } else {
+                    $('.company_' + boxId).html("<b>22" + client['company'] + "</b>");
+                    $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(client['cost']) + "</b>");
+                    $('.total_' + boxId).html("<b>$ " + numberWithCommas(total.toFixed(2)) + "</b>");
+                    tempTotal = total;
+                }
 
-        });
-        // $.get('/get-company/' + clientId, function(data) {
-        //     if (data != 'null') {
-        //         var client = JSON.parse(data);
-        //         if (i == 1) {
-        //             tempTotal = parseFloat(client['cost']);
-        //             i = 4;
-        //         }
-        //         total = tempTotal - parseFloat(valueBox);
-        //         if (total <= -500) {
-        //             Swal.fire({
-        //                 icon: 'error',
-        //                 title: 'Oops...',
-        //                 text: 'Total exceed $500.00!'
-        //             })
-        //         } else {
-        //             $('.company_' + boxId).html("<b>22" + client['company'] + "</b>");
-        //             $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(client['cost']) + "</b>");
-        //             $('.total_' + boxId).html("<b>$ " + numberWithCommas(total.toFixed(2)) + "</b>");
-        //             tempTotal = total;
-        //         }
+            } else {
+                $('.company_' + boxId).html("");
+                $('.currentCost_' + boxId).html("");
+                $('.total_' + boxId).html("");
+            }
 
-        //     } else {
-        //         $('.company_' + boxId).html("");
-        //         $('.currentCost_' + boxId).html("");
-        //         $('.total_' + boxId).html("");
-        //     }
-
-        // })
+        })
     });
     $('#noty_created').on('click', function() {
         new Noty({

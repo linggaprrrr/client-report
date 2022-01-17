@@ -424,6 +424,31 @@ class Reports extends BaseController
         return redirect()->back()->with('success', 'Report Successfully saved!');
     }
 
+    public function saveAssignmentReport()
+    {
+        $post = $this->request->getVar();
+        $temp = array();
+        $temp2 = array();
+        foreach ($post['client'] as $idx => $data) {
+            if ($data != '0') {
+                array_push($temp, $data);
+                array_push($temp2, $post['date'][$idx]);
+            }
+        }
+        d($post);
+        d($temp);
+        d($temp2);
+    }
+
+    public function assignBox()
+    {
+        $post = $this->request->getVar();
+        d($post['box_id']);
+        $boxId = trim(substr($post['box_id'], 4));
+        d($boxId);
+        $clientId = $post['client_id'];
+        $valueBox = $post['value_box'];
+    }
     public function updateLink()
     {
         $post = $this->request->getVar();

@@ -44,18 +44,18 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <!-- Main -->
                 <li class="nav-item">
-                    <a href="<?= base_url('/dashboard') ?>" class="nav-link">
-                        <i class="icon-home4"></i>
+                    <a href="<?= base_url('/get-started') ?>" class="nav-link">
+                        <i class="icon-rocket"></i>
                         <span>
-                            Dashboard
+                            Get Started
                         </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/news') ?>" class="nav-link">
-                        <i class="icon-newspaper"></i>
+                    <a href="<?= base_url('/dashboard') ?>" class="nav-link">
+                        <i class="icon-home4"></i>
                         <span>
-                            News Announcement
+                            Dashboard
                         </span>
                     </a>
                 </li>
@@ -68,10 +68,26 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url('/brand-approvals') ?>" class="nav-link">
+                        <i class="fa fa-amazon" style="margin-top: 6px"></i>
+                        <span style="margin-left: 2px;">
+                            Brand Approvals
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url('/pl-report') ?>" class="nav-link">
                         <i class="icon-clipboard5"></i>
                         <span>
-                            P & L Report
+                            P&L Report
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/news') ?>" class="nav-link">
+                        <i class="icon-megaphone"></i>
+                        <span>
+                            Announcements
                         </span>
                     </a>
                 </li>
