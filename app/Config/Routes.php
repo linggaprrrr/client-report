@@ -54,8 +54,13 @@ $routes->get('/admin/assignment-report', 'Admin\Reports::assignmentReport');
 $routes->post('/upload-assignment', 'Admin\Reports::assignmentReportSubmit');
 $routes->get('/admin/checklist-report', 'Admin\Reports::checklistReport');
 $routes->post('/admin/checklist-report-save', 'Admin\Reports::checklistReportSave');
+$routes->post('/save-assignment', 'Admin\Reports::saveAssignmentReport');
+
+
 
 // client side
+$routes->get('/get-started', 'Clients::getStarted');
+$routes->get('/brand-approvals', 'Clients::brandApprovals');
 $routes->get('/dashboard', 'Clients::index');
 $routes->post('/dashboard', 'Clients::index');
 $routes->get('/account-setting', 'Clients::accountSetting');
@@ -75,7 +80,9 @@ $routes->get('/test_json', 'Clients::test_json');
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');
 $routes->post('/update-link-spreadhsheet', 'Admin\Reports::updateLink');
-$routes->post('/assign-client', 'Admin\Reports::assignClient');
+$routes->post('/get-investment-client', 'Admin\Reports::getInvestmentClient');
+$routes->post('/assign-box', 'Admin\Reports::assignBox');
+
 
 /*
  * --------------------------------------------------------------------

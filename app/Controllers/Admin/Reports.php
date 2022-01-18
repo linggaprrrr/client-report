@@ -180,7 +180,7 @@ class Reports extends BaseController
     public function deleteReport($id)
     {
         $this->reportModel->deleteReport($id);
-        return redirect()->back()->with('delete', 'Report Successfully Deleted!');
+        // return redirect()->back()->with('delete', 'Report Successfully Deleted!');
     }
 
     public function plReport()
@@ -448,6 +448,56 @@ class Reports extends BaseController
         return redirect()->back()->with('success', 'Report Successfully saved!');
     }
 
+    public function saveAssignmentReport()
+    {
+        $post = $this->request->getVar();
+        $temp = array();
+        $temp2 = array();
+        foreach ($post['client'] as $idx => $data) {
+            if ($data != '0') {
+                array_push($temp, $data);
+                array_push($temp2, $post['date'][$idx]);
+            }
+        }
+        d($post);
+        d($temp);
+        d($temp2);
+    }
+
+    // status ready to assign
+    public function getInvestmentClient() {
+        $id = $this->request->getVar('id');
+        $investments = $this->investmentModel->getInvestcmentClient($id);
+        $option = array();
+        if ($investments->getNumRows() > 0) {
+            foreach ($investments->getResultArray() as $idx => $data) {
+                $newDate = date("M-d-Y", strtotime($data['date'])); 
+                if ($idx == 0) {
+                    array_push($option, "<option selected value=".$data['id']."  data-foo=".$data['cost'].">".strtoupper($newDate)."</option>");
+                } else {
+                    array_push($option, "<option value=".$data['id']."  data-foo=".$data['cost'].">".strtoupper($newDate)."</option>");
+                }
+            }
+        }
+        echo json_encode($option);
+    }
+
+    public function assignBox()
+    {
+        $post = $this->request->getVar();
+        d($post['box_id']);
+        $boxId = trim(substr($post['box_id'], 4));        
+        $clientId = $post['client_id'];
+        $valueBox = $post['value_box'];
+
+        $getClientCost = $this->investmentModel->getClientCost($client);
+        d($getClientCost);
+        $status = 1;
+        $feedback = array(
+            'status' => $status,
+        );
+        echo json_encode($feedback);
+    }
     public function updateLink()
     {
         $post = $this->request->getVar();

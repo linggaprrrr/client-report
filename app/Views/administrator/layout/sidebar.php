@@ -78,7 +78,7 @@
                     <a href="<?= base_url('/admin/p-and-l-report') ?>" class="nav-link">
                         <i class="icon-clipboard5"></i>
                         <span>
-                            P & L Reports
+                            P&L Reports
                         </span>
                     </a>
                 </li>
@@ -92,6 +92,7 @@
                     <ul class="nav nav-group-sub" data-submenu-title="Assignment Report">
                         <li class="nav-item"><a href="<?= base_url('/admin/checklist-report') ?>" class="nav-link">Report Checklist</a></li>
                         <li class="nav-item"><a href="<?= base_url('/admin/assignment-report') ?>" class="nav-link">Assign Report</a></li>
+                        <li class="nav-item"><a href="<?= base_url('/admin/assignment-history') ?>" class="nav-link">Assignment History</a></li>
                     </ul>
                 </li>
 

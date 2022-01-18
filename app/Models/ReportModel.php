@@ -61,7 +61,7 @@ class ReportModel extends Model
 
     public function getAllReports()
     {
-        $query = $this->db->query("SELECT a.client_id, fullname, investment_date, status, company, SUM(a.qty) as total_unit, SUM(original_value) as total_retail, SUM(a.bal) as client_cost, SUM(a.total_fulfilled) as total_fulfilled, (SUM(a.bal)-SUM(IFNULL(a.total_fulfilled, 0))) as cost_left, (SUM(a.bal)-SUM(a.total_fulfilled)) as total_client_cost, (SUM(a.total_fulfilled)/SUM(a.qty)) as avg_client_cost, (SUM(original_value)/SUM(qty)) as avg_unit_retail FROM (SELECT (SUM(investments.cost)/COUNT(*)) as bal, investments.client_id, investments.date as investment_date, SUM(qty) as qty, SUM(original_value) as original_value, SUM(reports.cost) as total_fulfilled, investments.status as status FROM `investments` LEFT JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as a  JOIN users ON users.id = a.client_id GROUP BY client_id");
+        $query = $this->db->query("SELECT a.client_id, fullname, investment_date, status, company, SUM(a.qty) as total_unit, SUM(original_value) as total_retail, SUM(a.bal) as client_cost, SUM(a.total_fulfilled) as total_fulfilled, (SUM(a.bal)-SUM(IFNULL(a.total_fulfilled, 0))) as cost_left, (SUM(a.bal)-SUM(a.total_fulfilled)) as total_client_cost, (SUM(a.total_fulfilled)/SUM(a.qty)) as avg_client_cost, (SUM(original_value)/SUM(qty)) as avg_unit_retail FROM (SELECT (SUM(investments.cost)/COUNT(*)) as bal, investments.client_id, investments.date as investment_date, SUM(qty) as qty, SUM(original_value) as original_value, SUM(reports.cost) as total_fulfilled, investments.status as status FROM `investments` LEFT JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as a  JOIN users ON users.id = a.client_id GROUP BY client_id ORDER BY investment_date ASC");
         return $query;
     }
 
@@ -86,7 +86,7 @@ class ReportModel extends Model
 
     public function getAllFiles()
     {
-        $query = $this->db->query("SELECT log_files.id as log_id, fullname, company, file, log_files.date, link, log_files.investment_id FROM `investments` JOIN users ON investments.client_id = users.id JOIN log_files ON log_files.client_id = users.id GROUP BY investments.id ORDER BY log_files.id DESC");
+        $query = $this->db->query("SELECT log_files.id as log_id, investments.date as invest_date, fullname, company, file, log_files.date, link, investments.id as investment_id  FROM `log_files` JOIN investments ON investments.id = log_files.investment_id JOIN users ON users.id = log_files.client_id");
         return $query;
     }
 
@@ -98,10 +98,9 @@ class ReportModel extends Model
 
     public function deleteReport($id)
     {
-        $query = $this->db->query("DELETE FROM reports WHERE investment_id = $id");
-        $query = $this->db->query("DELETE FROM investments WHERE id = $id");
-        $query = $this->db->query("DELETE FROM categories WHERE investment_id = $id");
-        $query = $this->db->query("DELETE FROM log_files WHERE investment_id = $id");
+        $this->db->query("DELETE FROM reports WHERE investment_id='$id'");
+        $this->db->query("DELETE FROM investments WHERE id='$id' ");
+        $this->db->query("DELETE FROM log_files WHERE investment_id='$id' ");
     }
 
     public function getVendorName($id)

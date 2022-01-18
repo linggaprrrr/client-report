@@ -80,4 +80,15 @@ class InvestmentModel extends Model
         $query = $this->db->query("SELECT investments.*, users.fullname, users.company FROM investments JOIN users on investments.client_id = users.id WHERE users.role = 'client' ORDER by date DESC ");
         return $query;
     }
+
+    public function getClientCost($id) {
+        $query = $this->db->query("SELECT cost FROM investments WHERE client_id='$id' ")->getRow();
+        return $query->cost;
+    }
+
+    public function getInvestcmentClient($id) {
+        $query = $this->db->query("SELECT * FROM investments JOIN users ON users.id = investments.client_id WHERE client_id='$id' AND status = 'assign' ");
+        return $query;
+    }
+
 }

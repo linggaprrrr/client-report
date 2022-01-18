@@ -379,7 +379,7 @@
                                         },
                                         {
                                             value: <?= number_format(($totalInvest->total_client_cost), 2, '.', '') ?>,
-                                            name: 'Client Cost <?= number_format($clientCostPercent, 1) ?>%'
+                                            name: 'Remaining <?= number_format($clientCostPercent, 1) ?>%'
                                         }
 
                                     ],

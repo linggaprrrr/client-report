@@ -126,6 +126,7 @@
             <thead>
                 <tr>
                     <th style="width: 5%">No</th>
+                    <th>Investment Date</th>
                     <th>Client Name</th>
                     <th>Company Name</th>
                     <th>File Uploaded</th>
@@ -141,6 +142,10 @@
                     <?php foreach ($getAllFiles->getResultArray() as $row) : ?>
                         <tr>
                             <td class="text-center"><?= $no++ ?></td>
+                            <td class="text-center font-weight-bold">
+                                <?php $newDate = date("M-d-Y", strtotime($row['invest_date'])); ?>
+                                <?= strtoupper($newDate) ?>
+                            </td>
                             <td><?= $row['fullname'] ?></td>
                             <td><?= $row['company'] ?></td>
                             <td><?= $row['file'] ?></td>
