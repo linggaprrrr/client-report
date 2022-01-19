@@ -52,14 +52,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/dashboard') ?>" class="nav-link">
-                        <i class="icon-home4"></i>
-                        <span>
-                            Dashboard
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="<?= base_url('/purchase-inventory') ?>" class="nav-link">
                         <i class="icon-cart4"></i>
                         <span>
@@ -72,6 +64,14 @@
                         <i class="fa fa-amazon" style="margin-top: 6px"></i>
                         <span style="margin-left: 2px;">
                             Brand Approvals
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/dashboard') ?>" class="nav-link">
+                        <i class="icon-home4"></i>
+                        <span>
+                            Manifests
                         </span>
                     </a>
                 </li>

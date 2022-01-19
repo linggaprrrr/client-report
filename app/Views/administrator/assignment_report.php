@@ -85,10 +85,10 @@
                                     </select>
                                 </td>
                                 <td class="company_box_<?= $no ?>"></td>
-                                <td class="date_box_<?= $no ?>">    
-                                    <select class="select_date_box_<?= $no ?>" >
+                                <td class="date_box_<?= $no ?>">
+                                    <select class="select_date_box_<?= $no ?>">
 
-                                    </select>                                       
+                                    </select>
                                 </td>
                                 <td class="currentCost_box_<?= $no ?>"></td>
                                 <td class="total_box_<?= $no ?>"></td>
@@ -159,40 +159,43 @@
     var tempTotal = 0;
     var total = 0;
 
-    
+
     $('.clientSelect').on('change', function() {
         var boxId = $(this).attr('id');
         var valueBoxId = "value_" + $(this).attr('id');
         var valueBox = $('.' + valueBoxId).html();
         var valueBox = valueBox.substring(2);
-
         var clientId = this.value;
-        $.get('/get-company/' + clientId, function(data){
+
+        $('.select_date_' + boxId).html("");
+        $.get('/get-company/' + clientId, function(data) {
             var company = JSON.parse(data);
             $('.company_' + boxId).html("<b>" + company['company'] + "</b>");
         });
-        $.post('/get-investment-client', {id: clientId}, function(data) {
+        $.post('/get-investment-client', {
+            id: clientId
+        }, function(data) {
             var investdate = JSON.parse(data);
             for (var i = 0; i < investdate.length; i++) {
-                $('.select_date_'+boxId).append(investdate[i]);
+                $('.select_date_' + boxId).append(investdate[i]);
             }
 
-            var selected =  $('.select_date_'+boxId).find('option:selected');
+            var selected = $('.select_date_' + boxId).find('option:selected');
             var currentCost = selected.data('foo');
             $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(currentCost) + "</b>");
-            
+
             // $.post('/assign-box', {
             //     box_id: boxId,
             //     client_id: clientId,
             //     value_box: valueBox
             // }, function(data) {
         });
-        $('.select_date_'+boxId).on('change', function() {
-            var selected =  $(this).find('option:selected');
+        $('.select_date_' + boxId).on('change', function() {
+            var selected = $(this).find('option:selected');
             var currentCost = selected.data('foo');
             $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(currentCost) + "</b>");
         });
-        
+
 
         // });
         // $.get('/get-company/' + clientId, function(data) {
@@ -225,7 +228,7 @@
         // })
     });
 
-    
+
 
 
     $('#noty_created').on('click', function() {

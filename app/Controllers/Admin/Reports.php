@@ -394,7 +394,8 @@ class Reports extends BaseController
         echo json_encode($company);
     }
 
-    public function assignClient() {
+    public function assignClient()
+    {
         $post = $this->request->getVar();
         $boxId = substr($post['box_id'], 4);
         $clientId = $post['client_id'];
@@ -405,17 +406,15 @@ class Reports extends BaseController
         if (!is_null($totalBox->total_box)) {
             $currentCost = $totalBox->total_box;
         } else {
-            $getCostInvest = $this->db->query("SELECT cost FROM investments WHERE client_id='$clientId' ")->getRow();               
-            $total = $getCostInvest->cost - $boxValue; 
+            $getCostInvest = $this->db->query("SELECT cost FROM investments WHERE client_id='$clientId' ")->getRow();
+            $total = $getCostInvest->cost - $boxValue;
         }
-        
-        
+
+
         if ($total > -500) {
             $this->db->query("UPDATE assign_report_box SET client_id='$clientId', client_cost_left='$total' WHERE id='$boxId' ");
         }
         echo $total;
-
-        
     }
 
     public function checklistReport()
@@ -465,17 +464,18 @@ class Reports extends BaseController
     }
 
     // status ready to assign
-    public function getInvestmentClient() {
+    public function getInvestmentClient()
+    {
         $id = $this->request->getVar('id');
         $investments = $this->investmentModel->getInvestcmentClient($id);
         $option = array();
         if ($investments->getNumRows() > 0) {
             foreach ($investments->getResultArray() as $idx => $data) {
-                $newDate = date("M-d-Y", strtotime($data['date'])); 
+                $newDate = date("M-d-Y", strtotime($data['date']));
                 if ($idx == 0) {
-                    array_push($option, "<option selected value=".$data['id']."  data-foo=".$data['cost'].">".strtoupper($newDate)."</option>");
+                    array_push($option, "<option selected value=" . $data['id'] . "  data-foo=" . $data['cost'] . ">" . strtoupper($newDate) . "</option>");
                 } else {
-                    array_push($option, "<option value=".$data['id']."  data-foo=".$data['cost'].">".strtoupper($newDate)."</option>");
+                    array_push($option, "<option value=" . $data['id'] . "  data-foo=" . $data['cost'] . ">" . strtoupper($newDate) . "</option>");
                 }
             }
         }
@@ -485,12 +485,11 @@ class Reports extends BaseController
     public function assignBox()
     {
         $post = $this->request->getVar();
-        d($post['box_id']);
-        $boxId = trim(substr($post['box_id'], 4));        
+        $boxId = trim(substr($post['box_id'], 4));
         $clientId = $post['client_id'];
         $valueBox = $post['value_box'];
 
-        $getClientCost = $this->investmentModel->getClientCost($client);
+        $getClientCost = $this->investmentModel->getClientCost($clientId);
         d($getClientCost);
         $status = 1;
         $feedback = array(
@@ -508,11 +507,5 @@ class Reports extends BaseController
 
     public function test()
     {
-        $client = $this->request->getVar('client');
-        $date = $this->request->getVar('date');
-        $date = date('Y-m-d', strtotime($date));
-        $report = $this->request->getFile('file');
-        $reportName = $report->getTempName();
-        $csv_data = array_map('str_getcsv', file($reportName));
     }
 }
