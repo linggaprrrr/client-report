@@ -549,7 +549,13 @@ class Reports extends BaseController
     public function getBoxSummary() {
         $boxName = $this->request->getVar('box_name');
         $getBoxSum = $this->assignReportModel->getBoxSummary($boxName);
-        dd($getBoxSum->getResultArray());
+        $item = array();
+        if ($getBoxSum->getNumRows() > 0) {
+            foreach ($getBoxSum->getResultArray() as $row) {
+                array_push($item, $row);
+            }
+        }
+        echo json_encode($item);
     }
 
     public function resetAssignment() {

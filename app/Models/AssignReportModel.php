@@ -49,7 +49,7 @@ class AssignReportModel extends Model
     }
 
     public function getBoxSummary($box_name) {
-        $query = $this->db->query("SELECT * FROM box_sum JOIN assign_report_details ON assign_report_details.box_name = box_sum.box_name JOIN assign_report_box ON assign_report_details.box_name = assign_report_box.box_name WHERE box_sum.box_name ='$box_name' ");
+        $query = $this->db->query("SELECT assign_report_details.id, sku, item_description, cond, qty, retail, original, vendor FROM box_sum JOIN assign_report_details ON assign_report_details.box_name = box_sum.box_name JOIN assign_report_box ON assign_report_details.box_name = assign_report_box.box_name WHERE box_sum.box_name ='$box_name' ");
         return $query;
     }
 

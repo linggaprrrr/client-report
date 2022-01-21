@@ -115,20 +115,72 @@
                                             
             </table>
             <div class="modal fade modal_scrollable_box" tabindex="-1">
-                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-dialog modal-full modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header pb-3">
-                            <h5 class="modal-title">Scrollable modal</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h5><b>BOX #<span class="modal-title">#title</span></b></h5>
+                            <div class="reset-button-item">
+                                <a href="#" id="reset"><span class="badge badge-danger"><i class="icon-reset mr-1"></i>RESET</span></a>
+                            </div>
                         </div>
 
                         <div class="modal-body py-0">
+                            <form>
+                                <div class="table-responsive" id="item-table">
+                                    
+                                    <table class="table" style="font-weight:bold">
+                                        <thead>
+                                            <tr class="bg-secondary text-white">
+                                                <th style="width: 5%;">#</th>
+                                                <th>SKU</th>
+                                                <th>Item Description</th>
+                                                <th>Condition</th>
+                                                <th>Qty</th>
+                                                <th>Retail</th>
+                                                <th>Original</th>
+                                                <th>Vendor</th>
+                                                <th style="width: 5%;"><i class="icon-arrow-down12"></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="item-tbody">                                            
+                                            
+                                        </tbody>
+                                    </table>                                    
+                                </div>
+                                <div class="table-responsive" id="item-table-removed">                                    
+                                    <table class="table" style="font-weight:bold">
+                                        <thead>
+                                            <tr class="bg-danger text-white">
+                                                <th style="width: 5%;">#</th>
+                                                <th>SKU</th>
+                                                <th>Item Description</th>
+                                                <th>Condition</th>
+                                                <th>Qty</th>
+                                                <th>Retail</th>
+                                                <th>Original</th>
+                                                <th>Vendor</th>
+                                                <th style="width: 5%;"><i class="icon-arrow-down12"></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="item-tbody">                                            
+                                            
+                                        </tbody>
+                                    </table>                                    
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for=""><b>Note:</b></label>
+                                    <div class="input-group">                                        
+                                        <textarea name="note" class="form-control" id="note" rows="3" placeholder="-"></textarea>
+                                    </div>
+                                </div>
+                            </form>
                             
                         </div>
 
                         <div class="modal-footer pt-3">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -201,11 +253,44 @@
 
         $('.box_name').on('click', function() {
             var boxName =  $(this).attr('data-box');
+            $('#item-table tbody').html("");
             $.get('/get-box-summary', {box_name: boxName}, function(data) {
+                var item = JSON.parse(data);
+                
+                if (item.length > 0) {             
+                    var no = 1;   
+                    for (var i = 0; i < item.length; i++) {                        
+                        if (i % 2 == 0) {
+                            $('#item-table tbody').append('<tr> <td>'+ no++ +'</td> <td>'+item[i]['sku']+'</td> <td>'+item[i]['item_description']+'</td> <td>'+item[i]['cond']+'</td> <td>'+item[i]['qty']+'</td> <td>$ '+numberWithCommas(item[i]['retail'])+'</td> <td>$ '+numberWithCommas(item[i]['original'])+'</td> <td>'+item[i]['vendor']+'</td> <td><a href="#" class="remove"><i class="icon-minus-circle2"></a></td> </tr>');
+                        } else {
+                            $('#item-table tbody').append('<tr class="table-active"> <td>'+ no++ +'</td> <td>'+item[i]['sku']+'</td> <td>'+item[i]['item_description']+'</td> <td>'+item[i]['cond']+'</td> <td>'+item[i]['qty']+'</td> <td>$ '+numberWithCommas(item[i]['retail'])+'</td> <td>$ '+numberWithCommas(item[i]['original'])+'</td> <td>'+item[i]['vendor']+'</td> <td><a href="#" class="remove"><i class="icon-minus-circle2"></a></td> </tr>');
+                        }
+                    }
+                }
+                $('.modal-title').html("<b>"+ boxName + "</b>");                    
+                $('.modal_scrollable_box').modal('show');
 
+                $('#reset').on('click', function() {
+                    $('#item-table tbody').html("");
+                    if (item.length > 0) {             
+                    var no = 1;   
+                    for (var i = 0; i < item.length; i++) {                        
+                        if (i % 2 == 0) {
+                            $('#item-table tbody').append('<tr> <td>'+ no++ +'</td> <td>'+item[i]['sku']+'</td> <td>'+item[i]['item_description']+'</td> <td>'+item[i]['cond']+'</td> <td>'+item[i]['qty']+'</td> <td>$ '+numberWithCommas(item[i]['retail'])+'</td> <td>$ '+numberWithCommas(item[i]['original'])+'</td> <td>'+item[i]['vendor']+'</td> <td><a href="#" class="remove"><i class="icon-minus-circle2"></a></td> </tr>');
+                        } else {
+                            $('#item-table tbody').append('<tr class="table-active"> <td>'+ no++ +'</td> <td>'+item[i]['sku']+'</td> <td>'+item[i]['item_description']+'</td> <td>'+item[i]['cond']+'</td> <td>'+item[i]['qty']+'</td> <td>$ '+numberWithCommas(item[i]['retail'])+'</td> <td>$ '+numberWithCommas(item[i]['original'])+'</td> <td>'+item[i]['vendor']+'</td> <td><a href="#" class="remove"><i class="icon-minus-circle2"></a></td> </tr>');
+                        }
+                    }
+                }
+                });
             });
         });
     });
+
+    $(document).on('click','.remove',function(){
+        $(this).parents('tr').remove();
+    });
+
 
     $('#noty_created').on('click', function() {
         new Noty({
@@ -224,19 +309,6 @@
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    var input = document.getElementById('file-upload');
-    var infoArea = document.getElementById('file-upload-filename');
-
-    input.addEventListener('change', showFileName);
-
-    function showFileName(event) {
-        // the change event gives us the input it occurred in 
-        var input = event.srcElement;
-        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-        var fileName = input.files[0].name;
-        // use fileName however fits your app best, i.e. add it into a div
-        infoArea.textContent = '' + fileName;
-    }
 </script>
 
 <?= $this->endSection() ?>
