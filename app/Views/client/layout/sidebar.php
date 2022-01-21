@@ -61,7 +61,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url('/brand-approvals') ?>" class="nav-link">
-                        <i class="fa fa-amazon" style="margin-top: 6px"></i>
+                        <i class="fa fa-amazon" style="margin-top: 4px"></i>
                         <span style="margin-left: 2px;">
                             Brand Approvals
                         </span>

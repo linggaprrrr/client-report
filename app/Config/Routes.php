@@ -51,11 +51,12 @@ $routes->get('/admin/p-and-l-report', 'Admin\Reports::plReport');
 $routes->post('/upload-pl-report', 'Admin\Reports::uploadPLReport');
 $routes->delete('/pl-report/(:num)', 'Admin\Reports::deletePLReport/$1');
 $routes->get('/admin/assignment-report', 'Admin\Reports::assignmentReport');
+$routes->get('/admin/assignment-process', 'Admin\Reports::assignmentReportProcess');
 $routes->post('/upload-assignment', 'Admin\Reports::assignmentReportSubmit');
 $routes->get('/admin/checklist-report', 'Admin\Reports::checklistReport');
 $routes->post('/admin/checklist-report-save', 'Admin\Reports::checklistReportSave');
 $routes->post('/save-assignment', 'Admin\Reports::saveAssignmentReport');
-
+$routes->get('/reset-assignment', 'Admin\Reports::resetAssignment');
 
 
 // client side
@@ -82,6 +83,7 @@ $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');
 $routes->post('/update-link-spreadhsheet', 'Admin\Reports::updateLink');
 $routes->post('/get-investment-client', 'Admin\Reports::getInvestmentClient');
 $routes->post('/assign-box', 'Admin\Reports::assignBox');
+$routes->get('get-box-summary', 'Admin\Reports::getBoxSummary');
 
 
 /*

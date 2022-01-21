@@ -5,14 +5,15 @@
     <div class="card">
         <form method="POST" action="checklist-report-save">
             <?php csrf_field() ?>
-            <table class="table datatable-basic" style="font-size: 12px;">
+            <table class="table datatable-basic">
                 <thead>
                     <tr>
                         <th style="width: 5%">No</th>
                         <th class="text-center">Client Name</th>
                         <th class="text-center">Company Name</th>
                         <th class="text-center">Investment Date</th>
-                        <th class="text-center">Tnvestment Cost</th>
+                        <th class="text-center">Investment Cost</th>
+                        <th class="text-center">Cost Left</th>
                         <th class="text-center" style="width: 15%;">Status</th>
                     </tr>
                 </thead>
@@ -20,15 +21,24 @@
                     <?php if ($getAllInvestment->getNumRows() > 0) : ?>
                         <?php $no = 1; ?>
                         <?php foreach ($getAllInvestment->getResultArray() as $row) : ?>
-                            <?php $newDate = date("M-d-Y", strtotime($row['date'])); ?>
-                            <tr>
+                        <?php 
+                            $newDate = date("M-d-Y", strtotime($row['date'])); 
+                            $costLeft = $row['cost'] - $row['cost_left']; 
+                        ?>
+                        <?php if ($costLeft > 0) :?>
+                            <tr class="table-active">
+                        <?php else : ?>
+                            <tr class="table-warning">
+                        <?php endif ?>
                                 <td class="text-center"><?= $no++ ?></td>
                                 <td class="font-weight-bold"><?= $row['fullname'] ?></td>
                                 <td><?= $row['company'] ?></td>
-                                <td class="text-center font-weight-bold"><?= $newDate ?></td>
+                                <td class="text-center font-weight-bold"><?= strtoupper($newDate) ?></td>
                                 <td class="font-weight-bold">$<?= number_format($row['cost'], 2) ?></td>
+                                <td class="font-weight-bold"><?= number_format($costLeft, 2) ?></td>                                 
                                 <td class="text-center font-weight-bold">
                                     <select name="status[]" style="text-align:center; font-weight:800">
+                                        <option value="complete" selected>...</option>
                                         <?php if ($row['status'] == 'complete') : ?>
                                             <option value="complete" selected>COMPLETE</option>
                                             <option value="assign">READY TO ASSIGN</option>
@@ -40,6 +50,7 @@
                                     <input type="hidden" name="investment_id[]" value="<?= $row['id'] ?>">
                                 </td>
                             </tr>
+                              
                         <?php endforeach ?>
                     <?php endif ?>
                 </tbody>
