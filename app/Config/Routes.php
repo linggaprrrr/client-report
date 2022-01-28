@@ -56,8 +56,13 @@ $routes->post('/upload-assignment', 'Admin\Reports::assignmentReportSubmit');
 $routes->get('/admin/checklist-report', 'Admin\Reports::checklistReport');
 $routes->post('/admin/checklist-report-save', 'Admin\Reports::checklistReportSave');
 $routes->post('/save-assignment', 'Admin\Reports::saveAssignmentReport');
+$routes->post('/save-assignment-process', 'Admin\Reports::saveAssignmentProcess');
 $routes->get('/reset-assignment', 'Admin\Reports::resetAssignment');
 
+$routes->post('/save-box-details', 'Admin\Reports::saveBoxDetails');
+
+$routes->get('/admin/assignment-completed', 'Admin\Reports::assignmentCompleted');
+$routes->get('/admin/assignment-history', 'Admin\Reports::assignmentHistory');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -77,6 +82,13 @@ $routes->delete('/delete-news/(:num)', 'News::deleteNews/$1');
 $routes->get('/purchase-inventory', 'Clients::purchaseInventory');
 $routes->get('/pl-report', 'Clients::plReport');
 $routes->get('/test_json', 'Clients::test_json');
+
+//va 
+$routes->get('va/dashboard', 'VA\Reports::index');
+$routes->get('/va/assignment-report', 'VA\Reports::assignmentReport');
+$routes->get('/va/assignment-process', 'VA\Reports::assignmentReportProcess');
+$routes->get('/va/assignment-completed', 'VA\Reports::assignmentCompleted');
+$routes->get('/va/assignment-history', 'VA\Reports::assignmentHistory');
 
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');

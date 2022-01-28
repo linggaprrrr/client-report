@@ -41,6 +41,7 @@ class Users extends BaseController
             "company" => $post['company'],
             "address" => $post['address'],
             "username" => $post['username'],
+            "role" => $post['role'],
             "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
             'role' => 'client'
         ));

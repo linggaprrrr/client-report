@@ -46,8 +46,10 @@ class Auth extends BaseController
                 session()->set($params);
                 if ($user->role == "superadmin") {
                     return redirect()->to(base_url('admin/dashboard'))->with('message', 'Login Successful!');
+                } elseif ($user->role == "va") {
+                    return redirect()->to(base_url('va/dashboard'))->with('message', 'Login Successful!');
                 } else {
-                    return redirect()->to(base_url('dashboard'))->with('message', 'Login Successful!');
+                    return redirect()->to(base_url('get-started'))->with('message', 'Login Successful!');
                 }
             } else {
                 return redirect()->back()->with('error', 'Incorrect Password!');

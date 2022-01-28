@@ -78,6 +78,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label>Role</label>
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"><i class="icon-collaboration"></i></span>
+                                            </span>
+                                            <select name="role" id="" class="form-control">
+                                                <option value="client">CLIENT</option>
+                                                <option value="va">VA</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Password</label>
                                         <div class="input-group">
                                             <span class="input-group-prepend">

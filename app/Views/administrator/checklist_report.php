@@ -21,38 +21,43 @@
                     <?php if ($getAllInvestment->getNumRows() > 0) : ?>
                         <?php $no = 1; ?>
                         <?php foreach ($getAllInvestment->getResultArray() as $row) : ?>
-                        <?php 
-                            $newDate = date("M-d-Y", strtotime($row['date'])); 
-                            $costLeft = $row['cost'] - $row['cost_left']; 
-                        ?>
-                        <?php if ($costLeft > 0) :?>
-                            <tr class="table-active">
-                        <?php else : ?>
-                            <tr class="table-warning">
-                        <?php endif ?>
+                            <?php
+                            $newDate = date("M-d-Y", strtotime($row['date']));
+                            $costLeft = $row['cost'] - $row['cost_left'];
+                            ?>
+                            <?php if ($costLeft > 0) : ?>
+                                <tr class="table-active">
+                                <?php else : ?>
+                                <tr class="table-warning">
+                                <?php endif ?>
                                 <td class="text-center"><?= $no++ ?></td>
                                 <td class="font-weight-bold"><?= $row['fullname'] ?></td>
                                 <td><?= $row['company'] ?></td>
                                 <td class="text-center font-weight-bold"><?= strtoupper($newDate) ?></td>
                                 <td class="font-weight-bold">$<?= number_format($row['cost'], 2) ?></td>
-                                <td class="font-weight-bold"><?= number_format($costLeft, 2) ?></td>                                 
+                                <td class="font-weight-bold"><?= number_format($costLeft, 2) ?></td>
                                 <td class="text-center font-weight-bold">
-                                    <select name="status[]" style="text-align:center; font-weight:800">
-                                        <option value="complete" selected>...</option>
+                                    <select name="status[]" class="status_change" style="text-align:center; font-weight:800">
                                         <?php if ($row['status'] == 'complete') : ?>
+                                            <option value="incomplete">...</option>
                                             <option value="complete" selected>COMPLETE</option>
-                                            <option value="assign">READY TO ASSIGN</option>
+                                            <option value="assign" data-foo='<?= $costLeft ?>'>READY TO ASSIGN</option>
+                                        <?php elseif ($row['status'] == 'assign') : ?>
+                                            <option value="incomplete">...</option>
+                                            <option value="complete" data-foo='<?= $costLeft ?>'>COMPLETE</option>
+                                            <option value="assign" data-foo='<?= $costLeft ?>' selected>READY TO ASSIGN</option>
                                         <?php else : ?>
-                                            <option value="complete">COMPLETE</option>
-                                            <option value="assign" selected>READY TO ASSIGN</option>
+                                            <option value="incomplete" selected>...</option>
+                                            <option value="complete" data-foo='<?= $costLeft ?>'>COMPLETE</option>
+                                            <option value="assign" data-foo='<?= $costLeft ?>'>READY TO ASSIGN</option>
                                         <?php endif ?>
                                     </select>
                                     <input type="hidden" name="investment_id[]" value="<?= $row['id'] ?>">
                                 </td>
-                            </tr>
-                              
-                        <?php endforeach ?>
-                    <?php endif ?>
+                                </tr>
+
+                            <?php endforeach ?>
+                        <?php endif ?>
                 </tbody>
             </table>
             <div class="card-body">
@@ -76,6 +81,7 @@
 <script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
 <script src="/assets/js/plugins/notifications/noty.min.js"></script>
 <script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -86,6 +92,14 @@
             $('#noty_deleted').click();
         <?php endif ?>
     });
+
+    $('.status_change').on('change', function() {
+        var value = $(this).find('option:selected').data('foo');
+        if ($(this).val() == 'complete' && value > 0) {
+            swal("Are you sure?", "The cost left over than 0");
+        }
+    });
+
 
     $('#noty_created').on('click', function() {
         new Noty({

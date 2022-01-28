@@ -61,13 +61,13 @@ class ReportModel extends Model
 
     public function getAllReports()
     {
-        $query = $this->db->query("SELECT a.client_id, fullname, investment_date, status, company, SUM(a.qty) as total_unit, SUM(original_value) as total_retail, SUM(a.bal) as client_cost, SUM(a.total_fulfilled) as total_fulfilled, (SUM(a.bal)-SUM(IFNULL(a.total_fulfilled, 0))) as cost_left, (SUM(a.bal)-SUM(a.total_fulfilled)) as total_client_cost, (SUM(a.total_fulfilled)/SUM(a.qty)) as avg_client_cost, (SUM(original_value)/SUM(qty)) as avg_unit_retail FROM (SELECT (SUM(investments.cost)/COUNT(*)) as bal, investments.client_id, investments.date as investment_date, SUM(qty) as qty, SUM(original_value) as original_value, SUM(reports.cost) as total_fulfilled, investments.status as status FROM `investments` LEFT JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as a  JOIN users ON users.id = a.client_id GROUP BY client_id ORDER BY investment_date ASC");
+        $query = $this->db->query("SELECT a.client_id, fullname, investment_date, status, company, SUM(a.qty) as total_unit, SUM(original_value) as total_retail, SUM(a.bal) as client_cost, SUM(a.total_fulfilled) as total_fulfilled, (SUM(a.bal)-SUM(IFNULL(a.total_fulfilled, 0))) as cost_left, (SUM(a.bal)-SUM(a.total_fulfilled)) as total_client_cost, (SUM(a.total_fulfilled)/SUM(a.qty)) as avg_client_cost, (SUM(original_value)/SUM(qty)) as avg_unit_retail FROM (SELECT (SUM(investments.cost)/COUNT(*)) as bal, investments.client_id, investments.date as investment_date, SUM(qty) as qty, SUM(original_value) as original_value, SUM(reports.cost) as total_fulfilled, investments.status as status FROM `investments` LEFT JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as a  JOIN users ON users.id = a.client_id GROUP BY client_id ORDER BY investment_date DESC");
         return $query;
     }
 
     public function getAllReportClient($id = null)
     {
-        $query = $this->db->query("SELECT reports.*, log_files.link from reports JOIN log_files ON reports.client_id = log_files.client_id WHERE log_files.investment_id = '$id' ORDER by ID ASC LIMIT 100");
+        $query = $this->db->query("SELECT reports.*, log_files.link from reports JOIN log_files ON reports.client_id = log_files.client_id WHERE reports.investment_id = '$id' ORDER by ID ASC LIMIT 100");
         return $query;
     }
 

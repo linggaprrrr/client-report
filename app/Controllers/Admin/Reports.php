@@ -310,12 +310,16 @@ class Reports extends BaseController
         $user = $this->userModel->find($userId);
         $getAllClient = $this->assignReportModel->getAllClient();
         $getAllAssignReport = $this->assignReportModel->getAllAssignReport();
+        $getAllAssignReportPending = $this->assignReportModel->getAllAssignReportProcess();
+        $getAllAssignReportCompleted = $this->assignReportModel->getAllAssignReportCompleted();
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'BOX ASSIGNMENT FOR CLIENT FULFILLMENT',
             'user' => $user,
             'getAllClient' => $getAllClient,
-            'getAllAssignReport' => $getAllAssignReport
+            'getAllAssignReport' => $getAllAssignReport,
+            'getAllAssignReportPending' => $getAllAssignReportPending,
+            'getAllAssignReportCompleted' => $getAllAssignReportCompleted,
         ];
         return view('administrator/assignment_report', $data);
     }
@@ -450,19 +454,39 @@ class Reports extends BaseController
     public function saveAssignmentReport()
     {
         $post = $this->request->getVar();
-        $temp = array();
-        $temp2 = array();
+
         foreach ($post['client'] as $idx => $data) {
             if ($data != '0') {
-                array_push($temp, $data);
-                array_push($temp2, $post['date'][$idx]);
+                $clientId = $post['client'][$idx];
+                $date = $post['date'][$idx];
+                $boxId = $post['box_id'][$idx];
+                $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', date='$date' WHERE id='$boxId' ");
             }
         }
-        d($post);
-        d($temp);
-        d($temp2);
+        // return redirect()->back()->with('success', 'Report Successfully saved!');
     }
 
+    public function saveAssignmentProcess()
+    {
+        $post = $this->request->getVar();
+        for ($i = 0; $i < count($post['status']); $i++) {
+            $status = $post['status'][$i];
+            if ($status != "0") {
+                $fba_number = trim($post['fba_number'][$i]);
+                $shipment_number = trim($post['shipment_number'][$i]);
+                $box_id = $post['box_id'][$i];
+                $client = $post['client'][$i];
+                $investment_id = $post['investment_id'][$i];
+                if (!empty($fba_number) || !empty($shipment_number)) {
+                    if ($status == 'approved') {
+                        $this->db->query("INSERT INTO reports(sku, item_description, cond, qty, retail_value, original_value, cost, vendor, client_id, investment_id) SELECT sku, item_description, cond, qty, retail, original, cost, vendor, '$client', '$investment_id' FROM assign_report_details JOIN assign_report_box ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.id ='$box_id' AND assign_report_details.item_status='1' ");
+                    }
+                    $this->db->query("UPDATE assign_report_box SET confirmed='1', fba_number='$fba_number', shipment_number='$shipment_number', status='$status' WHERE id='$box_id' ");
+                }
+            }
+        }
+        return redirect()->back()->with('reset', 'Assignment Successfully reseted!');
+    }
     // status ready to assign
     public function getInvestmentClient()
     {
@@ -473,9 +497,9 @@ class Reports extends BaseController
             foreach ($investments->getResultArray() as $idx => $data) {
                 $newDate = date("M-d-Y", strtotime($data['date']));
                 if ($idx == 0) {
-                    array_push($option, "<option selected value=" . $data['id'] . "  data-foo=" . $data['cost'] . "><b>" . strtoupper($newDate) . "<b/></option>");
+                    array_push($option, "<option selected value=" . $data['id'] . "  data-foo=" . number_format($data['cost'], 2) . "><b>" . strtoupper($newDate) . "<b/></option>");
                 } else {
-                    array_push($option, "<option value=" . $data['id'] . "  data-foo=" . $data['cost'] . "><b>" . strtoupper($newDate) . "<b/></option>");
+                    array_push($option, "<option value=" . $data['id'] . "  data-foo=" . number_format($data['cost'], 2) . "><b>" . strtoupper($newDate) . "<b/></option>");
                 }
             }
         }
@@ -489,22 +513,27 @@ class Reports extends BaseController
         $boxName = $post['box_name'];
         $orderDate = $post['order_date'];
         $newDate = date('Y-m-d', strtotime($orderDate));
-        
+
         $clientId = $post['client_id'];
         $valueBox = $post['value_box'];
         $currentCost = $post['current_cost'];
         $investmentId = $post['investment_id'];
         if ($clientId == "0") {
-            return $this->db->query("DELETE FROM box_sum WHERE box_name='$boxName' ");            
+            return $this->db->query("DELETE FROM box_sum WHERE box_name='$boxName' ");
         }
         $checkBoxClient = $this->assignReportModel->checkBoxClient($boxName);
-        $previousCost = $this->investmentModel->getPreviousCost($clientId);
+        $checkBoxDiffClient = $this->assignReportModel->checkBoxDiffClient($boxName, $clientId);
+        $previousCost = $this->investmentModel->getPreviousCost($clientId, $investmentId);
+
         $status = 1;
         $costLeft = 0;
-        if (!is_null($previousCost)) {            
+        // if (empty($checkBoxDiffClient)) {
+        //     $this->db->query("DELETE FROM box_sum WHERE box_name='$boxName' ");
+        // }
+        if (!is_null($previousCost)) {
             $costLeft = $previousCost->cost_left - $valueBox;
         } else {
-            $costLeft = $currentCost - $valueBox;        
+            $costLeft = $currentCost - $valueBox;
         }
         if (!empty($checkBoxClient)) {
             if ($costLeft <= -500) {
@@ -512,13 +541,12 @@ class Reports extends BaseController
             } else {
                 $this->db->query("UPDATE box_sum SET client_id='$clientId', cost_left='$costLeft', investment_id='$investmentId', order_date='$newDate' WHERE box_name='$boxName' ");
             }
-        } else {   
+        } else {
             if ($costLeft <= -500) {
                 $status = 0;
             } else {
                 $this->db->query("INSERT INTO box_sum(box_name, cost_left, client_id, investment_id, order_date) VALUES('$boxName', '$costLeft', '$clientId', '$investmentId', '$newDate') ");
             }
-                   
         }
 
         $feedback = array(
@@ -528,7 +556,8 @@ class Reports extends BaseController
         echo json_encode($feedback);
     }
 
-    public function assignmentReportProcess() {
+    public function assignmentReportProcess()
+    {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return view('login');
@@ -546,7 +575,8 @@ class Reports extends BaseController
         return view('administrator/assignment_process', $data);
     }
 
-    public function getBoxSummary() {
+    public function getBoxSummary()
+    {
         $boxName = $this->request->getVar('box_name');
         $getBoxSum = $this->assignReportModel->getBoxSummary($boxName);
         $item = array();
@@ -558,10 +588,59 @@ class Reports extends BaseController
         echo json_encode($item);
     }
 
-    public function resetAssignment() {
+    public function saveBoxDetails()
+    {
+        $post = $this->request->getVar();
+        for ($i = 0; $i < count($post['item']); $i++) {
+            $stat = $post['item_status'][$i];
+            $note = $post['note'][$i];
+            $id = $post['item'][$i];
+            $this->db->query("UPDATE assign_report_details SET item_status='$stat', item_note=" . $this->db->escape($note) . " WHERE id='$id' ");
+        }
+        $box_note = $post['box_note'];
+        $box_name = $post['box_name'];
+        $this->db->query("UPDATE assign_report_box SET box_note=" . $this->db->escape($box_note) . " WHERE box_name='$box_name' ");
+    }
+
+    public function assignmentCompleted()
+    {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $assignCompleted = $this->assignReportModel->getAllAssignReportCompleted();
+        $data = [
+            'tittle' => 'Assignment Reports | Report Management System',
+            'menu' => 'APPROVAL BOX ASSIGNMENT',
+            'user' => $user,
+            'assignCompleted' => $assignCompleted
+        ];
+        return view('administrator/assignment_completed', $data);
+    }
+
+    public function resetAssignment()
+    {
 
         $this->db->query("DELETE FROM box_sum WHERE box_name IN (SELECT box_sum.box_name FROM assign_report_box JOIN box_sum ON box_sum.box_name = assign_report_box.box_name WHERE confirmed = 0)");
         return redirect()->back()->with('reset', 'Assignment Successfully reseted!');
+    }
+
+    public function assignmentHistory()
+    {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $assignCompleted = $this->assignReportModel->getAllAssignReportCompleted();
+        $data = [
+            'tittle' => 'Assignment Reports | Report Management System',
+            'menu' => 'APPROVAL BOX ASSIGNMENT',
+            'user' => $user,
+            'assignCompleted' => $assignCompleted
+        ];
+        return view('administrator/assignment_history', $data);
     }
 
     public function updateLink()

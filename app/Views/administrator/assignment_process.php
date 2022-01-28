@@ -4,35 +4,34 @@
 <style>
     .reset-button {
         text-align: right;
-        margin:0 20px 20px;
+        margin: 0 20px 20px;
     }
 </style>
 <div class="content">
     <div class="card">
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
-            
+
         </div>
-        <form class="wizard-form steps-async wizard clearfix" action="<?= base_url() ?>/save-assignment" method="post" data-fouc="" role="application" id="steps-uid-1">
+        <form class="wizard-form steps-async wizard clearfix" action="<?= base_url('save-assignment-process') ?>" method="post" data-fouc="" role="application" id="steps-uid-1">
             <?= csrf_field() ?>
             <div class="steps clearfix">
                 <ul role="tablist">
-                    <li role="tab" class="disabled" aria-disabled="false" ><a  class=""><span class="current-info audible">current step: </span><span class="number">1</span> Box Assignment</a></li>
-                    <li role="tab" class="first current" aria-disabled="true" aria-selected="true"><a  class="disabled"><span class="number">2</span> Assignment Process</a></li>
+                    <li role="tab" class="disabled" aria-disabled="false"><a class=""><span class="current-info audible">current step: </span><span class="number">1</span> Box Assignment</a></li>
+                    <li role="tab" class="first current" aria-disabled="true" aria-selected="true"><a class="disabled"><span class="number">2</span> Assignment Process</a></li>
                     <li role="tab" class="disabled" aria-disabled="false"><a class="disabled"><span class="number">3</span> Completed Assignment</a></li>
                 </ul>
             </div>
-            <div class="reset-button">
-                <a href="<?= base_url('/reset-assignment') ?>"><span class="badge badge-danger"><i class="icon-reset mr-2"></i>RESET</span></a>
-            </div>
+
             <table class="table datatable-basic" id="myTable" style="font-size: 12px;">
                 <thead>
                     <tr>
                         <th class="text-center">No</th>
-                        <th class="text-center" style="width: 10%">Box Name</th>                        
+                        <th class="text-center" style="width: 10%">Box Name</th>
                         <th class="text-center" style="width: 10%">Box Value</th>
                         <th class="text-center" style="width: 10%">Order Date</th>
                         <th class="text-center" style="width: 10%">Client</th>
                         <th class="text-center" style="width: 10%">AMZ Store</th>
+                        <th class="text-center" style="width: 10%">Investment Date</th>
                         <th class="text-center" style="width: 20%">FBA Number</th>
                         <th class="text-center" style="width: 20%">Shipment Number</th>
                         <th class="text-center" style="width: 10%">Status</th>
@@ -42,164 +41,156 @@
                     <?php if ($getAllAssignReportProcess->getNumRows() > 0) : ?>
                         <?php $no = 1 ?>
                         <?php foreach ($getAllAssignReportProcess->getResultArray() as $row) : ?>
-                            <?php if (!empty($row['userid'])) : ?> 
-                                <?php if ($row['status'] == 'waiting'): ?>
-                                <tr class="table-active">
-                                <?php elseif ($row['status'] == 'rejected') : ?>
+                            <?php if (!empty($row['userid'])) : ?>
+                                <?php if ($row['status'] == 'waiting') : ?>
+                                    <tr class="table-active">
+                                    <?php elseif ($row['status'] == 'rejected') : ?>
                                     <tr class="table-warning">
-                                <?php else: ?>       
-                                    <tr class="table-success">                             
-                                <?php endif ?>                                 
+                                    <?php else : ?>
+                                    <tr class="table-success">
+                                    <?php endif ?>
                                     <td><?= $no++ ?></td>
                                     <td class="">
-                                        <a href="#" class="h5 box_name" data-box="<?= $row['box_name'] ?>">
+                                        <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
                                             <b><?= $row['box_name'] ?></b>
                                         </a>
-                                    </td>                                    
+                                    </td>
                                     <td class="value_box_<?= $no ?>"><b>$ <?= number_format($row['box_value'], 2) ?></b></td>
                                     <td>
-                                        <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>       
-                                        <b><?= $newDate ?></b>                                                                                                              
+                                        <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
+                                        <b><?= $newDate ?></b>
                                     </td>
                                     <td>
-                                        <b><?= $row['fullname'] ?></b>                                        
+                                        <b><?= $row['fullname'] ?></b>
                                     </td>
                                     <td class="company_box_<?= $no ?>">
-                                        <b><?= $row['company'] ?> </b>    
+                                        <b><?= $row['company'] ?> </b>
                                     </td>
-                                    <td class="fba_number_box_<?= $no ?>">                                    
-                                        <input class="form-control" name="fba_number[]" placeholder="FBA Number"> 
+                                    <td class="investment_box_<?= $no ?>">
+                                        <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
+                                        <b><?= strtoupper($newDateInvest) ?></b>
+                                    </td>
+                                    <td class="fba_number_box_<?= $no ?>">
+                                        <input class="form-control" name="fba_number[]" disabled placeholder="WAITING" value="<?= $row['fba_number'] ?>">
                                     </td>
                                     <td class="shipment_box_<?= $no ?>">
-                                        <input class="form-control" name="shipment_number[]" placeholder="Shipment Number"> 
+                                        <input class="form-control" name="shipment_number[]" disabled placeholder="WAITING" value="<?= $row['shipment_number'] ?>">
                                     </td>
                                     <td>
-                                        <select class="form-control" style="width: 130px;">
-                                            <option value="0">...</option>
-                                            <option value="approved">APPROVED</option>
-                                            <option value="reject">REJECTED</option>
+                                        <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
+                                        <select class="form-control" name="status[]" style="width: 130px;" disabled>
+                                            <?php if ($row['status'] == 'waiting') : ?>
+                                                <option value="0" selected>WAITING</option>
+                                                <option value="approved">APPROVED</option>
+                                                <option value="rejected">REJECTED</option>
+                                            <?php elseif ($row['status'] == 'approved') : ?>
+                                                <option value="0">WAITING</option>
+                                                <option value="approved" selected>APPROVED</option>
+                                                <option value="rejected">REJECTED</option>
+                                            <?php else : ?>
+                                                <option value="0">WAITING</option>
+                                                <option value="approved">APPROVED</option>
+                                                <option value="rejected" selected>REJECTED</option>
+                                            <?php endif ?>
                                         </select>
                                     </td>
-                                </tr>
-                            <?php else : ?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td class="name_box_<?= $no ?>"><?= $row['box_name'] ?></td>
-                                <td><span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span></td>
-                                <td class="value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
-                                <td>   
-                                    <input type="text" class="daterange-single order_box_<?= $no ?>"  name="date[]" value="<?= date("m/d/Y") ?>" style="width: 90px; text-align:center">                                       
-                                </td>
-                                <td>
-                                    <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
-                                        <option value="0">...</option>  
-                                        <?php foreach ($getAllClient->getResultArray() as $client) : ?>
-                                            <option value="<?= $client['id'] ?>"><b><?= $client['fullname'] ?></b></option>
-                                        <?php endforeach ?>
-                                    </select>
-                                </td>
-                                <td class="company_box_<?= $no ?>">
-                                </td>
-                                <td class="date_box_<?= $no ?>">                            
-                                    <select class="select_date_box_<?= $no ?>">                                    
-                                    </select>
-                                </td>
-                                <td class="currentCost_box_<?= $no ?>">                            
-                                </td>
-                                <td class="total_box_<?= $no ?>"></td>
-                            </tr>
-                            <?php endif ?>  
-                        <?php endforeach ?>
-                    <?php endif ?>
+                                    </tr>
+                                <?php endif ?>
+                            <?php endforeach ?>
+                        <?php endif ?>
                 </tbody>
-                                            
+
             </table>
-            <div class="modal fade modal_scrollable_box" tabindex="-1">
-                <div class="modal-dialog modal-full modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header pb-3">
-                            <h5><b>BOX #<span class="modal-title">#title</span></b></h5>
-                            <div class="reset-button-item">
-                                <a href="#" id="reset"><span class="badge badge-danger"><i class="icon-reset mr-1"></i>RESET</span></a>
-                            </div>
-                        </div>
-
-                        <div class="modal-body py-0">
-                            <form>
-                                <div class="table-responsive" id="item-table">
-                                    
-                                    <table class="table" style="font-weight:bold">
-                                        <thead>
-                                            <tr class="bg-secondary text-white">
-                                                <th style="width: 5%;">#</th>
-                                                <th>SKU</th>
-                                                <th>Item Description</th>
-                                                <th>Condition</th>
-                                                <th>Qty</th>
-                                                <th>Retail</th>
-                                                <th>Original</th>
-                                                <th>Vendor</th>
-                                                <th style="width: 5%;"><i class="icon-arrow-down12"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="item-tbody">                                            
-                                            
-                                        </tbody>
-                                    </table>                                    
-                                </div>
-                                <div class="table-responsive" id="item-table-removed">                                    
-                                    <table class="table" style="font-weight:bold">
-                                        <thead>
-                                            <tr class="bg-danger text-white">
-                                                <th style="width: 5%;">#</th>
-                                                <th>SKU</th>
-                                                <th>Item Description</th>
-                                                <th>Condition</th>
-                                                <th>Qty</th>
-                                                <th>Retail</th>
-                                                <th>Original</th>
-                                                <th>Vendor</th>
-                                                <th style="width: 5%;"><i class="icon-arrow-down12"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="item-tbody">                                            
-                                            
-                                        </tbody>
-                                    </table>                                    
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for=""><b>Note:</b></label>
-                                    <div class="input-group">                                        
-                                        <textarea name="note" class="form-control" id="note" rows="3" placeholder="-"></textarea>
-                                    </div>
-                                </div>
-                            </form>
-                            
-                        </div>
-
-                        <div class="modal-footer pt-3">
-                            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-secondary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="card-body" style="display: flex">
                 <div class="text-right" style="margin: auto;">
-                    <button type="submit" class="btn btn-danger"><i class="icon-checkmark3 mr-2"></i> <b>Save Phase 2</b></button>  
-                </div>                            
+                    <!-- <button type="submit" class="btn btn-danger"><i class="icon-checkmark3 mr-2"></i> <b>Save Phase 2</b></button> -->
+                </div>
                 <div class="text-left">
-                    <a href="<?= base_url('/admin/assignment-report') ?>" class="btn btn-light "><i class="icon-arrow-left8 mr-2"></i>Previous</a>                            
-                    <a href="#" class="btn btn-primary disabled">Next Phase<i class="icon-arrow-right8 ml-2"></i></a>
-                </div>                                            
-                
+                    <a href="<?= base_url('/admin/assignment-report') ?>" class="btn btn-light "><i class="icon-arrow-left8 mr-2"></i>Previous</a>
+                    <a href="<?= base_url('/admin/assignment-completed') ?>" class="btn btn-primary">Next Phase<i class="icon-arrow-right8 ml-2"></i></a>
+                </div>
+
             </div>
-            
+
         </form>
 
+        <div class="modal fade modal_scrollable_box" tabindex="-1">
+            <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header pb-3">
+                        <h5><b>BOX #<span class="modal-title">#title</span></b></h5>
+                    </div>
+                    <div class="modal-body py-0">
+                        <form id="box-details">
+                            <div class="table-responsive" id="item-table">
+                                <!-- <form action="<?= base_url('/save-box-details') ?>" method="post"> -->
+
+                                <?php csrf_field() ?>
+                                <input type="hidden" name="box_name" id="box_name" value="">
+                                <table class="table" style="font-weight:bold; font-size:12px">
+                                    <thead>
+                                        <tr class="bg-secondary text-white">
+                                            <th>SKU</th>
+                                            <th>Item Description</th>
+                                            <th>Condition</th>
+                                            <th>Qty</th>
+                                            <th>Retail</th>
+                                            <th>Original</th>
+                                            <th>Vendor</th>
+                                            <th>Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="item-tbody">
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="table-responsive mt-2" id="item-table-removed" style="display: none;">
+                                <div class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
+                                    <span class="font-weight-semibold">Some items will be removed in a box!</span>
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                                <table class="table" style="font-weight:bold; font-size:12px" id="table-removed">
+                                    <thead>
+                                        <tr class="bg-danger text-white">
+                                            <th>SKU</th>
+                                            <th>Item Description</th>
+                                            <th>Condition</th>
+                                            <th>Qty</th>
+                                            <th>Retail</th>
+                                            <th>Original</th>
+                                            <th>Vendor</th>
+                                            <th>Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="item-tbody-removed">
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for=""><b>Note:</b></label>
+                                <div class="input-group">
+                                    <textarea name="box_note" class="form-control" disabled id="box_note" rows="3" placeholder="-"></textarea>
+                                </div>
+
+                            </div>
+
+                    </div>
+
+                    <div class="modal-footer pt-3">
+                        <a class="btn btn-light" data-dismiss="modal">Close</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
+
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>
     <button type="button" id="noty_deleted" style="display: none;"></button>
@@ -252,45 +243,74 @@
 
 
         $('.box_name').on('click', function() {
-            var boxName =  $(this).attr('data-box');
+            var boxName = $(this).attr('data-box');
             $('#item-table tbody').html("");
-            $.get('/get-box-summary', {box_name: boxName}, function(data) {
+            $.get('/get-box-summary', {
+                box_name: boxName
+            }, function(data) {
+                $('.modal-title').html("<b>" + boxName + "</b>");
+                $('#box_name').val(boxName);
+                $('#item-table-removed').css("display", "none");
+                $('.modal_scrollable_box').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
+                $('#item-tbody-removed').html("");
                 var item = JSON.parse(data);
-                
-                if (item.length > 0) {             
-                    var no = 1;   
-                    for (var i = 0; i < item.length; i++) {                        
-                        if (i % 2 == 0) {
-                            $('#item-table tbody').append('<tr> <td>'+ no++ +'</td> <td>'+item[i]['sku']+'</td> <td>'+item[i]['item_description']+'</td> <td>'+item[i]['cond']+'</td> <td>'+item[i]['qty']+'</td> <td>$ '+numberWithCommas(item[i]['retail'])+'</td> <td>$ '+numberWithCommas(item[i]['original'])+'</td> <td>'+item[i]['vendor']+'</td> <td><a href="#" class="remove"><i class="icon-minus-circle2"></a></td> </tr>');
+                if (item.length > 0) {
+                    $('#box_note').html(item[0]['box_note']);
+                    var no = 1;
+                    for (var i = 0; i < item.length; i++) {
+                        if (item[i]['item_status'] == 1) {
+                            if (i % 2 == 0) {
+                                $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" placeholder="" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                            } else {
+                                $('#item-table tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" placeholder="" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                            }
                         } else {
-                            $('#item-table tbody').append('<tr class="table-active"> <td>'+ no++ +'</td> <td>'+item[i]['sku']+'</td> <td>'+item[i]['item_description']+'</td> <td>'+item[i]['cond']+'</td> <td>'+item[i]['qty']+'</td> <td>$ '+numberWithCommas(item[i]['retail'])+'</td> <td>$ '+numberWithCommas(item[i]['original'])+'</td> <td>'+item[i]['vendor']+'</td> <td><a href="#" class="remove"><i class="icon-minus-circle2"></a></td> </tr>');
+                            $('#item-table-removed').css("display", "block");
+                            if (i % 2 == 0) {
+                                $('#item-table-removed tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" placeholder="" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                            } else {
+                                $('#item-table-removed tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled placeholder="" value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                            }
                         }
                     }
                 }
-                $('.modal-title').html("<b>"+ boxName + "</b>");                    
-                $('.modal_scrollable_box').modal('show');
 
-                $('#reset').on('click', function() {
-                    $('#item-table tbody').html("");
-                    if (item.length > 0) {             
-                    var no = 1;   
-                    for (var i = 0; i < item.length; i++) {                        
-                        if (i % 2 == 0) {
-                            $('#item-table tbody').append('<tr> <td>'+ no++ +'</td> <td>'+item[i]['sku']+'</td> <td>'+item[i]['item_description']+'</td> <td>'+item[i]['cond']+'</td> <td>'+item[i]['qty']+'</td> <td>$ '+numberWithCommas(item[i]['retail'])+'</td> <td>$ '+numberWithCommas(item[i]['original'])+'</td> <td>'+item[i]['vendor']+'</td> <td><a href="#" class="remove"><i class="icon-minus-circle2"></a></td> </tr>');
-                        } else {
-                            $('#item-table tbody').append('<tr class="table-active"> <td>'+ no++ +'</td> <td>'+item[i]['sku']+'</td> <td>'+item[i]['item_description']+'</td> <td>'+item[i]['cond']+'</td> <td>'+item[i]['qty']+'</td> <td>$ '+numberWithCommas(item[i]['retail'])+'</td> <td>$ '+numberWithCommas(item[i]['original'])+'</td> <td>'+item[i]['vendor']+'</td> <td><a href="#" class="remove"><i class="icon-minus-circle2"></a></td> </tr>');
-                        }
-                    }
-                }
-                });
+                $('.modal_scrollable_box').modal('show');
+            });
+
+        });
+
+
+        $("form#box-details").on("submit", function(e) {
+            e.preventDefault();
+            $.post('<?= base_url('/save-box-details') ?>', $(this).serialize(), function(data) {
+
             });
         });
+
     });
 
-    $(document).on('click','.remove',function(){
+    $('#item-table').on('click', '.remove', function() {
+        $(this).find(".item_status").val("0")
+        var removeRow = $(this).parents('tr').clone(true);
         $(this).parents('tr').remove();
+        $('#item-tbody-removed').append(removeRow);
+        $('#item-table-removed').css("display", "block");
     });
 
+    $('#item-table-removed').on('click', '.remove', function() {
+        $(this).find(".item_status").val("1")
+        var removeRow = $(this).parents('tr').clone(true);
+        $(this).parents('tr').remove();
+        $('#item-tbody').append(removeRow);
+        var rowCount = $('#table-removed tr').length;
+        if (rowCount == 1) {
+            $('#item-table-removed').css("display", "none");
+        }
+    });
 
     $('#noty_created').on('click', function() {
         new Noty({
@@ -308,7 +328,6 @@
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
 </script>
 
 <?= $this->endSection() ?>

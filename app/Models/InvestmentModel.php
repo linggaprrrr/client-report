@@ -82,15 +82,15 @@ class InvestmentModel extends Model
     }
 
 
-    public function getInvestcmentClient($id) {
-        $query = $this->db->query("SELECT investments.id, investments.cost, investments.date FROM investments JOIN users ON users.id = investments.client_id WHERE client_id='$id' AND status = 'assign' ");
+    public function getInvestcmentClient($id)
+    {
+        $query = $this->db->query("SELECT investments.id, (investments.cost-SUM(reports.cost)) as cost, investments.date FROM investments JOIN users ON users.id = investments.client_id JOIN reports ON reports.investment_id = investments.id  WHERE investments.client_id='$id' AND status = 'assign' GROUP BY investments.id ");
         return $query;
     }
 
-    public function getPreviousCost($id) {
-        $query = $this->db->query("SELECT cost_left FROM box_sum JOIN assign_report_box ON box_sum.box_name = assign_report_box.box_name WHERE box_sum.client_id = '$id' ORDER BY box_sum.id DESC LIMIT 1")->getRow();
+    public function getPreviousCost($id, $investmentId)
+    {
+        $query = $this->db->query("SELECT cost_left FROM box_sum JOIN assign_report_box ON box_sum.box_name = assign_report_box.box_name WHERE box_sum.client_id = '$id' and investment_id='$investmentId' ORDER BY box_sum.id DESC LIMIT 1")->getRow();
         return $query;
-
     }
-
 }
