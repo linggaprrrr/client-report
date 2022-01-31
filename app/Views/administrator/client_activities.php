@@ -46,7 +46,7 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header bg-secondary text-white">
-                                <h5 class="modal-title">Upload Client Report</h5>
+                                <h5 class="modal-title">Upload Client Manifest</h5>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <form action="<?= base_url('upload-report') ?>" method="POST" enctype="multipart/form-data">
@@ -58,7 +58,7 @@
                                             <span class="input-group-prepend">
                                                 <span class="input-group-text"><i class="icon-calendar22"></i></span>
                                             </span>
-                                            <input type="text" class="form-control daterange-single" name="date" value="12/21/2021">
+                                            <input type="text" class="form-control daterange-single" name="date" value="<?= date("m/d/Y") ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -80,16 +80,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>File:</label>
-                                        <!-- <div class="controls">
-                                        <div class="entry input-group upload-input-group">
-                                            <input class="form-control" name="file[]" type="file">
-                                            <input class="form-control ml-2" name="link[]" type="text" placeholder="www.google.com">
-                                            <button class="btn btn-upload btn-success btn-add" type="button">
-                                                <i class="icon-plus3"></i>
-                                            </button>
-                                        </div> -->
 
-                                        <!-- </div> -->
 
                                         <label class="custom-file">
 
@@ -130,6 +121,7 @@
                     <th>Client Name</th>
                     <th>Company Name</th>
                     <th>File Uploaded</th>
+                    <th>Amount</th>
                     <th>Date Uploaded</th>
                     <th class="text-center" style="width: 12%">Google Sheet</th>
                     <th class="text-center" style="width: 10%">Download</th>
@@ -148,6 +140,7 @@
                             </td>
                             <td><?= $row['fullname'] ?></td>
                             <td><?= $row['company'] ?></td>
+                            <td><b>$ <?= number_format($row['amount'], 2) ?></b></td>
                             <td><?= $row['file'] ?></td>
                             <td class="text-center"><?= $row['date'] ?></td>
                             <td class="text-center">
@@ -212,7 +205,7 @@
 
     $('#noty_created').on('click', function() {
         new Noty({
-            text: 'You successfully upload the report.',
+            text: 'You successfully upload the manifest.',
             type: 'success'
         }).show();
     });
@@ -224,7 +217,7 @@
     });
     $('#noty_deleted').on('click', function() {
         new Noty({
-            text: 'You successfully delete the report.',
+            text: 'You successfully delete the manifest.',
             type: 'alert'
         }).show();
     });
@@ -261,27 +254,6 @@
         // use fileName however fits your app best, i.e. add it into a div
         infoArea.textContent = '' + fileName;
     }
-
-    // $(function () {
-    //         $(document).on('click', '.btn-add', function (e) {
-    //             e.preventDefault();
-
-    //             var controlForm = $('.controls:first'),
-    //                 currentEntry = $(this).parents('.entry:first'),
-    //                 newEntry = $(currentEntry.clone()).appendTo(controlForm);
-
-    //             newEntry.find('input').val('');
-    //             controlForm.find('.entry:not(:last) .btn-add')
-    //                 .removeClass('btn-add').addClass('btn-remove')
-    //                 .removeClass('btn-success').addClass('btn-danger')
-    //                 .html('<span class="icon-cross3"></span>');
-    //         }).on('click', '.btn-remove', function (e) {
-    //             $(this).parents('.entry:first').remove();
-
-    //             e.preventDefault();
-    //             return false;
-    //         });
-    //     });
 </script>
 
 <?= $this->endSection() ?>

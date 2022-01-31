@@ -24,65 +24,78 @@
             <table class="table datatable-basic" id="myTable" style="font-size: 12px;">
                 <thead>
                     <tr>
-                        <th class="text-center">No</th>
+                        <th class="text-center" style="width: 5%">No</th>
                         <th class="text-center" style="width: 10%">Box Name</th>
-                        <th class="text-center" style="width: 10%">Box Value</th>
-                        <th class="text-center" style="width: 10%">Order Date</th>
-                        <th class="text-center" style="width: 10%">Client</th>
-                        <th class="text-center" style="width: 10%">AMZ Store</th>
-                        <th class="text-center" style="width: 10%">AMZ Store</th>
-                        <th class="text-center" style="width: 20%">FBA Number</th>
-                        <th class="text-center" style="width: 20%">Shipment Number</th>
                         <th class="text-center" style="width: 10%">Status</th>
+                        <th class="text-center" style="width: 15%">Box Value</th>
+                        <th class="text-center">FBA Number</th>
+                        <th class="text-center">Shipment Number</th>
+                        <th class="text-center" style="width: 5%">Order</th>
+                        <th class="text-center">Client</th>
+                        <th class="text-center">AMZ Store</th>
+                        <th class="text-center">Investment Date</th>
                     </tr>
                 </thead>
                 <tbody id="assign-body">
                     <?php if ($assignCompleted->getNumRows() > 0) : ?>
                         <?php $no = 1 ?>
                         <?php foreach ($assignCompleted->getResultArray() as $row) : ?>
-                            <?php if (!empty($row['userid'])) : ?>
-                                <?php if ($row['status'] == 'waiting') : ?>
-                                    <tr class="table-active">
-                                    <?php elseif ($row['status'] == 'rejected') : ?>
-                                    <tr class="table-warning">
-                                    <?php else : ?>
-                                    <tr class="table-success">
-                                    <?php endif ?>
-                                    <td><?= $no++ ?></td>
-                                    <td class="">
-                                        <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
-                                            <b><?= $row['box_name'] ?></b>
-                                        </a>
-                                    </td>
-                                    <td class="value_box_<?= $no ?>">
-                                        <?php if ($row['box_value'] == $row['new_box_value']) : ?>
-                                            <b>$ <?= $row['box_value'] ?></b>
-                                        <?php else : ?>
-                                            <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= $row['new_box_value'] ?></mark></b>
-                                        <?php endif ?>
-                                    </td>
-                                    <td>
-                                        <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
-                                        <b><?= $newDate ?></b>
-                                    </td>
-                                    <td>
-                                        <b><?= $row['fullname'] ?></b>
-                                    </td>
-                                    <td class="company_box_<?= $no ?>">
-                                        <b><?= $row['company'] ?> </b>
-                                    </td>
-                                    <td class="fba_number_box_<?= $no ?>">
-                                        <b><?= $row['fba_number'] ?></b>
-                                    </td>
-                                    <td class="shipment_box_<?= $no ?>">
-                                        <b><?= $row['shipment_number'] ?></b>
-                                    </td>
-                                    <td>
-                                        <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
-                                        <b><?= strtoupper($row['status']) ?></b>
-                                    </td>
-                                    </tr>
+                            <?php if ($row['status'] == 'waiting') : ?>
+                                <tr class="table-active">
+                                <?php elseif ($row['status'] == 'rejected') : ?>
+                                <tr class="table-warning">
+                                <?php else : ?>
+                                <tr class="table-success">
                                 <?php endif ?>
+                                <td>
+                                    <?= $no++ ?>
+                                    <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
+                                </td>
+                                <td>
+                                    <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
+                                        <b><?= $row['box_name'] ?></b>
+                                    </a>
+                                </td>
+                                <td>
+                                    <?php if ($row['status'] == 'waiting') : ?>
+                                        <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php elseif ($row['status'] == 'rejected') : ?>
+                                        <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php else : ?>
+                                        <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php endif ?>
+                                </td>
+                                <td class="value_box_<?= $no ?>">
+                                    <?php if ($row['box_value'] == $row['new_box_value']) : ?>
+                                        <b>$ <?= number_format($row['box_value'], 2) ?></b>
+                                    <?php else : ?>
+                                        <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= number_format($row['new_box_value'], 2) ?></mark></b>
+                                    <?php endif ?>
+                                </td>
+                                <td>
+                                    <b><?= $row['fba_number'] ?></b>
+                                </td>
+                                <td>
+                                    <b><?= $row['shipment_number'] ?> </b>
+                                </td>
+                                <td>
+                                    <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
+                                    <input disabled type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= $newDate ?>" style="width: 90px; text-align:center">
+                                </td>
+                                <td>
+                                    <b><?= $row['fullname'] ?></b>
+                                </td>
+                                <td>
+                                    <b><?= $row['company'] ?> </b>
+                                </td>
+                                <td>
+                                    <select>
+                                        <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
+                                        <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
+                                    </select>
+                                </td>
+
+                                </tr>
                             <?php endforeach ?>
                         <?php endif ?>
                 </tbody>
@@ -198,8 +211,8 @@
 <script src="/assets/js/plugins/notifications/noty.min.js"></script>
 <script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
 <script src="/assets/js/demo_pages/form_select2.js"></script>
-<script src="/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
-<script src="/assets//js/plugins/forms/selects/select2.min.js"></script>
+<script src="/assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+<script src="/assets/js/plugins/forms/selects/select2.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {

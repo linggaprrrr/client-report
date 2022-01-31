@@ -11,12 +11,12 @@ class UserSeeder extends Seeder
     {
         $userModel = new UserModel();
         $data = [
-            'fullname' => 'test',
+            'fullname' => 'Administratror',
             'company' => 'Smart Wholesale LLC',
-            'email' => 'test@buysmartwholesale.com',
-            'username' => 'test',
-            'password' => password_hash('test', PASSWORD_BCRYPT),
-            'role' => 'client'
+            'email' => 'training@buysmartwholesale.com',
+            'username' => 'admin',
+            'password' => password_hash('training', PASSWORD_BCRYPT),
+            'role' => 'superadmin'
         ];
         $userModel->insert($data);
     }

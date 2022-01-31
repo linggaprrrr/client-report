@@ -24,16 +24,16 @@
             <table class="table datatable-basic" id="myTable" style="font-size: 12px;">
                 <thead>
                     <tr>
-                        <th class="text-center">No</th>
+                        <th class="text-center" style="width: 5%">No</th>
                         <th class="text-center" style="width: 10%">Box Name</th>
-                        <th class="text-center" style="width: 10%">Box Value</th>
-                        <th class="text-center" style="width: 10%">Order Date</th>
-                        <th class="text-center" style="width: 10%">Client</th>
-                        <th class="text-center" style="width: 10%">AMZ Store</th>
-                        <th class="text-center" style="width: 10%">AMZ Store</th>
-                        <th class="text-center" style="width: 20%">FBA Number</th>
-                        <th class="text-center" style="width: 20%">Shipment Number</th>
                         <th class="text-center" style="width: 10%">Status</th>
+                        <th class="text-center" style="width: 15%">Box Value</th>
+                        <th class="text-center">FBA Number</th>
+                        <th class="text-center">Shipment Number</th>
+                        <th class="text-center" style="width: 5%">Order</th>
+                        <th class="text-center">Client</th>
+                        <th class="text-center">AMZ Store</th>
+                        <th class="text-center">Investment Date</th>
                     </tr>
                 </thead>
                 <tbody id="assign-body">
@@ -48,37 +48,54 @@
                                     <?php else : ?>
                                     <tr class="table-success">
                                     <?php endif ?>
-                                    <td><?= $no++ ?></td>
-                                    <td class="">
+                                    <td>
+                                        <?= $no++ ?>
+                                        <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
+                                    </td>
+                                    <td>
                                         <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
                                             <b><?= $row['box_name'] ?></b>
                                         </a>
                                     </td>
-                                    <td class="value_box_<?= $no ?>"><b>$ <?= number_format($row['box_value'], 2) ?></b></td>
+                                    <td>
+                                        <?php if ($row['status'] == 'waiting') : ?>
+                                            <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
+                                        <?php elseif ($row['status'] == 'rejected') : ?>
+                                            <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
+                                        <?php else : ?>
+                                            <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
+                                        <?php endif ?>
+                                    </td>
+                                    <td class="value_box_<?= $no ?>">
+                                        <?php if ($row['box_value'] == $row['new_box_value']) : ?>
+                                            <b>$ <?= number_format($row['box_value'], 2) ?></b>
+                                        <?php else : ?>
+                                            <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= number_format($row['new_box_value'], 2) ?></mark></b>
+                                        <?php endif ?>
+                                    </td>
+                                    <td>
+                                        <b><?= $row['fba_number'] ?></b>
+                                    </td>
+                                    <td>
+                                        <b><?= $row['shipment_number'] ?> </b>
+                                    </td>
                                     <td>
                                         <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
-                                        <b><?= $newDate ?></b>
+                                        <input disabled type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= $newDate ?>" style="width: 90px; text-align:center">
                                     </td>
                                     <td>
                                         <b><?= $row['fullname'] ?></b>
                                     </td>
-                                    <td class="company_box_<?= $no ?>">
+                                    <td>
                                         <b><?= $row['company'] ?> </b>
                                     </td>
-                                    <td class="investment_box_<?= $no ?>">
-                                        <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
-                                        <b><?= strtoupper($newDateInvest) ?></b>
-                                    </td>
-                                    <td class="fba_number_box_<?= $no ?>">
-                                        <b><?= $row['fba_number'] ?></b>
-                                    </td>
-                                    <td class="shipment_box_<?= $no ?>">
-                                        <b><?= $row['shipment_number'] ?></b>
-                                    </td>
                                     <td>
-                                        <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
-                                        <b><?= strtoupper($row['status']) ?></b>
+                                        <select>
+                                            <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
+                                            <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
+                                        </select>
                                     </td>
+
                                     </tr>
                                 <?php endif ?>
                             <?php endforeach ?>

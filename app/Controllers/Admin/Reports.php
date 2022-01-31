@@ -79,7 +79,6 @@ class Reports extends BaseController
         $totalReport = $this->reportModel->totalReport();
         $getAllFiles = $this->reportModel->getAllFiles();
         $getAllClient = $this->reportModel->getAllClient();
-        // dd($getAllFiles->getResultArray());
 
         $data = [
             'tittle' => 'Client Activities | Report Management System',
@@ -102,6 +101,7 @@ class Reports extends BaseController
 
         $date = $this->request->getVar('date');
         $date = date('Y-m-d', strtotime($date));
+
         $ext = $report->getClientExtension();
         if ($ext == 'xls') {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
@@ -123,9 +123,7 @@ class Reports extends BaseController
                 $investment = array(
                     "cost" => $tempInvest,
                     "date" => $date,
-                    "client_id" => $client,
-                    "created_at" => date("Y-m-d H:i:s"),
-                    "updated_at" => date("Y-m-d H:i:s")
+                    "client_id" => $client
                 );
 
                 $this->investmentModel->save($investment);
@@ -179,7 +177,11 @@ class Reports extends BaseController
 
     public function deleteReport($id)
     {
+        $manifest = $this->reportModel->getFileManifest($id);
         $this->reportModel->deleteReport($id);
+        if (!is_null($manifest)) {
+            unlink('files/' . $manifest->file);
+        }
         return redirect()->back()->with('delete', 'Report Successfully Deleted!');
     }
 
@@ -235,6 +237,11 @@ class Reports extends BaseController
                         for ($i = 2; $i < 14; $i++) {
                             $temp = str_replace('%', '', $row[$i]);
                             $temp = str_replace(',', '', $temp);
+                            if (strpos($temp, '(') !== false) {
+                                $temp = str_replace('(', '', $temp);
+                                $temp = str_replace(')', '', $temp);
+                                $temp = -1 * abs($temp);
+                            }
                             array_push($month, $temp);
                         }
 
@@ -243,13 +250,24 @@ class Reports extends BaseController
                         for ($i = 2; $i < 14; $i++) {
                             $temp = str_replace('$', '', $row[$i]);
                             $temp = str_replace(',', '', $temp);
+                            if (strpos($temp, '(') !== false) {
+                                $temp = str_replace('(', '', $temp);
+                                $temp = str_replace(')', '', $temp);
+                                $temp = -1 * abs($temp);
+                            }
                             array_push($month, $temp);
                         }
 
                         array_push($type, 'currency');
                     } else {
                         for ($i = 2; $i < 14; $i++) {
-                            array_push($month, $row[$i]);
+                            $temp = $row[$i];
+                            if (strpos($temp, '(') !== false) {
+                                $temp = str_replace('(', '', $temp);
+                                $temp = str_replace(')', '', $temp);
+                                $temp = -1 * abs($temp);
+                            }
+                            array_push($month, $temp);
                         }
                         array_push($type, 'num');
                     }
@@ -261,6 +279,11 @@ class Reports extends BaseController
                         for ($i = 20; $i < 32; $i++) {
                             $temp = str_replace('%', '', $row[$i]);
                             $temp = str_replace(',', '', $temp);
+                            if (strpos($temp, '(') !== false) {
+                                $temp = str_replace('(', '', $temp);
+                                $temp = str_replace(')', '', $temp);
+                                $temp = -1 * abs($temp);
+                            }
                             array_push($month, $temp);
                         }
 
@@ -269,12 +292,23 @@ class Reports extends BaseController
                         for ($i = 20; $i < 32; $i++) {
                             $temp = str_replace('$', '', $row[$i]);
                             $temp = str_replace(',', '', $temp);
+                            if (strpos($temp, '(') !== false) {
+                                $temp = str_replace('(', '', $temp);
+                                $temp = str_replace(')', '', $temp);
+                                $temp = -1 * abs($temp);
+                            }
                             array_push($month, $temp);
                         }
                         array_push($type, 'currency');
                     } else {
                         for ($i = 20; $i < 32; $i++) {
-                            array_push($month, $row[$i]);
+                            $temp = $row[$i];
+                            if (strpos($temp, '(') !== false) {
+                                $temp = str_replace('(', '', $temp);
+                                $temp = str_replace(')', '', $temp);
+                                $temp = -1 * abs($temp);
+                            }
+                            array_push($month, $temp);
                         }
                         array_push($type, 'num');
                     }
@@ -297,7 +331,11 @@ class Reports extends BaseController
 
     public function deletePLReport($id)
     {
+        $plreport = $this->reportModel->getPLReportClient($id);
         $this->reportModel->deletePLReport($id);
+        if (!is_null($plreport)) {
+            unlink('files/' . $plreport->file);
+        }
         return redirect()->back()->with('delete', 'Report Successfully deleted!');
     }
 
@@ -344,7 +382,7 @@ class Reports extends BaseController
         $assignReport = array();
         $boxValue = 0;
         $insertId = 1;
-
+        $affected_rows = 0;
         foreach ($data as $idx => $row) {
             if ($idx == 1) {
                 $retail = str_replace('$', '', $row[4]);
@@ -374,13 +412,14 @@ class Reports extends BaseController
                             'original' => $original,
                             'cost' => $cost,
                             'vendor' => $row[7],
-                            'box_name' => $row[9]
+                            'box_name' => trim($row[9])
                         );
                         $boxValue += $cost;
                         $this->assignReportModel->save($assignReport);
                     } elseif (strcmp($row[9], "BOX") == 0) {
-                        $this->db->query("INSERT INTO assign_report_box(box_name, box_value, description, date, messenger, report_id) VALUES('$row[2]', $boxValue ," . $this->db->escape($row[1]) . ", '$row[7]', '$row[0]', $insertId)");
+                        $this->db->query("INSERT IGNORE INTO assign_report_box(box_name, box_value, description, date, messenger, report_id) VALUES('$row[2]', $boxValue ," . $this->db->escape($row[1]) . ", '$row[7]', '$row[0]', $insertId)");
                         $boxValue = 0;
+                        $affected_rows =  $affected_rows + $this->db->affectedRows();
                     }
                 } else {
                     continue;
@@ -389,7 +428,7 @@ class Reports extends BaseController
         }
 
         $report->move('files', $fileName);
-        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
+        return redirect()->back()->with('success', $affected_rows . ' box(es) successfully added');
     }
 
     public function getCompany($id)
@@ -463,7 +502,7 @@ class Reports extends BaseController
                 $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', date='$date' WHERE id='$boxId' ");
             }
         }
-        // return redirect()->back()->with('success', 'Report Successfully saved!');
+        return redirect()->back()->with('success', 'Report Successfully saved!');
     }
 
     public function saveAssignmentProcess()
@@ -477,7 +516,9 @@ class Reports extends BaseController
                 $box_id = $post['box_id'][$i];
                 $client = $post['client'][$i];
                 $investment_id = $post['investment_id'][$i];
-                if (!empty($fba_number) || !empty($shipment_number)) {
+                if (empty($fba_number) || empty($shipment_number)) {
+                    return redirect()->back()->with('required', 'FBA/Shipment Number Required!');
+                } else {
                     if ($status == 'approved') {
                         $this->db->query("INSERT INTO reports(sku, item_description, cond, qty, retail_value, original_value, cost, vendor, client_id, investment_id) SELECT sku, item_description, cond, qty, retail, original, cost, vendor, '$client', '$investment_id' FROM assign_report_details JOIN assign_report_box ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.id ='$box_id' AND assign_report_details.item_status='1' ");
                     }
@@ -497,7 +538,7 @@ class Reports extends BaseController
             foreach ($investments->getResultArray() as $idx => $data) {
                 $newDate = date("M-d-Y", strtotime($data['date']));
                 if ($idx == 0) {
-                    array_push($option, "<option selected value=" . $data['id'] . "  data-foo=" . number_format($data['cost'], 2) . "><b>" . strtoupper($newDate) . "<b/></option>");
+                    array_push($option, "<option selected value=" . $data['id'] . "  data-foo=" . $data['cost'] . "><b>" . strtoupper($newDate) . "<b/></option>");
                 } else {
                     array_push($option, "<option value=" . $data['id'] . "  data-foo=" . number_format($data['cost'], 2) . "><b>" . strtoupper($newDate) . "<b/></option>");
                 }
@@ -536,13 +577,13 @@ class Reports extends BaseController
             $costLeft = $currentCost - $valueBox;
         }
         if (!empty($checkBoxClient)) {
-            if ($costLeft <= -500) {
+            if ($costLeft <= -250) {
                 $status = 0;
             } else {
                 $this->db->query("UPDATE box_sum SET client_id='$clientId', cost_left='$costLeft', investment_id='$investmentId', order_date='$newDate' WHERE box_name='$boxName' ");
             }
         } else {
-            if ($costLeft <= -500) {
+            if ($costLeft <= -250) {
                 $status = 0;
             } else {
                 $this->db->query("INSERT INTO box_sum(box_name, cost_left, client_id, investment_id, order_date) VALUES('$boxName', '$costLeft', '$clientId', '$investmentId', '$newDate') ");

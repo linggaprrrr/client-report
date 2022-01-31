@@ -19,12 +19,12 @@
             </div>
 
             <div>
-                <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-user-plus mr-2"></i>Add Client</button>
+                <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-user-plus mr-2"></i>Add User</button>
                 <div id="modal_form_upload" class="modal fade" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header bg-secondary text-white">
-                                <h5 class="modal-title">Add Client</h5>
+                                <h5 class="modal-title">Add User</h5>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <form action="<?= base_url('/add-client') ?>" method="POST" enctype="multipart/form-data" id="form">
@@ -85,6 +85,7 @@
                                             </span>
                                             <select name="role" id="" class="form-control">
                                                 <option value="client">CLIENT</option>
+                                                <option value="admin">ADMIN</option>
                                                 <option value="va">VA</option>
                                             </select>
                                         </div>
@@ -157,14 +158,10 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="#" class="text-body">
-                                    <div class="font-weight-semibold"><?= $row['company'] ?></div>
-                                </a>
+                                <div class="font-weight-semibold"><?= $row['company'] ?></div>
                             </td>
                             <td>
-                                <a href="#" class="text-body">
-                                    <div class="font-weight-semibold"><?= $row['role'] ?></div>
-                                </a>
+                                <div class="font-weight-bold"><?= strtoupper($row['role']) ?></div>
                             </td>
                             <td class="text-center">
                                 <div class="list-icons">

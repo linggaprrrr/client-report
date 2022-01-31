@@ -624,6 +624,28 @@ class Reports extends BaseController
         return redirect()->back()->with('link', 'Link Successfully updated!');
     }
 
+    public function saveFBANumber()
+    {
+        $post = $this->request->getVar();
+        $fbaNumber = $post['fba_number'];
+        $boxName = $post['box_name'];
+        $this->db->query("UPDATE assign_report_box SET fba_number=" . $this->db->escape($fbaNumber) . " WHERE box_name = '$boxName' ");
+    }
+
+    public function saveShipmentNumber()
+    {
+        $post = $this->request->getVar();
+        $shipmentNumber = $post['shipment_number'];
+        $boxName = $post['box_name'];
+        $this->db->query("UPDATE assign_report_box SET shipment_number=" . $this->db->escape($shipmentNumber) . " WHERE box_name = '$boxName' ");
+    }
+
+    public function resetSecondPhase()
+    {
+        $this->db->query("UPDATE assign_report_box SET fba_number=NULL, shipment_number=NULL WHERE status='waiting' ");
+        return redirect()->back()->with('link', 'Link Successfully updated!');
+    }
+
     public function test()
     {
     }

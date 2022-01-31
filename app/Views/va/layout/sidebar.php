@@ -42,14 +42,14 @@
         <div class="sidebar-section">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <!-- Main -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="<?= base_url('/va/dashboard') ?>" class="nav-link">
                         <i class="icon-home4"></i>
                         <span>
                             Dashboard
                         </span>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link">
                         <i class="icon-copy"></i>

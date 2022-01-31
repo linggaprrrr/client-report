@@ -18,7 +18,7 @@
                 <a href="https://www.youtube.com/watch?v=SbyUfvZDqoU" target="_blank">Click Here</a> to watch the Video Now</P>
                 <br>
                 <p>Once you watch the video, please follow these next steps. </p>
-                <ol type = "1">
+                <ol type="1">
                     <li>
                         <p>Make sure to connect with your Customer Service team thru Facebook messenger. Nikki will be your account manager for any questions you may have, but any of our team members are more than happy to assist you. They will always be your point of contact for any questions about your store. </p>
                     </li>
@@ -40,6 +40,8 @@
         </div>
 
     </div>
+    <button type="button" id="pnotify-info" style="display: none;"></button>
+
     <!-- /blocks with chart -->
 
 </div>
@@ -47,5 +49,26 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
+<script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
+<script src="/assets/js/plugins/notifications/pnotify.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+
+        <?php if (!empty($costLeft)) : ?>
+            <?php if ($costLeft < 100) : ?>
+                $('#pnotify-info').click();
+            <?php endif ?>
+        <?php endif ?>
+    })
+
+    $('#pnotify-info').on('click', function() {
+        new PNotify({
+            title: 'Info notice',
+            text: 'Your Cost Left under $100.00!.',
+            icon: 'icon-info22',
+            type: 'info'
+        });
+    });
+</script>
 <?= $this->endSection() ?>

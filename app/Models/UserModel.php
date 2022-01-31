@@ -13,7 +13,7 @@ class UserModel extends Model
     public function getAllUser()
     {
         $this->db = \Config\Database::connect();
-        $query = $this->db->query("SELECT * FROM users WHERE role = 'client' ORDER BY fullname ASC ");
+        $query = $this->db->query("SELECT * FROM users WHERE role <> 'superadmin' ORDER BY fullname ASC ");
         return $query;
     }
 }

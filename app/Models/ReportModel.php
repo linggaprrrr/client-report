@@ -28,7 +28,7 @@ class ReportModel extends Model
     public function totalRetail($id = null)
     {
         if ($id == null) {
-            $query = $this->db->query("SELECT SUM(original_value) as total_retail FROM reports")->getRow();
+            $query = $this->db->query("SELECT SUM(original_value) as total_retail FROM reports JOIN users ON users.id = reports.client_id")->getRow();
         } else {
             $query = $this->db->query("SELECT SUM(original_value) as total_retail FROM reports WHERE investment_id ='$id' ")->getRow();
         }
@@ -38,7 +38,7 @@ class ReportModel extends Model
     public function totalCostLeft($id = null)
     {
         if ($id == null) {
-            $totalCost = $this->db->query("SELECT SUM(cost) as total_cost FROM reports")->getRow();
+            $totalCost = $this->db->query("SELECT SUM(cost) as total_cost FROM reports JOIN users ON users.id = reports.client_id")->getRow();
             $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM (SELECT fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id ORDER BY fullname ASC ) as t")->getRow();
         } else {
             $totalCost = $this->db->query("SELECT SUM(cost) as total_cost FROM reports WHERE investment_id = '$id'")->getRow();
@@ -51,7 +51,7 @@ class ReportModel extends Model
     public function totalFulfilled($id = null)
     {
         if ($id == null) {
-            $query =  $this->db->query("SELECT SUM(cost) as total_fulfilled FROM reports")->getRow();
+            $query =  $this->db->query("SELECT SUM(cost) as total_fulfilled FROM reports JOIN users ON users.id = reports.client_id")->getRow();
         } else {
             $query =  $this->db->query("SELECT SUM(cost) as total_fulfilled FROM reports WHERE investment_id='$id' ")->getRow();
         }
@@ -61,7 +61,7 @@ class ReportModel extends Model
 
     public function getAllReports()
     {
-        $query = $this->db->query("SELECT a.client_id, fullname, investment_date, status, company, SUM(a.qty) as total_unit, SUM(original_value) as total_retail, SUM(a.bal) as client_cost, SUM(a.total_fulfilled) as total_fulfilled, (SUM(a.bal)-SUM(IFNULL(a.total_fulfilled, 0))) as cost_left, (SUM(a.bal)-SUM(a.total_fulfilled)) as total_client_cost, (SUM(a.total_fulfilled)/SUM(a.qty)) as avg_client_cost, (SUM(original_value)/SUM(qty)) as avg_unit_retail FROM (SELECT (SUM(investments.cost)/COUNT(*)) as bal, investments.client_id, investments.date as investment_date, SUM(qty) as qty, SUM(original_value) as original_value, SUM(reports.cost) as total_fulfilled, investments.status as status FROM `investments` LEFT JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as a  JOIN users ON users.id = a.client_id GROUP BY client_id ORDER BY investment_date DESC");
+        $query = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, investments.status, users.company, SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, investments.cost as client_cost, SUM(reports.cost) as total_fulfilled, investments.cost - SUM(IFNULL(reports.cost, 0)) as cost_left FROM investments LEFT JOIN reports ON investments.id = reports.investment_id JOIN users ON users.id = investments.client_id GROUP BY investments.id ORDER BY investments.date DESC");
         return $query;
     }
 
@@ -86,7 +86,7 @@ class ReportModel extends Model
 
     public function getAllFiles()
     {
-        $query = $this->db->query("SELECT log_files.id as log_id, investments.date as invest_date, fullname, company, file, log_files.date, link, investments.id as investment_id  FROM `log_files` JOIN investments ON investments.id = log_files.investment_id JOIN users ON users.id = log_files.client_id");
+        $query = $this->db->query("SELECT log_files.id as log_id, investments.date as invest_date, investments.cost as amount, fullname, company, file, log_files.date, link, investments.id as investment_id  FROM `log_files` RIGHT JOIN investments ON investments.id = log_files.investment_id JOIN users ON users.id = log_files.client_id ORDER BY investments.date DESC");
         return $query;
     }
 
@@ -98,7 +98,7 @@ class ReportModel extends Model
 
     public function deleteReport($id)
     {
-        $this->db->query("DELETE FROM reports WHERE investment_id='$id'");
+        $this->db->query("DELETE FROM reports WHERE investment_id='$id' ");
         $this->db->query("DELETE FROM investments WHERE id='$id' ");
         $this->db->query("DELETE FROM log_files WHERE investment_id='$id' ");
     }
@@ -111,7 +111,7 @@ class ReportModel extends Model
 
     public function getPLReport()
     {
-        $query = $this->db->query("SELECT log_files.client_id, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL");
+        $query = $this->db->query("SELECT log_files.client_id, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL ORDER BY date DESC");
         return $query;
     }
 
@@ -135,7 +135,27 @@ class ReportModel extends Model
 
     public function deletePLReport($id)
     {
-        $this->db->query("DELETE FROM chart_pl  WHERE client_id = '$id' ");
-        $this->db->query("DELETE FROM log_files WHERE client_id = '$id' ");
+        $this->db->query("DELETE FROM chart_pl  WHERE client_id = '$id'");
+        $this->db->query("DELETE FROM log_files WHERE client_id = '$id' AND investment_id=NULL");
+    }
+
+    public function getFileManifest($id)
+    {
+        $query = $this->db->query("SELECT file FROM log_files WHERE investment_id='$id' ")->getRow();
+        return $query;
+    }
+
+    public function getPLReportClient($id)
+    {
+        $query = $this->db->query("SELECT file FROM log_files WHERE client_id = '$id' AND investment_id IS NULL")->getRow();
+        return $query;
+    }
+
+    public function getClientCostLeft($id)
+    {
+        $totalCost = $this->db->query("SELECT SUM(reports.cost) as total_cost FROM reports JOIN investments ON investments.id = reports.investment_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.id DESC LIMIT 1 ")->getRow();
+        $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM (SELECT investments.id, fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.id DESC LIMIT 1 ) as t ")->getRow();
+        $totalCostLeft = $totalInvest->total_invest - $totalCost->total_cost;
+        return $totalCostLeft;
     }
 }

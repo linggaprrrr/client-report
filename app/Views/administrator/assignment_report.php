@@ -75,8 +75,55 @@
                 <tbody id="assign-body">
                     <?php if ($getAllAssignReport->getNumRows() > 0) : ?>
                         <?php $no = 1 ?>
+
                         <?php foreach ($getAllAssignReport->getResultArray() as $row) : ?>
-                            <?php if (empty($row['userid'])) : ?>
+                            <?php if (!empty($row['userid']) && $row['confirmed'] == 0) : ?>
+                                <tr>
+                                    <td>
+                                        <?= $no++ ?>
+                                        <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
+                                    </td>
+                                    <td>
+                                        <a href="#" class="h6 box_name name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
+                                            <?= $row['box_name'] ?>
+                                        </a>
+                                    </td>
+                                    <td><span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span></td>
+                                    <td class="value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
+                                    <td>
+                                        <input type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= date("m/d/Y") ?>" style="width: 90px; text-align:center">
+                                    </td>
+                                    <td>
+                                        <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
+                                            <option value="0">...</option>
+                                            <?php foreach ($getAllClient->getResultArray() as $client) : ?>
+                                                <?php if ($client['id'] == $row['userid']) : ?>
+                                                    <option value="<?= $client['id'] ?>" selected><b><?= $client['fullname'] ?></b></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $client['id'] ?>"><b><?= $client['fullname'] ?></b></option>
+                                                <?php endif ?>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </td>
+                                    <td class="company_box_<?= $no ?>">
+                                        <b><?= $row['company'] ?> </b>
+                                    </td>
+                                    <td class="date_box_<?= $no ?>">
+                                        <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
+
+                                        <select class="select_date_box_<?= $no ?>">
+                                            <option value="<?= $row['investment_id'] ?>" selected><?= strtoupper($newDateInvest) ?></option>
+                                        </select>
+                                    </td>
+                                    <td class="currentCost_box_<?= $no ?>">
+                                        <b><?= "$ " . number_format($row['current_cost'], 2) ?></b>
+                                    </td>
+                                    <td class="total_box_<?= $no ?>">
+                                        <b><?= "$ " . number_format($row['cost_left'], 2) ?></b>
+                                    </td>
+                                </tr>
+
+                            <?php elseif (empty($row['userid'])) : ?>
                                 <tr>
                                     <td>
                                         <?= $no++ ?>
@@ -205,12 +252,12 @@
                     <th class="text-center" style="width: 10%">Box Name</th>
                     <th class="text-center" style="width: 10%">Status</th>
                     <th class="text-center" style="width: 15%">Box Value</th>
+                    <th class="text-center">FBA Number</th>
+                    <th class="text-center">Shipment Number</th>
                     <th class="text-center" style="width: 5%">Order</th>
                     <th class="text-center">Client</th>
                     <th class="text-center">AMZ Store</th>
                     <th class="text-center">Investment Date</th>
-                    <th class="text-center">Current</th>
-                    <th class="text-center">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -244,10 +291,16 @@
                             </td>
                             <td class="value_box_<?= $no ?>">
                                 <?php if ($row['box_value'] == $row['new_box_value']) : ?>
-                                    <b>$ <?= $row['box_value'] ?></b>
+                                    <b>$ <?= number_format($row['box_value'], 2) ?></b>
                                 <?php else : ?>
-                                    <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= $row['new_box_value'] ?></mark></b>
+                                    <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= number_format($row['new_box_value'], 2) ?></mark></b>
                                 <?php endif ?>
+                            </td>
+                            <td>
+                                <b><?= $row['fba_number'] ?></b>
+                            </td>
+                            <td>
+                                <b><?= $row['shipment_number'] ?> </b>
                             </td>
                             <td>
                                 <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
@@ -265,12 +318,7 @@
                                     <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
                                 </select>
                             </td>
-                            <td>
-                                <b><?= "$ " . number_format($row['current_cost'], 2) ?></b>
-                            </td>
-                            <td>
-                                <b><?= "$ " . number_format($row['cost_left'], 2) ?></b>
-                            </td>
+
                             </tr>
                         <?php endforeach ?>
                     <?php endif ?>
@@ -284,7 +332,7 @@
         <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header pb-3">
-                    <h5><b>BOX #<span class="modal-title">#title</span></b></h5>
+                    <h5><b><span class="modal-title">#title</span></b></h5>
                 </div>
                 <div class="modal-body py-0">
                     <form id="box-details">
@@ -376,9 +424,26 @@
 <script src="/assets/js/demo_pages/form_select2.js"></script>
 <script src="/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
 <script src="/assets//js/plugins/forms/selects/select2.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $(document).ready(function() {
+        <?php if (session()->getFlashdata('success')) : ?>
+            swal("Great!", "<?= session()->getFlashdata('success') ?>", "success");
+        <?php endif ?>
+
+        var input = document.getElementById('file-upload');
+        var infoArea = document.getElementById('file-upload-filename');
+
+        input.addEventListener('change', showFileName);
+
+        function showFileName(event) {
+            // the change event gives us the input it occurred in 
+            var input = event.srcElement;
+            // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+            var fileName = input.files[0].name;
+            // use fileName however fits your app best, i.e. add it into a div
+            infoArea.textContent = '' + fileName;
+        }
         <?php if (session()->getFlashdata('success')) : ?>
             $('#noty_created').click();
         <?php endif ?>
@@ -443,9 +508,10 @@
 
                 var selected = $('.select_date_' + boxId).find('option:selected');
                 var currentCost = selected.data('foo');
-                currentCost = Number(currentCost.replace(/[^0-9.-]+/g, ""));
 
-                $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(currentCost) + "</b>");
+
+
+                $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b>");
                 var investmentId = $('.select_date_' + boxId + ' option:selected').val();
                 $.post('/assign-box', {
                     box_id: boxId,
@@ -457,12 +523,9 @@
                     investment_id: investmentId
                 }, function(data) {
                     var resp = JSON.parse(data);
+                    console.log(resp['status']);
                     if (resp['status'] == 0) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Total exceed $500.00!'
-                        });
+                        swal("Oops...", "Total exceed $250.00!", "warning");
                         $('.total_' + boxId).html("");
                     } else {
                         $('.total_' + boxId).html("<b>$ " + numberWithCommas(resp['cost_left'].toFixed(2)) + "</b>");
@@ -489,7 +552,7 @@
         $('.select_date_' + boxId).on('change', function() {
             var selected = $(this).find('option:selected');
             var currentCost = selected.data('foo');
-            $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(currentCost) + "</b>");
+            $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b>");
             var investmentId = $('.select_date_' + boxId + ' option:selected').val();
             $.post('/assign-box', {
                 box_id: boxId,
@@ -502,11 +565,7 @@
             }, function(data) {
                 var resp = JSON.parse(data);
                 if (resp['status'] == 0) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Total exceed $500.00!'
-                    });
+                    swal("Oops...", "Total exceed $250.00!", "warning");
                     $('.total_' + boxId).html("");
                 } else {
                     $('.total_' + boxId).html("<b>$ " + numberWithCommas(resp['cost_left'].toFixed(2)) + "</b>");
@@ -520,12 +579,14 @@
 
 
     $('.box_name').on('click', function() {
-        var boxName = $(this).attr('data-box');
+        var boxName = $(this).data('box');
+        console.log(boxName);
         $('#item-table tbody').html("");
         $.get('/get-box-summary', {
             box_name: boxName
         }, function(data) {
-            $('.modal-title').html("<b>" + boxName + "</b>");
+            var item = JSON.parse(data);
+            $('.modal-title').html("<b>" + item[0]['description'] + "</b>");
             $('#box_name').val(boxName);
             $('#item-table-removed').css("display", "none");
             $('.modal_scrollable_box').modal({
@@ -533,7 +594,7 @@
                 keyboard: false
             })
             $('#item-tbody-removed').html("");
-            var item = JSON.parse(data);
+
             if (item.length > 0) {
                 $('#box_note').html(item[0]['box_note']);
                 var no = 1;
@@ -565,6 +626,8 @@
             text: 'You successfully upload the report.',
             type: 'success'
         }).show();
+
+
     });
     $('#noty_deleted').on('click', function() {
         new Noty({

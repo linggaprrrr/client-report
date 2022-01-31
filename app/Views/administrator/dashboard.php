@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <div class="card">
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
@@ -117,6 +117,7 @@
                     <th style="width: 5%;">No.</th>
                     <th>Client Name</th>
                     <th>Company</th>
+                    <th>Investment Date</th>
                     <th>Total Unit</th>
                     <th>Total Retail</th>
                     <th>Total Client Cost</th>
@@ -129,27 +130,31 @@
                 <?php if ($getAllReports->getNumRows() > 0) : ?>
                     <?php $no = 1; ?>
                     <?php foreach ($getAllReports->getResultArray() as $row) : ?>
-                        <?php if ($row['status'] == 'complete') :?>
-                        <tr class="table-info">
-                        <?php else : ?>
-                        <tr class="table-active">
-                        <?php endif ?>
+                        <?php if ($row['status'] == 'complete') : ?>
+                            <tr class="table-info">
+                            <?php else : ?>
+                            <tr class="table-active">
+                            <?php endif ?>
                             <td class="text-center"><?= $no++ ?></td>
                             <td><?= $row['fullname'] ?></td>
-                            <td><?= $row['company'] ?></td>                            
-                            <td class="text-center"><?= $row['total_unit'] ?></td>
+                            <td><?= $row['company'] ?></td>
+                            <td class="text-center font-weight-bold">
+                                <?php $newDate = date("M-d-Y", strtotime($row['investment_date'])); ?>
+                                <?= strtoupper($newDate) ?>
+                            </td>
+                            <td class="text-center"><?= $row['total_unit'] ?? 0 ?></td>
                             <td class="text-center">$ <?= number_format($row['total_retail'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['client_cost'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['total_fulfilled'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['cost_left'], 2) ?></td>
-                            <?php if ($row['status'] == 'complete') :?>
+                            <?php if ($row['status'] == 'complete') : ?>
                                 <td class="text-center font-weight-bold"><span class="badge badge-primary">COMPLETE</span></td>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <td class="text-center font-weight-bold"><span class="badge badge-secondary">WORKING</span></td>
                             <?php endif ?>
-                        </tr>
-                    <?php endforeach ?>
-                <?php endif ?>
+                            </tr>
+                        <?php endforeach ?>
+                    <?php endif ?>
             </tbody>
         </table>
     </div>

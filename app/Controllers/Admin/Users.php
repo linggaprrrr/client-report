@@ -43,7 +43,6 @@ class Users extends BaseController
             "username" => $post['username'],
             "role" => $post['role'],
             "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
-            'role' => 'client'
         ));
         return redirect()->back()->with('success', 'User Successfully Created!');
     }

@@ -28,7 +28,7 @@ class AssignReportModel extends Model
 
     public function getAllAssignReport()
     {
-        $query = $this->db->query("SELECT assign_report_box.*, box_sum.order_date, box_sum.investment_id, users.id as userid, users.fullname, users.company, t.investdate, t.current_cost, box_sum.cost_left FROM assign_report_box LEFT JOIN box_sum ON box_sum.client_id = assign_report_box.client_id LEFT JOIN users ON users.id = box_sum.client_id LEFT JOIN (SELECT investments.id,  investments.date as investdate, investments.cost-SUM(reports.cost) as current_cost FROM investments JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as t ON t.id = box_sum.investment_id");
+        $query = $this->db->query("SELECT assign_report_box.id, assign_report_box.box_name, assign_report_box.confirmed, assign_report_box.box_value, assign_report_box.description, assign_report_box.status, box_sum.client_id, box_sum.order_date, box_sum.investment_id, box_sum.cost_left, users.id as userid, users.fullname, users.company, investments.date as investdate, investments.cost-SUM(reports.cost) as current_cost FROM assign_report_box LEFT JOIN box_sum ON assign_report_box.box_name = box_sum.box_name LEFT JOIN users ON users.id = box_sum.client_id LEFT JOIN investments ON investments.id = box_sum.investment_id LEFT JOIN reports ON reports.investment_id = box_sum.investment_id GROUP BY assign_report_box.box_name ORDER BY assign_report_box.id ASC");
         return $query;
     }
 
@@ -36,13 +36,13 @@ class AssignReportModel extends Model
 
     public function getAllAssignReportProcess()
     {
-        $query = $this->db->query("SELECT assign_report_box.id as box_id, assign_report_box.status, assign_report_box.confirmed, assign_report_box.box_value, assign_report_box.fba_number, assign_report_box.shipment_number, assign_report_box.box_note, box_sum.id, box_sum.box_name, box_sum.order_date, box_sum.investment_id, users.id as userid, users.fullname, users.company, t.investdate, t.current_cost, box_sum.cost_left FROM assign_report_box LEFT JOIN box_sum ON box_sum.client_id = assign_report_box.client_id LEFT JOIN users ON users.id = box_sum.client_id LEFT JOIN (SELECT investments.id,  investments.date as investdate, investments.cost-SUM(reports.cost) as current_cost FROM investments JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as t ON t.id = box_sum.investment_id WHERE confirmed='1' AND assign_report_box.status='waiting' GROUP BY box_sum.id ORDER BY box_sum.id DESC");
+        $query = $this->db->query("SELECT assign_report_box.id, assign_report_box.box_name, assign_report_box.confirmed, assign_report_box.box_value, assign_report_box.description, assign_report_box.status, assign_report_box.fba_number, assign_report_box.shipment_number, assign_report_box.box_note, box_sum.client_id, box_sum.order_date, box_sum.investment_id, box_sum.cost_left, users.id as userid, users.fullname, users.company, investments.date as investdate, investments.cost-SUM(reports.cost) as current_cost FROM assign_report_box LEFT JOIN box_sum ON assign_report_box.box_name = box_sum.box_name LEFT JOIN users ON users.id = box_sum.client_id LEFT JOIN investments ON investments.id = box_sum.investment_id LEFT JOIN reports ON reports.investment_id = box_sum.investment_id WHERE confirmed='1' AND assign_report_box.status='waiting' GROUP BY assign_report_box.box_name ORDER BY box_sum.order_date DESC");
         return $query;
     }
 
     public function getAllClient()
     {
-        $query = $this->db->query("SELECT investments.cost, users.id, users.fullname, users.company FROM users JOIN investments ON investments.client_id = users.id WHERE investments.status = 'assign' GROUP BY client_id ");
+        $query = $this->db->query("SELECT investments.cost, users.id, users.fullname, users.company FROM `investments` JOIN users ON users.id = investments.client_id JOIN reports ON reports.investment_id = investments.id WHERE investments.status='assign' GROUP BY investments.id ");
         return $query;
     }
 
@@ -60,13 +60,13 @@ class AssignReportModel extends Model
 
     public function getBoxSummary($box_name)
     {
-        $query = $this->db->query("SELECT assign_report_details.id, assign_report_box.box_note, assign_report_box.fba_number, assign_report_box.shipment_number, assign_report_box.status, sku, item_description, cond, qty, retail, original, cost, vendor, item_note, item_status FROM box_sum RIGHT JOIN assign_report_details ON assign_report_details.box_name = box_sum.box_name JOIN assign_report_box ON assign_report_details.box_name = assign_report_box.box_name WHERE assign_report_box.box_name ='$box_name' ");
+        $query = $this->db->query("SELECT assign_report_details.id, assign_report_box.box_note, assign_report_box.description, assign_report_box.fba_number, assign_report_box.shipment_number, assign_report_box.status, sku, item_description, cond, qty, retail, original, cost, vendor, item_note, item_status FROM box_sum RIGHT JOIN assign_report_details ON assign_report_details.box_name = box_sum.box_name JOIN assign_report_box ON assign_report_details.box_name = assign_report_box.box_name WHERE assign_report_box.box_name ='$box_name' ");
         return $query;
     }
 
     public function getAllAssignReportCompleted()
     {
-        $query = $this->db->query("SELECT assign_report_box.status, assign_report_box.confirmed, assign_report_box.box_value, assign_report_box.fba_number, assign_report_box.shipment_number, assign_report_box.box_note, ROUND(SUM(assign_report_details.cost), 2) as new_box_value, box_sum.id, box_sum.box_name, box_sum.order_date, box_sum.investment_id, users.id as userid, users.fullname, users.company, t.investdate, t.current_cost, box_sum.cost_left FROM assign_report_box LEFT JOIN box_sum ON box_sum.client_id = assign_report_box.client_id LEFT JOIN users ON users.id = box_sum.client_id LEFT JOIN (SELECT investments.id,  investments.date as investdate, investments.cost-SUM(reports.cost) as current_cost FROM investments JOIN reports ON investments.id=reports.investment_id GROUP BY investments.id) as t ON t.id = box_sum.investment_id JOIN assign_report_details ON assign_report_details.box_name=box_sum.box_name WHERE confirmed='1' AND assign_report_box.status <> 'waiting' AND assign_report_details.item_status=1 GROUP BY box_sum.id ORDER BY box_sum.id DESC ");
+        $query = $this->db->query("SELECT  assign_report_box.*, SUM(assign_report_details.cost) as new_box_value, users.id as userid, users.fullname, users.company, investments.date as investdate, box_sum.order_date FROM assign_report_details JOIN assign_report_box ON assign_report_details.box_name = assign_report_box.box_name JOIN users ON users.id = assign_report_box.client_id JOIN box_sum ON box_sum.box_name = assign_report_box.box_name JOIN investments ON investments.id = box_sum.investment_id WHERE item_status=1 AND assign_report_box.status<>'waiting' GROUP BY assign_report_box.box_name ORDER BY order_date DESC");
         return $query;
     }
 }

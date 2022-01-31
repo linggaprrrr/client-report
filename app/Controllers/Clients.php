@@ -71,7 +71,6 @@ class Clients extends BaseController
             $getVendorName = $this->reportModel->getVendorName($dateId);
         }
 
-        // dd($lastInvestment);
         $data = [
             'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',
@@ -209,10 +208,13 @@ class Clients extends BaseController
             return redirect()->to(base_url('/login'));
         }
         $user = $this->userModel->find($userId);
+        $getClientCostLeft = $this->reportModel->getClientCostLeft($userId);
+
         $data = [
             'tittle' => "Get Started | Report Management System",
             'menu' => "Get Started",
             'user' => $user,
+            'costLeft' => $getClientCostLeft
         ];
         return view('client/getstarted', $data);
     }

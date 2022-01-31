@@ -89,6 +89,7 @@ $routes->get('/va/assignment-report', 'VA\Reports::assignmentReport');
 $routes->get('/va/assignment-process', 'VA\Reports::assignmentReportProcess');
 $routes->get('/va/assignment-completed', 'VA\Reports::assignmentCompleted');
 $routes->get('/va/assignment-history', 'VA\Reports::assignmentHistory');
+$routes->get('/reset-second-phase', 'VA\Reports::resetSecondPhase');
 
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');
@@ -96,6 +97,8 @@ $routes->post('/update-link-spreadhsheet', 'Admin\Reports::updateLink');
 $routes->post('/get-investment-client', 'Admin\Reports::getInvestmentClient');
 $routes->post('/assign-box', 'Admin\Reports::assignBox');
 $routes->get('get-box-summary', 'Admin\Reports::getBoxSummary');
+$routes->post('save-fba-number', 'VA\Reports::saveFBANumber');
+$routes->post('save-shipment-number', 'VA\Reports::saveShipmentNumber');
 
 
 /*

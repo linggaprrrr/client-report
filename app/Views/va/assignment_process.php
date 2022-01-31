@@ -22,7 +22,7 @@
                 </ul>
             </div>
             <div class="reset-button">
-                <a href="<?= base_url('/reset-assignment') ?>"><span class="badge badge-danger"><i class="icon-reset mr-2"></i>RESET</span></a>
+                <a href="<?= base_url('/reset-second-phase') ?>"><span class="badge badge-danger"><i class="icon-reset mr-2"></i>RESET</span></a>
             </div>
             <table class="table datatable-basic" id="myTable" style="font-size: 12px;">
                 <thead>
@@ -73,13 +73,13 @@
                                         <b><?= strtoupper($newDateInvest) ?></b>
                                     </td>
                                     <td class="fba_number_box_<?= $no ?>">
-                                        <input class="form-control" name="fba_number[]" placeholder="FBA Number" value="<?= $row['fba_number'] ?>">
+                                        <input class="form-control fba_input" name="fba_number[]" placeholder="FBA Number" data-box="<?= $row['box_name'] ?>" value="<?= $row['fba_number'] ?>" readonly>
                                     </td>
                                     <td class="shipment_box_<?= $no ?>">
-                                        <input class="form-control" name="shipment_number[]" placeholder="Shipment Number" value="<?= $row['shipment_number'] ?>">
+                                        <input class="form-control shipment_input" name="shipment_number[]" placeholder="Shipment Number" data-box="<?= $row['box_name'] ?>" value="<?= $row['shipment_number'] ?>" readonly>
                                     </td>
                                     <td>
-                                        <input type="hidden" name="box_id[]" value="<?= $row['box_id'] ?>">
+                                        <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
                                         <select class="form-control" name="status[]" style="width: 130px;">
                                             <?php if ($row['status'] == 'waiting') : ?>
                                                 <option value="0" selected>...</option>
@@ -215,9 +215,15 @@
 <script src="/assets/js/demo_pages/form_select2.js"></script>
 <script src="/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
 <script src="/assets//js/plugins/forms/selects/select2.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $(document).ready(function() {
+        <?php if (session()->getFlashdata('required')) : ?>
+            swal("Warning!", "<?= session()->getFlashdata('required') ?>", "warning");
+        <?php endif ?>
+
+
+
         <?php if (session()->getFlashdata('success')) : ?>
             $('#noty_created').click();
         <?php endif ?>
@@ -337,6 +343,73 @@
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+    $('.fba_input').on('click', function() {
+        var current = $(this).val();
+        var fbaNumber = "";
+        var boxName = $(this).data('box');
+        swal("Input FBA Number:", {
+                content: {
+                    element: "input",
+                    attributes: {
+                        placeholder: "Type your password",
+                        type: "text",
+                        value: current
+                    },
+                },
+            })
+            .then((value) => {
+                if (value) {
+                    fbaNumber = value;
+                    swal(`FBA Number: ${value}`);
+                    $(this).val(value);
+                } else {
+                    fbaNumber = current;
+                    swal(`FBA Number: ${current}`);
+                    $(this).val(current);
+                }
+
+                $.post('/save-fba-number', {
+                    fba_number: fbaNumber,
+                    box_name: boxName
+                }, function(data) {
+
+                });
+            });
+    });
+
+    $('.shipment_input').on('click', function() {
+        var current = $(this).val();
+        var shipmentNumber = "";
+        var boxName = $(this).data('box');
+        swal("Input Shipment Number:", {
+                content: {
+                    element: "input",
+                    attributes: {
+                        placeholder: "Type your password",
+                        type: "text",
+                        value: current
+                    },
+                },
+            })
+            .then((value) => {
+                if (value) {
+                    shipmentNumber = value;
+                    swal(`Shipment Number: ${value}`);
+                    $(this).val(value);
+                } else {
+                    shipmentNumber = current;
+                    swal(`Shipment Number: ${current}`);
+                    $(this).val(current);
+                }
+                $.post('/save-shipment-number', {
+                    shipment_number: shipmentNumber,
+                    box_name: boxName
+                }, function(data) {
+
+                });
+            });
+    });
 </script>
 
 <?= $this->endSection() ?>
