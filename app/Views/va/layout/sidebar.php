@@ -58,7 +58,7 @@
                         </span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Assignment Report">
-                        <li class="nav-item"><a href="<?= base_url('/va/assignment-process') ?>" class="nav-link">Assignment Report</a></li>
+                        <li class="nav-item"><a href="<?= base_url('/va/assignment-report') ?>" class="nav-link">Assignment Report</a></li>
                         <li class="nav-item"><a href="<?= base_url('/va/assignment-history') ?>" class="nav-link">Assignment History</a></li>
                     </ul>
                 </li>

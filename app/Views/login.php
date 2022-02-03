@@ -67,7 +67,7 @@
                                     </label>
                                     <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
                                 </div>
-
+                                <input type="hidden" name="current" id="" value="<?= base_url(uri_string()) ?>">
                                 <input type="submit" value="Log In" class="btn btn-block btn-primary">
                             </form>
 

@@ -65,7 +65,7 @@ class InvestmentModel extends Model
 
     public function getCompany($id)
     {
-        $query = $this->db->query("SELECT company, cost FROM users JOIN investments ON users.id = investments.client_id WHERE client_id = '$id' ")->getRow();
+        $query = $this->db->query("SELECT company, cost, brand_approval FROM users JOIN investments ON users.id = investments.client_id WHERE client_id = '$id' ")->getRow();
         return $query;
     }
 

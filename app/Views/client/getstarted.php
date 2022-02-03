@@ -49,8 +49,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
-<script src="/assets/js/plugins/notifications/pnotify.min.js"></script>
+<script src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -63,11 +62,10 @@
     })
 
     $('#pnotify-info').on('click', function() {
-        new PNotify({
-            title: 'Info notice',
-            text: 'Your Cost Left under $100.00!.',
-            icon: 'icon-info22',
-            type: 'info'
+        Swal.fire({
+            title: 'Manifest Almost Completed',
+            text: 'Time to re-order, please go to Purchase Inventory to order more',
+            icon: 'info'
         });
     });
 </script>

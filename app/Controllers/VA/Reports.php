@@ -491,7 +491,7 @@ class Reports extends BaseController
         $boxName = $post['box_name'];
         $orderDate = $post['order_date'];
         $newDate = date('Y-m-d', strtotime($orderDate));
-
+        $va = $post['va_id'];
         $clientId = $post['client_id'];
         $valueBox = $post['value_box'];
         $currentCost = $post['current_cost'];
@@ -529,6 +529,7 @@ class Reports extends BaseController
         echo json_encode($feedback);
     }
 
+
     public function assignmentReportProcess()
     {
         $userId = session()->get('user_id');
@@ -537,7 +538,7 @@ class Reports extends BaseController
         }
         $user = $this->userModel->find($userId);
         $getAllClient = $this->assignReportModel->getAllClient();
-        $getAllAssignReportProcess = $this->assignReportModel->getAllAssignReportProcess();
+        $getAllAssignReportProcess = $this->assignReportModel->getAllAssignReportProcess($userId, $user['role']);
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'APPROVAL BOX ASSIGNMENT',

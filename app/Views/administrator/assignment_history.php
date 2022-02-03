@@ -25,6 +25,7 @@
                         <th class="text-center" style="width: 10%">Client</th>
                         <th class="text-center" style="width: 10%">AMZ Store</th>
                         <th class="text-center" style="width: 10%">Investment Date</th>
+                        <th class="text-center" style="width: 10%">VA</th>
                         <th class="text-center" style="width: 20%">FBA Number</th>
                         <th class="text-center" style="width: 20%">Shipment Number</th>
                         <th class="text-center" style="width: 10%">Status</th>
@@ -69,6 +70,12 @@
                                         <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
                                         <b><?= strtoupper($newDateInvest) ?></b>
                                     </td>
+                                    <td class="va_box<?= $no ?>">
+                                        <?php foreach ($getAllVA->getResultArray() as $va) : ?>
+                                            <?php if ($va['id'] == $row['va_id']) : ?>
+                                                <b><?= $va['fullname'] ?></b>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
                                     <td class="fba_number_box_<?= $no ?>">
                                         <b><?= $row['fba_number'] ?></b>
                                     </td>

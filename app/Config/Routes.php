@@ -58,11 +58,12 @@ $routes->post('/admin/checklist-report-save', 'Admin\Reports::checklistReportSav
 $routes->post('/save-assignment', 'Admin\Reports::saveAssignmentReport');
 $routes->post('/save-assignment-process', 'Admin\Reports::saveAssignmentProcess');
 $routes->get('/reset-assignment', 'Admin\Reports::resetAssignment');
-
+$routes->post('/update-price-item', 'Admin\Reports::updatePriceBox');
 $routes->post('/save-box-details', 'Admin\Reports::saveBoxDetails');
 
 $routes->get('/admin/assignment-completed', 'Admin\Reports::assignmentCompleted');
 $routes->get('/admin/assignment-history', 'Admin\Reports::assignmentHistory');
+$routes->post('/reset-password', 'Admin\Users::resetPassword');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -99,6 +100,7 @@ $routes->post('/assign-box', 'Admin\Reports::assignBox');
 $routes->get('get-box-summary', 'Admin\Reports::getBoxSummary');
 $routes->post('save-fba-number', 'VA\Reports::saveFBANumber');
 $routes->post('save-shipment-number', 'VA\Reports::saveShipmentNumber');
+$routes->get('/get-category', 'Admin\Reports::getCategory');
 
 
 /*

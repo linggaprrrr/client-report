@@ -347,14 +347,17 @@ class Reports extends BaseController
         }
         $user = $this->userModel->find($userId);
         $getAllClient = $this->assignReportModel->getAllClient();
+        $getAllVA = $this->assignReportModel->getAllVA();
+
         $getAllAssignReport = $this->assignReportModel->getAllAssignReport();
-        $getAllAssignReportPending = $this->assignReportModel->getAllAssignReportProcess();
+        $getAllAssignReportPending = $this->assignReportModel->getAllAssignReportProcess($userId, $user['role']);
         $getAllAssignReportCompleted = $this->assignReportModel->getAllAssignReportCompleted();
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'BOX ASSIGNMENT FOR CLIENT FULFILLMENT',
             'user' => $user,
             'getAllClient' => $getAllClient,
+            'getAllVA' => $getAllVA,
             'getAllAssignReport' => $getAllAssignReport,
             'getAllAssignReportPending' => $getAllAssignReportPending,
             'getAllAssignReportCompleted' => $getAllAssignReportCompleted,
@@ -362,6 +365,18 @@ class Reports extends BaseController
         return view('administrator/assignment_report', $data);
     }
 
+    public function updatePriceBox()
+    {
+        $post = $this->request->getVar();
+        for ($i = 0; $i < count($post['item']); $i++) {
+            $retail = str_replace('$', '', trim($post['retail'][$i]));
+            $original = str_replace('$', '', trim($post['original'][$i]));
+            $cost = str_replace('$', '', trim($post['cost'][$i]));
+            $id = $post['item'][$i];
+            $this->db->query("UPDATE assign_report_details SET retail='$retail', original='$original', cost='$cost' WHERE id='$id' ");
+        }
+        return redirect()->back()->with('success', 'Report Successfully saved!');
+    }
     public function assignmentReportSubmit()
     {
         ini_set('max_execution_time', 0);
@@ -383,6 +398,7 @@ class Reports extends BaseController
         $boxValue = 0;
         $insertId = 1;
         $affected_rows = 0;
+        $rejected = 0;
         foreach ($data as $idx => $row) {
             if ($idx == 1) {
                 $retail = str_replace('$', '', $row[4]);
@@ -412,12 +428,16 @@ class Reports extends BaseController
                             'original' => $original,
                             'cost' => $cost,
                             'vendor' => $row[7],
-                            'box_name' => trim($row[9])
+                            'box_name' => trim($row[9]),
+                            'category' => trim(strtolower($row[13]))
                         );
                         $boxValue += $cost;
                         $this->assignReportModel->save($assignReport);
                     } elseif (strcmp($row[9], "BOX") == 0) {
                         $this->db->query("INSERT IGNORE INTO assign_report_box(box_name, box_value, description, date, messenger, report_id) VALUES('$row[2]', $boxValue ," . $this->db->escape($row[1]) . ", '$row[7]', '$row[0]', $insertId)");
+                        if ($this->db->affectedRows() == 0) {
+                            $rejected++;
+                        }
                         $boxValue = 0;
                         $affected_rows =  $affected_rows + $this->db->affectedRows();
                     }
@@ -426,9 +446,8 @@ class Reports extends BaseController
                 }
             }
         }
-
         $report->move('files', $fileName);
-        return redirect()->back()->with('success', $affected_rows . ' box(es) successfully added');
+        return redirect()->back()->with('success', $affected_rows . ' box(es) successfully added, and ' . $rejected . ' box(es) was rejected');
     }
 
     public function getCompany($id)
@@ -499,7 +518,8 @@ class Reports extends BaseController
                 $clientId = $post['client'][$idx];
                 $date = $post['date'][$idx];
                 $boxId = $post['box_id'][$idx];
-                $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', date='$date' WHERE id='$boxId' ");
+                $vaId = $post['va'][$idx];
+                $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', date='$date', va_id='$vaId' WHERE id='$boxId' ");
             }
         }
         return redirect()->back()->with('success', 'Report Successfully saved!');
@@ -508,6 +528,9 @@ class Reports extends BaseController
     public function saveAssignmentProcess()
     {
         $post = $this->request->getVar();
+        if (empty($post['status'])) {
+            return redirect()->back()->with('reset', 'Assignment Successfully reseted!');
+        }
         for ($i = 0; $i < count($post['status']); $i++) {
             $status = $post['status'][$i];
             if ($status != "0") {
@@ -545,6 +568,29 @@ class Reports extends BaseController
             }
         }
         echo json_encode($option);
+    }
+
+    public function getCategory()
+    {
+        $post = $this->request->getVar();
+        $current = $post['current_cost'];
+        $investmentId = $post['investment_id'];
+        $getCategory = $this->assignReportModel->getCategoryPercentage($current, $investmentId);
+        $category = array();
+        if ($getCategory->getNumRows() > 0) {
+            foreach ($getCategory->getResultArray() as $cat) {
+                $temp = array(
+                    'category' => ucfirst($cat['category']),
+                    'fulfilled' => $cat['fulfilled'],
+                    'total_qty' => $cat['total_qty'],
+                    'percent' => number_format($cat['percentage'], 2)
+                );
+                array_push($category, $temp);
+            }
+        }
+
+
+        echo json_encode($category);
     }
 
     public function assignBox()
@@ -605,7 +651,7 @@ class Reports extends BaseController
         }
         $user = $this->userModel->find($userId);
         $getAllClient = $this->assignReportModel->getAllClient();
-        $getAllAssignReportProcess = $this->assignReportModel->getAllAssignReportProcess();
+        $getAllAssignReportProcess = $this->assignReportModel->getAllAssignReportProcess($userId, $user['role']);
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'APPROVAL BOX ASSIGNMENT',
@@ -633,10 +679,14 @@ class Reports extends BaseController
     {
         $post = $this->request->getVar();
         for ($i = 0; $i < count($post['item']); $i++) {
+            $retail = str_replace('$', '', trim($post['retail'][$i]));
+            $original = str_replace('$', '', trim($post['original'][$i]));
+            $cost = str_replace('$', '', trim($post['cost'][$i]));
             $stat = $post['item_status'][$i];
+            $check = $post['item_check'][$i];
             $note = $post['note'][$i];
             $id = $post['item'][$i];
-            $this->db->query("UPDATE assign_report_details SET item_status='$stat', item_note=" . $this->db->escape($note) . " WHERE id='$id' ");
+            $this->db->query("UPDATE assign_report_details SET retail='$retail', original='$original', cost='$cost', item_status='$stat', item_check='$check', item_note=" . $this->db->escape($note) . " WHERE id='$id' ");
         }
         $box_note = $post['box_note'];
         $box_name = $post['box_name'];
@@ -675,10 +725,12 @@ class Reports extends BaseController
         }
         $user = $this->userModel->find($userId);
         $assignCompleted = $this->assignReportModel->getAllAssignReportCompleted();
+        $getAllVA = $this->assignReportModel->getAllVA();
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'APPROVAL BOX ASSIGNMENT',
             'user' => $user,
+            'getAllVA' => $getAllVA,
             'assignCompleted' => $assignCompleted
         ];
         return view('administrator/assignment_history', $data);

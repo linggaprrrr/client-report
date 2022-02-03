@@ -36,7 +36,7 @@ class Auth extends BaseController
     {
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
-
+        $currentPage = $post['current'];
         if ($user) {
             if (password_verify($post['password'], $user->password)) {
                 $params = [
@@ -45,11 +45,19 @@ class Auth extends BaseController
                 ];
                 session()->set($params);
                 if ($user->role == "superadmin") {
-                    return redirect()->to(base_url('admin/dashboard'))->with('message', 'Login Successful!');
+                    if ($currentPage == base_url()) {
+                        return redirect()->to(base_url('admin/dashboard'))->with('message', 'Login Successful!');
+                    } else {
+                        return redirect()->to($currentPage)->with('message', 'Login Successful!');
+                    }
                 } elseif ($user->role == "va" || $user->role == "admin") {
-                    return redirect()->to(base_url('va/assignment-process'))->with('message', 'Login Successful!');
+                    return redirect()->to(base_url('va/assignment-report'))->with('message', 'Login Successful!');
                 } else {
-                    return redirect()->to(base_url('get-started'))->with('message', 'Login Successful!');
+                    if ($currentPage == base_url()) {
+                        return redirect()->to(base_url('get-started'))->with('message', 'Login Successful!');
+                    } else {
+                        return redirect()->to($currentPage)->with('message', 'Login Successful!');
+                    }
                 }
             } else {
                 return redirect()->back()->with('error', 'Incorrect Password!');

@@ -113,4 +113,12 @@ class Users extends BaseController
 
         return view('administrator/account_setting', $data);
     }
+    public function resetPassword()
+    {
+        $post = $this->request->getVar();
+        $cid = $post['id'];
+        $password = password_hash($post['new_password'], PASSWORD_BCRYPT);
+        $this->db->query("UPDATE users SET password = $password WHERE id='$cid'");
+        return redirect()->back()->with('success', 'User Successfully Updated!');
+    }
 }

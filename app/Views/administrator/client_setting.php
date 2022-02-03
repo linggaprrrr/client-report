@@ -91,11 +91,48 @@
                     <div class="message">
                         <span id='message'></span>
                     </div>
+
                 </fieldset>
                 <div class="text-right">
                     <button type="submit" class="btn btn-secondary" id="btnSave">Save <i class="icon-paperplane ml-2"></i></button>
                 </div>
             </form>
+            <div>
+                <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-lock2 mr-2"></i>Reset Password</button>
+                <div id="modal_form_upload" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-secondary text-white">
+                                <h5 class="modal-title">Reset Password</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <form action="<?= base_url('/reset-password') ?>" method="POST" enctype="multipart/form-data" id="form">
+                                <?php csrf_field() ?>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>New Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"><i class="icon-lock2"></i></span>
+                                            </span>
+                                            <input type="hidden" name="id" readonly value="<?= $profile['id'] ?>">
+                                            <input type="password" name="new_password" class="form-control" autocomplete="false" id="password" value="" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-secondary disabled" id="btnAdd">Save <i class="icon-paperplane ml-2"></i></button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <button type="button" id="noty_created" style="display: none;"></button>
         <button type="button" id="noty_deleted" style="display: none;"></button>
