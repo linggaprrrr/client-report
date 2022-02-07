@@ -209,12 +209,14 @@ class Clients extends BaseController
         }
         $user = $this->userModel->find($userId);
         $getClientCostLeft = $this->reportModel->getClientCostLeft($userId);
+        $monthdiff = $this->investmentModel->monthDiff($userId);
 
         $data = [
             'tittle' => "Get Started | Report Management System",
             'menu' => "Get Started",
             'user' => $user,
-            'costLeft' => $getClientCostLeft
+            'costLeft' => $getClientCostLeft,
+            'monthDiff' => $monthdiff
         ];
         return view('client/getstarted', $data);
     }

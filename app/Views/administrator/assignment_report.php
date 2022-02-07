@@ -61,14 +61,14 @@
             <table class="table datatable-basic" id="myTable" style="font-size: 11px;">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 5%">No</th>
-                        <th class="text-center" style="width: 5%">Box Name</th>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Box Name</th>
                         <th class="text-center" style="width: 5%">Category</th>
                         <th class="text-center" style="width: 5%">Status</th>
                         <th class="text-center" style="width: 10%">Box Value</th>
-                        <th class="text-center" style="width: 12%">VA User</th>
+                        <th class="text-center" style="width: 20%">VA User</th>
                         <th class="text-center" style="width: 5%">Order</th>
-                        <th class="text-center" style="width: 12%">Client</th>
+                        <th class="text-center" style="width: 20%">Client</th>
                         <th class="text-center" style="width: 5%">Brand Approval</th>
                         <th class="text-center" style="width: 10%">Investment Date</th>
                         <th class="text-center" style="width: 10%">Current</th>
@@ -82,32 +82,43 @@
                         <?php foreach ($getAllAssignReport->getResultArray() as $row) : ?>
                             <?php if (!empty($row['userid']) && $row['confirmed'] == 0) : ?>
                                 <tr>
-                                    <td>
+                                    <td class="text-center">
                                         <?= $no++ ?>
                                         <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
                                     </td>
-                                    <td>
-                                        <a href="#" class="h6 box_name name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
+                                    <td class="text-center">
+                                        <a href="#" class="font-weight-bold box_name h6 name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
                                             <?= $row['box_name'] ?>
                                         </a>
+                                        <br>
+                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                            <?= $desc  ?>
+                                        <?php else : ?>
+                                            None
+                                        <?php endif ?>
                                     </td>
-                                    <td class="text-ceenter category_box_<?= $no ?>">
+                                    <td class="text-center category_box_<?= $no ?>">
                                         <b><?= strtoupper($row['category']) ?></b>
                                     </td>
-                                    <td><span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span></td>
-                                    <td class="value_box_<?= $no ?>">$ <?= $row['box_value'] ?> <?= $row['va_id'] ?></td>
-                                    <td>
+                                    <td class="text-center"><span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span></td>
+                                    <td class="text-center font-weight-bold value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
+                                    <td class="text-center">
                                         <select class="form-control select-search va_box_<?= $no ?>" name="va[]" data-fouc>
                                             <option value="0">...</option>
                                             <?php foreach ($getAllVA->getResultArray() as $va) : ?>
-                                                <option value="<?= $va['id'] ?>"><b><?= $va['fullname'] ?></b></option>
+                                                <?php if ($va['id'] == $row['va_id']) : ?>
+                                                    <option value="<?= $va['id'] ?>" selected><b><?= $va['fullname'] ?></b></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $va['id'] ?>"><b><?= $va['fullname'] ?></b></option>
+                                                <?php endif ?>
                                             <?php endforeach ?>
                                         </select>
                                     </td>
                                     <td>
                                         <input type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= date("m/d/Y") ?>" style="width: 90px; text-align:center">
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
                                             <option value="0">...</option>
                                             <?php foreach ($getAllClient->getResultArray() as $client) : ?>
@@ -124,7 +135,7 @@
                                             <i class="fab fa-amazon mr-3 fa"></i>
                                         </a>
                                     </td>
-                                    <td class="date_box_<?= $no ?>">
+                                    <td class="text-center date_box_<?= $no ?>">
                                         <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
 
                                         <select class="select_date_box_<?= $no ?>">
@@ -142,22 +153,29 @@
 
                             <?php elseif (empty($row['userid'])) : ?>
                                 <tr>
-                                    <td>
+                                    <td class="text-center">
                                         <?= $no++ ?>
                                         <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
                                     </td>
-                                    <td>
-                                        <a href="#" class="h6 box_name name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
+                                    <td class="text-center">
+                                        <a href="#" class="font-weight-bold h6 box_name name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
                                             <?= $row['box_name'] ?>
                                         </a>
+                                        <br>
+                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                            <?= $desc  ?>
+                                        <?php else : ?>
+                                            None
+                                        <?php endif ?>
                                     </td>
                                     <td class="text-ceenter category_box_<?= $no ?>">
                                         <b><?= strtoupper($row['category']) ?></b>
                                     </td>
-                                    <td><span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span></td>
-                                    <td class="value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
+                                    <td class="text-center"><span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span></td>
+                                    <td class="text-center font-weight-bold value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
 
-                                    <td>
+                                    <td class="text-center">
                                         <select class="form-control select-search va_box_<?= $no ?>" name="va[]" data-fouc>
                                             <option value="0">...</option>
                                             <?php foreach ($getAllVA->getResultArray() as $va) : ?>
@@ -165,10 +183,10 @@
                                             <?php endforeach ?>
                                         </select>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <input type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= date("m/d/Y") ?>" style="width: 90px; text-align:center">
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
                                             <option value="0">...</option>
                                             <?php foreach ($getAllClient->getResultArray() as $client) : ?>
@@ -186,7 +204,7 @@
                                         </a>
                                     </td>
                                     </td>
-                                    <td class="date_box_<?= $no ?>">
+                                    <td class="text-center date_box_<?= $no ?>">
                                         <select class="select_date_box_<?= $no ?>">
                                         </select>
                                     </td>
@@ -245,6 +263,13 @@
                                 <a href="#" class="h6 box_name2" data-box="<?= $row['box_name'] ?>">
                                     <b><?= $row['box_name'] ?></b>
                                 </a>
+                                <br>
+                                <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                    <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                    <?= $desc  ?>
+                                <?php else : ?>
+                                    None
+                                <?php endif ?>
                             </td>
                             <td class="text-ceenter category_box_<?= $no ?>">
                                 <b><?= strtoupper($row['category']) ?></b>
@@ -324,10 +349,17 @@
                                 <?= $no++ ?>
                                 <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <a href="#" class="h6 box_name2" data-box="<?= $row['box_name'] ?>">
                                     <b><?= $row['box_name'] ?></b>
                                 </a>
+                                <br>
+                                <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                    <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                    <?= $desc  ?>
+                                <?php else : ?>
+                                    None
+                                <?php endif ?>
                             </td>
                             <td class="text-ceenter category_box_<?= $no ?>">
                                 <b><?= strtoupper($row['category']) ?></b>
@@ -452,15 +484,15 @@
                                 <thead>
 
                                     <tr class="bg-danger text-white">
-                                        <th>SKU</th>
-                                        <th>Item Description</th>
-                                        <th>Condition</th>
-                                        <th>Qty</th>
-                                        <th>Retail</th>
-                                        <th>Original</th>
-                                        <th>Cost</th>
-                                        <th>Vendor</th>
-                                        <th>Note</th>
+                                        <th style="width: 10%;">SKU</th>
+                                        <th style="width: 20%;">Item Description</th>
+                                        <th style="width: 5%;">Condition</th>
+                                        <th style="width: 10%;">Qty</th>
+                                        <th style="width: 10%;">Retail</th>
+                                        <th style="width: 10%;">Total Retail</th>
+                                        <th style="width: 10%;">Cost</th>
+                                        <th style="width: 15%;">Vendor</th>
+                                        <th style="width: 15%;">Note</th>
                                     </tr>
                                 </thead>
                                 <tbody id="item-tbody-removed">
@@ -555,15 +587,15 @@
                                 <thead>
 
                                     <tr class="bg-danger text-white">
-                                        <th>SKU</th>
-                                        <th>Item Description</th>
-                                        <th>Condition</th>
-                                        <th>Qty</th>
-                                        <th>Retail</th>
-                                        <th>Original</th>
-                                        <th>Cost</th>
-                                        <th>Vendor</th>
-                                        <th>Note</th>
+                                        <th style="width: 10%;">SKU</th>
+                                        <th style="width: 20%;">Item Description</th>
+                                        <th style="width: 5%;">Condition</th>
+                                        <th style="width: 10%;">Qty</th>
+                                        <th style="width: 10%;">Retail</th>
+                                        <th style="width: 10%;">Total Retail</th>
+                                        <th style="width: 10%;">Cost</th>
+                                        <th style="width: 15%;">Vendor</th>
+                                        <th style="width: 15%;">Note</th>
                                     </tr>
                                 </thead>
                                 <tbody id="item-tbody-removed2">
@@ -702,9 +734,8 @@
                 }
                 var selected = $('.select_date_' + boxId).find('option:selected');
                 var currentCost = selected.data('foo');
-
-                $('.currentCost_' + boxId).prepend('<b>$ ' + numberWithCommas(currentCost.toFixed(2)) + '</b>');
-
+                $('.currentCost_' + boxId).find("span").remove();
+                $('.currentCost_' + boxId).prepend("<span class='current_" + boxId + "'><b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b></span>");
                 var investmentId = $('.select_date_' + boxId + ' option:selected').val();
 
                 $.post('/assign-box', {
@@ -718,7 +749,6 @@
                     va_id: vaUser
                 }, function(data) {
                     var resp = JSON.parse(data);
-                    console.log(resp['status']);
                     if (resp['status'] == 0) {
                         swal("Oops...", "Total exceed $250.00!", "warning");
                         $('.total_' + boxId).html("");
@@ -736,7 +766,6 @@
 
                     for (var i = 0; i < cat.length; i++) {
                         desc = desc.concat(cat[i]['category'] + ' (' + cat[i]['percent'] + '%) ')
-
                     }
                     var popover = $('.popover_' + boxId).attr('data-content', desc);
                 });
@@ -754,15 +783,16 @@
 
                 });
                 $('.select_date_' + boxId).html("");
-                $('.currentCost_' + boxId).html("");
+                $('.currentCost_' + boxId).find("span").remove();
                 $('.total_' + boxId).html("");
             }
 
         });
+
         $('.select_date_' + boxId).on('change', function() {
             var selected = $(this).find('option:selected');
             var currentCost = selected.data('foo');
-            $('.currentCost_' + boxId).html("<b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b>");
+            $('.currentCost_' + boxId).html("<span class='current_" + boxId + "'><b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b></span>");
             var investmentId = $('.select_date_' + boxId + ' option:selected').val();
             $.post('/assign-box', {
                 box_id: boxId,
@@ -880,6 +910,10 @@
                         } else {
                             $('#item-table-removed2 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td>  <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td>  <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
                         }
+                        qty = qty + parseInt(item[i]['qty']);
+                        retail = retail + parseFloat(item[i]['retail']);
+                        total = total + parseFloat(item[i]['original']);
+                        cost = cost + parseFloat(item[i]['cost']);
                     }
                     qty = qty + parseInt(item[i]['qty']);
                     retail = retail + parseFloat(item[i]['retail']);

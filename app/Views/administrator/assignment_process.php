@@ -50,10 +50,17 @@
                                     <tr class="table-success">
                                     <?php endif ?>
                                     <td><?= $no++ ?></td>
-                                    <td class="">
+                                    <td class="text-center">
                                         <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
                                             <b><?= $row['box_name'] ?></b>
                                         </a>
+                                        <br>
+                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                            <?= $desc  ?>
+                                        <?php else : ?>
+                                            None
+                                        <?php endif ?>
                                     </td>
                                     <td class="value_box_<?= $no ?>"><b>$ <?= number_format($row['box_value'], 2) ?></b></td>
                                     <td>

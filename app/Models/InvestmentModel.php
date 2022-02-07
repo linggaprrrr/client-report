@@ -75,9 +75,15 @@ class InvestmentModel extends Model
         return $query;
     }
 
-    public function getAllInvestment()
+    public function getAllInvestment($status = null)
     {
-        $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' GROUP BY reports.investment_id ORDER by date DESC ");
+        if ($status == null || $status == 'incomplete') {
+            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as total_cost, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'incomplete' GROUP BY reports.investment_id ORDER BY status DESC, cost_left ASC");
+        } elseif ($status == 'assign') {
+            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as total_cost, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'assign' GROUP BY reports.investment_id ORDER BY status DESC, cost_left ASC");
+        } else {
+            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as total_cost, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'complete' GROUP BY reports.investment_id ORDER BY status DESC, cost_left ASC");
+        }
         return $query;
     }
 
@@ -91,6 +97,18 @@ class InvestmentModel extends Model
     public function getPreviousCost($id, $investmentId)
     {
         $query = $this->db->query("SELECT cost_left FROM box_sum JOIN assign_report_box ON box_sum.box_name = assign_report_box.box_name WHERE box_sum.client_id = '$id' and investment_id='$investmentId' ORDER BY box_sum.id DESC LIMIT 1")->getRow();
+        return $query;
+    }
+
+    public function completedInvestments()
+    {
+        $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as total_cost, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'complete' GROUP BY reports.investment_id ORDER BY date DESC");
+        return $query;
+    }
+
+    public function monthDiff($userId)
+    {
+        $query = $this->db->query("SELECT TIMESTAMPDIFF(MONTH, date, NOW()) as monthdiff FROM investments WHERE client_id=9 ORDER BY date DESC LIMIT 1")->getRow();
         return $query;
     }
 }

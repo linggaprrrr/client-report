@@ -25,6 +25,7 @@
                         <th class="text-center" style="width: 10%">Client</th>
                         <th class="text-center" style="width: 10%">AMZ Store</th>
                         <th class="text-center" style="width: 10%">Investment Date</th>
+                        <th class="text-center" style="width: 10%">Cost Left</th>
                         <th class="text-center" style="width: 10%">VA</th>
                         <th class="text-center" style="width: 20%">FBA Number</th>
                         <th class="text-center" style="width: 20%">Shipment Number</th>
@@ -44,12 +45,12 @@
                                     <tr class="table-success">
                                     <?php endif ?>
                                     <td><?= $no++ ?></td>
-                                    <td class="">
+                                    <td class="text-center ">
                                         <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
                                             <b><?= $row['box_name'] ?></b>
                                         </a>
                                     </td>
-                                    <td class="value_box_<?= $no ?>">
+                                    <td class="text-center value_box_<?= $no ?>">
                                         <?php if ($row['box_value'] == $row['new_box_value']) : ?>
                                             <b>$ <?= $row['box_value'] ?></b>
                                         <?php else : ?>
@@ -70,19 +71,22 @@
                                         <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
                                         <b><?= strtoupper($newDateInvest) ?></b>
                                     </td>
-                                    <td class="va_box<?= $no ?>">
+                                    <td class="company_box_<?= $no ?>">
+                                        <b>$ <?= number_format($row['cost_left'], 2) ?> </b>
+                                    </td>
+                                    <td class="text-center va_box<?= $no ?>">
                                         <?php foreach ($getAllVA->getResultArray() as $va) : ?>
                                             <?php if ($va['id'] == $row['va_id']) : ?>
                                                 <b><?= $va['fullname'] ?></b>
                                             <?php endif ?>
                                         <?php endforeach ?>
-                                    <td class="fba_number_box_<?= $no ?>">
+                                    <td class="text-center fba_number_box_<?= $no ?>">
                                         <b><?= $row['fba_number'] ?></b>
                                     </td>
-                                    <td class="shipment_box_<?= $no ?>">
+                                    <td class="text-center  shipment_box_<?= $no ?>">
                                         <b><?= $row['shipment_number'] ?></b>
                                     </td>
-                                    <td>
+                                    <td class="text-center ">
                                         <b><?= strtoupper($row['status']) ?></b>
                                     </td>
                                     </tr>

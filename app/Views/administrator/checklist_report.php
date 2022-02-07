@@ -3,6 +3,38 @@
 <?= $this->section('content') ?>
 <div class="content">
     <div class="card">
+        <div class="card-header header-elements-sm-inline">
+            <h6 class="card-title">
+                <span><b>Overview:</b></span>
+            </h6>
+            <div class="header-elements">
+                <form method="get" action="<?= base_url('/admin/checklist-report') ?>">
+                    <div class="form-group row">
+                        <label class="font-weight-bold mr-1">Status: </label>
+                        <div class="form-group" style="text-align-last:center; text-transform: uppercase;">
+                            <select name="status" onchange="this.form.submit()">
+                                <?php if (isset($_GET['status'])) : ?>
+                                    <?php if ($_GET['status'] == 'assign') : ?>
+                                        <option value="incomplete">...</option>
+                                        <option value="assign" selected>READY TO ASSIGN</option>
+                                        <option value="complete">COMPLETE</option>
+                                    <?php elseif ($_GET['status'] == 'complete') : ?>
+                                        <option value="incomplete">...</option>
+                                        <option value="assign">READY TO ASSIGN</option>
+                                        <option value="complete" selected>COMPLETE</option>
+                                    <?php endif ?>
+                                <?php else : ?>
+                                    <option value="incomplete" selected>...</option>
+                                    <option value="assign">READY TO ASSIGN</option>
+                                    <option value="complete">COMPLETE</option>
+                                <?php endif ?>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <form method="POST" action="checklist-report-save">
             <?php csrf_field() ?>
             <table class="table datatable-basic">
@@ -23,9 +55,8 @@
                         <?php foreach ($getAllInvestment->getResultArray() as $row) : ?>
                             <?php
                             $newDate = date("M-d-Y", strtotime($row['date']));
-                            $costLeft = $row['cost'] - $row['cost_left'];
                             ?>
-                            <?php if ($costLeft > 0) : ?>
+                            <?php if ($row['cost_left'] > 0) : ?>
                                 <tr class="table-active">
                                 <?php else : ?>
                                 <tr class="table-warning">
@@ -35,21 +66,21 @@
                                 <td><?= $row['company'] ?></td>
                                 <td class="text-center font-weight-bold"><?= strtoupper($newDate) ?></td>
                                 <td class="font-weight-bold">$<?= number_format($row['cost'], 2) ?></td>
-                                <td class="font-weight-bold"><?= number_format($costLeft, 2) ?></td>
+                                <td class="font-weight-bold"><?= number_format($row['cost_left'], 2) ?></td>
                                 <td class="text-center font-weight-bold">
                                     <select name="status[]" class="status_change" style="text-align:center; font-weight:800">
                                         <?php if ($row['status'] == 'complete') : ?>
                                             <option value="incomplete">...</option>
                                             <option value="complete" selected>COMPLETE</option>
-                                            <option value="assign" data-foo='<?= $costLeft ?>'>READY TO ASSIGN</option>
+                                            <option value="assign" data-foo='<?= $row['cost_left'] ?>'>READY TO ASSIGN</option>
                                         <?php elseif ($row['status'] == 'assign') : ?>
                                             <option value="incomplete">...</option>
-                                            <option value="complete" data-foo='<?= $costLeft ?>'>COMPLETE</option>
-                                            <option value="assign" data-foo='<?= $costLeft ?>' selected>READY TO ASSIGN</option>
+                                            <option value="complete" data-foo='<?= $row['cost_left'] ?>'>COMPLETE</option>
+                                            <option value="assign" data-foo='<?= $row['cost_left'] ?>' selected>READY TO ASSIGN</option>
                                         <?php else : ?>
                                             <option value="incomplete" selected>...</option>
-                                            <option value="complete" data-foo='<?= $costLeft ?>'>COMPLETE</option>
-                                            <option value="assign" data-foo='<?= $costLeft ?>'>READY TO ASSIGN</option>
+                                            <option value="complete" data-foo='<?= $row['cost_left'] ?>'>COMPLETE</option>
+                                            <option value="assign" data-foo='<?= $row['cost_left'] ?>'>READY TO ASSIGN</option>
                                         <?php endif ?>
                                     </select>
                                     <input type="hidden" name="investment_id[]" value="<?= $row['id'] ?>">

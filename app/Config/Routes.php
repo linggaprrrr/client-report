@@ -65,6 +65,9 @@ $routes->get('/admin/assignment-completed', 'Admin\Reports::assignmentCompleted'
 $routes->get('/admin/assignment-history', 'Admin\Reports::assignmentHistory');
 $routes->post('/reset-password', 'Admin\Users::resetPassword');
 
+$routes->get('/admin/completed-investments', 'Admin\Reports::completedInvestments');
+$routes->post('/reupload-pl-report', 'Admin\Reports::reuploadPL');
+
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
 $routes->get('/brand-approvals', 'Clients::brandApprovals');
@@ -101,6 +104,9 @@ $routes->get('get-box-summary', 'Admin\Reports::getBoxSummary');
 $routes->post('save-fba-number', 'VA\Reports::saveFBANumber');
 $routes->post('save-shipment-number', 'VA\Reports::saveShipmentNumber');
 $routes->get('/get-category', 'Admin\Reports::getCategory');
+$routes->get('/refresh-dashboard', 'Admin\Reports::refreshDashboard');
+$routes->get('/get-piechart', 'Admin\Reports::getPiechart');
+$routes->get('/get-plclient', 'Admin\Reports::getPLClient');
 
 
 /*

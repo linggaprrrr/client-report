@@ -51,10 +51,17 @@
                                     <tr class="table-success">
                                     <?php endif ?>
                                     <td><?= $no++ ?></td>
-                                    <td class="">
+                                    <td class="text-center">
                                         <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
                                             <b><?= $row['box_name'] ?></b>
                                         </a>
+                                        <br>
+                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                            <?= $desc  ?>
+                                        <?php else : ?>
+                                            None
+                                        <?php endif ?>
                                     </td>
                                     <td>
                                         <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
@@ -108,7 +115,7 @@
                     <button type="submit" class="btn btn-danger"><i class="icon-checkmark3 mr-2"></i> <b>Save Phase 2</b></button>
                 </div>
                 <div class="text-left">
-                    <a href="<?= base_url('/va/assignment-process') ?>" class="btn btn-light"><i class="icon-arrow-left8 mr-2"></i>Previous</a>
+                    <a href="<?= base_url('/va/assignment-report') ?>" class="btn btn-light"><i class="icon-arrow-left8 mr-2"></i>Previous</a>
                     <a href="<?= base_url('/va/assignment-completed') ?>" class="btn btn-primary">Next Phase<i class="icon-arrow-right8 ml-2"></i></a>
                 </div>
 

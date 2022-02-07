@@ -41,9 +41,11 @@
 
     </div>
     <button type="button" id="pnotify-info" style="display: none;"></button>
+    <button type="button" id="pnotify-info-costleft" style="display: none;"></button>
+    <button type="button" id="pnotify-info-month" style="display: none;"></button>
 
     <!-- /blocks with chart -->
-
+    <?= $monthDiff->monthdiff ?>
 </div>
 
 <?= $this->endSection() ?>
@@ -54,16 +56,34 @@
 <script>
     $(document).ready(function() {
 
-        <?php if (!empty($costLeft)) : ?>
-            <?php if ($costLeft < 100) : ?>
+        <?php if (!empty($costLeft) && !empty($monthdiff)) : ?>
+            <?php if ($costLeft < 100 || $monthDiff->monthdiff > 2) : ?>
                 $('#pnotify-info').click();
+            <?php elseif ($costLeft < 100) : ?>
+                $('#pnotify-info-costleft').click();
+            <?php elseif ($$monthDiff->monthdiff > 2) : ?>
+                $('#pnotify-info-month').click();
             <?php endif ?>
         <?php endif ?>
     })
 
     $('#pnotify-info').on('click', function() {
         Swal.fire({
-            title: 'Manifest Almost Completed',
+            title: 'Manifest is more than 2 months and Almost Completed',
+            text: 'Time to re-order, please go to Purchase Inventory to order more',
+            icon: 'info'
+        });
+    });
+    $('#pnotify-info-costleft').on('click', function() {
+        Swal.fire({
+            title: 'Manifest is Almost Completed',
+            text: 'Time to re-order, please go to Purchase Inventory to order more',
+            icon: 'info'
+        });
+    });
+    $('#pnotify-info-month').on('click', function() {
+        Swal.fire({
+            title: 'Manifest is more than 2 months',
             text: 'Time to re-order, please go to Purchase Inventory to order more',
             icon: 'info'
         });

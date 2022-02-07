@@ -61,7 +61,7 @@ class ReportModel extends Model
 
     public function getAllReports()
     {
-        $query = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, investments.status, users.company, SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, investments.cost as client_cost, SUM(reports.cost) as total_fulfilled, investments.cost - SUM(IFNULL(reports.cost, 0)) as cost_left FROM investments LEFT JOIN reports ON investments.id = reports.investment_id JOIN users ON users.id = investments.client_id GROUP BY investments.id ORDER BY investments.date DESC");
+        $query = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - cost_ as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id ORDER BY investments.date DESC");
         return $query;
     }
 
@@ -111,7 +111,7 @@ class ReportModel extends Model
 
     public function getPLReport()
     {
-        $query = $this->db->query("SELECT log_files.client_id, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL ORDER BY date DESC");
+        $query = $this->db->query("SELECT log_files.client_id, link, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL ORDER BY date DESC");
         return $query;
     }
 
@@ -136,7 +136,7 @@ class ReportModel extends Model
     public function deletePLReport($id)
     {
         $this->db->query("DELETE FROM chart_pl  WHERE client_id = '$id'");
-        $this->db->query("DELETE FROM log_files WHERE client_id = '$id' AND investment_id=NULL");
+        $this->db->query("DELETE FROM log_files WHERE client_id = '$id'");
     }
 
     public function getFileManifest($id)
@@ -157,5 +157,11 @@ class ReportModel extends Model
         $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM (SELECT investments.id, fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.id DESC LIMIT 1 ) as t ")->getRow();
         $totalCostLeft = $totalInvest->total_invest - $totalCost->total_cost;
         return $totalCostLeft;
+    }
+
+    public function getPLClient($id)
+    {
+        $query = $this->db->query("SELECT users.id as user_id, users.fullname, users.company, log_files.id as log_id, file, link FROM log_files JOIN users ON users.id = log_files.client_id WHERE log_files.id ='$id'")->getRow();
+        return $query;
     }
 }

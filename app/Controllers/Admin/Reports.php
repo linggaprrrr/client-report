@@ -33,6 +33,7 @@ class Reports extends BaseController
         $this->newsModel = new NewsModel();
         $this->assignReportModel = new AssignReportModel();
         $this->db = \Config\Database::connect();
+        // $this->db->query("DELETE FROM myTable WHERE dateEntered < DATE_SUB(NOW(), INTERVAL 1 MONTH)");
     }
 
     public function index()
@@ -45,9 +46,9 @@ class Reports extends BaseController
         $user = $this->userModel->find($userId);
 
         $totalInvest = $this->investmentModel->totalClientInvestment();
-        $totalUnit = $this->reportModel->totalUnit();
-        $totalRetail = $this->reportModel->totalRetail();
-        $totalCostLeft = $this->reportModel->totalCostLeft();
+        // $totalUnit = $this->reportModel->totalUnit();
+        // $totalRetail = $this->reportModel->totalRetail();
+        // $totalCostLeft = $this->reportModel->totalCostLeft();
         $totalFulfilled = $this->reportModel->totalFulfilled();
         $getAllReports = $this->reportModel->getAllReports();
         $news = $this->newsModel->getLastNews();
@@ -56,12 +57,9 @@ class Reports extends BaseController
             'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',
             'user' => $user,
-            'totalInvest' => $totalInvest,
-            'totalUnit' => $totalUnit,
-            'totalRetail' => $totalRetail,
-            'totalCostLeft' => $totalCostLeft,
-            'totalFulfilled' => $totalFulfilled,
             'getAllReports' => $getAllReports,
+            'totalInvest' => $totalInvest,
+            'totalFulfilled' => $totalFulfilled,
             'news' => $news,
         ];
         return view('administrator/dashboard', $data);
@@ -213,7 +211,7 @@ class Reports extends BaseController
     public function uploadPLReport()
     {
         $client = $this->request->getVar('client');
-        $report = $this->request->getFile('file');
+        $link = $this->request->getVar('link');
         $chart = $this->request->getFile('chart');
         $ext = $chart->getClientExtension();
         if ($ext == 'xls') {
@@ -323,20 +321,17 @@ class Reports extends BaseController
         for ($i = 0; $i < count($chartTitle); $i++) {
             $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
         }
-        $fileName = time() . $report->getName();
-        $report->move('files', $fileName);
-        $this->db->query("INSERT into log_files(date, file, client_id) VALUES(NOW()," . $this->db->escape($fileName) . " , $client) ");
+        $fileName = time() . $chart->getName();
+        $chart->move('files', $fileName);
+        $this->db->query("INSERT into log_files(date, file, link, client_id) VALUES(NOW(), " . $this->db->escape($fileName) . "," . $this->db->escape($link) . " , $client) ");
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
     public function deletePLReport($id)
     {
-        $plreport = $this->reportModel->getPLReportClient($id);
         $this->reportModel->deletePLReport($id);
-        if (!is_null($plreport)) {
-            unlink('files/' . $plreport->file);
-        }
-        return redirect()->back()->with('delete', 'Report Successfully deleted!');
+
+        // return redirect()->back()->with('delete', 'Report Successfully deleted!');
     }
 
     public function assignmentReport()
@@ -395,6 +390,7 @@ class Reports extends BaseController
 
         $data = $spreadsheet->getActiveSheet()->toArray();
         $assignReport = array();
+        $temp = array();
         $boxValue = 0;
         $insertId = 1;
         $affected_rows = 0;
@@ -432,11 +428,17 @@ class Reports extends BaseController
                             'category' => trim(strtolower($row[13]))
                         );
                         $boxValue += $cost;
-                        $this->assignReportModel->save($assignReport);
+                        array_push($temp, $assignReport);
                     } elseif (strcmp($row[9], "BOX") == 0) {
+
                         $this->db->query("INSERT IGNORE INTO assign_report_box(box_name, box_value, description, date, messenger, report_id) VALUES('$row[2]', $boxValue ," . $this->db->escape($row[1]) . ", '$row[7]', '$row[0]', $insertId)");
                         if ($this->db->affectedRows() == 0) {
                             $rejected++;
+                        } else {
+                            for ($i = 0; $i < count($temp); $i++) {
+                                $this->assignReportModel->save($temp[$i]);
+                            }
+                            $temp = array();
                         }
                         $boxValue = 0;
                         $affected_rows =  $affected_rows + $this->db->affectedRows();
@@ -481,13 +483,13 @@ class Reports extends BaseController
 
     public function checklistReport()
     {
+        $status = $this->request->getVar('status');
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return view('login');
         }
         $user = $this->userModel->find($userId);
-        $getAllInvestment = $this->investmentModel->getAllInvestment();
-        // dd($getAllInvestment->getResultArray());
+        $getAllInvestment = $this->investmentModel->getAllInvestment($status);
         $data = [
             'tittle' => 'Assignment Reports: Checklist Report | Report Management System',
             'menu' => 'Checklist Report',
@@ -603,6 +605,9 @@ class Reports extends BaseController
 
         $clientId = $post['client_id'];
         $valueBox = $post['value_box'];
+        $valueBox = str_replace('$', '', trim($valueBox));
+        $valueBox = str_replace(',', '', $valueBox);
+
         $currentCost = $post['current_cost'];
         $investmentId = $post['investment_id'];
         if ($clientId == "0") {
@@ -744,6 +749,189 @@ class Reports extends BaseController
         return redirect()->back()->with('link', 'Link Successfully updated!');
     }
 
+    public function completedInvestments()
+    {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $completedInvestments = $this->investmentModel->completedInvestments();
+        $data = [
+            'tittle' => 'Completed Assignments | Report Management System',
+            'menu' => 'COMPLETED ASSIGNMENTS',
+            'user' => $user,
+            'completedInvestments' => $completedInvestments
+        ];
+        return view('administrator/completed_investments', $data);
+    }
+
+    public function refreshDashboard()
+    {
+        $totalInvest = $this->investmentModel->totalClientInvestment();
+        $totalUnit = $this->reportModel->totalUnit();
+        $unit = ($totalUnit->total_unit > 0) ? $totalUnit->total_unit : "0";
+        $totalRetail = $this->reportModel->totalRetail();
+        $totalCostLeft = $this->reportModel->totalCostLeft();
+        $totalFulfilled = $this->reportModel->totalFulfilled();
+        $avgRetail = ($totalUnit->total_unit != 0) ? number_format(($totalFulfilled->total_fulfilled / $totalUnit->total_unit), 2) : "0";
+        $avgClientCost = ($totalUnit->total_unit != 0) ? number_format(($totalRetail->total_retail / $totalUnit->total_unit), 2) : "0";
+        $summary = array(
+            'total_client_cost' => number_format($totalInvest->total_client_cost, 2),
+            'total_cost_left' => number_format($totalCostLeft, 2),
+            'total_unit' => $unit,
+            'total_original' => number_format($totalRetail->total_retail, 2),
+            'total_fulfilled' => number_format($totalFulfilled->total_fulfilled, 2),
+            'avg_retail' => $avgRetail,
+            'avg_client_cost' => $avgClientCost
+        );
+        echo json_encode($summary);
+    }
+
+    public function getPiechart()
+    {
+        $totalInvest = $this->investmentModel->totalClientInvestment();
+        $totalFulfilled = $this->reportModel->totalFulfilled();
+        $summary = array(
+            'total_client_cost' => $totalInvest->total_client_cost, 2,
+            'total_fulfilled' => $totalFulfilled->total_fulfilled
+        );
+        echo json_encode($summary);
+    }
+
+
+    public function getPLClient()
+    {
+        $id = $this->request->getVar('log_id');
+        $file = $this->reportModel->getPLClient($id);
+        echo json_encode($file);
+    }
+
+
+    public function reuploadPL()
+    {
+        $client = $this->request->getVar('client');
+        $link = $this->request->getVar('link');
+        $log_id = $this->request->getVar('log_id');
+        $chart = $this->request->getFile('chart');
+        $ext = $chart->getClientExtension();
+        if (empty($ext)) {
+            $this->db->query("UPDATE log_files SET link='$link', client_id ='$client' WHERE id='$log_id'");
+        } else {
+            $this->db->query("DELETE FROM chart_pl WHERE client_id='$client'");
+            if ($ext == 'xls') {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+            } else {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            }
+            $spreadsheet = $render->load($chart);
+            $data = $spreadsheet->getActiveSheet()->toArray();
+            $chartTitle = array();
+            $monthData = array();
+            $type = array();
+            foreach ($data as $idx => $row) {
+                if (!empty($row[0])) {
+                    array_push($chartTitle, $row[0]);
+                    array_push($chartTitle, $row[18]);
+                } else {
+                    if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
+                        $month = array();
+                        if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
+                            for ($i = 2; $i < 14; $i++) {
+                                $temp = str_replace('%', '', $row[$i]);
+                                $temp = str_replace(',', '', $temp);
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
+
+                            array_push($type, 'percentage');
+                        } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
+                            for ($i = 2; $i < 14; $i++) {
+                                $temp = str_replace('$', '', $row[$i]);
+                                $temp = str_replace(',', '', $temp);
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
+
+                            array_push($type, 'currency');
+                        } else {
+                            for ($i = 2; $i < 14; $i++) {
+                                $temp = $row[$i];
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
+                            array_push($type, 'num');
+                        }
+                        array_push($monthData, $month);
+                        $month = array();
+
+
+                        if (strpos($row[20], '%') !== false || strpos($row[21], '%') !== false || strpos($row[22], '%') !== false || strpos($row[23], '%') !== false || strpos($row[24], '%') !== false || strpos($row[25], '%') !== false || strpos($row[26], '%') !== false || strpos($row[27], '%') !== false || strpos($row[28], '%') !== false || strpos($row[29], '%') !== false || strpos($row[30], '%') !== false || strpos($row[31], '%') !== false) {
+                            for ($i = 20; $i < 32; $i++) {
+                                $temp = str_replace('%', '', $row[$i]);
+                                $temp = str_replace(',', '', $temp);
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
+
+                            array_push($type, 'percentage');
+                        } elseif (strpos($row[20], '$') !== false || strpos($row[21], '$') !== false || strpos($row[22], '$') !== false || strpos($row[23], '$') !== false || strpos($row[24], '$') !== false || strpos($row[25], '$') !== false || strpos($row[26], '$') !== false || strpos($row[27], '$') !== false || strpos($row[28], '$') !== false || strpos($row[29], '$') !== false || strpos($row[30], '$') !== false || strpos($row[31], '$') !== false || strpos($row[32], '$') !== false) {
+                            for ($i = 20; $i < 32; $i++) {
+                                $temp = str_replace('$', '', $row[$i]);
+                                $temp = str_replace(',', '', $temp);
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
+                            array_push($type, 'currency');
+                        } else {
+                            for ($i = 20; $i < 32; $i++) {
+                                $temp = $row[$i];
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
+                            array_push($type, 'num');
+                        }
+
+
+                        array_push($monthData, $month);
+                    }
+                }
+            }
+
+            for ($i = 0; $i < count($chartTitle); $i++) {
+                $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
+            }
+            $fileName = time() . $chart->getName();
+            $chart->move('files', $fileName);
+            $this->db->query("UPDATE log_files SET file=" . $this->db->escape($fileName) . " ,link=" . $this->db->escape($fileName) . ", client_id ='$client' WHERE id='$log_id'");
+        }
+
+        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
+    }
     public function test()
     {
     }

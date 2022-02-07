@@ -43,7 +43,7 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <!-- Main -->
                 <li class="nav-item">
-                    <a href="<?= base_url('/admin/dashboard') ?>" class="nav-link">
+                    <a href="<?= base_url('/admin/dashboard') ?>" class="nav-link" id="dashboard">
                         <i class="icon-home4"></i>
                         <span>
                             Dashboard
@@ -75,7 +75,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/admin/p-and-l-report') ?>" class="nav-link">
+                    <a id="pl" href="<?= base_url('/admin/p-and-l-report') ?>" class="nav-link">
                         <i class="icon-clipboard5"></i>
                         <span>
                             P&L Reports
@@ -93,18 +93,13 @@
                         <li class="nav-item"><a href="<?= base_url('/admin/checklist-report') ?>" class="nav-link">Report Checklist</a></li>
                         <li class="nav-item"><a href="<?= base_url('/admin/assignment-report') ?>" class="nav-link">Assignment Report</a></li>
                         <li class="nav-item"><a href="<?= base_url('/admin/assignment-history') ?>" class="nav-link">Assignment History</a></li>
+                        <li class="nav-item"><a href="<?= base_url('/admin/completed-investments') ?>" class="nav-link">Completed Assignments</a></li>
                     </ul>
                 </li>
-
                 <!-- /main -->
-
-
-
             </ul>
         </div>
         <!-- /main navigation -->
-
     </div>
     <!-- /sidebar content -->
-
 </div>

@@ -97,6 +97,48 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+        switch ("<?= uri_string() ?>") {
+            case "admin/dashboard":
+                $.get('/refresh-dashboard', function(data) {
+                    var sum = JSON.parse(data);
+                    $('.total_client_cost').html(sum['total_client_cost']);
+                    $('.total_cost_left').html(sum['total_cost_left']);
+                    $('.total_unit').html(sum['total_unit']);
+                    $('.total_original').html(sum['total_client_cost']);
+                    $('.total_fulfilled').html(sum['total_fulfilled']);
+                    $('.avg_retail').html(sum['avg_retail']);
+                    $('.avg_client_cost').html(sum['avg_client_cost']);
+
+                    totalFulfilled = Number(sum['total_fulfilled'].replace(/[^0-9.-]+/g, ""));
+                    totalClientCost = Number(sum['total_client_cost'].replace(/[^0-9.-]+/g, ""));
+
+
+                });
+
+                $('.refresh').click(function() {
+                    $.get('/refresh-dashboard', function(data) {
+                        var sum = JSON.parse(data);
+                        $('.total_client_cost').html("$ " + sum['total_client_cost']);
+                    });
+                })
+                $('#dashboard').addClass('active');
+                break;
+
+            case "admin/p-and-l-report":
+                $('#pl').addClass('active');
+                break;
+            default:
+                // code block
+        }
+
+
+
+
+    });
+
+
+
     var chatbox = document.getElementById('fb-customer-chat');
     chatbox.setAttribute("page_id", "106425448582832");
     chatbox.setAttribute("attribution", "biz_inbox");

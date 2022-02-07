@@ -12,7 +12,7 @@
                     <div>
 
                         <span class="card-title font-weight-semibold">Total Client Cost</span>
-                        <h2 class="font-weight-bold mb-0">$ <?= number_format($totalInvest->total_client_cost, 2) ?> <small class="text-success font-size-base ml-2"></small></h2>
+                        <h2 class="font-weight-bold mb-0">$ <span class="total_client_cost">...</span> <small class="text-success font-size-base ml-2"></small></h2>
                     </div>
                     <div class="dropdown ml-auto">
                     </div>
@@ -28,7 +28,7 @@
                 <div class="card-header d-flex pb-1">
                     <div>
                         <span class="card-title font-weight-semibold">Total Cost Left</span>
-                        <h2 class="font-weight-bold mb-0">$ <?= number_format($totalCostLeft, 2) ?><small class="text-danger font-size-base ml-2"></small></h2>
+                        <h2 class="font-weight-bold mb-0">$ <span class="total_cost_left"></span><small class="text-danger font-size-base ml-2"></small></h2>
                     </div>
                 </div>
 
@@ -43,7 +43,7 @@
                     <div>
 
                         <span class="card-title font-weight-semibold">Total Unit</span>
-                        <h2 class="font-weight-bold mb-0"><?= ($totalUnit->total_unit > 0) ? $totalUnit->total_unit : "0" ?></h2>
+                        <h2 class="font-weight-bold mb-0 total_unit">0</h2>
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@
                     <div>
 
                         <span class="card-title font-weight-semibold">Total Original Retail</span>
-                        <h2 class="font-weight-bold mb-0">$ <?= number_format($totalRetail->total_retail, 2) ?> <small class="text-danger font-size-base ml-2"></small></h2>
+                        <h2 class="font-weight-bold mb-0 ">$ <span class="total_original">...</span> <small class="text-danger font-size-base ml-2"></small></h2>
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                     <i class="icon-table2"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0"><?= ($totalUnit->total_unit > 0) ? $totalUnit->total_unit : "0" ?></h5>
+                    <h5 class="font-weight-semibold mb-0 total_unit">0</h5>
                     <span class="text-muted">Total Unit</span>
 
                 </div>
@@ -87,7 +87,7 @@
                     <i class="icon-cart-remove"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">$ <?= number_format($totalFulfilled->total_fulfilled, 2) ?></h5>
+                    <h5 class="font-weight-semibold mb-0">$ <span class="total_fulfilled">...</span></h5>
                     <span class="text-muted">Total Fulfilled</span>
 
                 </div>
@@ -97,8 +97,8 @@
                     <i class="icon-cube"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">$ <?= ($totalUnit->total_unit != 0) ? number_format(($totalFulfilled->total_fulfilled / $totalUnit->total_unit), 2) : "0" ?> <span class="text-success font-size-sm font-weight-normal">
-                            AVG UNIT RETAIL ( $ <?= ($totalUnit->total_unit != 0) ? number_format(($totalRetail->total_retail / $totalUnit->total_unit), 2) : "0" ?> )
+                    <h5 class="font-weight-semibold mb-0">$ <span class="avg_retail"></span> <span class="text-success font-size-sm font-weight-normal">
+                            AVG UNIT RETAIL ( $ <span class="avg_client_cost"></span> )
                         </span></h5>
 
                     <span class="text-muted">AVG Unit Client Cost</span>

@@ -22,7 +22,7 @@
     <div class="d-flex flex-xl-1 justify-content-xl-end order-0 order-xl-1 pr-3">
         <ul class="navbar-nav navbar-nav-underline flex-row">
             <li class="nav-item" style="align-self: center;">
-                <a href="javascript:window.location.reload(true)" class="navbar-nav-link navbar-nav-link-toggler">
+                <a class="navbar-nav-link navbar-nav-link-toggler refresh">
                     <i class="icon-sync"></i>
                 </a>
             </li>

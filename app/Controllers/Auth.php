@@ -53,7 +53,7 @@ class Auth extends BaseController
                 } elseif ($user->role == "va" || $user->role == "admin") {
                     return redirect()->to(base_url('va/assignment-report'))->with('message', 'Login Successful!');
                 } else {
-                    if ($currentPage == base_url()) {
+                    if ($currentPage == base_url() || $currentPage == base_url() . '/login') {
                         return redirect()->to(base_url('get-started'))->with('message', 'Login Successful!');
                     } else {
                         return redirect()->to($currentPage)->with('message', 'Login Successful!');

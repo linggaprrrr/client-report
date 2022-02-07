@@ -25,11 +25,13 @@
                 <thead>
                     <tr>
                         <th class="text-center" style="width: 5%">No</th>
-                        <th class="text-center" style="width: 10%">Box Name</th>
-                        <th class="text-center" style="width: 10%">Status</th>
-                        <th class="text-center" style="width: 15%">Box Value</th>
-                        <th class="text-center">FBA Number</th>
-                        <th class="text-center">Shipment Number</th>
+                        <th class="text-center" style="width: 5%">Box Name</th>
+                        <th class="text-center" style="width: 5%">Status</th>
+                        <th class="text-center" style="width: 10%">Box Value</th>
+                        <th class="text-center" style="width: 15%">VA</th>
+                        <th class="text-center" style="width: 10%">FBA Number</th>
+                        <th class="text-center" style="width: 10%">Shipment Number</th>
+
                         <th class="text-center" style="width: 5%">Order</th>
                         <th class="text-center">Client</th>
                         <th class="text-center">AMZ Store</th>
@@ -48,16 +50,23 @@
                                     <?php else : ?>
                                     <tr class="table-success">
                                     <?php endif ?>
-                                    <td>
+                                    <td class="text-center">
                                         <?= $no++ ?>
                                         <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
                                             <b><?= $row['box_name'] ?></b>
                                         </a>
+                                        <br>
+                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                            <?= $desc  ?>
+                                        <?php else : ?>
+                                            None
+                                        <?php endif ?>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <?php if ($row['status'] == 'waiting') : ?>
                                             <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
                                         <?php elseif ($row['status'] == 'rejected') : ?>
@@ -73,12 +82,16 @@
                                             <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= number_format($row['new_box_value'], 2) ?></mark></b>
                                         <?php endif ?>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
+                                        <b><?= $row['va'] ?></b>
+                                    </td>
+                                    <td class="text-center">
                                         <b><?= $row['fba_number'] ?></b>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <b><?= $row['shipment_number'] ?> </b>
                                     </td>
+
                                     <td>
                                         <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
                                         <input disabled type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= $newDate ?>" style="width: 90px; text-align:center">
@@ -116,58 +129,84 @@
 
         </form>
 
-        <div class="modal fade modal_scrollable_box" tabindex="-1">
+        <div class="modal fade modal_scrollable_box2" tabindex="-1">
             <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header pb-3">
-                        <h5><b>BOX #<span class="modal-title">#title</span></b></h5>
+                        <h5><b><span class="modal-title">#title</span></b> </h5>
                     </div>
                     <div class="modal-body py-0">
                         <form id="box-details">
-                            <div class="table-responsive" id="item-table">
+                            <?php csrf_field() ?>
+                            <div class="table-responseive">
+                                <table class="table text-center" id="sum2" style="font-weight:bold; font-size:12px">
+                                    <thead>
+                                        <tr class="bg-primary text-white">
+                                            <th style="width: 10%;">SKU</th>
+                                            <th style="width: 20%;">Item Description</th>
+                                            <th style="width: 5%;">Condition</th>
+                                            <th style="width: 10%;">Total Qty</th>
+                                            <th style="width: 10%;">Retail</th>
+                                            <th style="width: 10%;">Total Retail</th>
+                                            <th style="width: 10%;">Total Cost</th>
+                                            <th style="width: 15%;">Vendor</th>
+                                            <th style="width: 15%;">Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" value="1" readonly contenteditable="true"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive" id="item-table2">
                                 <!-- <form action="<?= base_url('/save-box-details') ?>" method="post"> -->
 
                                 <?php csrf_field() ?>
-                                <input type="hidden" name="box_name" id="box_name" value="">
-                                <table class="table" style="font-weight:bold; font-size:12px">
+                                <input type="hidden" name="box_name" id="box_name2" value="">
+                                <table class="table text-center" style="font-weight:bold; font-size:12px">
                                     <thead>
                                         <tr class="bg-secondary text-white">
-                                            <th>SKU</th>
-                                            <th>Item Description</th>
-                                            <th>Condition</th>
-                                            <th>Qty</th>
-                                            <th>Retail</th>
-                                            <th>Original</th>
-                                            <th>Vendor</th>
-                                            <th>Note</th>
-
+                                            <th style="width: 10%;">SKU</th>
+                                            <th style="width: 20%;">Item Description</th>
+                                            <th style="width: 5%;">Condition</th>
+                                            <th style="width: 10%;">Qty</th>
+                                            <th style="width: 10%;">Retail</th>
+                                            <th style="width: 10%;">Total Retail</th>
+                                            <th style="width: 10%;">Cost</th>
+                                            <th style="width: 15%;">Vendor</th>
+                                            <th style="width: 15%;">Note</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="item-tbody">
+                                    <tbody id="item-tbody2">
 
                                     </tbody>
                                 </table>
 
                             </div>
-                            <div class="table-responsive mt-2" id="item-table-removed" style="display: none;">
+                            <div class="table-responsive mt-2" id="item-table-removed2" style="display: none;">
                                 <div class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
                                     <span class="font-weight-semibold">Some items have been removed in a box!</span>
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                 </div>
-                                <table class="table" style="font-weight:bold; font-size:12px" id="table-removed">
+
+                                <table class="table text-center" style="font-weight:bold; font-size:12px" id="table-removed">
                                     <thead>
+
                                         <tr class="bg-danger text-white">
-                                            <th>SKU</th>
-                                            <th>Item Description</th>
-                                            <th>Condition</th>
-                                            <th>Qty</th>
-                                            <th>Retail</th>
-                                            <th>Original</th>
-                                            <th>Vendor</th>
-                                            <th>Note</th>
+                                            <th style="width: 10%;">SKU</th>
+                                            <th style="width: 20%;">Item Description</th>
+                                            <th style="width: 5%;">Condition</th>
+                                            <th style="width: 10%;">Qty</th>
+                                            <th style="width: 10%;">Retail</th>
+                                            <th style="width: 10%;">Total Retail</th>
+                                            <th style="width: 10%;">Cost</th>
+                                            <th style="width: 15%;">Vendor</th>
+                                            <th style="width: 15%;">Note</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="item-tbody-removed">
+                                    <tbody id="item-tbody-removed2">
 
                                     </tbody>
                                 </table>
@@ -246,42 +285,58 @@
 
 
         $('.box_name').on('click', function() {
-            var boxName = $(this).attr('data-box');
-            $('#item-table tbody').html("");
+            var boxName = $(this).data('box');
+            $('#item-table2 tbody').html("");
+            $('#sum2 tbody').html("");
             $.get('/get-box-summary', {
                 box_name: boxName
             }, function(data) {
-                $('.modal-title').html("<b>" + boxName + "</b>");
-                $('#box_name').val(boxName);
-                $('#item-table-removed').css("display", "none");
-                $('.modal_scrollable_box').modal({
+                var item = JSON.parse(data);
+                $('.modal-title').html("<b>" + item[0]['description'] + "</b>");
+                $('#box_name2').val(boxName);
+                $('#item-table-removed2').css("display", "none");
+                $('.modal_scrollable_box2').modal({
                     backdrop: 'static',
                     keyboard: false
                 })
-                $('#item-tbody-removed').html("");
-                var item = JSON.parse(data);
+                $('#item-tbody-removed2').html("");
+
                 if (item.length > 0) {
                     $('#box_note').html(item[0]['box_note']);
                     var no = 1;
+                    var qty = 0;
+                    var retail = 0;
+                    var total = 0;
+                    var cost = 0;
                     for (var i = 0; i < item.length; i++) {
                         if (item[i]['item_status'] == 1) {
+
                             if (i % 2 == 0) {
-                                $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                                $('#item-table2 tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
                             } else {
-                                $('#item-table tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                                $('#item-table2 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
                             }
                         } else {
-                            $('#item-table-removed').css("display", "block");
+                            $('#item-table-removed2').css("display", "block");
                             if (i % 2 == 0) {
-                                $('#item-table-removed tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
+                                $('#item-table-removed2 tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td>  <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
                             } else {
-                                $('#item-table-removed tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
+                                $('#item-table-removed2 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td>  <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td>  <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
                             }
+                            qty = qty - parseInt(item[i]['qty']);
+                            retail = retail - parseFloat(item[i]['retail']);
+                            total = total - parseFloat(item[i]['original']);
+                            cost = cost - parseFloat(item[i]['cost']);
                         }
+                        qty = qty + parseInt(item[i]['qty']);
+                        retail = retail + parseFloat(item[i]['retail']);
+                        total = total + parseFloat(item[i]['original']);
+                        cost = cost + parseFloat(item[i]['cost']);
                     }
+                    $('#sum2 tbody').append('<tr><td>-</td> <td>-</td>  <td>-</td><td>' + qty + '</td> <td>$ ' + numberWithCommas(retail.toFixed(2)) + '</td> <td>$ ' + numberWithCommas(total.toFixed(2)) + '</td><td>$ ' + numberWithCommas(cost.toFixed(2)) + '</td> <td>-</td> <td>-</td></tr>');
                 }
 
-                $('.modal_scrollable_box').modal('show');
+                $('.modal_scrollable_box2').modal('show');
             });
 
         });
