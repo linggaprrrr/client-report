@@ -118,8 +118,8 @@
                     <th>Investment Date</th>
                     <th>Client Name</th>
                     <th>Company Name</th>
-                    <th>File Uploaded</th>
                     <th>Amount</th>
+                    <th>File Uploaded</th>
                     <th>Date Uploaded</th>
                     <th class="text-center" style="width: 12%">Google Sheet</th>
                     <th class="text-center" style="width: 10%">Download</th>

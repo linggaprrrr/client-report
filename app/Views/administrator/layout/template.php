@@ -105,7 +105,7 @@
                     $('.total_client_cost').html(sum['total_client_cost']);
                     $('.total_cost_left').html(sum['total_cost_left']);
                     $('.total_unit').html(sum['total_unit']);
-                    $('.total_original').html(sum['total_client_cost']);
+                    $('.total_original').html(sum['total_original']);
                     $('.total_fulfilled').html(sum['total_fulfilled']);
                     $('.avg_retail').html(sum['avg_retail']);
                     $('.avg_client_cost').html(sum['avg_client_cost']);
@@ -117,9 +117,25 @@
                 });
 
                 $('.refresh').click(function() {
+                    $('.total_client_cost').html("...");
+                    $('.total_cost_left').html("...");
+                    $('.total_unit').html("...");
+                    $('.total_original').html("...");
+                    $('.total_fulfilled').html("...");
+                    $('.avg_retail').html("...");
+                    $('.avg_client_cost').html("...");
                     $.get('/refresh-dashboard', function(data) {
                         var sum = JSON.parse(data);
-                        $('.total_client_cost').html("$ " + sum['total_client_cost']);
+                        $('.total_client_cost').html(sum['total_client_cost']);
+                        $('.total_cost_left').html(sum['total_cost_left']);
+                        $('.total_unit').html(sum['total_unit']);
+                        $('.total_original').html(sum['total_original']);
+                        $('.total_fulfilled').html(sum['total_fulfilled']);
+                        $('.avg_retail').html(sum['avg_retail']);
+                        $('.avg_client_cost').html(sum['avg_client_cost']);
+
+                        totalFulfilled = Number(sum['total_fulfilled'].replace(/[^0-9.-]+/g, ""));
+                        totalClientCost = Number(sum['total_client_cost'].replace(/[^0-9.-]+/g, ""));
                     });
                 })
                 $('#dashboard').addClass('active');

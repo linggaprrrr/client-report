@@ -28,7 +28,7 @@
                 <div class="card-header d-flex pb-1">
                     <div>
                         <span class="card-title font-weight-semibold">Total Cost Left</span>
-                        <h2 class="font-weight-bold mb-0">$ <span class="total_cost_left"></span><small class="text-danger font-size-base ml-2"></small></h2>
+                        <h2 class="font-weight-bold mb-0">$ <span class="total_cost_left">...</span><small class="text-danger font-size-base ml-2"></small></h2>
                     </div>
                 </div>
 

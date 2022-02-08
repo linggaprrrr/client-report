@@ -331,7 +331,7 @@ class Reports extends BaseController
     {
         $this->reportModel->deletePLReport($id);
 
-        // return redirect()->back()->with('delete', 'Report Successfully deleted!');
+        return redirect()->back()->with('delete', 'Report Successfully deleted!');
     }
 
     public function assignmentReport()

@@ -136,7 +136,7 @@ class ReportModel extends Model
     public function deletePLReport($id)
     {
         $this->db->query("DELETE FROM chart_pl  WHERE client_id = '$id'");
-        $this->db->query("DELETE FROM log_files WHERE client_id = '$id'");
+        $this->db->query("DELETE FROM log_files WHERE client_id = '$id' AND (investment_id='' OR investment_id IS NULL) ");
     }
 
     public function getFileManifest($id)
