@@ -107,7 +107,9 @@ $routes->get('/get-category', 'Admin\Reports::getCategory');
 $routes->get('/refresh-dashboard', 'Admin\Reports::refreshDashboard');
 $routes->get('/get-piechart', 'Admin\Reports::getPiechart');
 $routes->get('/get-plclient', 'Admin\Reports::getPLClient');
-
+$routes->get('/get-summary-box', 'Admin\Reports::getSummaryBox');
+$routes->get('/get-top-investments', 'Admin\Reports::getTopInvestment');
+$routes->get('/get-top-continuity', 'Admin\Reports::getContinuityInvestment');
 
 /*
  * --------------------------------------------------------------------

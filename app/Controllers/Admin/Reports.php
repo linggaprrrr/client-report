@@ -46,11 +46,9 @@ class Reports extends BaseController
         $user = $this->userModel->find($userId);
 
         $totalInvest = $this->investmentModel->totalClientInvestment();
-        // $totalUnit = $this->reportModel->totalUnit();
-        // $totalRetail = $this->reportModel->totalRetail();
-        // $totalCostLeft = $this->reportModel->totalCostLeft();
         $totalFulfilled = $this->reportModel->totalFulfilled();
         $getAllReports = $this->reportModel->getAllReports();
+        $finSummary = $this->reportModel->finSummary();
         $news = $this->newsModel->getLastNews();
 
         $data = [
@@ -60,6 +58,8 @@ class Reports extends BaseController
             'getAllReports' => $getAllReports,
             'totalInvest' => $totalInvest,
             'totalFulfilled' => $totalFulfilled,
+            'finSummary' => $finSummary,
+
             'news' => $news,
         ];
         return view('administrator/dashboard', $data);
@@ -358,6 +358,26 @@ class Reports extends BaseController
             'getAllAssignReportCompleted' => $getAllAssignReportCompleted,
         ];
         return view('administrator/assignment_report', $data);
+    }
+
+    public function getSummaryBox()
+    {
+        $totalBox = $this->assignReportModel->getTotalBox();
+        $onprocess = $this->assignReportModel->getBoxStatus("waiting");
+        $complete = $this->assignReportModel->getBoxStatus("approved");
+        $totalUnit = $this->assignReportModel->getTotalUnit();
+        $newDate = date("M-d-Y", strtotime($totalBox->date));
+
+        $summary = array(
+            'date' => strtoupper($newDate),
+            'total_box' => $totalBox->total_box,
+            'client_cost' => number_format($totalBox->client_cost, 2),
+            'onprocess' => $onprocess->status,
+            'complete' => $complete->status,
+            'total_unit' => $totalUnit->unit
+        );
+
+        echo json_encode($summary);
     }
 
     public function updatePriceBox()
@@ -932,6 +952,19 @@ class Reports extends BaseController
 
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
+
+    public function getTopInvestment()
+    {
+        $topInvestment = $this->investmentModel->getTopInvestment();
+        echo json_encode($topInvestment->getResultArray());
+    }
+
+    public function getContinuityInvestment()
+    {
+        $getUser = $this->investmentModel->continuityInvestment();
+        echo json_encode($getUser->getResultArray());
+    }
+
     public function test()
     {
     }

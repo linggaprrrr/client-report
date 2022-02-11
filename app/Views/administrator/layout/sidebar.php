@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/admin/client-activities') ?>" class="nav-link">
+                    <a href="<?= base_url('/admin/client-activities') ?>" class="nav-link" id="ca">
                         <i class="icon-clipboard3"></i>
                         <span>
                             Client Activities
@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/admin/user-management') ?>" class="nav-link">
+                    <a href="<?= base_url('/admin/user-management') ?>" class="nav-link" id="um">
                         <i class="icon-users"></i>
                         <span>
                             User Management
@@ -67,7 +67,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/admin/news') ?>" class="nav-link">
+                    <a href="<?= base_url('/admin/news') ?>" class="nav-link" id="news">
                         <i class="icon-newspaper"></i>
                         <span>
                             News Announcement
@@ -82,7 +82,7 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item nav-item-submenu">
+                <li class="nav-item nav-item-submenu" id="assignment-menu">
                     <a href="#" class="nav-link">
                         <i class="icon-copy"></i>
                         <span>
@@ -90,10 +90,10 @@
                         </span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Assignment Report">
-                        <li class="nav-item"><a href="<?= base_url('/admin/checklist-report') ?>" class="nav-link">Report Checklist</a></li>
-                        <li class="nav-item"><a href="<?= base_url('/admin/assignment-report') ?>" class="nav-link">Assignment Report</a></li>
-                        <li class="nav-item"><a href="<?= base_url('/admin/assignment-history') ?>" class="nav-link">Assignment History</a></li>
-                        <li class="nav-item"><a href="<?= base_url('/admin/completed-investments') ?>" class="nav-link">Completed Assignments</a></li>
+                        <li class="nav-item"><a href="<?= base_url('/admin/checklist-report') ?>" class="nav-link" id="cr">Report Checklist</a></li>
+                        <li class="nav-item"><a href="<?= base_url('/admin/assignment-report') ?>" class="nav-link" id="ar">Assignment Report</a></li>
+                        <li class="nav-item"><a href="<?= base_url('/admin/assignment-history') ?>" class="nav-link" id="ah">Assignment History</a></li>
+                        <li class="nav-item"><a href="<?= base_url('/admin/completed-investments') ?>" class="nav-link" id="ci">Completed Assignments</a></li>
                     </ul>
                 </li>
                 <!-- /main -->

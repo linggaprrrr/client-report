@@ -111,4 +111,22 @@ class InvestmentModel extends Model
         $query = $this->db->query("SELECT TIMESTAMPDIFF(MONTH, date, NOW()) as monthdiff FROM investments WHERE client_id=9 ORDER BY date DESC LIMIT 1")->getRow();
         return $query;
     }
+
+    public function getTopInvestment()
+    {
+        $query = $this->db->query("SELECT fullname, amount, currency FROM (SELECT fullname, SUM(cost) as amount, CONCAT('$',FORMAT(SUM(cost),0,'en_US')) as currency FROM investments JOIN users ON users.id = investments.client_id GROUP BY client_id ORDER BY SUM(cost) DESC LIMIT 10) as tp ORDER BY amount ASC");
+        return $query;
+    }
+
+    public function continuityInvestment()
+    {
+        $query = $this->db->query("SELECT fullname, total FROM (SELECT fullname, COUNT(investments.id) as total FROM investments JOIN users ON users.id = investments.client_id GROUP BY client_id ORDER BY COUNT(investments.id)  DESC LIMIT 10) as con ORDER BY total ASC");
+        return $query;
+    }
+
+    public function getTopInvestmentAssign()
+    {
+        $query = $this->db->query("SELECT fullname, SUM(cost) as amount FROM investments JOIN users ON users.id = investments.client_id WHERE investments.status='assign' GROUP BY client_id ORDER BY SUM(cost) DESC LIMIT 10");
+        return $query;
+    }
 }

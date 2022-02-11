@@ -70,6 +70,95 @@
         </div>
 
     </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Financial Summary</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <p class="mb-3"></p>
+
+                    <div class="card card-table table-responsive shadow-none mb-0">
+                        <table class="table table-bordered summary" style="font-size: 11px">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">MONTH</th>
+                                    <th class="text-center">CLIENT SPEND</th>
+                                    <th class="text-center">CLIENT SPEND FULFILLED</th>
+                                    <th class="text-center">% FULFILLED</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $month = array();
+                                $percen = array();
+                                ?>
+                                <?php foreach ($finSummary->getResultArray() as $sum) : ?>
+                                    <tr>
+                                        <td class="font-weight-bold" style="padding: 5px"><?= strtoupper($sum['month']) ?></td>
+                                        <td class="text-center font-weight-bold" style="padding: 5px">$ <?= number_format($sum['spend'], 2) ?></td>
+                                        <td class="text-center font-weight-bold" style="padding: 5px">$ <?= number_format($sum['fulfilled'], 2) ?></td>
+                                        <td class="text-center font-weight-bold" style="padding: 5px"><?= number_format($fullfilled = ($sum['spend'] / $sum['fulfilled']) * 100, 2) ?>%</td>
+                                    </tr>
+                                    <?php
+                                    array_push($month, $sum['month']);
+                                    array_push($percen, number_format($fullfilled, 2));
+                                    ?>
+                                <?php endforeach ?>
+                                <?php
+                                $month = json_encode($month);
+                                $percen = json_encode($percen);
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="chart has-fixed-height" id="summ"></div>
+                    <script type="text/javascript">
+                        // Initialize the echarts instance based on the prepared dom
+                        var myChart = echarts.init(document.getElementById('summ'));
+                        // Specify the configuration items and data for the chart
+                        option = {
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                data: <?= $month ?>,
+                                axisTick: {
+                                    alignWithLabel: true
+                                }
+                            }],
+                            yAxis: [{
+                                type: 'value'
+                            }],
+                            series: [{
+                                name: 'Direct',
+                                type: 'bar',
+                                barWidth: '60%',
+                                data: <?= $percen ?>
+                            }]
+                        };
+
+                        // Display the chart using the configuration items and data just specified.
+                        myChart.setOption(option);
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card">
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div class="d-flex align-items-center mb-3 mb-lg-0">
@@ -159,6 +248,281 @@
         </table>
     </div>
     <!-- /blocks with chart -->
+    <div class="row">
+        <div class="col-xl-6">
+            <!-- Multi level donut chart -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Top 10 Investor</h5>
+                </div>
+
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div class="chart has-fixed-height" id="topInvestment"></div>
+                        <script type="text/javascript">
+                            const userTopInvestment = []
+                            const amountTopInvestment = [];
+                            const currency = [];
+                            $.get('/get-top-investments', function(data) {
+                                const invest = JSON.parse(data);
+                                for (var i = 0; i < invest.length; i++) {
+                                    userTopInvestment.push(invest[i]['fullname']);
+                                    amountTopInvestment.push(invest[i]['amount']);
+                                    currency.push(invest[i]['currency']);
+                                }
+                                var nameData = [],
+                                    valueData = [],
+                                    foregroundColor = '#1990FF',
+                                    backgroundColor = '#f5f5f5',
+                                    barWidth = 5;
+
+                                var data = amountTopInvestment;
+
+                                // Initialize the echarts instance based on the prepared dom
+                                var myChart = echarts.init(document.getElementById('topInvestment'));
+                                // Specify the configuration items and data for the chart
+                                option = {
+                                    textStyle: {
+                                        fontFamily: 'Roboto, Arial, Verdana, sans-serif',
+                                        fontSize: 14
+                                    },
+                                    // Chart grid
+
+                                    tooltip: {
+                                        trigger: 'axis',
+                                        show: true,
+                                        trigger: 'item',
+                                        padding: [20, 15],
+                                        axisPointer: {
+                                            // Use axis to trigger tooltip
+                                            type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+                                        }
+                                    },
+                                    legend: {},
+                                    grid: {
+                                        left: '15%',
+                                        right: '15%',
+                                        bottom: '3%',
+                                        containLabel: false
+                                    },
+                                    xAxis: {
+                                        show: false
+                                    },
+
+                                    yAxis: [{
+                                            type: 'category',
+                                            data: userTopInvestment,
+                                            axisLine: {
+                                                show: false
+                                            },
+                                            splitLine: {
+                                                show: false
+                                            },
+                                            axisTick: {
+                                                show: false
+                                            },
+                                            axisLabel: {
+                                                margin: 10,
+                                                fontSize: 12,
+                                                fontWeight: 500,
+                                            }
+
+                                        },
+                                        {
+                                            type: 'category',
+                                            data: currency,
+                                            axisLine: {
+                                                show: false
+                                            },
+                                            splitLine: {
+                                                show: false
+                                            },
+                                            axisTick: {
+                                                show: false
+                                            },
+                                            axisLabel: {
+                                                align: 'left',
+                                                margin: 20,
+                                                fontSize: 14,
+                                                fontWeight: 500,
+
+                                            }
+
+                                        },
+
+                                    ],
+
+                                    series: [{
+                                            name: 'Total Amount',
+
+                                            type: 'bar',
+                                            stack: 'total',
+                                            data: amountTopInvestment,
+                                            barWidth: barWidth,
+                                            itemStyle: {
+                                                color: foregroundColor,
+                                                barBorderRadius: 30
+                                            },
+                                            z: 10,
+                                            showBackground: true,
+                                            backgroundStyle: {
+                                                barBorderRadius: 30,
+                                                color: backgroundColor
+                                            }
+                                        },
+
+
+                                    ]
+                                };
+
+                                // Display the chart using the configuration items and data just specified.
+                                myChart.setOption(option);
+
+                            });
+                            // Main vars
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <!-- /multi level donut chart -->
+
+        </div>
+        <div class="col-xl-6">
+            <!-- Multi level donut chart -->
+            <div class="card">
+
+                <div class="card-header">
+                    <h5 class="card-title">Top 10 Continuity Investor </h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div class="chart has-fixed-height" id="continuity"></div>
+                        <script type="text/javascript">
+                            const userContinuity = [];
+                            const totalInvestment = [];
+                            $.get('/get-top-continuity', function(data) {
+                                const continuity = JSON.parse(data);
+                                for (var i = 0; i < continuity.length; i++) {
+                                    userContinuity.push(continuity[i]['fullname']);
+                                    totalInvestment.push(continuity[i]['total']);
+                                }
+                                var nameData = [],
+                                    valueData = [],
+                                    foregroundColor = '#1990FF',
+                                    backgroundColor = '#f5f5f5',
+                                    barWidth = 5;
+
+                                var data = totalInvestment;
+
+                                // Initialize the echarts instance based on the prepared dom
+                                var myChart = echarts.init(document.getElementById('continuity'));
+                                // Specify the configuration items and data for the chart
+                                option = {
+                                    textStyle: {
+                                        fontFamily: 'Roboto, Arial, Verdana, sans-serif',
+                                        fontSize: 14
+                                    },
+                                    // Chart grid
+
+                                    tooltip: {
+                                        trigger: 'axis',
+                                        show: true,
+                                        trigger: 'item',
+                                        padding: [20, 15],
+                                        axisPointer: {
+                                            // Use axis to trigger tooltip
+                                            type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+                                        }
+                                    },
+                                    legend: {},
+                                    grid: {
+                                        left: '15%',
+                                        right: '15%',
+                                        bottom: '3%',
+                                        containLabel: false
+                                    },
+                                    xAxis: {
+                                        show: false
+                                    },
+
+                                    yAxis: [{
+                                            type: 'category',
+                                            data: userContinuity,
+                                            axisLine: {
+                                                show: false
+                                            },
+                                            splitLine: {
+                                                show: false
+                                            },
+                                            axisTick: {
+                                                show: false
+                                            },
+                                            axisLabel: {
+                                                margin: 10,
+                                                fontSize: 12,
+                                                fontWeight: 500,
+                                            }
+
+                                        },
+                                        {
+                                            type: 'category',
+                                            data: totalInvestment,
+                                            axisLine: {
+                                                show: false
+                                            },
+                                            splitLine: {
+                                                show: false
+                                            },
+                                            axisTick: {
+                                                show: false
+                                            },
+                                            axisLabel: {
+                                                align: 'left',
+                                                margin: 20,
+                                                fontSize: 14,
+                                                fontWeight: 500,
+
+                                            }
+
+                                        },
+
+                                    ],
+
+                                    series: [{
+                                            name: 'Total Investment',
+
+                                            type: 'bar',
+                                            stack: 'total',
+                                            data: totalInvestment,
+                                            barWidth: barWidth,
+                                            itemStyle: {
+                                                color: foregroundColor,
+                                                barBorderRadius: 30
+                                            },
+                                            z: 10,
+                                            showBackground: true,
+                                            backgroundStyle: {
+                                                barBorderRadius: 30,
+                                                color: backgroundColor
+                                            }
+                                        },
+
+
+                                    ]
+                                };
+
+                                // Display the chart using the configuration items and data just specified.
+                                myChart.setOption(option);
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <!-- /multi level donut chart -->
+
+        </div>
+
+    </div>
     <div class="row">
         <div class="col-xl-12">
             <!-- Multi level donut chart -->

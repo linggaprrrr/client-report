@@ -9,7 +9,73 @@
     }
 </style>
 <div class="content">
+    <div class="row">
+
+
+        <div class="col-lg-3">
+            <div class="card bg-secondary text-white">
+                <div class="card-header d-flex pb-1">
+                    <div>
+                        <span class="card-title font-weight-semibold">Total Box On-Process</span>
+                        <h2 class="font-weight-bold mb-0"><span class="total_box_onprocess">...</span><small class="text-danger font-size-base ml-2"></small></h2>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart" style="height: 50px"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card bg-primary text-white">
+                <div class="card-header d-flex pb-1">
+                    <div>
+
+                        <span class="card-title font-weight-semibold">Total Box Completed</span>
+                        <h2 class="font-weight-bold mb-0"><span class="total_box_completed">...</span></h2>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart" style="height: 50px"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card bg-danger text-white">
+                <div class="card-header d-flex pb-1">
+                    <div>
+                        <span class="card-title font-weight-semibold">Total Box This Week</span>
+                        <h2 class="font-weight-bold mb-0"><span class="total_box">...</span> <code class="ml-2">(<span class="total_unit">0</span> Units)</code> </h2>
+                    </div>
+                    <div class="dropdown ml-auto">
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart" style="height: 50px"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card bg-warning text-white">
+                <div class="card-header d-flex pb-1">
+                    <div>
+
+                        <span class="card-title font-weight-semibold">Total Client Cost</span>
+                        <h2 class="font-weight-bold mb-0 ">$ <span class="total_client_cost">...</span> <small class="text-danger font-size-base ml-2"></small></h2>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart" style="height: 50px"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <div class="card">
+
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div>
                 <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-file-upload mr-2"></i>Upload Report</button>
@@ -43,6 +109,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                <h2 class="date font-weight-bold"></h2>
             </div>
         </div>
         <hr class="m-0">

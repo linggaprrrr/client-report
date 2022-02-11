@@ -85,4 +85,22 @@ class AssignReportModel extends Model
         $query = $this->db->query("SELECT assign_report_box.box_name, fullname, '$currentCost' as cost_left, SUM(assign_report_details.cost) as fulfilled, category, count(category) as total_qty, (SUM(assign_report_details.cost)/'$currentCost')*100 as percentage FROM assign_report_details JOIN assign_report_box ON assign_report_box.box_name = assign_report_details.box_name JOIN box_sum ON box_sum.box_name = assign_report_box.box_name JOIN users ON users.id = box_sum.client_id JOIN investments ON investments.id = box_sum.investment_id WHERE investments.id = '$investment' GROUP BY assign_report_details.category");
         return $query;
     }
+
+    public function getTotalBox()
+    {
+        $query = $this->db->query("SELECT assign_reports.id, assign_reports.date, COUNT(assign_report_box.box_name) as total_box, SUM(box_value) as client_cost FROM assign_report_box JOIN assign_reports ON assign_reports.id = assign_report_box.report_id ORDER BY assign_reports.id DESC LIMIT 1")->getRow();
+        return $query;
+    }
+
+    public function getBoxStatus($stat = 'waiting')
+    {
+        $query = $this->db->query("SELECT COUNT(assign_report_box.status) as status FROM assign_report_box JOIN assign_reports ON assign_reports.id = assign_report_box.report_id WHERE assign_report_box.status = '$stat' ORDER BY assign_reports.id DESC LIMIT 1 ")->getRow();
+        return $query;
+    }
+
+    public function getTotalUnit()
+    {
+        $query = $this->db->query("SELECT SUM(assign_report_details.qty) as unit FROM assign_report_details JOIN assign_report_box ON assign_report_details.box_name=assign_report_box.box_name JOIN assign_reports ON assign_reports.id = assign_report_box.report_id ORDER BY assign_reports.id DESC LIMIT 1")->getRow();
+        return $query;
+    }
 }

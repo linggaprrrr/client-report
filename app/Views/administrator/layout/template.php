@@ -112,9 +112,9 @@
 
                     totalFulfilled = Number(sum['total_fulfilled'].replace(/[^0-9.-]+/g, ""));
                     totalClientCost = Number(sum['total_client_cost'].replace(/[^0-9.-]+/g, ""));
-
-
                 });
+
+
 
                 $('.refresh').click(function() {
                     $('.total_client_cost').html("...");
@@ -140,9 +140,49 @@
                 })
                 $('#dashboard').addClass('active');
                 break;
+            case "admin/client-activities":
+                $('#ca').addClass('active');
+                break;
+
+            case "admin/user-management":
+                $('#um').addClass('active');
+                break;
+
+            case "admin/news":
+                $('#news').addClass('active');
+                break;
 
             case "admin/p-and-l-report":
                 $('#pl').addClass('active');
+                break;
+
+            case "admin/checklist-report":
+                $('#assignment-menu').addClass('nav-item-expanded nav-item-open"');
+                $('#cr').addClass('active');
+                break;
+
+            case "admin/assignment-report":
+                $('#assignment-menu').addClass('nav-item-expanded nav-item-open"');
+                $('#ar').addClass('active');
+                $.get('/get-summary-box', function(data) {
+                    var sum = JSON.parse(data);
+                    $('.total_box').html(sum['total_box']);
+                    $('.total_unit').html(sum['total_unit']);
+                    $('.total_box_onprocess').html(sum['onprocess']);
+                    $('.total_box_completed').html(sum['complete']);
+                    $('.total_client_cost').html(sum['client_cost']);
+                    $('.date').html(sum['date']);
+                });
+
+                break;
+
+            case "admin/assignment-history":
+                $('#assignment-menu').addClass('nav-item-expanded nav-item-open"');
+                $('#ah').addClass('active');
+                break;
+            case "admin/completed-investments":
+                $('#assignment-menu').addClass('nav-item-expanded nav-item-open"');
+                $('#ci').addClass('active');
                 break;
             default:
                 // code block

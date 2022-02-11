@@ -164,4 +164,10 @@ class ReportModel extends Model
         $query = $this->db->query("SELECT users.id as user_id, users.fullname, users.company, log_files.id as log_id, file, link FROM log_files JOIN users ON users.id = log_files.client_id WHERE log_files.id ='$id'")->getRow();
         return $query;
     }
+
+    public function finSummary()
+    {
+        $query = $this->db->query("select month, spend, fulfilled from (SELECT date, date_format(date, '%b %Y') as month, sum(investments.cost) as spend, sum(investments.cost)-sum(reports.cost) as fulfilled FROM investments JOIN reports ON reports.investment_id = investments.id group by year(date),month(date) ORDER BY date DESC LIMIT 12) as s ORDER BY s.date ASC");
+        return $query;
+    }
 }
