@@ -964,6 +964,16 @@ class Reports extends BaseController
         echo json_encode($getUser->getResultArray());
     }
 
+    public function getTopReadyToAssign() {
+        $getUser = $this->investmentModel->getTopInvestmentAssign();
+        echo json_encode($getUser->getResultArray());
+    }
+
+    public function getTotalItemByCat() {
+        $getCat = $this->assignReportModel->getTotalItemByCat();
+        echo json_encode($getCat->getResultArray());
+    }
+
     public function test()
     {
     }

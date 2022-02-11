@@ -1,0 +1,128 @@
+ERROR - 2022-02-11 00:45:01 --> Error connecting to the database: No such file or directory
+CRITICAL - 2022-02-11 00:45:01 --> Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseBuilder.php(1576): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Model.php(723): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Auth.php(38): CodeIgniter\Model->__call('getWhere', Array)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->loginProses()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-02-11 00:46:40 --> Error connecting to the database: No such file or directory
+CRITICAL - 2022-02-11 00:46:40 --> Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseBuilder.php(1576): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Model.php(723): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Auth.php(38): CodeIgniter\Model->__call('getWhere', Array)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->loginProses()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-02-11 00:47:04 --> Error connecting to the database: No such file or directory
+CRITICAL - 2022-02-11 00:47:04 --> Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseBuilder.php(1576): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Model.php(723): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Auth.php(38): CodeIgniter\Model->__call('getWhere', Array)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->loginProses()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-02-11 00:49:15 --> Error connecting to the database: No such file or directory
+CRITICAL - 2022-02-11 00:49:15 --> Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseBuilder.php(1576): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Model.php(723): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Auth.php(38): CodeIgniter\Model->__call('getWhere', Array)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->loginProses()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-02-11 00:49:47 --> Error connecting to the database: No such file or directory
+CRITICAL - 2022-02-11 00:49:47 --> Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseBuilder.php(1576): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Model.php(723): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Auth.php(38): CodeIgniter\Model->__call('getWhere', Array)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->loginProses()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-02-11 00:50:49 --> Error connecting to the database: No such file or directory
+CRITICAL - 2022-02-11 00:50:49 --> Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseBuilder.php(1576): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Model.php(723): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Auth.php(38): CodeIgniter\Model->__call('getWhere', Array)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->loginProses()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-02-11 00:52:49 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+CRITICAL - 2022-02-11 00:52:49 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('select month, s...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('select month, s...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('select month, s...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Models/ReportModel.php(170): CodeIgniter\Database\BaseConnection->query('select month, s...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(51): App\Models\ReportModel->finSummary()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-02-11 01:34:21 --> Call to undefined method App\Models\InvestmentModel::getTopReadyToAssign
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(968): CodeIgniter\Model->__call('getTopReadyToAs...', Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->getTopReadyToAssign()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-02-11 01:34:39 --> Call to undefined method App\Models\InvestmentModel::getTopReadyToAssign
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(968): CodeIgniter\Model->__call('getTopReadyToAs...', Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->getTopReadyToAssign()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-02-11 01:37:01 --> Call to undefined method App\Models\InvestmentModel::getTopReadyToAssign
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(968): CodeIgniter\Model->__call('getTopReadyToAs...', Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->getTopReadyToAssign()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+ERROR - 2022-02-11 02:10:49 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' UPPER(category) as name FROM `assign_report_details` GROUP BY category' at line 1
+CRITICAL - 2022-02-11 02:10:49 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' UPPER(category) as name FROM `assign_report_details` GROUP BY category' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT COUNT(ca...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(ca...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(ca...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Models/AssignReportModel.php(108): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(ca...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(973): App\Models\AssignReportModel->getTotalItemByCat()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->getTotalItemByCat()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

@@ -103,4 +103,9 @@ class AssignReportModel extends Model
         $query = $this->db->query("SELECT SUM(assign_report_details.qty) as unit FROM assign_report_details JOIN assign_report_box ON assign_report_details.box_name=assign_report_box.box_name JOIN assign_reports ON assign_reports.id = assign_report_box.report_id ORDER BY assign_reports.id DESC LIMIT 1")->getRow();
         return $query;
     }
+
+    public function getTotalItemByCat() {
+        $query = $this->db->query("SELECT COUNT(category) as value, UPPER(category) as name FROM `assign_report_details` GROUP BY category");
+        return $query;
+    }
 }

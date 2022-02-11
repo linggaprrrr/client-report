@@ -252,6 +252,154 @@
         <div class="col-xl-6">
             <!-- Multi level donut chart -->
             <div class="card">
+
+                <div class="card-header">
+                    <h5 class="card-title">Top 10 Investor (Ready To Assign)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div class="chart has-fixed-height" id="assign"></div>
+                        <script type="text/javascript">
+                            const userRAssign = [];
+                            const totalInvestmentAssign = [];
+                            const costLeft = [];
+                            $.get('/get-top-readyassign', function(data) {
+                                const assign = JSON.parse(data);
+                                for (var i = 0; i < assign.length; i++) {
+                                    userRAssign.push(assign[i]['fullname']);
+                                    totalInvestmentAssign.push(assign[i]['amount']);
+                                    costLeft.push(assign[i]['cost_left']);
+                                }
+                                var nameData = [],
+                                    valueData = [],
+                                    foregroundColor = '#1990FF',
+                                    backgroundColor = '#f5f5f5',
+                                    barWidth = 5;
+
+                                var data = totalInvestmentAssign;
+
+                                // Initialize the echarts instance based on the prepared dom
+                                var myChart = echarts.init(document.getElementById('assign'));
+                                // Specify the configuration items and data for the chart
+                                option = {
+                                   
+                                    tooltip: {
+                                        trigger: 'axis',
+                                        axisPointer: {
+                                        type: 'shadow'
+                                        }
+                                    },
+                                    legend: {},
+                                    grid: {
+                                        left: '3%',
+                                        right: '4%',
+                                        bottom: '3%',
+                                        containLabel: true
+                                    },
+                                    xAxis: {
+                                        type: 'value',
+                                        boundaryGap: [0, 0.01]
+                                    },
+                                    yAxis: {
+                                        type: 'category',
+                                        data: userRAssign
+                                    },
+                                    series: [
+                                        {
+                                        name: 'Total Amount',
+                                        type: 'bar',
+                                        data: totalInvestmentAssign
+                                        },
+                                        {
+                                        name: 'Total Cost Left',
+                                        type: 'bar',
+                                        data: costLeft
+                                        }
+                                    ]
+                                    };
+
+                                // Display the chart using the configuration items and data just specified.
+                                myChart.setOption(option);
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <!-- /multi level donut chart -->
+
+        </div>
+        <div class="col-xl-6">
+            <!-- Multi level donut chart -->
+            <div class="card">
+
+                <div class="card-header">
+                    <h5 class="card-title">Total Category/Item</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div class="chart has-fixed-height" id="category"></div>
+                        <script type="text/javascript">
+                            const tempCat = [];
+                            const categoryItem = {};
+                            $.get('/get-total-cat', function(data) {
+                                const cat = JSON.parse(data);
+                                // for (var i = 0; i < cat.length; i++) {
+                                //     categoryItem.value = cat[i]['qty'];
+                                //     categoryItem.category = cat[i]['category'];
+                                //     tempCat.push(categoryItem);
+                                // }
+                                // console.log(tempCat);
+                                // Initialize the echarts instance based on the prepared dom
+                                var myChart = echarts.init(document.getElementById('category'));
+                                // Specify the configuration items and data for the chart
+                                option = {
+                                    tooltip: {
+                                        trigger: 'item'
+                                    },
+                                    legend: {
+                                        top: '5%',
+                                        left: 'center'
+                                    },
+                                    series: [
+                                        {
+                                        name: 'Total',
+                                        type: 'pie',
+                                        radius: ['40%', '70%'],
+                                        avoidLabelOverlap: false,
+                                        label: {
+                                            show: false,
+                                            position: 'center'
+                                        },
+                                        emphasis: {
+                                            label: {
+                                            show: true,
+                                            fontSize: '18',
+                                            fontWeight: 'bold'
+                                            }
+                                        },
+                                        labelLine: {
+                                            show: false
+                                        },
+                                        data: cat
+                                        }
+                                    ]
+                                };
+
+                                // Display the chart using the configuration items and data just specified.
+                                myChart.setOption(option);
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <!-- /multi level donut chart -->
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6">
+            <!-- Multi level donut chart -->
+            <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Top 10 Investor</h5>
                 </div>
@@ -300,8 +448,8 @@
                                     },
                                     legend: {},
                                     grid: {
-                                        left: '15%',
-                                        right: '15%',
+                                        left: '20%',
+                                        right: '20%',
                                         bottom: '3%',
                                         containLabel: false
                                     },
@@ -436,8 +584,8 @@
                                     },
                                     legend: {},
                                     grid: {
-                                        left: '15%',
-                                        right: '15%',
+                                        left: '20%',
+                                        right: '20%',
                                         bottom: '3%',
                                         containLabel: false
                                     },

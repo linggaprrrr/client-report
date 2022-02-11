@@ -126,7 +126,9 @@ class InvestmentModel extends Model
 
     public function getTopInvestmentAssign()
     {
-        $query = $this->db->query("SELECT fullname, SUM(cost) as amount FROM investments JOIN users ON users.id = investments.client_id WHERE investments.status='assign' GROUP BY client_id ORDER BY SUM(cost) DESC LIMIT 10");
+        $query = $this->db->query("SELECT fullname, amount, cost_left FROM (SELECT investments.cost as amount, users.fullname, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'assign' GROUP BY reports.investment_id ORDER BY amount DESC LIMIT 10) as assign ORDER BY amount ASC");
         return $query;
     }
+
+    
 }

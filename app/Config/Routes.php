@@ -110,6 +110,8 @@ $routes->get('/get-plclient', 'Admin\Reports::getPLClient');
 $routes->get('/get-summary-box', 'Admin\Reports::getSummaryBox');
 $routes->get('/get-top-investments', 'Admin\Reports::getTopInvestment');
 $routes->get('/get-top-continuity', 'Admin\Reports::getContinuityInvestment');
+$routes->get('/get-top-readyassign', 'Admin\Reports::getTopReadyToAssign');
+$routes->get('/get-total-cat', 'Admin\Reports::getTotalItemByCat');
 
 /*
  * --------------------------------------------------------------------
