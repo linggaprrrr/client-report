@@ -59,7 +59,6 @@ class Reports extends BaseController
             'totalInvest' => $totalInvest,
             'totalFulfilled' => $totalFulfilled,
             'finSummary' => $finSummary,
-
             'news' => $news,
         ];
         return view('administrator/dashboard', $data);
