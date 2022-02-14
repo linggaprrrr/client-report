@@ -48,8 +48,33 @@ class Reports extends BaseController
         $totalInvest = $this->investmentModel->totalClientInvestment();
         $totalFulfilled = $this->reportModel->totalFulfilled();
         $getAllReports = $this->reportModel->getAllReports();
-        $finSummary = $this->reportModel->finSummary();
+        $finSummary = $this->reportModel->finSummary("spend");
+        $finSummaryFulfill = $this->reportModel->finSummary();
         $news = $this->newsModel->getLastNews();
+        $summ = array();
+        $check = 0;
+        foreach ($finSummary->getResultArray() as $row) {
+            foreach ($finSummaryFulfill->getResultArray() as $fill) {
+                if ($row['month'] == $fill['month']) {
+                    $temp = array(
+                        'month' => $row['month'],
+                        'spend' => $row['spend'],
+                        'fulfill' => $fill['fulfill']
+                    );
+                    $check = 1;
+                    array_push($summ, $temp);
+                }
+            }
+            if ($check == 0) {
+                $temp = array(
+                    'month' => $row['month'],
+                    'spend' => $row['spend'],
+                    'fulfill' => 0
+                );
+                array_push($summ, $temp);
+            }
+            $check = 0;
+        }
 
         $data = [
             'tittle' => 'Dashboard | Report Management System',
@@ -58,8 +83,7 @@ class Reports extends BaseController
             'getAllReports' => $getAllReports,
             'totalInvest' => $totalInvest,
             'totalFulfilled' => $totalFulfilled,
-            'finSummary' => $finSummary,
-
+            'finSummary' => $summ,
             'news' => $news,
         ];
         return view('administrator/dashboard', $data);
@@ -347,6 +371,7 @@ class Reports extends BaseController
         $getAllAssignReport = $this->assignReportModel->getAllAssignReport();
         $getAllAssignReportPending = $this->assignReportModel->getAllAssignReportProcess($userId, $user['role']);
         $getAllAssignReportCompleted = $this->assignReportModel->getAllAssignReportCompleted();
+        $getWeeks = $this->assignReportModel->getWeeks();
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'BOX ASSIGNMENT FOR CLIENT FULFILLMENT',
@@ -356,6 +381,7 @@ class Reports extends BaseController
             'getAllAssignReport' => $getAllAssignReport,
             'getAllAssignReportPending' => $getAllAssignReportPending,
             'getAllAssignReportCompleted' => $getAllAssignReportCompleted,
+            'weeks' => $getWeeks
         ];
         return view('administrator/assignment_report', $data);
     }
@@ -372,8 +398,8 @@ class Reports extends BaseController
             'date' => strtoupper($newDate),
             'total_box' => $totalBox->total_box,
             'client_cost' => number_format($totalBox->client_cost, 2),
-            'onprocess' => $onprocess->status,
-            'complete' => $complete->status,
+            'onprocess' => (!is_null($onprocess) ? $onprocess->status : 0),
+            'complete' => (!is_null($complete) ? $complete->status : 0),
             'total_unit' => $totalUnit->unit
         );
 
@@ -538,10 +564,9 @@ class Reports extends BaseController
         foreach ($post['client'] as $idx => $data) {
             if ($data != '0') {
                 $clientId = $post['client'][$idx];
-                $date = $post['date'][$idx];
                 $boxId = $post['box_id'][$idx];
                 $vaId = $post['va'][$idx];
-                $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', date='$date', va_id='$vaId' WHERE id='$boxId' ");
+                $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', va_id='$vaId' WHERE id='$boxId' ");
             }
         }
         return redirect()->back()->with('success', 'Report Successfully saved!');
@@ -704,6 +729,8 @@ class Reports extends BaseController
     {
         $post = $this->request->getVar();
         for ($i = 0; $i < count($post['item']); $i++) {
+            $description = $post['item_description'][$i];
+            $vendor = $post['vendor'][$i];
             $retail = str_replace('$', '', trim($post['retail'][$i]));
             $original = str_replace('$', '', trim($post['original'][$i]));
             $cost = str_replace('$', '', trim($post['cost'][$i]));
@@ -711,7 +738,7 @@ class Reports extends BaseController
             $check = $post['item_check'][$i];
             $note = $post['note'][$i];
             $id = $post['item'][$i];
-            $this->db->query("UPDATE assign_report_details SET retail='$retail', original='$original', cost='$cost', item_status='$stat', item_check='$check', item_note=" . $this->db->escape($note) . " WHERE id='$id' ");
+            $this->db->query("UPDATE assign_report_details SET item_description=" . $this->db->escape($description) . ", vendor=" . $this->db->escape($vendor) . ", retail='$retail', original='$original', cost='$cost', item_status='$stat', item_check='$check', item_note=" . $this->db->escape($note) . " WHERE id='$id' ");
         }
         $box_note = $post['box_note'];
         $box_name = $post['box_name'];
@@ -963,6 +990,50 @@ class Reports extends BaseController
     {
         $getUser = $this->investmentModel->continuityInvestment();
         echo json_encode($getUser->getResultArray());
+    }
+
+    public function getTopReadyToAssign()
+    {
+        $getUser = $this->investmentModel->getTopInvestmentAssign();
+        echo json_encode($getUser->getResultArray());
+    }
+
+    public function getTotalItemByCat()
+    {
+        $getCat = $this->assignReportModel->getTotalItemByCat();
+        echo json_encode($getCat->getResultArray());
+    }
+
+
+    public function savePeriodSetting()
+    {
+        $post = $this->request->getVar();
+        if (!empty($post['week1-start'])) {
+            $start = $post['week1-start'];
+            $end = $post['week1-end'];
+            $this->db->query("UPDATE weeks SET date1='$start', date2='$end' WHERE week='1' ");
+        }
+        if (!empty($post['week2-start'])) {
+            $start = $post['week2-start'];
+            $end = $post['week2-end'];
+            $this->db->query("UPDATE weeks SET date1='$start', date2='$end' WHERE week='2' ");
+        }
+        if (!empty($post['week3-start'])) {
+            $start = $post['week3-start'];
+            $end = $post['week3-end'];
+            $this->db->query("UPDATE weeks SET date1='$start', date2='$end' WHERE week='3' ");
+        }
+        if (!empty($post['week4-start'])) {
+            $start = $post['week4-start'];
+            $end = $post['week4-end'];
+            $this->db->query("UPDATE weeks SET date1='$start', date2='$end' WHERE week='4' ");
+        }
+        if (!empty($post['week5-start'])) {
+            $start = $post['week5-start'];
+            $end = $post['week5-end'];
+            $this->db->query("UPDATE weeks SET date1='$start', date2='$end' WHERE week='5' ");
+        }
+        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
     public function test()

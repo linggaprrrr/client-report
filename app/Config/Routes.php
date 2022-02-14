@@ -68,6 +68,8 @@ $routes->post('/reset-password', 'Admin\Users::resetPassword');
 $routes->get('/admin/completed-investments', 'Admin\Reports::completedInvestments');
 $routes->post('/reupload-pl-report', 'Admin\Reports::reuploadPL');
 
+$routes->post('/save-periode-setting', 'Admin\Reports::savePeriodSetting');
+
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
 $routes->get('/brand-approvals', 'Clients::brandApprovals');
@@ -110,6 +112,8 @@ $routes->get('/get-plclient', 'Admin\Reports::getPLClient');
 $routes->get('/get-summary-box', 'Admin\Reports::getSummaryBox');
 $routes->get('/get-top-investments', 'Admin\Reports::getTopInvestment');
 $routes->get('/get-top-continuity', 'Admin\Reports::getContinuityInvestment');
+$routes->get('/get-top-readyassign', 'Admin\Reports::getTopReadyToAssign');
+$routes->get('/get-total-cat', 'Admin\Reports::getTotalItemByCat');
 
 /*
  * --------------------------------------------------------------------

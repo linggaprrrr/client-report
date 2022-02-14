@@ -171,7 +171,6 @@
                     $('.total_box_onprocess').html(sum['onprocess']);
                     $('.total_box_completed').html(sum['complete']);
                     $('.total_client_cost').html(sum['client_cost']);
-                    $('.date').html(sum['date']);
                 });
 
                 break;

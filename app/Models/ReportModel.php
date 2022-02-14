@@ -165,9 +165,13 @@ class ReportModel extends Model
         return $query;
     }
 
-    public function finSummary()
+    public function finSummary($type = null)
     {
-        $query = $this->db->query("select month, spend, fulfilled from (SELECT date, date_format(date, '%b %Y') as month, sum(investments.cost) as spend, sum(investments.cost)-sum(reports.cost) as fulfilled FROM investments JOIN reports ON reports.investment_id = investments.id group by year(date),month(date) ORDER BY date DESC LIMIT 12) as s ORDER BY s.date ASC");
+        if ($type == 'spend') {
+            $query = $this->db->query("SELECT date_format(date, '%b %Y') as month, sum(investments.cost) as spend FROM investments JOIN users ON users.id = investments.client_id group by year(date),month(date) ORDER BY date DESC LIMIT 12");
+        } else {
+            $query = $this->db->query("SELECT date_format(date, '%b %Y') as month, SUM(reports.cost) as fulfill FROM reports JOIN investments ON investments.id = reports.investment_id GROUP BY year(date),month(date) ORDER BY date DESC LIMIT 15");
+        }
         return $query;
     }
 }

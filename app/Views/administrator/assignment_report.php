@@ -10,8 +10,6 @@
 </style>
 <div class="content">
     <div class="row">
-
-
         <div class="col-lg-3">
             <div class="card bg-secondary text-white">
                 <div class="card-header d-flex pb-1">
@@ -30,7 +28,6 @@
             <div class="card bg-primary text-white">
                 <div class="card-header d-flex pb-1">
                     <div>
-
                         <span class="card-title font-weight-semibold">Total Box Completed</span>
                         <h2 class="font-weight-bold mb-0"><span class="total_box_completed">...</span></h2>
                     </div>
@@ -111,7 +108,111 @@
                 </div>
             </div>
             <div>
-                <h2 class="date font-weight-bold"></h2>
+                <div>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#week_modal"><i class="icon-gear mr-2"></i>Period Setting</button>
+                    <div id="week_modal" class="modal fade" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header bg-secondary text-white">
+                                    <h5 class="modal-title">Period Setting</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <form action="<?= base_url('save-periode-setting') ?>" method="POST" enctype="multipart/form-data">
+                                    <?php csrf_field() ?>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Week 1:</label>
+                                            <label class="custom-file">
+                                                <?php
+                                                $week1_start = $weeks[0]['date1'];
+                                                $week1_end = $weeks[0]['date2'];
+                                                $week1_start = str_replace('-', '/', $week1_start);
+                                                $week1_start = date('m/d/Y', strtotime($week1_start));
+                                                $week1_end = str_replace('-', '/', $week1_end);
+                                                $week1_end = date('m/d/Y', strtotime($week1_end));
+                                                ?>
+                                                <input type="text" class="form-control" name="week1" value="<?= $week1_start ?> - <?= $week1_end ?>" readonly />
+                                                <input type="hidden" name="week1-start" value="<?= $weeks[0]['date1'] ?>">
+                                                <input type="hidden" name="week1-end" value="<?= $weeks[0]['date2'] ?>">
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Week 2:</label>
+                                            <label class="custom-file">
+                                                <?php
+                                                $week2_start = $weeks[1]['date1'];
+                                                $week2_end = $weeks[1]['date2'];
+                                                $week2_start = str_replace('-', '/', $week2_start);
+                                                $week2_start = date('m/d/Y', strtotime($week2_start));
+                                                $week2_end = str_replace('-', '/', $week2_end);
+                                                $week2_end = date('m/d/Y', strtotime($week2_end));
+                                                ?>
+                                                <input type="text" class="form-control" name="week2" value="<?= $week2_start ?> - <?= $week2_end ?>" readonly />
+                                                <input type="hidden" name="week2-start" value="<?= $weeks[1]['date1'] ?>">
+                                                <input type="hidden" name="week2-end" value="<?= $weeks[1]['date2'] ?>">
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Week 3:</label>
+                                            <label class="custom-file">
+                                                <?php
+                                                $week3_start = $weeks[2]['date1'];
+                                                $week3_end = $weeks[2]['date2'];
+                                                $week3_start = str_replace('-', '/', $week3_start);
+                                                $week3_start = date('m/d/Y', strtotime($week3_start));
+                                                $week3_end = str_replace('-', '/', $week3_end);
+                                                $week3_end = date('m/d/Y', strtotime($week3_end));
+                                                ?>
+                                                <input type="text" class="form-control" name="week3" value="<?= $week3_start ?> - <?= $week3_end ?>" readonly />
+                                                <input type="hidden" name="week3-start" value="<?= $weeks[2]['date1'] ?>">
+                                                <input type="hidden" name="week3-end" value="<?= $weeks[2]['date2'] ?>">
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Week 4:</label>
+                                            <label class="custom-file">
+                                                <?php
+                                                $week4_start = $weeks[3]['date1'];
+                                                $week4_end = $weeks[3]['date2'];
+                                                $week4_start = str_replace('-', '/', $week4_start);
+                                                $week4_start = date('m/d/Y', strtotime($week4_start));
+                                                $week4_end = str_replace('-', '/', $week4_end);
+                                                $week4_end = date('m/d/Y', strtotime($week4_end));
+                                                ?>
+                                                <input type="text" class="form-control" name="week4" value="<?= $week4_start ?> - <?= $week4_end ?>" readonly />
+                                                <input type="hidden" name="week4-start" value="<?= $weeks[3]['date1'] ?>">
+                                                <input type="hidden" name="week4-end" value="<?= $weeks[3]['date2'] ?>">
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Week 5:</label>
+                                            <label class="custom-file">
+                                                <?php
+                                                $week5_start = $weeks[4]['date1'];
+                                                $week5_end = $weeks[4]['date2'];
+                                                $week5_start = str_replace('-', '/', $week5_start);
+                                                $week5_start = date('m/d/Y', strtotime($week5_start));
+                                                $week5_end = str_replace('-', '/', $week5_end);
+                                                $week5_end = date('m/d/Y', strtotime($week5_end));
+                                                ?>
+                                                <input type="text" class="form-control" name="week5" value="<?= $week5_start ?> - <?= $week5_end ?>" readonly />
+                                                <input type="hidden" name="week5-start" value="<?= $weeks[4]['date1'] ?>">
+                                                <input type="hidden" name="week5-end" value="<?= $weeks[4]['date2'] ?>">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-secondary">Save <i class="icon-paperplane ml-2"></i></button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <hr class="m-0">
@@ -136,8 +237,8 @@
                         <th class="text-center" style="width: 5%">Status</th>
                         <th class="text-center" style="width: 10%">Box Value</th>
                         <th class="text-center" style="width: 20%">VA User</th>
-                        <th class="text-center" style="width: 5%">Order</th>
                         <th class="text-center" style="width: 20%">Client</th>
+                        <th class="text-center" style="width: 20%">Company</th>
                         <th class="text-center" style="width: 5%">Brand Approval</th>
                         <th class="text-center" style="width: 10%">Investment Date</th>
                         <th class="text-center" style="width: 10%">Current</th>
@@ -184,9 +285,6 @@
                                             <?php endforeach ?>
                                         </select>
                                     </td>
-                                    <td>
-                                        <input type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= date("m/d/Y") ?>" style="width: 90px; text-align:center">
-                                    </td>
                                     <td class="text-center">
                                         <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
                                             <option value="0">...</option>
@@ -199,6 +297,7 @@
                                             <?php endforeach ?>
                                         </select>
                                     </td>
+                                    <td class="text-center company_box_<?= $no ?>"><?= $row['company'] ?></td>
                                     <td class="text-center">
                                         <a href="#" style="color: #232F3E" class="popoverbrand_box_<?= $no ?>" data-popup="popover-custom" title="Brand Approval" data-trigger="focus" data-content="<?= $row['brand_approval'] ?>">
                                             <i class="fab fa-amazon mr-3 fa"></i>
@@ -238,7 +337,7 @@
                                             None
                                         <?php endif ?>
                                     </td>
-                                    <td class="text-ceenter category_box_<?= $no ?>">
+                                    <td class="text-center category_box_<?= $no ?>">
                                         <b><?= strtoupper($row['category']) ?></b>
                                     </td>
                                     <td class="text-center"><span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span></td>
@@ -252,9 +351,7 @@
                                             <?php endforeach ?>
                                         </select>
                                     </td>
-                                    <td class="text-center">
-                                        <input type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= date("m/d/Y") ?>" style="width: 90px; text-align:center">
-                                    </td>
+
                                     <td class="text-center">
                                         <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
                                             <option value="0">...</option>
@@ -267,6 +364,7 @@
                                             <?php endforeach ?>
                                         </select>
                                     </td>
+                                    <td class="text-center company_box_<?= $no ?>">...</td>
                                     <td class="text-center">
                                         <a href="#" style="color: #232F3E" class="popoverbrand_box_<?= $no ?>" data-popup="popover-custom" title="Brand Approval" data-trigger="focus" data-content="Loading...">
                                             <i class="fab fa-amazon mr-3 fa"></i>
@@ -714,8 +812,45 @@
 <script src="/assets/js/plugins/forms/selects/select2.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/assets/js/demo_pages/components_popups.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
     $(document).ready(function() {
+        $('input[name="week1"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $('input[name="week1-start"]').val(start.format('YYYY-MM-DD'));
+            $('input[name="week1-end"]').val(end.format('YYYY-MM-DD'));
+        });
+
+        $('input[name="week2"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $('input[name="week2-start"]').val(start.format('YYYY-MM-DD'));
+            $('input[name="week2-end"]').val(end.format('YYYY-MM-DD'));
+        });
+
+        $('input[name="week3"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $('input[name="week3-start"]').val(start.format('YYYY-MM-DD'));
+            $('input[name="week3-end"]').val(end.format('YYYY-MM-DD'));
+        });
+
+        $('input[name="week4"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $('input[name="week4-start"]').val(start.format('YYYY-MM-DD'));
+            $('input[name="week4-end"]').val(end.format('YYYY-MM-DD'));
+        });
+
+        $('input[name="week5"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $('input[name="week5-start"]').val(start.format('YYYY-MM-DD'));
+            $('input[name="week5-end"]').val(end.format('YYYY-MM-DD'));
+        });
+
         <?php if (session()->getFlashdata('success')) : ?>
             swal("Great!", "<?= session()->getFlashdata('success') ?>", "success");
         <?php endif ?>

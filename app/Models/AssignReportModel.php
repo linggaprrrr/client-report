@@ -88,19 +88,31 @@ class AssignReportModel extends Model
 
     public function getTotalBox()
     {
-        $query = $this->db->query("SELECT assign_reports.id, assign_reports.date, COUNT(assign_report_box.box_name) as total_box, SUM(box_value) as client_cost FROM assign_report_box JOIN assign_reports ON assign_reports.id = assign_report_box.report_id ORDER BY assign_reports.id DESC LIMIT 1")->getRow();
+        $query = $this->db->query("SELECT weeks.week, assign_reports.id, assign_reports.date, COUNT(assign_report_box.box_name) as total_box, SUM(box_value) as client_cost  FROM assign_report_box JOIN assign_reports ON assign_reports.id = assign_report_box.report_id LEFT JOIN weeks ON assign_reports.date >= weeks.date1 AND assign_reports.date <= weeks.date2 WHERE YEARWEEK(assign_reports.date, 1) = YEARWEEK(CURDATE(), 1) GROUP BY weeks.week ORDER BY assign_reports.id DESC LIMIT 1")->getRow();
         return $query;
     }
 
     public function getBoxStatus($stat = 'waiting')
     {
-        $query = $this->db->query("SELECT COUNT(assign_report_box.status) as status FROM assign_report_box JOIN assign_reports ON assign_reports.id = assign_report_box.report_id WHERE assign_report_box.status = '$stat' ORDER BY assign_reports.id DESC LIMIT 1 ")->getRow();
+        $query = $this->db->query("SELECT COUNT(assign_report_box.status) as status FROM assign_report_box JOIN assign_reports ON assign_reports.id = assign_report_box.report_id LEFT JOIN weeks ON assign_reports.date >= weeks.date1 AND assign_reports.date <= weeks.date2 WHERE YEARWEEK(assign_reports.date, 1) = YEARWEEK(CURDATE(), 1) AND assign_report_box.status = '$stat' GROUP BY weeks.week  ORDER BY assign_reports.id DESC LIMIT 1 ")->getRow();
         return $query;
     }
 
     public function getTotalUnit()
     {
-        $query = $this->db->query("SELECT SUM(assign_report_details.qty) as unit FROM assign_report_details JOIN assign_report_box ON assign_report_details.box_name=assign_report_box.box_name JOIN assign_reports ON assign_reports.id = assign_report_box.report_id ORDER BY assign_reports.id DESC LIMIT 1")->getRow();
+        $query = $this->db->query("SELECT SUM(assign_report_details.qty) as unit FROM assign_report_details JOIN assign_report_box ON assign_report_details.box_name=assign_report_box.box_name JOIN assign_reports ON assign_reports.id = assign_report_box.report_id LEFT JOIN weeks ON assign_reports.date >= weeks.date1 AND assign_reports.date <= weeks.date2 WHERE YEARWEEK(assign_reports.date, 1) = YEARWEEK(CURDATE(), 1) GROUP BY weeks.week ORDER BY assign_reports.id DESC LIMIT 1")->getRow();
         return $query;
+    }
+
+    public function getTotalItemByCat()
+    {
+        $query = $this->db->query("SELECT COUNT(category) as value, UPPER(category) as name FROM `assign_report_details` GROUP BY category");
+        return $query;
+    }
+
+    public function getWeeks()
+    {
+        $query = $this->db->query("SELECT * FROM weeks");
+        return $query->getResultArray();
     }
 }
