@@ -1,12 +1,10 @@
 <?= $this->extend('client/layout/template') ?>
-
 <?= $this->section('content') ?>
 <style>
 
 </style>
 <div class="content">
     <div class="card">
-
         <div class="card-body">
             <span>
                 <p class="text-justify">
@@ -45,7 +43,6 @@
     <button type="button" id="pnotify-info-month" style="display: none;"></button>
 
     <!-- /blocks with chart -->
-    <?= $monthDiff->monthdiff ?>
 </div>
 
 <?= $this->endSection() ?>
@@ -55,7 +52,7 @@
 
 <script>
     $(document).ready(function() {
-
+        
         <?php if (!empty($costLeft) && !empty($monthdiff)) : ?>
             <?php if ($costLeft < 100 || $monthDiff->monthdiff > 2) : ?>
                 $('#pnotify-info').click();

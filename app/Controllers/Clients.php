@@ -227,11 +227,13 @@ class Clients extends BaseController
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
         }
+        $brands = $this->categoryModel->getBrands($userId);
         $user = $this->userModel->find($userId);
         $data = [
             'tittle' => "Brand Approvals | Report Management System",
             'menu' => "Brand Approvals",
             'user' => $user,
+            'brands' => $brands
         ];
         return view('client/brand_approvals', $data);
     }
