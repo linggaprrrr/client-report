@@ -449,7 +449,9 @@ class Reports extends BaseController
                 $original = str_replace(',', '', $original);
                 $cost = str_replace('$', '', $row[6]);
                 $cost = str_replace(',', '', $cost);
-                $this->db->query("INSERT INTO assign_reports(file, units, retails, originals, costs) VALUES(" . $this->db->escape($fileName) . ", $row[3], $retail, $original, $cost) ");
+
+                $this->db->query("INSERT INTO assign_reports(file, units, retails, originals, costs) VALUES(" . $this->db->escape($fileName) . ", '$row[3]', '$retail', '$original', '$cost') ");
+
                 $insertId = $this->assignReportModel->getLastId();
             }
             if ($idx > 2) {
@@ -645,8 +647,6 @@ class Reports extends BaseController
         $post = $this->request->getVar();
         $boxId = trim(substr($post['box_id'], 4));
         $boxName = $post['box_name'];
-        $orderDate = $post['order_date'];
-        $newDate = date('Y-m-d', strtotime($orderDate));
 
         $clientId = $post['client_id'];
         $valueBox = $post['value_box'];
@@ -676,13 +676,13 @@ class Reports extends BaseController
             if ($costLeft <= -250) {
                 $status = 0;
             } else {
-                $this->db->query("UPDATE box_sum SET client_id='$clientId', cost_left='$costLeft', investment_id='$investmentId', order_date='$newDate' WHERE box_name='$boxName' ");
+                $this->db->query("UPDATE box_sum SET client_id='$clientId', cost_left='$costLeft', investment_id='$investmentId' WHERE box_name='$boxName' ");
             }
         } else {
             if ($costLeft <= -250) {
                 $status = 0;
             } else {
-                $this->db->query("INSERT INTO box_sum(box_name, cost_left, client_id, investment_id, order_date) VALUES('$boxName', '$costLeft', '$clientId', '$investmentId', '$newDate') ");
+                $this->db->query("INSERT INTO box_sum(box_name, cost_left, client_id, investment_id) VALUES('$boxName', '$costLeft', '$clientId', '$investmentId') ");
             }
         }
 

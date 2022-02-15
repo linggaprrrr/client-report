@@ -125,3 +125,55 @@ CRITICAL - 2022-02-14 04:45:22 --> Undefined variable: date
 #4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
 #6 {main}
+ERROR - 2022-02-14 04:58:11 --> Column count doesn't match value count at row 1
+CRITICAL - 2022-02-14 04:58:11 --> Column count doesn't match value count at row 1
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO ass...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO ass...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO ass...')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(452): CodeIgniter\Database\BaseConnection->query('INSERT INTO ass...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignmentReportSubmit()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-02-14 05:12:29 --> Column count doesn't match value count at row 1
+CRITICAL - 2022-02-14 05:12:29 --> Column count doesn't match value count at row 1
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO ass...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO ass...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO ass...')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(452): CodeIgniter\Database\BaseConnection->query('INSERT INTO ass...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignmentReportSubmit()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-02-14 05:35:55 --> Column count doesn't match value count at row 1
+CRITICAL - 2022-02-14 05:35:55 --> Column count doesn't match value count at row 1
+#0 C:\xampp\htdocs\wholesales\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO ass...', 0)
+#1 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO ass...')
+#2 C:\xampp\htdocs\wholesales\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO ass...')
+#3 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(457): CodeIgniter\Database\BaseConnection->query('INSERT INTO ass...')
+#4 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignmentReportSubmit()
+#5 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-02-14 08:45:23 --> Undefined variable: newDate
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(685): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 685, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignBox()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-02-14 08:45:52 --> Undefined variable: newDate
+#0 C:\xampp\htdocs\wholesales\client-report\app\Controllers\Admin\Reports.php(685): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 685, Array)
+#1 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignBox()
+#2 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 C:\xampp\htdocs\wholesales\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\wholesales\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\wholesales\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
