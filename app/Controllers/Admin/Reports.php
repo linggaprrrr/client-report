@@ -1004,7 +1004,6 @@ class Reports extends BaseController
         echo json_encode($getCat->getResultArray());
     }
 
-
     public function savePeriodSetting()
     {
         $post = $this->request->getVar();
