@@ -21,14 +21,15 @@ class CategoryModel extends Model
         return $query;
     }
 
-    public function getBrands($userid) {
+    public function getBrands() {
         $query = $this->db->query("SELECT * FROM brands ORDER BY brand_name ASC");
         return $query;
     }
 
     public function selectedBrand($userid) {
-        $query = $this->db->query("SELECT * FROM users JOIN brands WHERE users.id = '$userid' AND FIND_IN_SET(brands.id, brand_approval)");
+        $query = $this->db->query("SELECT brands.id FROM users JOIN brands WHERE users.id = '$userid' AND FIND_IN_SET(brands.id, brand_approval)");
         return $query;
     }
+
 
 }

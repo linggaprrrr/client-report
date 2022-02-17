@@ -69,6 +69,8 @@ $routes->get('/admin/completed-investments', 'Admin\Reports::completedInvestment
 $routes->post('/reupload-pl-report', 'Admin\Reports::reuploadPL');
 
 $routes->post('/save-periode-setting', 'Admin\Reports::savePeriodSetting');
+$routes->get('/admin/brand-approvals', 'Admin\Reports::brandApproval');
+
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');

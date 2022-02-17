@@ -1,4 +1,5 @@
 <div class="sidebar sidebar-light sidebar-main sidebar-expand-xl">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <!-- Sidebar content -->
     <div class="sidebar-content">
 
@@ -63,6 +64,14 @@
                         <i class="icon-users"></i>
                         <span>
                             User Management
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/admin/brand-approvals') ?>" class="nav-link">
+                        <i class="fa fa-amazon" style="margin-top: 4px"></i>
+                        <span style="margin-left: 2px;">
+                            Brand Approvals
                         </span>
                     </a>
                 </li>

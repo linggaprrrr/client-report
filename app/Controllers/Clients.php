@@ -227,13 +227,38 @@ class Clients extends BaseController
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
         }
-        $brands = $this->categoryModel->getBrands($userId);
+        $brands = $this->categoryModel->getBrands();
         $user = $this->userModel->find($userId);
+        $selectedBrand = $this->categoryModel->selectedBrand($userId);
+        $temp_brand = array();
+        $check = 0;
+        foreach($brands->getResultArray() as $brand) {
+            foreach($selectedBrand->getResultArray() as $selected) {
+                if ($brand['id'] == $selected['id']) {
+                    $temp = array(
+                        'id' => $brand['id'],
+                        'brand_name' => $brand['brand_name'],
+                        'checked' => 1
+                    );
+                    $check = 1;
+                    array_push($temp_brand, $temp);
+                } 
+            }
+            if ($check == 0) {
+                $temp = array(
+                    'id' => $brand['id'],
+                    'brand_name' => $brand['brand_name'],
+                    'checked' => 0
+                );
+                array_push($temp_brand, $temp);                    
+            }
+            $check = 0;
+        }
         $data = [
             'tittle' => "Brand Approvals | Report Management System",
             'menu' => "Brand Approvals",
             'user' => $user,
-            'brands' => $brands
+            'brands' => $temp_brand
         ];
         return view('client/brand_approvals', $data);
     }

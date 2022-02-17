@@ -104,10 +104,14 @@
                         <form id="brand_approval">
                             <div class="border p-3 rounded">
                                 <div class="row">                                  
-                                    <?php foreach($brands->getResultArray() as $brand) : ?>
+                                    <?php foreach($brands as $brand) : ?>
                                         <div class="col-md-2">  
                                         <label class="custom-control custom-control-dark custom-checkbox mb-2">
-                                            <input type="checkbox" class="custom-control-input" ="">
+                                            <?php if ($brand['checked'] == 1) : ?>
+                                                <input type="checkbox" class="custom-control-input" checked disabled>
+                                            <?php else : ?>
+                                                <input type="checkbox" class="custom-control-input" disabled>
+                                            <?php endif ?>
                                             <span class="custom-control-label font-weight-bold"><?= $brand['brand_name'] ?></span>
                                         </label>
                                         </div>

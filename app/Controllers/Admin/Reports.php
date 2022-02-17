@@ -1035,6 +1035,24 @@ class Reports extends BaseController
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
+    public function brandApproval() {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $getUsers = $this->userModel->where('role', 'client')->orderBy('fullname', 'ASC')->get();
+        $getBrands = $this->categoryModel->getBrands();
+        $data = [
+            'tittle' => 'Completed Assignments | Report Management System',
+            'menu' => 'COMPLETED ASSIGNMENTS',
+            'user' => $user,
+            'brands' => $getBrands,
+            'users' => $getUsers
+        ];
+        return view('administrator/brand_approval', $data);
+    }
+
     public function test()
     {
     }
