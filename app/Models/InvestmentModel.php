@@ -65,7 +65,7 @@ class InvestmentModel extends Model
 
     public function getCompany($id)
     {
-        $query = $this->db->query("SELECT company, cost, brand_approval FROM users JOIN investments ON users.id = investments.client_id WHERE client_id = '$id' ")->getRow();
+        $query = $this->db->query("SELECT company, brand_name FROM users JOIN investments ON users.id = investments.client_id JOIN brands WHERE client_id = '$id' AND FIND_IN_SET(brands.id, brand_approval) GROUP BY brand_name ");
         return $query;
     }
 
@@ -129,6 +129,4 @@ class InvestmentModel extends Model
         $query = $this->db->query("SELECT fullname, amount, cost_left FROM (SELECT investments.cost as amount, users.fullname, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'assign' GROUP BY reports.investment_id ORDER BY amount DESC LIMIT 10) as assign ORDER BY amount ASC");
         return $query;
     }
-
-    
 }

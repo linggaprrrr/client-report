@@ -503,7 +503,18 @@ class Reports extends BaseController
     public function getCompany($id)
     {
         $company = $this->investmentModel->getCompany($id);
-        echo json_encode($company);
+        $temp = array();
+        $tempCompany = "";
+        foreach ($company->getResultArray() as $brand) {
+            array_push($temp, $brand['brand_name']);
+            $tempCompany = $brand['company'];
+        }
+        $str = implode(", ", $temp);
+        $brands = array(
+            'company' => $tempCompany,
+            'brands' => $str
+        );
+        echo json_encode($brands);
     }
 
     public function assignClient()
@@ -1035,7 +1046,8 @@ class Reports extends BaseController
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
-    public function brandApproval() {
+    public function brandApproval()
+    {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return view('login');
@@ -1044,13 +1056,68 @@ class Reports extends BaseController
         $getUsers = $this->userModel->where('role', 'client')->orderBy('fullname', 'ASC')->get();
         $getBrands = $this->categoryModel->getBrands();
         $data = [
-            'tittle' => 'Completed Assignments | Report Management System',
-            'menu' => 'COMPLETED ASSIGNMENTS',
+            'tittle' => 'Brand Approval | Report Management System',
+            'menu' => 'Brand Approval',
             'user' => $user,
             'brands' => $getBrands,
             'users' => $getUsers
         ];
         return view('administrator/brand_approval', $data);
+    }
+
+    public function getBrandClient()
+    {
+        $id = $this->request->getVar('userid');
+        $brands = $this->categoryModel->getBrands();
+        $selectedBrand = $this->categoryModel->selectedBrand($id);
+        $temp_brand = array();
+        $check = 0;
+        foreach ($brands->getResultArray() as $brand) {
+            foreach ($selectedBrand->getResultArray() as $selected) {
+                if ($brand['id'] == $selected['id']) {
+                    $temp = array(
+                        'id' => $brand['id'],
+                        'brand_name' => $brand['brand_name'],
+                        'checked' => 1
+                    );
+                    $check = 1;
+                    array_push($temp_brand, $temp);
+                }
+            }
+            if ($check == 0) {
+                $temp = array(
+                    'id' => $brand['id'],
+                    'brand_name' => $brand['brand_name'],
+                    'checked' => 0
+                );
+                array_push($temp_brand, $temp);
+            }
+            $check = 0;
+        }
+
+        echo json_encode($temp_brand);
+    }
+
+    public function saveClientBrand()
+    {
+        $post = $this->request->getVar();
+        $userid = $post['user'];
+        if ($userid == 0) {
+            return "0";
+        }
+        $brands = array();
+        for ($i = 0; $i < count($post['brand']); $i++) {
+            array_push($brands, $post['brand'][$i]);
+        }
+        $brands = implode(", ", $brands);
+        $brands = str_replace(' ', '', $brands);
+        $this->db->query("UPDATE users SET brand_approval='" . trim($brands) . "' WHERE id='$userid' ");
+    }
+
+    public function addBrand()
+    {
+        $brand = $this->request->getVar('brand');
+        $this->db->query("INSERT INTO brands(brand_name) VALUES (" . $this->db->escape($brand) . ") ");
     }
 
     public function test()

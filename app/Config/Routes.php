@@ -116,6 +116,9 @@ $routes->get('/get-top-investments', 'Admin\Reports::getTopInvestment');
 $routes->get('/get-top-continuity', 'Admin\Reports::getContinuityInvestment');
 $routes->get('/get-top-readyassign', 'Admin\Reports::getTopReadyToAssign');
 $routes->get('/get-total-cat', 'Admin\Reports::getTotalItemByCat');
+$routes->get('/get-brands-client', 'Admin\Reports::getBrandClient');
+$routes->post('/save-brand-client', 'Admin\Reports::saveClientBrand');
+$routes->post('/add-brand', 'Admin\Reports::addBrand');
 
 /*
  * --------------------------------------------------------------------

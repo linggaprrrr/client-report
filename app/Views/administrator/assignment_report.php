@@ -261,12 +261,14 @@
                                             <?= $row['box_name'] ?>
                                         </a>
                                         <br>
-                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
-                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
-                                            <?= $desc  ?>
-                                        <?php else : ?>
-                                            None
-                                        <?php endif ?>
+                                        <p class="desc_box_<?= $no ?>">
+                                            <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                                <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                                <?= $desc  ?>
+                                            <?php else : ?>
+                                                None
+                                            <?php endif ?>
+                                        </p>
                                     </td>
                                     <td class="text-center category_box_<?= $no ?>">
                                         <b><?= strtoupper($row['category']) ?></b>
@@ -330,12 +332,14 @@
                                             <?= $row['box_name'] ?>
                                         </a>
                                         <br>
-                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
-                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
-                                            <?= $desc  ?>
-                                        <?php else : ?>
-                                            None
-                                        <?php endif ?>
+                                        <p class="desc_box_<?= $no ?>">
+                                            <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                                <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                                <?= $desc  ?>
+                                            <?php else : ?>
+                                                None
+                                            <?php endif ?>
+                                        </p>
                                     </td>
                                     <td class="text-center category_box_<?= $no ?>">
                                         <b><?= strtoupper($row['category']) ?></b>
@@ -906,6 +910,8 @@
         var boxId = $(this).attr('id');
         var boxNameId = "name_" + $(this).attr('id');
         var boxName = $('.' + boxNameId).html().trim();
+        var descId = "desc_" + $(this).attr('id');
+        var desc = $('.' + descId).html().trim();
         var valueBoxId = "value_" + $(this).attr('id');
         var valueBox = $('.' + valueBoxId).html();
         var orderDateId = "order_" + $(this).attr('id');
@@ -914,6 +920,7 @@
         var clientId = this.value;
         var vaId = "va_" + $(this).attr('id');
         var vaUser = $('.' + vaId).val();
+        console.log(desc);
         $('.select_date_' + boxId).html("");
         $.get('/get-company/' + clientId, function(data) {
             var company = JSON.parse(data);
@@ -922,76 +929,83 @@
             } else {
                 $('.company_' + boxId).html("");
             }
-            if (company['brand_approval'] == null) {
+            if (company['brands'] == "") {
                 var popoverbrand = $('.popoverbrand_' + boxId).attr('data-content', "none");
+                swal("Oops...", "This client has no brand, go to Brand Approval Menu!", "warning");
             } else {
-                var popoverbrand = $('.popoverbrand_' + boxId).attr('data-content', company['brand_approval']);
-            }
-        });
-        $.post('/get-investment-client', {
-            id: clientId
-        }, function(data) {
-            var investdate = JSON.parse(data);
-            if (investdate.length > 0) {
-                for (var i = 0; i < investdate.length; i++) {
-                    $('.select_date_' + boxId).append(investdate[i]);
+                var popoverbrand = $('.popoverbrand_' + boxId).attr('data-content', company['brands']);
+                if (company['brands'].includes(desc.split('-')[0]) == true || company['brands'].includes(desc.split('/')[0]) == true) {
+                    $.post('/get-investment-client', {
+                        id: clientId
+                    }, function(data) {
+                        var investdate = JSON.parse(data);
+                        if (investdate.length > 0) {
+                            for (var i = 0; i < investdate.length; i++) {
+                                $('.select_date_' + boxId).append(investdate[i]);
+                            }
+                            var selected = $('.select_date_' + boxId).find('option:selected');
+                            var currentCost = selected.data('foo');
+                            $('.currentCost_' + boxId).find("span").remove();
+                            $('.currentCost_' + boxId).prepend("<span class='current_" + boxId + "'><b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b></span>");
+                            var investmentId = $('.select_date_' + boxId + ' option:selected').val();
+
+                            $.post('/assign-box', {
+                                box_id: boxId,
+                                box_name: boxName,
+                                order_date: orderDate,
+                                client_id: clientId,
+                                value_box: valueBox,
+                                current_cost: currentCost,
+                                investment_id: investmentId,
+                                va_id: vaUser
+                            }, function(data) {
+                                var resp = JSON.parse(data);
+                                if (resp['status'] == 0) {
+                                    swal("Oops...", "Total exceed $250.00!", "warning");
+                                    $('.total_' + boxId).html("");
+                                } else {
+                                    $('.total_' + boxId).html("<b>$ " + numberWithCommas(resp['cost_left'].toFixed(2)) + "</b>");
+                                }
+                            });
+
+                            $.get('/get-category', {
+                                investment_id: investmentId,
+                                current_cost: currentCost
+                            }, function(data) {
+                                var cat = JSON.parse(data);
+                                var desc = "";
+
+                                for (var i = 0; i < cat.length; i++) {
+                                    desc = desc.concat(cat[i]['category'] + ' (' + cat[i]['percent'] + '%) ')
+                                }
+                                var popover = $('.popover_' + boxId).attr('data-content', desc);
+                            });
+                        } else {
+                            $.post('/assign-box', {
+                                box_id: boxId,
+                                box_name: boxName,
+                                order_date: orderDate,
+                                client_id: clientId,
+                                value_box: valueBox,
+                                current_cost: 0,
+                                investment_id: 0,
+                                va_id: vaUser,
+                            }, function(data) {
+
+                            });
+                            $('.select_date_' + boxId).html("");
+                            $('.currentCost_' + boxId).find("span").remove();
+                            $('.total_' + boxId).html("");
+                        }
+
+                    });
+                } else {
+                    swal("Oops...", "This brand is not allowed on this client", "warning");
                 }
-                var selected = $('.select_date_' + boxId).find('option:selected');
-                var currentCost = selected.data('foo');
-                $('.currentCost_' + boxId).find("span").remove();
-                $('.currentCost_' + boxId).prepend("<span class='current_" + boxId + "'><b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b></span>");
-                var investmentId = $('.select_date_' + boxId + ' option:selected').val();
 
-                $.post('/assign-box', {
-                    box_id: boxId,
-                    box_name: boxName,
-                    order_date: orderDate,
-                    client_id: clientId,
-                    value_box: valueBox,
-                    current_cost: currentCost,
-                    investment_id: investmentId,
-                    va_id: vaUser
-                }, function(data) {
-                    var resp = JSON.parse(data);
-                    if (resp['status'] == 0) {
-                        swal("Oops...", "Total exceed $250.00!", "warning");
-                        $('.total_' + boxId).html("");
-                    } else {
-                        $('.total_' + boxId).html("<b>$ " + numberWithCommas(resp['cost_left'].toFixed(2)) + "</b>");
-                    }
-                });
-
-                $.get('/get-category', {
-                    investment_id: investmentId,
-                    current_cost: currentCost
-                }, function(data) {
-                    var cat = JSON.parse(data);
-                    var desc = "";
-
-                    for (var i = 0; i < cat.length; i++) {
-                        desc = desc.concat(cat[i]['category'] + ' (' + cat[i]['percent'] + '%) ')
-                    }
-                    var popover = $('.popover_' + boxId).attr('data-content', desc);
-                });
-            } else {
-                $.post('/assign-box', {
-                    box_id: boxId,
-                    box_name: boxName,
-                    order_date: orderDate,
-                    client_id: clientId,
-                    value_box: valueBox,
-                    current_cost: 0,
-                    investment_id: 0,
-                    va_id: vaUser,
-                }, function(data) {
-
-                });
-                $('.select_date_' + boxId).html("");
-                $('.currentCost_' + boxId).find("span").remove();
-                $('.total_' + boxId).html("");
             }
-
         });
+
 
         $('.select_date_' + boxId).on('change', function() {
             var selected = $(this).find('option:selected');
