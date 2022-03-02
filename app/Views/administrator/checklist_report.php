@@ -50,6 +50,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    $tempAmount = 0;
+                    $tempCostLeft = 0;
+                    ?>
                     <?php if ($getAllInvestment->getNumRows() > 0) : ?>
                         <?php $no = 1; ?>
                         <?php foreach ($getAllInvestment->getResultArray() as $row) : ?>
@@ -86,7 +90,12 @@
                                     <input type="hidden" name="investment_id[]" value="<?= $row['id'] ?>">
                                 </td>
                                 </tr>
+                                <?php
 
+                                $tempAmount =  $tempAmount + $row['cost'];
+                                $tempCostLeft =  $tempCostLeft + $row['cost_left'];
+
+                                ?>
                             <?php endforeach ?>
                         <?php endif ?>
                 </tbody>
@@ -95,6 +104,8 @@
                 <button type="submit" class="btn btn-secondary"><i class="icon-checkmark3"></i> Save</button>
             </div>
         </form>
+        <?= $tempAmount  ?>
+        <?= $tempCostLeft  ?>
     </div>
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>

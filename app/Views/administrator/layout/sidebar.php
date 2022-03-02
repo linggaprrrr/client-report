@@ -1,5 +1,5 @@
 <div class="sidebar sidebar-light sidebar-main sidebar-expand-xl">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <!-- Sidebar content -->
     <div class="sidebar-content">
 
@@ -79,7 +79,7 @@
                     <a href="<?= base_url('/admin/news') ?>" class="nav-link" id="news">
                         <i class="icon-newspaper"></i>
                         <span>
-                            News Announcement
+                            Announcements
                         </span>
                     </a>
                 </li>

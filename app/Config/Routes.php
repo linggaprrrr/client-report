@@ -70,6 +70,7 @@ $routes->post('/reupload-pl-report', 'Admin\Reports::reuploadPL');
 
 $routes->post('/save-periode-setting', 'Admin\Reports::savePeriodSetting');
 $routes->get('/admin/brand-approvals', 'Admin\Reports::brandApproval');
+$routes->post('/reassign-box', 'Admin\Reports::reassignBox');
 
 
 // client side
@@ -117,8 +118,10 @@ $routes->get('/get-top-continuity', 'Admin\Reports::getContinuityInvestment');
 $routes->get('/get-top-readyassign', 'Admin\Reports::getTopReadyToAssign');
 $routes->get('/get-total-cat', 'Admin\Reports::getTotalItemByCat');
 $routes->get('/get-brands-client', 'Admin\Reports::getBrandClient');
+$routes->get('/get-client-by-brand', 'Admin\Reports::getClientBrand');
 $routes->post('/save-brand-client', 'Admin\Reports::saveClientBrand');
 $routes->post('/add-brand', 'Admin\Reports::addBrand');
+
 
 /*
  * --------------------------------------------------------------------

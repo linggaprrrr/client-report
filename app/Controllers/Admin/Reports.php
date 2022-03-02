@@ -418,6 +418,23 @@ class Reports extends BaseController
         }
         return redirect()->back()->with('success', 'Report Successfully saved!');
     }
+
+    public function reassignBox()
+    {
+        $post = $this->request->getVar();
+        $box = $post['box_name'];
+        $client = $post['client'];
+        for ($i = 0; $i < count($post['item']); $i++) {
+            $retail = str_replace('$', '', trim($post['retail'][$i]));
+            $original = str_replace('$', '', trim($post['original'][$i]));
+            $cost = str_replace('$', '', trim($post['cost'][$i]));
+            $id = $post['item'][$i];
+            $this->db->query("UPDATE assign_report_details SET retail='$retail', original='$original', cost='$cost' WHERE id='$id' ");
+        }
+        $this->db->query("UPDATE assign_report_box SET status='waiting', confirmed='1', client_id='$client' WHERE box_name='$box' ");
+        return redirect()->back()->with('success', 'Report Successfully saved!');
+    }
+
     public function assignmentReportSubmit()
     {
         ini_set('max_execution_time', 0);
@@ -1092,6 +1109,33 @@ class Reports extends BaseController
                 );
                 array_push($temp_brand, $temp);
             }
+            $check = 0;
+        }
+
+        echo json_encode($temp_brand);
+    }
+
+    public function getClientBrand()
+    {
+        $id = $this->request->getVar('brandid');
+        $users = $this->userModel->getAllUser();
+        $selectedBrand = $this->categoryModel->selectedClient($id);
+        $temp_brand = array();
+        $check = 0;
+        foreach ($users->getResultArray() as $user) {
+            foreach ($selectedBrand->getResultArray() as $selected) {
+                if ($user['id'] == $selected['id']) {
+                    $temp = array(
+                        'id' => $user['id'],
+                        'fullname' => $user['fullname'],
+                        'company' => $user['company'],
+                        'checked' => 1
+                    );
+                    $check = 1;
+                    array_push($temp_brand, $temp);
+                }
+            }
+
             $check = 0;
         }
 

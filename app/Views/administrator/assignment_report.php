@@ -307,7 +307,6 @@
                                     </td>
                                     <td class="text-center date_box_<?= $no ?>">
                                         <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
-
                                         <select class="select_date_box_<?= $no ?>">
                                             <option value="<?= $row['investment_id'] ?>" selected><?= strtoupper($newDateInvest) ?></option>
                                         </select>
@@ -509,80 +508,144 @@
                 <?php if ($getAllAssignReportCompleted->getNumRows() > 0) : ?>
                     <?php $no = 1 ?>
                     <?php foreach ($getAllAssignReportCompleted->getResultArray() as $row) : ?>
-                        <?php if ($row['status'] == 'waiting') : ?>
-                            <tr class="table-active">
-                            <?php elseif ($row['status'] == 'rejected') : ?>
+                        <?php if ($row['status'] == 'rejected') : ?>
                             <tr class="table-warning">
-                            <?php else : ?>
-                            <tr class="table-success">
-                            <?php endif ?>
-                            <td>
-                                <?= $no++ ?>
-                                <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
-                            </td>
-                            <td class="text-center">
-                                <a href="#" class="h6 box_name2" data-box="<?= $row['box_name'] ?>">
-                                    <b><?= $row['box_name'] ?></b>
-                                </a>
-                                <br>
-                                <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
-                                    <?php $desc = substr($row['description'], $pos + 1);     ?>
-                                    <?= $desc  ?>
-                                <?php else : ?>
-                                    None
-                                <?php endif ?>
-                            </td>
-                            <td class="text-ceenter category_box_<?= $no ?>">
-                                <b><?= strtoupper($row['category']) ?></b>
-                            </td>
-                            <td>
-                                <?php if ($row['status'] == 'waiting') : ?>
-                                    <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
-                                <?php elseif ($row['status'] == 'rejected') : ?>
-                                    <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
-                                <?php else : ?>
-                                    <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
-                                <?php endif ?>
-                            </td>
-                            <td class="value_box_<?= $no ?>">
-                                <?php if ($row['box_value'] == $row['new_box_value']) : ?>
-                                    <b>$ <?= number_format($row['box_value'], 2) ?></b>
-                                <?php else : ?>
-                                    <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= number_format($row['new_box_value'], 2) ?></mark></b>
-                                <?php endif ?>
-                            </td>
-                            <td>
-                                <?php foreach ($getAllVA->getResultArray() as $va) : ?>
-                                    <?php if ($va['id'] == $row['va_id']) : ?>
-                                        <b><?= $va['fullname'] ?></b>
+                                <td>
+                                    <?= $no++ ?>
+                                    <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" class="h6 box_name3" data-box="<?= $row['box_name'] ?>">
+                                        <b><?= $row['box_name'] ?></b>
+                                    </a>
+                                    <br>
+                                    <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                        <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                        <?= $desc  ?>
+                                    <?php else : ?>
+                                        None
                                     <?php endif ?>
-                                <?php endforeach ?>
+                                </td>
+                                <td class="text-ceenter category_box_<?= $no ?>">
+                                    <b><?= strtoupper($row['category']) ?></b>
+                                </td>
+                                <td>
+                                    <?php if ($row['status'] == 'waiting') : ?>
+                                        <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php elseif ($row['status'] == 'rejected') : ?>
+                                        <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php else : ?>
+                                        <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php endif ?>
+                                </td>
+                                <td class="value_box_<?= $no ?>">
+                                    <?php if ($row['box_value'] == $row['new_box_value']) : ?>
+                                        <b>$ <?= number_format($row['box_value'], 2) ?></b>
+                                    <?php else : ?>
+                                        <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= number_format($row['new_box_value'], 2) ?></mark></b>
+                                    <?php endif ?>
+                                </td>
+                                <td>
+                                    <?php foreach ($getAllVA->getResultArray() as $va) : ?>
+                                        <?php if ($va['id'] == $row['va_id']) : ?>
+                                            <b><?= $va['fullname'] ?></b>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
 
-                            </td>
-                            <td>
-                                <b><?= $row['fba_number'] ?></b>
-                            </td>
-                            <td>
-                                <b><?= $row['shipment_number'] ?> </b>
-                            </td>
-                            <td>
-                                <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
-                                <input disabled type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= $newDate ?>" style="width: 90px; text-align:center">
-                            </td>
-                            <td>
-                                <b><?= $row['fullname'] ?></b>
-                            </td>
+                                </td>
+                                <td>
+                                    <b><?= $row['fba_number'] ?></b>
+                                </td>
+                                <td>
+                                    <b><?= $row['shipment_number'] ?> </b>
+                                </td>
+                                <td>
+                                    <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
+                                    <input disabled type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= $newDate ?>" style="width: 90px; text-align:center">
+                                </td>
+                                <td>
+                                    <b><?= $row['fullname'] ?></b>
+                                </td>
 
-                            <td>
-                                <select>
-                                    <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
-                                    <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
-                                </select>
-                            </td>
-
+                                <td>
+                                    <select>
+                                        <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
+                                        <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
+                                    </select>
+                                </td>
                             </tr>
-                        <?php endforeach ?>
-                    <?php endif ?>
+                        <?php else : ?>
+                            <tr class="table-success">
+                                <td>
+                                    <?= $no++ ?>
+                                    <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" class="h6 box_name2" data-box="<?= $row['box_name'] ?>">
+                                        <b><?= $row['box_name'] ?></b>
+                                    </a>
+                                    <br>
+                                    <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                        <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                        <?= $desc  ?>
+                                    <?php else : ?>
+                                        None
+                                    <?php endif ?>
+                                </td>
+                                <td class="text-ceenter category_box_<?= $no ?>">
+                                    <b><?= strtoupper($row['category']) ?></b>
+                                </td>
+                                <td>
+                                    <?php if ($row['status'] == 'waiting') : ?>
+                                        <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php elseif ($row['status'] == 'rejected') : ?>
+                                        <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php else : ?>
+                                        <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
+                                    <?php endif ?>
+                                </td>
+                                <td class="value_box_<?= $no ?>">
+                                    <?php if ($row['box_value'] == $row['new_box_value']) : ?>
+                                        <b>$ <?= number_format($row['box_value'], 2) ?></b>
+                                    <?php else : ?>
+                                        <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= number_format($row['new_box_value'], 2) ?></mark></b>
+                                    <?php endif ?>
+                                </td>
+                                <td>
+                                    <?php foreach ($getAllVA->getResultArray() as $va) : ?>
+                                        <?php if ($va['id'] == $row['va_id']) : ?>
+                                            <b><?= $va['fullname'] ?></b>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+
+                                </td>
+                                <td>
+                                    <b><?= $row['fba_number'] ?></b>
+                                </td>
+                                <td>
+                                    <b><?= $row['shipment_number'] ?> </b>
+                                </td>
+                                <td>
+                                    <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
+                                    <input disabled type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= $newDate ?>" style="width: 90px; text-align:center">
+                                </td>
+                                <td>
+                                    <b><?= $row['fullname'] ?></b>
+                                </td>
+
+                                <td>
+                                    <select>
+                                        <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
+                                        <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        <?php endif ?>
+
+
+
+                    <?php endforeach ?>
+                <?php endif ?>
             </tbody>
 
         </table>
@@ -701,6 +764,7 @@
                 <div class="modal-body py-0">
                     <form id="box-details">
                         <?php csrf_field() ?>
+
                         <div class="table-responseive">
                             <table class="table text-center" id="sum2" style="font-weight:bold; font-size:12px">
                                 <thead>
@@ -724,9 +788,7 @@
                             </table>
                         </div>
                         <div class="table-responsive" id="item-table2">
-                            <!-- <form action="<?= base_url('/save-box-details') ?>" method="post"> -->
 
-                            <?php csrf_field() ?>
                             <input type="hidden" name="box_name" id="box_name2" value="">
                             <table class="table text-center" style="font-weight:bold; font-size:12px">
                                 <thead>
@@ -794,6 +856,129 @@
         </div>
     </div>
 
+    <div class="modal fade modal_scrollable_box3" tabindex="-1">
+        <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header pb-3">
+                    <h5><b><span class="modal-title3">#title</span></b> </h5>
+                </div>
+                <div class="modal-body py-0">
+                    <form method="post" action="<?= base_url('/reassign-box') ?>">
+                        <?php csrf_field() ?>
+                        <div class="form-group">
+                            <label for=""><b>Select New Client:</b></label>
+                            <div class="input-group">
+                                <select class="form-control select-client-reject" name="client">
+                                    <option value="0">...</option>
+                                    <?php foreach ($getAllClient->getResultArray() as $client) : ?>
+                                        <option value="<?= $client['id'] ?>"><b><?= $client['fullname'] ?> (<?= $client['company'] ?> )</b></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for=""><b>Investment Date:</b></label>
+                            <div class="input-group">
+                                <select class="select_date_reject form-control">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-responseive">
+                            <table class="table text-center" id="sum3" style="font-weight:bold; font-size:12px">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th style="width: 10%;">SKU</th>
+                                        <th style="width: 20%;">Item Description</th>
+                                        <th style="width: 5%;">Condition</th>
+                                        <th style="width: 10%;">Total Qty</th>
+                                        <th style="width: 10%;">Retail</th>
+                                        <th style="width: 10%;">Total Retail</th>
+                                        <th style="width: 10%;">Total Cost</th>
+                                        <th style="width: 15%;">Vendor</th>
+                                        <th style="width: 15%;">Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" value="1" readonly contenteditable="true"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive" id="item-table3">
+
+                            <input type="hidden" name="box_name" id="box_name3" value="">
+                            <table class="table text-center" style="font-weight:bold; font-size:12px">
+                                <thead>
+                                    <tr class="bg-secondary text-white">
+                                        <th style="width: 10%;">SKU</th>
+                                        <th style="width: 20%;">Item Description</th>
+                                        <th style="width: 5%;">Condition</th>
+                                        <th style="width: 10%;">Qty</th>
+                                        <th style="width: 10%;">Retail</th>
+                                        <th style="width: 10%;">Total Retail</th>
+                                        <th style="width: 10%;">Cost</th>
+                                        <th style="width: 15%;">Vendor</th>
+                                        <th style="width: 15%;">Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="item-tbody3">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="table-responsive mt-2" id="item-table-removed3" style="display: none;">
+                            <div class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
+                                <span class="font-weight-semibold">Some items have been removed in a box!</span>
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                            </div>
+
+                            <table class="table text-center" style="font-weight:bold; font-size:12px" id="table-removed3">
+                                <thead>
+
+                                    <tr class="bg-danger text-white">
+                                        <th style="width: 10%;">SKU</th>
+                                        <th style="width: 20%;">Item Description</th>
+                                        <th style="width: 5%;">Condition</th>
+                                        <th style="width: 10%;">Qty</th>
+                                        <th style="width: 10%;">Retail</th>
+                                        <th style="width: 10%;">Total Retail</th>
+                                        <th style="width: 10%;">Cost</th>
+                                        <th style="width: 15%;">Vendor</th>
+                                        <th style="width: 15%;">Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="item-tbody-removed3">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for=""><b>Note:</b></label>
+                            <div class="input-group">
+                                <textarea name="box_note" disabled class="form-control" id="box_note" rows="3" placeholder="-"></textarea>
+                            </div>
+
+                        </div>
+
+
+
+
+                </div>
+
+                <div class="modal-footer pt-3">
+                    <button type="submit" class="btn btn-secondary">Save Changes</button>
+                    <a class="btn btn-light" data-dismiss="modal">Close</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>
     <button type="button" id="noty_deleted" style="display: none;"></button>
@@ -906,6 +1091,28 @@
     var total = 0;
 
 
+
+    $('.select-client-reject').on('change', function() {
+        const clientId = $(this).val();
+        $.get('/get-company/' + clientId, function(data) {
+            var company = JSON.parse(data);
+            $('.select_date_reject').html("");
+            $.post('/get-investment-client', {
+                id: clientId
+            }, function(data) {
+                var investdate = JSON.parse(data);
+                if (investdate.length > 0) {
+                    for (var i = 0; i < investdate.length; i++) {
+                        $('.select_date_reject').append(investdate[i]);
+                    }
+                }
+                var selected = $(this).find('option:selected');
+                var currentCost = selected.data('foo');
+            });
+        });
+    });
+
+
     $('.clientSelect').on('change', function() {
         var boxId = $(this).attr('id');
         var boxNameId = "name_" + $(this).attr('id');
@@ -920,7 +1127,6 @@
         var clientId = this.value;
         var vaId = "va_" + $(this).attr('id');
         var vaUser = $('.' + vaId).val();
-        console.log(desc);
         $('.select_date_' + boxId).html("");
         $.get('/get-company/' + clientId, function(data) {
             var company = JSON.parse(data);
@@ -1145,6 +1351,61 @@
         });
 
     });
+
+    $('.box_name3').on('click', function() {
+        var boxName = $(this).data('box');
+        $('#item-table3 tbody').html("");
+        $('#sum3 tbody').html("");
+        $.get('/get-box-summary', {
+            box_name: boxName
+        }, function(data) {
+            var item = JSON.parse(data);
+            $('.modal-title3').html("<b>" + item[0]['description'] + "</b>");
+            $('#box_name3').val(boxName);
+            $('#item-table-removed3').css("display", "none");
+            $('.modal_scrollable_box3').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+            $('#item-tbody-removed3').html("");
+
+            if (item.length > 0) {
+                $('#box_note3').html(item[0]['box_note']);
+                var no = 1;
+                var qty = 0;
+                var retail = 0;
+                var total = 0;
+                var cost = 0;
+                for (var i = 0; i < item.length; i++) {
+                    if (item[i]['item_status'] == 1) {
+
+                        if (i % 2 == 0) {
+                            $('#item-table3 tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$ ' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$ ' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$ ' + numberWithCommas(item[i]['cost']) + '"</td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                        } else {
+                            $('#item-table3 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$ ' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$ ' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$ ' + numberWithCommas(item[i]['cost']) + '"</td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                        }
+                    } else {
+                        $('#item-table-removed3').css("display", "block");
+                        if (i % 2 == 0) {
+                            $('#item-table-removed3 tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$ ' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$ ' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$ ' + numberWithCommas(item[i]['cost']) + '"</td>  <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
+                        } else {
+                            $('#item-table-removed3 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$ ' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$ ' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$ ' + numberWithCommas(item[i]['cost']) + '"</td>  <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
+                        }
+                    }
+                    qty = qty + parseInt(item[i]['qty']);
+                    retail = retail + parseFloat(item[i]['retail']);
+                    total = total + parseFloat(item[i]['original']);
+                    cost = cost + parseFloat(item[i]['cost']);
+                }
+                $('#sum3 tbody').append('<tr><td>-</td> <td>-</td>  <td>-</td><td>' + qty + '</td> <td>$ ' + numberWithCommas(retail.toFixed(2)) + '</td> <td>$ ' + numberWithCommas(total.toFixed(2)) + '</td><td>$ ' + numberWithCommas(cost.toFixed(2)) + '</td> <td>-</td> <td>-</td></tr>');
+            }
+
+            $('.modal_scrollable_box3').modal('show');
+        });
+
+    });
+
+
     $("form#box-details").on("submit", function(e) {
         e.preventDefault();
         $.post('<?= base_url('/update-price-item') ?>', $(this).serialize(), function(data) {
@@ -1155,6 +1416,8 @@
             $('.modal_scrollable_box').modal('hide');
         });
     });
+
+
 
     $('#noty_created').on('click', function() {
         new Noty({
