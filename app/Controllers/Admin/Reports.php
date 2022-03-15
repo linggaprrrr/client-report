@@ -51,6 +51,21 @@ class Reports extends BaseController
         $finSummary = $this->reportModel->finSummary("spend");
         $finSummaryFulfill = $this->reportModel->finSummary();
         $news = $this->newsModel->getLastNews();
+        $getBoxCost = $this->assignReportModel->getCostBox();
+        $tempBoxSummary = array();
+        foreach ($getBoxCost->getResultArray() as $box) {
+            $date = array_unique(array_filter(array($box['shipped_date'], $box['manifested_date'], $box['reassigned_date'])));
+            
+            $temp_box = array(
+                'date' => array_shift($date),
+                'shipped' => number_format($box['shipped'], 2),
+                'manifested' => number_format($box['manifested'], 2),
+                'reassigned' => number_format($box['reassigned'], 2)
+            );
+            array_push($tempBoxSummary, $temp_box);
+        }
+        d($tempBoxSummary);
+        dd($getBoxCost->getResultArray());
         $summ = array();
         $check = 0;
         foreach ($finSummary->getResultArray() as $row) {
@@ -87,6 +102,12 @@ class Reports extends BaseController
             'news' => $news,
         ];
         return view('administrator/dashboard', $data);
+    }
+
+    public function date_sort($a, $b) {
+        $t1 = strtotime($a["date"]);
+        $t2 = strtotime($b["date"]);
+        return ($t2 - $t1);
     }
 
     public function clientActivities()

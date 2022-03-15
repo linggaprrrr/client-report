@@ -1,7 +1,6 @@
 <?= $this->extend('administrator/layout/template') ?>
 
 <?= $this->section('content') ?>
-<link href="/assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">
 <style>
     .reset-button {
         text-align: right;
