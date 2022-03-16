@@ -183,13 +183,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center font-weight-bold" style="padding: 5px">2022-03-12</td>
-                                    <td class="text-center font-weight-bold" style="padding: 5px">$ <?= number_format(499.29998779296875, 2) ?></td>
-                                    <td class="text-center font-weight-bold" style="padding: 5px">$ <?= number_format(502.67999267578125, 2) ?></td>
-                                    <td class="text-center font-weight-bold" style="padding: 5px">$ <?= number_format(0, 2) ?></td>
-
-                                </tr>
+                                <?php foreach ($boxStatSummary as $boxSum) : ?>
+                                    <tr>
+                                        <td class="text-center font-weight-bold" style="padding: 5px"><?= $boxSum['date'] ?></td>
+                                        <td class="text-center font-weight-bold" style="padding: 5px">$ <?= $boxSum['shipped'] ?></td>
+                                        <td class="text-center font-weight-bold" style="padding: 5px">$ <?= $boxSum['remanifested'] ?></td>
+                                        <td class="text-center font-weight-bold" style="padding: 5px">$ <?= $boxSum['reassigned'] ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                                
                             </tbody>
                         </table>
                     </div>

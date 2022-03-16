@@ -1,0 +1,40 @@
+ERROR - 2022-03-15 21:59:03 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+CRITICAL - 2022-03-15 21:59:03 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT date_for...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT date_for...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT date_for...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Models/ReportModel.php(171): CodeIgniter\Database\BaseConnection->query('SELECT date_for...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(51): App\Models\ReportModel->finSummary('spend')
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-03-15 23:21:08 --> Undefined variable: getCostBox
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(57): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 57, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-03-15 23:44:49 --> Undefined index: date
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(95): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 95, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-03-15 23:53:27 --> syntax error, unexpected 'if' (T_IF)
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}

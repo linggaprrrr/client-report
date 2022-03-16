@@ -52,40 +52,66 @@ class Reports extends BaseController
         $finSummaryFulfill = $this->reportModel->finSummary();
         $costUnderOnek = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - cost_ as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id WHERE (investments.cost - cost_) BETWEEN 1 AND 1000 ORDER BY (investments.cost - cost_) ASC");
         $news = $this->newsModel->getLastNews();
-<<<<<<< HEAD
-
         $getBoxCost = $this->assignReportModel->getCostBox();
         $tempBoxSummary = array();
-        // foreach ($getBoxCost->getResultArray() as $box) {
-        //     $date = array_unique(array_filter(array($box['shipped_date'], $box['manifested_date'], $box['reassigned_date'])));
-
-        //     $temp_box = array(
-        //         'date' => array_shift($date),
-        //         'shipped' => number_format($box['shipped'], 2),
-        //         'manifested' => number_format($box['manifested'], 2),
-        //         'reassigned' => number_format($box['reassigned'], 2)
-        //     );
-        //     array_push($tempBoxSummary, $temp_box);
-        // }
-        // d($tempBoxSummary);
-        // dd($getBoxCost->getResultArray());
-=======
-        $getBoxCost = $this->assignReportModel->getCostBox();
-        $tempBoxSummary = array();
+        d($getBoxCost->getResultArray());
+        $temp_date = "";
+        $counter = 1;
+        $shipped = 0;
+        $remanifested = 0;
+        $reassigned = 0;
         foreach ($getBoxCost->getResultArray() as $box) {
-            $date = array_unique(array_filter(array($box['shipped_date'], $box['manifested_date'], $box['reassigned_date'])));
-            
-            $temp_box = array(
-                'date' => array_shift($date),
-                'shipped' => number_format($box['shipped'], 2),
-                'manifested' => number_format($box['manifested'], 2),
-                'reassigned' => number_format($box['reassigned'], 2)
-            );
-            array_push($tempBoxSummary, $temp_box);
+            $temp_shipped = 0;
+            $temp_remanifested = 0;
+            $temp_reassigned = 0;
+
+            if ($box['status'] == "shipped") {
+                $temp_shipped = $box['cost'];
+            } elseif ($box['status'] == "remanifested") {
+                $temp_remanifested = $box['cost'];
+            } else {
+                $temp_reassigned = $box['cost'];
+            }
+        
+
+            if ($counter == 1) {
+                $temp_date = $box['order_date'];
+                $shipped = $shipped + $temp_shipped;
+                $remanifested = $remanifested + $temp_remanifested;
+                $reassigned = $reassigned + $temp_reassigned;
+                $counter++;
+            } else {
+                if ($box['order_date'] == $temp_date) {
+                    $temp_date = $box['order_date'];
+                    $shipped = $shipped + $temp_shipped;
+                    $remanifested = $remanifested + $temp_remanifested;
+                    $reassigned = $reassigned + $temp_reassigned;
+                } else {
+                    $temp_box = array(
+                        'date' => $temp_date,
+                        'shipped' => number_format($shipped, 2), 
+                        'remanifested' => number_format($remanifested, 2),
+                        'reassigned' => number_format($reassigned, 2),
+                    );  
+                    array_push($tempBoxSummary, $temp_box); 
+                    $shipped = 0;
+                    $remanifested = 0;
+                    $reassigned = 0;
+                    $temp_date = $box['order_date'];
+                    $shipped = $shipped + $temp_shipped;
+                    $remanifested = $remanifested + $temp_remanifested;
+                    $reassigned = $reassigned + $temp_reassigned;
+                }
+                
+            }
         }
-        d($tempBoxSummary);
-        dd($getBoxCost->getResultArray());
->>>>>>> a43cbe8be2160d52a0ae7a239fa29589e634c029
+        $temp_box = array(
+            'date' => $temp_date,
+            'shipped' => number_format($shipped, 2), 
+            'remanifested' => number_format($remanifested, 2),
+            'reassigned' => number_format($reassigned, 2),
+        );  
+        array_push($tempBoxSummary, $temp_box); 
         $summ = array();
         $check = 0;
         foreach ($finSummary->getResultArray() as $row) {
@@ -120,6 +146,7 @@ class Reports extends BaseController
             'totalFulfilled' => $totalFulfilled,
             'costUnderOnek' => $costUnderOnek,
             'finSummary' => $summ,
+            'boxStatSummary' => $tempBoxSummary,
             'news' => $news,
         ];
         return view('administrator/dashboard', $data);
@@ -166,6 +193,15 @@ class Reports extends BaseController
         $date = $this->request->getVar('date');
         $date = date('Y-m-d', strtotime($date));
 
+        $investmentId = "";
+        $check = $this->db->query("SELECT * FROM investments WHERE date = '$date' AND client_id='$client' ")->getRow();
+        if (!empty($check)) {
+            $investmentId = $check->id;
+            $this->db->query("DELETE FROM investments WHERE id = '$investmentId' ");
+            $this->db->query("DELETE FROM reports WHERE investment_id = '$investmentId' ");
+            $this->db->query("DELETE FROM log_files WHERE investment_id = '$investmentId' ");
+        } 
+        
         $ext = $report->getClientExtension();
         if ($ext == 'xls') {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
