@@ -43,7 +43,7 @@
                         <?php $no = 1 ?>
                         <?php foreach ($assignCompleted->getResultArray() as $row) : ?>
                             <?php if (!empty($row['userid'])) : ?>
-                                <?php if ($row['status'] == 'waiting') : ?>
+                                <?php if ($row['status'] == 'reassign') : ?>
                                     <tr class="table-active">
                                     <?php elseif ($row['status'] == 'rejected') : ?>
                                     <tr class="table-warning">
@@ -67,9 +67,9 @@
                                         <?php endif ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if ($row['status'] == 'waiting') : ?>
+                                        <?php if ($row['status'] == 'reassign') : ?>
                                             <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
-                                        <?php elseif ($row['status'] == 'rejected') : ?>
+                                        <?php elseif ($row['status'] == 'remanifest') : ?>
                                             <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
                                         <?php else : ?>
                                             <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>

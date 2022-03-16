@@ -232,8 +232,8 @@ class Clients extends BaseController
         $selectedBrand = $this->categoryModel->selectedBrand($userId);
         $temp_brand = array();
         $check = 0;
-        foreach($brands->getResultArray() as $brand) {
-            foreach($selectedBrand->getResultArray() as $selected) {
+        foreach ($brands->getResultArray() as $brand) {
+            foreach ($selectedBrand->getResultArray() as $selected) {
                 if ($brand['id'] == $selected['id']) {
                     $temp = array(
                         'id' => $brand['id'],
@@ -242,7 +242,7 @@ class Clients extends BaseController
                     );
                     $check = 1;
                     array_push($temp_brand, $temp);
-                } 
+                }
             }
             if ($check == 0) {
                 $temp = array(
@@ -250,7 +250,7 @@ class Clients extends BaseController
                     'brand_name' => $brand['brand_name'],
                     'checked' => 0
                 );
-                array_push($temp_brand, $temp);                    
+                array_push($temp_brand, $temp);
             }
             $check = 0;
         }

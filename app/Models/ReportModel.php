@@ -67,7 +67,7 @@ class ReportModel extends Model
 
     public function getAllReportClient($id = null)
     {
-        $query = $this->db->query("SELECT reports.*, log_files.link from reports JOIN log_files ON reports.client_id = log_files.client_id WHERE reports.investment_id = '$id' ORDER by ID ASC");
+        $query = $this->db->query("SELECT reports.*, log_files.link from reports JOIN log_files ON reports.client_id = log_files.client_id WHERE reports.investment_id = '$id' GROUP BY reports.id ORDER by ID ASC");
         return $query;
     }
 

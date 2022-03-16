@@ -59,7 +59,7 @@
                 <p class="font-weight-semibold"></p>
                 <div class="row brandlist">
                   <?php foreach ($brands->getResultArray() as $brand) : ?>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                       <label class="custom-control custom-control-dark custom-checkbox mb-2">
                         <input type="checkbox" class="custom-control-input brand_check">
                         <span class="custom-control-label font-weight-bold"><?= $brand['brand_name'] ?></span>
@@ -71,6 +71,7 @@
               <div class="text-center">
                 <button class="btn btn-secondary btn_check" disabled><i class="icon-checkmark2"></i> Save</button>
                 <button type="button" class="btn btn-danger btn_add" data-toggle="modal" data-target="#modal_form_upload" disabled><i class="icon-plus2 mr-2"></i>Add Brand</button>
+                <button type="button" class="btn btn-success btn_import" data-toggle="modal" data-target="#modal_form_upload_file" disabled><i class="icon-file-upload mr-2"></i>Import Brand</button>
               </div>
             </div>
 
@@ -103,9 +104,70 @@
               </div>
             </div>
           </div>
+          <div id="modal_form_upload_file" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header bg-secondary text-white">
+                  <h5 class="modal-title">Upload Brand</h5>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form action="<?= base_url('upload-brand') ?>" method="POST" enctype="multipart/form-data">
+                  <?php csrf_field() ?>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label>File:</label>
+                      <label class="custom-file">
+                        <input type="file" name="file" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+                        <span class="custom-file-label" id="file-upload-filename">Choose file</span>
+                      </label>
+                      <span class="form-text text-muted">Accepted formats: xls/xlsx. Max file size 10Mb</span>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="text-right">
+                      <button type="submit" class="btn btn-secondary">Save <i class="icon-paperplane ml-2"></i></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="tab-pane fade" id="icon-only-tab2">
+          <div class="row">
+            <div class="col-md-4">
+              <button type="button" class="btn btn-danger btn_assign_brand" data-toggle="modal" data-target="#modal_form_assign_brand"><i class="icon-file-upload mr-2"></i>Assign Brand</button>
+              <div id="modal_form_assign_brand" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header bg-secondary text-white">
+                      <h5 class="modal-title">Upload Brands Approved Per Store</h5>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="<?= base_url('upload-brand-per-store') ?>" method="POST" enctype="multipart/form-data">
+                      <?php csrf_field() ?>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label>File:</label>
+                          <label class="custom-file">
+                            <input type="file" name="store" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+                            <span class="custom-file-label" id="file-upload-filename">Choose file</span>
+                          </label>
+                          <span class="form-text text-muted">Accepted formats: xls/xlsx. Max file size 10Mb</span>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <div class="text-right">
+                          <button type="submit" class="btn btn-secondary">Save <i class="icon-paperplane ml-2"></i></button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <form id="brand-list">
             <div class="card-header">
               <div class="row">
@@ -173,17 +235,33 @@
 <script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
 <script>
   $(document).ready(function() {
+    var input = document.getElementById('file-upload');
+    var infoArea = document.getElementById('file-upload-filename');
+
+    input.addEventListener('change', showFileName);
+
+    function showFileName(event) {
+      // the change event gives us the input it occurred in 
+      var input = event.srcElement;
+      // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+      var fileName = input.files[0].name;
+      // use fileName however fits your app best, i.e. add it into a div
+      infoArea.textContent = '' + fileName;
+    }
+
     $('.checkbox_check').change(function() {
       if ($('input.checkbox_check').is(':checked')) {
         $('.brand_check').prop("disabled", false);
         $('.btn_check').prop("disabled", false);
         $('.btn_add').prop("disabled", false);
         $('.user_list').prop("disabled", false);
+        $('.btn_import').prop("disabled", false);
       } else {
         $('.brand_check').prop("disabled", true);
         $('.btn_check').prop("disabled", true);
         $('.btn_add').prop("disabled", true);
         $('.user_list').prop("disabled", true);
+        $('.btn_import').prop("disabled", true);
       }
     });
 

@@ -1,7 +1,6 @@
 <?= $this->extend('administrator/layout/template') ?>
 
 <?= $this->section('content') ?>
-<link href="/assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">
 <style>
     .reset-button {
         text-align: right;
@@ -288,7 +287,7 @@
                                         </select>
                                     </td>
                                     <td class="text-center">
-                                        <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
+                                        <select class="form-control clientSelect" name="client[]" id="box_<?= $no ?> ">
                                             <option value="0">...</option>
                                             <?php foreach ($getAllClient->getResultArray() as $client) : ?>
                                                 <?php if ($client['id'] == $row['userid']) : ?>
@@ -356,15 +355,9 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <select class="form-control clientSelect select-search" name="client[]" id="box_<?= $no ?> " data-fouc>
+                                        <select class="form-control clientSelect client_box_<?= $no ?>" name="client[]" id="box_<?= $no ?> ">
                                             <option value="0">...</option>
-                                            <?php foreach ($getAllClient->getResultArray() as $client) : ?>
-                                                <?php if ($client['id'] == $row['userid']) : ?>
-                                                    <option value="<?= $client['id'] ?>" selected><b><?= $client['fullname'] ?></b></option>
-                                                <?php else : ?>
-                                                    <option value="<?= $client['id'] ?>"><b><?= $client['fullname'] ?></b></option>
-                                                <?php endif ?>
-                                            <?php endforeach ?>
+
                                         </select>
                                     </td>
                                     <td class="text-center company_box_<?= $no ?>">...</td>
@@ -508,7 +501,7 @@
                 <?php if ($getAllAssignReportCompleted->getNumRows() > 0) : ?>
                     <?php $no = 1 ?>
                     <?php foreach ($getAllAssignReportCompleted->getResultArray() as $row) : ?>
-                        <?php if ($row['status'] == 'rejected') : ?>
+                        <?php if ($row['status'] == 'reassign') : ?>
                             <tr class="table-warning">
                                 <td>
                                     <?= $no++ ?>
@@ -530,9 +523,9 @@
                                     <b><?= strtoupper($row['category']) ?></b>
                                 </td>
                                 <td>
-                                    <?php if ($row['status'] == 'waiting') : ?>
+                                    <?php if ($row['status'] == 'reassign') : ?>
                                         <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
-                                    <?php elseif ($row['status'] == 'rejected') : ?>
+                                    <?php elseif ($row['status'] == 'remanifest') : ?>
                                         <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
                                     <?php else : ?>
                                         <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
@@ -567,11 +560,19 @@
                                     <b><?= $row['fullname'] ?></b>
                                 </td>
 
-                                <td>
+                                <td class="text-center">
                                     <select>
                                         <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
                                         <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
                                     </select>
+                                    <div class="list-icons">
+                                        <div class="dropdown position-static">
+                                            <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="icon-menu7"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right" style="">
+                                                <a href="#" class="dropdown-item rollback" data-id="<?= $row['box_name'] ?>"><i class="icon-undo"></i> Rollback Assignment</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         <?php else : ?>
@@ -596,9 +597,9 @@
                                     <b><?= strtoupper($row['category']) ?></b>
                                 </td>
                                 <td>
-                                    <?php if ($row['status'] == 'waiting') : ?>
+                                    <?php if ($row['status'] == 'reassign') : ?>
                                         <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
-                                    <?php elseif ($row['status'] == 'rejected') : ?>
+                                    <?php elseif ($row['status'] == 'remanifest') : ?>
                                         <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
                                     <?php else : ?>
                                         <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
@@ -1005,6 +1006,33 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
     $(document).ready(function() {
+        $('.rollback').on('click', function() {
+            var boxName = $(this).data('id');
+            console.log(boxName);
+            swal("Enter your password:", {
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Type your password",
+                            type: "password",
+                        },
+                    },
+                })
+                .then((value) => {
+                    const pw = "superadmin";
+                    if (pw == value) {
+                        $.post('/rollback-assignment', {
+                            box_name: boxName
+                        }, function(data) {
+                            window.location.reload();
+                        });
+                    } else {
+                        swal("Wrong Password!");
+                    }
+
+                });
+        })
+
         $('input[name="week1"]').daterangepicker({
             opens: 'left'
         }, function(start, end, label) {
@@ -1063,9 +1091,7 @@
         <?php if (session()->getFlashdata('delete')) : ?>
             $('#noty_deleted').click();
         <?php endif ?>
-        $(".clientSelect").select2({
-            width: '150px'
-        });
+
 
         $.fn.inputFilter = function(inputFilter) {
             return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
@@ -1112,8 +1138,33 @@
         });
     });
 
-
+    $('.clientSelect').on('focus', function() {
+        var boxId = $(this).attr('id');
+        var boxNameId = "name_" + $(this).attr('id');
+        var boxName = $('.' + boxNameId).html().trim();
+        var descId = "desc_" + $(this).attr('id');
+        var desc = $('.' + descId).html().trim();
+        var clientId = "client_" + $(this).attr('id');
+        var client = $('.' + clientId).html().trim();
+        $("." + clientId)
+            .empty()
+            .append('<option value="0">...</option>');
+        const myarr = desc.split("-");
+        const newDesc = myarr[0];
+        $.get('/get-client-by-branddesc', {
+            description: newDesc
+        }, function(data) {
+            const myData = JSON.parse(data);
+            for (var i = 0; i < myData.length; i++) {
+                $("." + clientId).append($('<option>', {
+                    value: myData[i]['id'],
+                    text: myData[i]['fullname']
+                }));
+            }
+        });
+    });
     $('.clientSelect').on('change', function() {
+        var optionSelected = $("option:selected", this);
         var boxId = $(this).attr('id');
         var boxNameId = "name_" + $(this).attr('id');
         var boxName = $('.' + boxNameId).html().trim();

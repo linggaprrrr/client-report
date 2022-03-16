@@ -71,7 +71,8 @@ $routes->post('/reupload-pl-report', 'Admin\Reports::reuploadPL');
 $routes->post('/save-periode-setting', 'Admin\Reports::savePeriodSetting');
 $routes->get('/admin/brand-approvals', 'Admin\Reports::brandApproval');
 $routes->post('/reassign-box', 'Admin\Reports::reassignBox');
-
+$routes->post('/upload-brand', 'Admin\Reports::uploadBrand');
+$routes->post('/upload-brand-per-store', 'Admin\Reports::uploadBrandPerStore');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -121,7 +122,8 @@ $routes->get('/get-brands-client', 'Admin\Reports::getBrandClient');
 $routes->get('/get-client-by-brand', 'Admin\Reports::getClientBrand');
 $routes->post('/save-brand-client', 'Admin\Reports::saveClientBrand');
 $routes->post('/add-brand', 'Admin\Reports::addBrand');
-
+$routes->post('/rollback-assignment', 'Admin\Reports::rollbackAssignment');
+$routes->get('/get-client-by-branddesc', 'Admin\Reports::getClientByDescBrand');
 
 /*
  * --------------------------------------------------------------------

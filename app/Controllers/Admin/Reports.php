@@ -50,7 +50,24 @@ class Reports extends BaseController
         $getAllReports = $this->reportModel->getAllReports();
         $finSummary = $this->reportModel->finSummary("spend");
         $finSummaryFulfill = $this->reportModel->finSummary();
+        $costUnderOnek = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - cost_ as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id WHERE (investments.cost - cost_) BETWEEN 1 AND 1000 ORDER BY (investments.cost - cost_) ASC");
         $news = $this->newsModel->getLastNews();
+
+        $getBoxCost = $this->assignReportModel->getCostBox();
+        $tempBoxSummary = array();
+        // foreach ($getBoxCost->getResultArray() as $box) {
+        //     $date = array_unique(array_filter(array($box['shipped_date'], $box['manifested_date'], $box['reassigned_date'])));
+
+        //     $temp_box = array(
+        //         'date' => array_shift($date),
+        //         'shipped' => number_format($box['shipped'], 2),
+        //         'manifested' => number_format($box['manifested'], 2),
+        //         'reassigned' => number_format($box['reassigned'], 2)
+        //     );
+        //     array_push($tempBoxSummary, $temp_box);
+        // }
+        // d($tempBoxSummary);
+        // dd($getBoxCost->getResultArray());
         $summ = array();
         $check = 0;
         foreach ($finSummary->getResultArray() as $row) {
@@ -83,6 +100,7 @@ class Reports extends BaseController
             'getAllReports' => $getAllReports,
             'totalInvest' => $totalInvest,
             'totalFulfilled' => $totalFulfilled,
+            'costUnderOnek' => $costUnderOnek,
             'finSummary' => $summ,
             'news' => $news,
         ];
@@ -1142,6 +1160,24 @@ class Reports extends BaseController
         echo json_encode($temp_brand);
     }
 
+    public function getClientByDescBrand()
+    {
+        $desc = $this->request->getVar('description');
+        $getBrandId = $this->db->query('SELECT id FROM brands WHERE brand_name LIKE ' . $this->db->escape($desc) . ' ')->getRow();
+        $getClient = $this->categoryModel->selectedClient($getBrandId->id);
+        $temp_client = array();
+        foreach ($getClient->getResultArray() as $selected) {
+            $temp = array(
+                'id' => $selected['id'],
+                'fullname' => $selected['fullname'],
+                'company' => $selected['company'],
+            );
+            array_push($temp_client, $temp);
+        }
+
+        echo json_encode($temp_client);
+    }
+
     public function saveClientBrand()
     {
         $post = $this->request->getVar();
@@ -1162,6 +1198,75 @@ class Reports extends BaseController
     {
         $brand = $this->request->getVar('brand');
         $this->db->query("INSERT INTO brands(brand_name) VALUES (" . $this->db->escape($brand) . ") ");
+    }
+
+    public function rollbackAssignment()
+    {
+        $boxName = $this->request->getVar('box_name');
+        $this->db->query("UPDATE assign_report_box SET status='waiting', confirmed='0', fba_number=NULL, shipment_number=NULL, client_id=NULL, report_id=NULL, va_id=NULL WHERE box_name='$boxName' ");
+        $this->db->query("DELETE FROM box_sum WHERE box_name='$boxName'");
+    }
+
+    public function uploadBrand()
+    {
+        $brand = $this->request->getFile('file');
+        $ext = $brand->getClientExtension();
+        if (!empty($ext)) {
+            if ($ext == 'xls') {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+            } else {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            }
+            $spreadsheet = $render->load($brand);
+            $data = $spreadsheet->getActiveSheet()->toArray();
+            foreach ($data as $row) {
+                if (!empty($row[5])) {
+                    $brandName = trim($row[5]);
+                    $this->db->query("INSERT IGNORE INTO brands(brand_name) VALUES (" . $this->db->escape($brandName) . ") ");
+                }
+            }
+        }
+        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
+    }
+
+    public function uploadBrandPerStore()
+    {
+        $brand = $this->request->getFile('store');
+        $data = "";
+        $ext = $brand->getClientExtension();
+        if (!empty($ext)) {
+            if ($ext == 'xls') {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+            } else {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            }
+            $spreadsheet = $render->load($brand);
+            $tempBrandId = array();
+            $tempName = "";
+            $data = $spreadsheet->getActiveSheet()->toArray();
+            foreach ($data as $idx => $row) {
+                if ($idx > 1) {
+                    if (!empty($row[1])) {
+                        if ($tempName != $row[1]) {
+                            if ($tempName != "") {
+                                $brands = implode(", ", $tempBrandId);
+                                $brands = str_replace(' ', '', $brands);
+                                $this->db->query("UPDATE users SET brand_approval='" . trim($brands) . "' WHERE fullname=" . $this->db->escape($tempName) . "");
+                                $tempBrandId = array();
+                            }
+                            $tempName = trim($row[1]);
+                        }
+                        $brandName = trim($row[3]);
+                        $getBrandId = $this->db->query('SELECT id FROM brands WHERE brand_name LIKE ' . $this->db->escape($brandName) . ' ')->getRow();
+
+                        if (!empty($getBrandId)) {
+                            array_push($tempBrandId, $getBrandId->id);
+                        }
+                    }
+                }
+            }
+        }
+        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
     public function test()

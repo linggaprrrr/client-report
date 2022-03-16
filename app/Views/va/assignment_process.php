@@ -43,7 +43,7 @@
                         <?php $no = 1 ?>
                         <?php foreach ($getAllAssignReportProcess->getResultArray() as $row) : ?>
                             <?php if (!empty($row['userid'])) : ?>
-                                <?php if ($row['status'] == 'waiting') : ?>
+                                <?php if ($row['status'] == 'reassign') : ?>
                                     <tr class="table-active">
                                     <?php elseif ($row['status'] == 'rejected') : ?>
                                     <tr class="table-warning">
@@ -91,15 +91,23 @@
                                             <?php if ($row['status'] == 'waiting') : ?>
                                                 <option value="0" selected>...</option>
                                                 <option value="approved">APPROVED</option>
-                                                <option value="rejected">REJECTED</option>
+                                                <option value="remanifest">RE-MANIFEST</option>
+                                                <option value="reassign">RE-ASSIGN</option>
                                             <?php elseif ($row['status'] == 'approved') : ?>
                                                 <option value="0">...</option>
                                                 <option value="approved" selected>APPROVED</option>
-                                                <option value="rejected">REJECTED</option>
+                                                <option value="remanifest">RE-MANIFEST</option>
+                                                <option value="reassign">RE-ASSIGN</option>
+                                            <?php elseif ($row['status'] == 'remanifest') : ?>
+                                                <option value="0">...</option>
+                                                <option value="approved">APPROVED</option>
+                                                <option value="remanifest" selected>RE-MANIFEST</option>
+                                                <option value="reassign">RE-ASSIGN</option>
                                             <?php else : ?>
                                                 <option value="0">...</option>
                                                 <option value="approved">APPROVED</option>
-                                                <option value="rejected" selected>REJECTED</option>
+                                                <option value="remanifest">RE-MANIFEST</option>
+                                                <option value="reassign" selected>RE-ASSIGN</option>
                                             <?php endif ?>
                                         </select>
                                     </td>

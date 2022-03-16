@@ -115,4 +115,10 @@ class AssignReportModel extends Model
         $query = $this->db->query("SELECT * FROM weeks");
         return $query->getResultArray();
     }
+
+    public function getCostBox()
+    {
+        $query = $this->db->query("SELECT s.order_date as shipped_date, m.order_date as manifested_date, r.order_date as reassigned_date, shipped, manifested, reassigned FROM (SELECT order_date, SUM(box_value) as shipped FROM assign_report_box JOIN box_sum ON box_sum.box_name = assign_report_box.box_name WHERE assign_report_box.status='approved' GROUP BY box_sum.order_date) as s LEFT JOIN (SELECT order_date, SUM(box_value) as manifested FROM assign_report_box JOIN box_sum ON box_sum.box_name = assign_report_box.box_name WHERE assign_report_box.status='remanifested' GROUP BY box_sum.order_date) as m ON s.order_date = m.order_date LEFT JOIN (SELECT order_date, SUM(box_value) as reassigned FROM assign_report_box JOIN box_sum ON box_sum.box_name = assign_report_box.box_name WHERE assign_report_box.status='reassigned' GROUP BY box_sum.order_date) as r ON s.order_date = r.order_date UNION SELECT s.order_date as shipped_date, m.order_date as manifested_date, r.order_date as reassigned_date, shipped, manifested, reassigned FROM (SELECT order_date, SUM(box_value) as shipped FROM assign_report_box JOIN box_sum ON box_sum.box_name = assign_report_box.box_name WHERE assign_report_box.status='approved' GROUP BY box_sum.order_date) as s RIGHT JOIN (SELECT order_date, SUM(box_value) as manifested FROM assign_report_box JOIN box_sum ON box_sum.box_name = assign_report_box.box_name WHERE assign_report_box.status='remanifested' GROUP BY box_sum.order_date) as m ON s.order_date = m.order_date RIGHT JOIN (SELECT order_date, SUM(box_value) as reassigned FROM assign_report_box JOIN box_sum ON box_sum.box_name = assign_report_box.box_name WHERE assign_report_box.status='reassigned' GROUP BY box_sum.order_date) as r ON s.order_date = r.order_date");
+        return $query;
+    }
 }
