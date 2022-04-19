@@ -448,7 +448,7 @@ class Reports extends BaseController
                 $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', date='$date' WHERE id='$boxId' ");
             }
         }
-        // return redirect()->back()->with('success', 'Report Successfully saved!');
+        return redirect()->back()->with('success', 'Report Successfully saved!');
     }
 
     public function saveAssignmentProcess()

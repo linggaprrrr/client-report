@@ -27,6 +27,7 @@ class News extends BaseController
         $user = $this->userModel->find($userId);
         $news = $this->newsModel->getLastNews();
         $allNews = $this->newsModel->getNews();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [
             'tittle' => "News Announcement | Report Management System",
@@ -34,6 +35,7 @@ class News extends BaseController
             'user' => $user,
             'news' => $news,
             'allNews' => $allNews,
+            'companySetting' => $companysetting
         ];
         return view('client/news', $data);
     }
@@ -47,12 +49,14 @@ class News extends BaseController
         $user = $this->userModel->find($userId);
         $news = $this->newsModel->getLastNews();
         $allNews = $this->newsModel->getNews();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => "News Announcement | Report Management System",
             'menu' => "News Announcement",
             'user' => $user,
             'news' => $news,
             'allNews' => $allNews,
+            'companySetting' => $companysetting
         ];
         return view('administrator/news', $data);
     }

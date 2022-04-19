@@ -108,6 +108,7 @@
                 <!-- /main -->
             </ul>
         </div>
+        
         <!-- /main navigation -->
     </div>
     <!-- /sidebar content -->

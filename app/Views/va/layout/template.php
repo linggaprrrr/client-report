@@ -4,7 +4,7 @@
 <head>
     <?= $this->include('va/layout/header'); ?>
     <title><?= $tittle ?></title>
-
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
 </head>
 <style>
     .news-scroll a {
@@ -32,6 +32,114 @@
         padding: 10px;
         box-shadow: 5px 10px;
         background-color: white;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body.dark {
+        background: #616161;
+    }
+    h1 {
+        transition: color 0.2s linear;
+    }
+    h2 {
+        transition: color 0.2s linear;
+    }
+    h3 {
+        transition: color 0.2s linear;
+    }
+    h4 {
+        transition: color 0.2s linear;
+    }
+
+    h1.dark {
+        color: wheat
+    }
+
+    h2.dark {
+        color: wheat
+    }
+
+    h3.dark {
+        color: wheat
+    }
+
+    h4.dark {
+        color: wheat
+    }
+
+    h5.dark {
+        color: wheat
+    }
+    
+    .carddark {
+        background: #757575;
+        color: wheat;
+    }
+
+    .tabledark {
+        color: wheat;
+    }
+    .switch {
+        opacity: 0;
+        position: absolute;
+    }
+
+    .label {
+        background: #359DE6;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 3px;
+        border-radius: 50px;
+        position: relative;
+        width: 55px;
+        height: 26px;
+    }
+
+    .tabledark {
+        font-weight: 900;
+    }
+
+    .label.dark {
+        background: #111;
+    }
+
+    .card.dark {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #4B4C54;
+        background-clip: border-box;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 0.25rem;
+    }
+    .ball {
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        transition: transform 0.3s linear;
+    }
+    .switch:checked + .label .ball {
+        transform: translateX(29px);
+    }
+
+    .fa-moon {
+        color: #cccc;
+    }
+
+    .fa-sun {
+        color: #F5EC30;
     }
 </style>
 
@@ -119,6 +227,39 @@
         js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+    const sw = document.getElementById('switch');
+    const h1 = document.getElementById("title");
+    const card = document.getElementsByClassName("card");
+    const lbl = document.getElementById('label');
+
+    if (localStorage.getItem('theme') == 'dark') {
+        document.body.classList.toggle('dark');
+        h1.classList.toggle('dark');
+        $(".card").addClass("carddark");
+        $("table").addClass("tabledark");
+        $('#switch').prop('checked', true);
+    } else {
+        localStorage.setItem('theme', 'nondark');
+        $(".card").removeClass("carddark");
+        $("table").removeClass("tabledark");
+        $('#switch').prop('checked', false);
+    }
+
+    sw.addEventListener("change", () => { 
+        if ($('#switch').is(':checked')) {
+            document.body.classList.toggle('dark');
+            h1.classList.toggle('dark');
+            $(".card").addClass("carddark");
+            $("table").addClass("tabledark");
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.toggle('dark');
+            h1.classList.toggle('dark');
+            $(".card").removeClass("carddark");
+            $("table").removeClass("tabledark");
+            localStorage.setItem('theme', 'nondark');
+        }
+    });
 </script>
 
 </html>

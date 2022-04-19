@@ -53,8 +53,8 @@ class Reports extends BaseController
         $costUnderOnek = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - cost_ as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id WHERE (investments.cost - cost_) BETWEEN 1 AND 1000 ORDER BY (investments.cost - cost_) ASC");
         $news = $this->newsModel->getLastNews();
         $getBoxCost = $this->assignReportModel->getCostBox();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $tempBoxSummary = array();
-        d($getBoxCost->getResultArray());
         $temp_date = "";
         $counter = 1;
         $shipped = 0;
@@ -148,6 +148,7 @@ class Reports extends BaseController
             'finSummary' => $summ,
             'boxStatSummary' => $tempBoxSummary,
             'news' => $news,
+            'companySetting' => $companysetting
         ];
         return view('administrator/dashboard', $data);
     }
@@ -170,6 +171,7 @@ class Reports extends BaseController
         $totalReport = $this->reportModel->totalReport();
         $getAllFiles = $this->reportModel->getAllFiles();
         $getAllClient = $this->reportModel->getAllClient();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [
             'tittle' => 'Client Activities | Report Management System',
@@ -178,7 +180,8 @@ class Reports extends BaseController
             'totalReport' => $totalReport,
             'getAllFiles' => $getAllFiles,
             'getAllClient' => $getAllClient,
-            'user' => $user
+            'user' => $user,
+            'companySetting' => $companysetting
         ];
 
         return view('administrator/client_activities', $data);
@@ -296,6 +299,7 @@ class Reports extends BaseController
         $totalReport = $this->reportModel->totalReport();
         $getAllFiles = $this->reportModel->getPLReport();
         $getAllClient = $this->reportModel->getAllClient();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [
             'tittle' => 'P&L Report | Report Management System',
@@ -304,7 +308,8 @@ class Reports extends BaseController
             'totalReport' => $totalReport,
             'getAllFiles' => $getAllFiles,
             'getAllClient' => $getAllClient,
-            'user' => $user
+            'user' => $user,
+            'companySetting' => $companysetting
         ];
 
         return view('administrator/pl_reports', $data);
@@ -450,6 +455,8 @@ class Reports extends BaseController
         $getAllAssignReportPending = $this->assignReportModel->getAllAssignReportProcess($userId, $user['role']);
         $getAllAssignReportCompleted = $this->assignReportModel->getAllAssignReportCompleted();
         $getWeeks = $this->assignReportModel->getWeeks();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
+        
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'BOX ASSIGNMENT FOR CLIENT FULFILLMENT',
@@ -459,7 +466,8 @@ class Reports extends BaseController
             'getAllAssignReport' => $getAllAssignReport,
             'getAllAssignReportPending' => $getAllAssignReportPending,
             'getAllAssignReportCompleted' => $getAllAssignReportCompleted,
-            'weeks' => $getWeeks
+            'weeks' => $getWeeks,
+            'companySetting' => $companysetting
         ];
         return view('administrator/assignment_report', $data);
     }
@@ -644,11 +652,13 @@ class Reports extends BaseController
         }
         $user = $this->userModel->find($userId);
         $getAllInvestment = $this->investmentModel->getAllInvestment($status);
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => 'Assignment Reports: Checklist Report | Report Management System',
             'menu' => 'Checklist Report',
             'user' => $user,
-            'getAllInvestment' => $getAllInvestment
+            'getAllInvestment' => $getAllInvestment,
+            'companySetting' => $companysetting
         ];
         return view('administrator/checklist_report', $data);
     }
@@ -668,16 +678,24 @@ class Reports extends BaseController
     public function saveAssignmentReport()
     {
         $post = $this->request->getVar();
-
+        $check = 0;
         foreach ($post['client'] as $idx => $data) {
-            if ($data != '0') {
+            if ($data != '0') {                
                 $clientId = $post['client'][$idx];
                 $boxId = $post['box_id'][$idx];
                 $vaId = $post['va'][$idx];
-                $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', va_id='$vaId' WHERE id='$boxId' ");
-            }
+                if ($clientId == 0 || $vaId == 0) {
+                    $check = 1;        
+                } else {
+                    $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', va_id='$vaId' WHERE id='$boxId' ");
+                }
+            } 
         }
-        return redirect()->back()->with('success', 'Report Successfully saved!');
+        
+        if ($check == 1) {
+            return redirect()->back()->with('error', 'VA or Client cant be empty!');
+        }
+        return redirect()->back()->with('save', 'Phase 1 Successfully saved!');
     }
 
     public function saveAssignmentProcess()
@@ -808,12 +826,14 @@ class Reports extends BaseController
         $user = $this->userModel->find($userId);
         $getAllClient = $this->assignReportModel->getAllClient();
         $getAllAssignReportProcess = $this->assignReportModel->getAllAssignReportProcess($userId, $user['role']);
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'APPROVAL BOX ASSIGNMENT',
             'user' => $user,
             'getAllClient' => $getAllClient,
-            'getAllAssignReportProcess' => $getAllAssignReportProcess
+            'getAllAssignReportProcess' => $getAllAssignReportProcess,
+            'companySetting' => $companysetting
         ];
         return view('administrator/assignment_process', $data);
     }
@@ -859,11 +879,13 @@ class Reports extends BaseController
         }
         $user = $this->userModel->find($userId);
         $assignCompleted = $this->assignReportModel->getAllAssignReportCompleted();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'APPROVAL BOX ASSIGNMENT',
             'user' => $user,
-            'assignCompleted' => $assignCompleted
+            'assignCompleted' => $assignCompleted,
+            'companySetting' => $companysetting
         ];
         return view('administrator/assignment_completed', $data);
     }
@@ -871,7 +893,7 @@ class Reports extends BaseController
     public function resetAssignment()
     {
 
-        $this->db->query("DELETE FROM box_sum WHERE box_name IN (SELECT box_sum.box_name FROM assign_report_box JOIN box_sum ON box_sum.box_name = assign_report_box.box_name WHERE confirmed = 0)");
+        $this->db->query("DELETE FROM box_sum WHERE box_name IN (SELECT box_sum.box_name FROM assign_report_box WHERE confirmed = 0)");
         return redirect()->back()->with('reset', 'Assignment Successfully reseted!');
     }
 
@@ -884,12 +906,14 @@ class Reports extends BaseController
         $user = $this->userModel->find($userId);
         $assignCompleted = $this->assignReportModel->getAllAssignReportCompleted();
         $getAllVA = $this->assignReportModel->getAllVA();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'APPROVAL BOX ASSIGNMENT',
             'user' => $user,
             'getAllVA' => $getAllVA,
-            'assignCompleted' => $assignCompleted
+            'assignCompleted' => $assignCompleted,
+            'companySetting' => $companysetting
         ];
         return view('administrator/assignment_history', $data);
     }
@@ -910,11 +934,13 @@ class Reports extends BaseController
         }
         $user = $this->userModel->find($userId);
         $completedInvestments = $this->investmentModel->completedInvestments();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => 'Completed Assignments | Report Management System',
             'menu' => 'COMPLETED ASSIGNMENTS',
             'user' => $user,
-            'completedInvestments' => $completedInvestments
+            'completedInvestments' => $completedInvestments,
+            'companySetting' => $companysetting
         ];
         return view('administrator/completed_investments', $data);
     }
@@ -1150,12 +1176,14 @@ class Reports extends BaseController
         $user = $this->userModel->find($userId);
         $getUsers = $this->userModel->where('role', 'client')->orderBy('fullname', 'ASC')->get();
         $getBrands = $this->categoryModel->getBrands();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => 'Brand Approval | Report Management System',
             'menu' => 'Brand Approval',
             'user' => $user,
             'brands' => $getBrands,
-            'users' => $getUsers
+            'users' => $getUsers,
+            'companySetting' => $companysetting
         ];
         return view('administrator/brand_approval', $data);
     }
@@ -1223,8 +1251,13 @@ class Reports extends BaseController
     public function getClientByDescBrand()
     {
         $desc = $this->request->getVar('description');
-        $getBrandId = $this->db->query('SELECT id FROM brands WHERE brand_name LIKE ' . $this->db->escape($desc) . ' ')->getRow();
-        $getClient = $this->categoryModel->selectedClient($getBrandId->id);
+        if (strcasecmp($desc, "Unrestricted") == 0) {
+            $getClient = $this->db->query("SELECT users.id, users.fullname, users.company FROM users JOIN investments ON users.id = investments.client_id WHERE role = 'client' AND status='assign' ");
+        } else {
+            $getBrandId = $this->db->query('SELECT id FROM brands WHERE brand_name LIKE ' . $this->db->escape($desc) . ' ')->getRow();
+            $getClient = $this->categoryModel->selectedClient($getBrandId->id);
+        }
+        
         $temp_client = array();
         foreach ($getClient->getResultArray() as $selected) {
             $temp = array(
@@ -1329,6 +1362,7 @@ class Reports extends BaseController
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
+    
     public function test()
     {
     }

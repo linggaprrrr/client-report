@@ -67,6 +67,7 @@ $routes->post('/reset-password', 'Admin\Users::resetPassword');
 
 $routes->get('/admin/completed-investments', 'Admin\Reports::completedInvestments');
 $routes->post('/reupload-pl-report', 'Admin\Reports::reuploadPL');
+$routes->post('/company-update', 'Admin\Users::updateCompanySetting');
 
 $routes->post('/save-periode-setting', 'Admin\Reports::savePeriodSetting');
 $routes->get('/admin/brand-approvals', 'Admin\Reports::brandApproval');
@@ -88,10 +89,12 @@ $routes->post('/create-news', 'News::createNews');
 $routes->get('/news/(:num)', 'News::showNews/$1');
 $routes->post('/update-news', 'News::updateNews');
 $routes->delete('/delete-news/(:num)', 'News::deleteNews/$1');
+$routes->get('admin/company-setting', 'Admin\Users::companySetting');
 
 $routes->get('/purchase-inventory', 'Clients::purchaseInventory');
 $routes->get('/pl-report', 'Clients::plReport');
 $routes->get('/test_json', 'Clients::test_json');
+
 
 //va 
 $routes->get('va/dashboard', 'VA\Reports::index');

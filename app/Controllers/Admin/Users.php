@@ -22,11 +22,13 @@ class Users extends BaseController
         }
         $user = $this->userModel->find($userId);
         $getAllUsers = $this->userModel->getAllUser();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => 'User Managmeent | Report Management System',
             'menu'  => 'User Mangement',
             'user'  => $user,
             'users' => $getAllUsers,
+            'companySetting' => $companysetting
         ];
         return view('administrator/user_management', $data);
     }
@@ -55,11 +57,13 @@ class Users extends BaseController
         }
         $user = $this->userModel->find($userId);
         $profile = $this->userModel->find($id);
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => "Account Setting | Report Management System",
             'menu' => $user['fullname'] . "'s Setting",
             'user' => $user,
-            'profile' => $profile
+            'profile' => $profile,
+            'companySetting' => $companysetting
         ];
         return view('administrator/client_setting', $data);
     }
@@ -105,14 +109,59 @@ class Users extends BaseController
             return redirect()->to(base_url('/login'));
         }
         $user = $this->userModel->find($userId);
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => "Account Setting | Report Management System",
             'menu' => $user['fullname'] . "'s Setting",
-            'user' => $user
+            'user' => $user,
+            'companySetting' => $companysetting
         ];
 
         return view('administrator/account_setting', $data);
     }
+
+    public function companySetting() {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        }
+        $company = $this->db->query("SELECT * FROM company")->getRowArray();
+        // dd($company);
+        $user = $this->userModel->find($userId);
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
+        $data = [
+            'tittle' => "Company Setting | Report Management System",
+            'menu' => "Company Setting",
+            'user' => $user,
+            'company' => $company,
+            'companySetting' => $companysetting
+        ];
+
+        return view('administrator/company_setting', $data);
+    }
+
+    public function updateCompanySetting() {
+        $post = $this->request->getVar();
+        $name = $post['company'];
+        $address = $post['address'];
+        $email = $post['email'];
+        $phone = $post['phone'];
+        $photo = $this->request->getFile('logo');
+        $fileName = "";
+
+        if (!empty($photo->getTempName())) {
+            $fileName = time() . $photo->getName();
+            $photo->move('assets/images', $fileName);
+        }
+        
+        if (empty($fileName)) {
+           $this->db->query("UPDATE company SET name=".$this->db->escape($name).", address=".$this->db->escape($address).", email='$email', phone='$phone' ");
+        } else {
+            $this->db->query("UPDATE company SET name=".$this->db->escape($name).", address=".$this->db->escape($address).", email='$email', phone='$phone', logo='$fileName' ");
+        }
+        return redirect()->back()->with('success', 'Company Successfully Updated');
+    }
+
     public function resetPassword()
     {
         $post = $this->request->getVar();

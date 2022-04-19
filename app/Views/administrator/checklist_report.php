@@ -104,8 +104,6 @@
                 <button type="submit" class="btn btn-secondary"><i class="icon-checkmark3"></i> Save</button>
             </div>
         </form>
-        <?= $tempAmount  ?>
-        <?= $tempCostLeft  ?>
     </div>
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>

@@ -91,23 +91,23 @@
                                             <?php if ($row['status'] == 'waiting') : ?>
                                                 <option value="0" selected>...</option>
                                                 <option value="approved">APPROVED</option>
-                                                <option value="remanifest">RE-MANIFEST</option>
-                                                <option value="reassign">RE-ASSIGN</option>
+                                                <option value="remanifested">RE-MANIFEST</option>
+                                                <option value="reassigned">RE-ASSIGN</option>
                                             <?php elseif ($row['status'] == 'approved') : ?>
                                                 <option value="0">...</option>
                                                 <option value="approved" selected>APPROVED</option>
-                                                <option value="remanifest">RE-MANIFEST</option>
-                                                <option value="reassign">RE-ASSIGN</option>
+                                                <option value="remanifested">RE-MANIFEST</option>
+                                                <option value="reassigned">RE-ASSIGN</option>
                                             <?php elseif ($row['status'] == 'remanifest') : ?>
                                                 <option value="0">...</option>
                                                 <option value="approved">APPROVED</option>
-                                                <option value="remanifest" selected>RE-MANIFEST</option>
-                                                <option value="reassign">RE-ASSIGN</option>
+                                                <option value="remanifested" selected>RE-MANIFEST</option>
+                                                <option value="reassigned">RE-ASSIGN</option>
                                             <?php else : ?>
                                                 <option value="0">...</option>
                                                 <option value="approved">APPROVED</option>
-                                                <option value="remanifest">RE-MANIFEST</option>
-                                                <option value="reassign" selected>RE-ASSIGN</option>
+                                                <option value="remanifested">RE-MANIFEST</option>
+                                                <option value="reassigned" selected>RE-ASSIGN</option>
                                             <?php endif ?>
                                         </select>
                                     </td>

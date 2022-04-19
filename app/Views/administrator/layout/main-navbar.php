@@ -2,7 +2,7 @@
     <div class="d-flex flex-1 pl-3">
         <div class="navbar-brand wmin-0 mr-1 p-1">
             <a href="<?= base_url('/') ?>" class="d-inline-block">
-                <img src="/assets/images/fba-logo.png" class="d-none d-sm-block" alt="FBA Logo" style="width: 255px">
+                <img src="/assets/images/<?= $companySetting->logo ?>" class="d-none d-sm-block" alt="FBA Logo" style="width: 255px">
                 <img src="/assets/images/fba-logo-only.png" class="d-sm-none" alt="" style="width: 100%;">
             </a>
         </div>
@@ -32,7 +32,16 @@
                     <span class="badge badge-mark border-pink bg-pink"></span>
                 </a>
             </li> -->
-
+            <li class="nav-item" style="align-self: center;">
+                <div class="tigle" style="margin-top: 5px">  
+                    <input type="checkbox" id="switch" class="switch"/>
+                    <label id="label" for="switch" class ="label">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                        <div class="ball"></div>
+                    </label>
+                </div>
+            </li>
             <li class="nav-item nav-item-dropdown-xl dropdown dropdown-user h-100">
                 <a href="#" class="navbar-nav-link navbar-nav-link-toggler d-flex align-items-center h-100 dropdown-toggle" data-toggle="dropdown">
                     <?php if (!empty($user['photo'])) : ?>
@@ -46,6 +55,7 @@
 
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="<?= base_url('/admin/account-setting') ?>" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+                    <a href="<?= base_url('/admin/company-setting') ?>" class="dropdown-item"><i class="icon-office"></i> Company settings</a>
                     <a href="<?= base_url('/logout') ?>" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
                 </div>
             </li>

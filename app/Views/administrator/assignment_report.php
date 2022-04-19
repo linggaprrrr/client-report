@@ -235,13 +235,13 @@
                         <th class="text-center" style="width: 5%">Category</th>
                         <th class="text-center" style="width: 5%">Status</th>
                         <th class="text-center" style="width: 10%">Box Value</th>
-                        <th class="text-center" style="width: 20%">VA User</th>
-                        <th class="text-center" style="width: 20%">Client</th>
-                        <th class="text-center" style="width: 20%">Company</th>
+                        <th class="text-center" style="width: 15%">VA User</th>
+                        <th class="text-center" style="width: 15%">Client</th>
+                        <th class="text-center" style="width: 10%">Company</th>
                         <th class="text-center" style="width: 5%">Brand Approval</th>
-                        <th class="text-center" style="width: 10%">Investment Date</th>
-                        <th class="text-center" style="width: 10%">Current</th>
-                        <th class="text-center" style="width: 10%">Total</th>
+                        <th class="text-center" style="width: 5%">Investment Date</th>
+                        <th class="text-center" style="width: 15%">Current</th>
+                        <th class="text-center" style="width: 15%">Total</th>
                     </tr>
                 </thead>
                 <tbody id="assign-body">
@@ -501,7 +501,7 @@
                 <?php if ($getAllAssignReportCompleted->getNumRows() > 0) : ?>
                     <?php $no = 1 ?>
                     <?php foreach ($getAllAssignReportCompleted->getResultArray() as $row) : ?>
-                        <?php if ($row['status'] == 'reassign') : ?>
+                        <?php if ($row['status'] == 'reassigned') : ?>
                             <tr class="table-warning">
                                 <td>
                                     <?= $no++ ?>
@@ -523,9 +523,9 @@
                                     <b><?= strtoupper($row['category']) ?></b>
                                 </td>
                                 <td>
-                                    <?php if ($row['status'] == 'reassign') : ?>
+                                    <?php if ($row['status'] == 'reassigned') : ?>
                                         <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
-                                    <?php elseif ($row['status'] == 'remanifest') : ?>
+                                    <?php elseif ($row['status'] == 'remanifested') : ?>
                                         <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
                                     <?php else : ?>
                                         <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
@@ -597,9 +597,9 @@
                                     <b><?= strtoupper($row['category']) ?></b>
                                 </td>
                                 <td>
-                                    <?php if ($row['status'] == 'reassign') : ?>
+                                    <?php if ($row['status'] == 'reassigned') : ?>
                                         <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
-                                    <?php elseif ($row['status'] == 'remanifest') : ?>
+                                    <?php elseif ($row['status'] == 'remanifested') : ?>
                                         <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
                                     <?php else : ?>
                                         <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
@@ -983,7 +983,7 @@
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>
     <button type="button" id="noty_deleted" style="display: none;"></button>
-
+    <button type="button" id="noty_error" style="display: none;"></button>
 </div>
 
 <?= $this->endSection() ?>
@@ -1008,7 +1008,6 @@
     $(document).ready(function() {
         $('.rollback').on('click', function() {
             var boxName = $(this).data('id');
-            console.log(boxName);
             swal("Enter your password:", {
                     content: {
                         element: "input",
@@ -1068,8 +1067,12 @@
             $('input[name="week5-end"]').val(end.format('YYYY-MM-DD'));
         });
 
-        <?php if (session()->getFlashdata('success')) : ?>
-            swal("Great!", "<?= session()->getFlashdata('success') ?>", "success");
+        <?php if (session()->getFlashdata('save')) : ?>
+            swal("Great!", "<?= session()->getFlashdata('save') ?>", "success");
+        <?php endif ?>
+
+        <?php if (session()->getFlashdata('error')) : ?>
+            swal("Oops!", "<?= session()->getFlashdata('error') ?>", "warning");
         <?php endif ?>
 
         var input = document.getElementById('file-upload');
@@ -1163,6 +1166,7 @@
             }
         });
     });
+    
     $('.clientSelect').on('change', function() {
         var optionSelected = $("option:selected", this);
         var boxId = $(this).attr('id');
@@ -1181,6 +1185,7 @@
         $('.select_date_' + boxId).html("");
         $.get('/get-company/' + clientId, function(data) {
             var company = JSON.parse(data);
+            console.log(company);
             if (company != null) {
                 $('.company_' + boxId).html("<b>" + company['company'] + "</b>");
             } else {
@@ -1188,79 +1193,80 @@
             }
             if (company['brands'] == "") {
                 var popoverbrand = $('.popoverbrand_' + boxId).attr('data-content', "none");
-                swal("Oops...", "This client has no brand, go to Brand Approval Menu!", "warning");
             } else {
                 var popoverbrand = $('.popoverbrand_' + boxId).attr('data-content', company['brands']);
-                if (company['brands'].includes(desc.split('-')[0]) == true || company['brands'].includes(desc.split('/')[0]) == true) {
-                    $.post('/get-investment-client', {
-                        id: clientId
-                    }, function(data) {
-                        var investdate = JSON.parse(data);
-                        if (investdate.length > 0) {
-                            for (var i = 0; i < investdate.length; i++) {
-                                $('.select_date_' + boxId).append(investdate[i]);
-                            }
-                            var selected = $('.select_date_' + boxId).find('option:selected');
-                            var currentCost = selected.data('foo');
-                            $('.currentCost_' + boxId).find("span").remove();
-                            $('.currentCost_' + boxId).prepend("<span class='current_" + boxId + "'><b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b></span>");
-                            var investmentId = $('.select_date_' + boxId + ' option:selected').val();
-
-                            $.post('/assign-box', {
-                                box_id: boxId,
-                                box_name: boxName,
-                                order_date: orderDate,
-                                client_id: clientId,
-                                value_box: valueBox,
-                                current_cost: currentCost,
-                                investment_id: investmentId,
-                                va_id: vaUser
-                            }, function(data) {
-                                var resp = JSON.parse(data);
-                                if (resp['status'] == 0) {
-                                    swal("Oops...", "Total exceed $250.00!", "warning");
-                                    $('.total_' + boxId).html("");
-                                } else {
-                                    $('.total_' + boxId).html("<b>$ " + numberWithCommas(resp['cost_left'].toFixed(2)) + "</b>");
-                                }
-                            });
-
-                            $.get('/get-category', {
-                                investment_id: investmentId,
-                                current_cost: currentCost
-                            }, function(data) {
-                                var cat = JSON.parse(data);
-                                var desc = "";
-
-                                for (var i = 0; i < cat.length; i++) {
-                                    desc = desc.concat(cat[i]['category'] + ' (' + cat[i]['percent'] + '%) ')
-                                }
-                                var popover = $('.popover_' + boxId).attr('data-content', desc);
-                            });
-                        } else {
-                            $.post('/assign-box', {
-                                box_id: boxId,
-                                box_name: boxName,
-                                order_date: orderDate,
-                                client_id: clientId,
-                                value_box: valueBox,
-                                current_cost: 0,
-                                investment_id: 0,
-                                va_id: vaUser,
-                            }, function(data) {
-
-                            });
-                            $('.select_date_' + boxId).html("");
-                            $('.currentCost_' + boxId).find("span").remove();
-                            $('.total_' + boxId).html("");
-                        }
-
-                    });
-                } else {
-                    swal("Oops...", "This brand is not allowed on this client", "warning");
-                }
-
             }
+            var unrest = "Unrestricted";
+            if (company['brands'].includes(desc.split('-')[0]) == true || company['brands'].includes(desc.split('/')[0]) == true || desc.split('-')[0].toUpperCase() === unrest.toUpperCase()) {
+                $.post('/get-investment-client', {
+                    id: clientId
+                }, function(data) {
+                    var investdate = JSON.parse(data);
+                    if (investdate.length > 0) {
+                        for (var i = 0; i < investdate.length; i++) {
+                            $('.select_date_' + boxId).append(investdate[i]);
+                        }
+                        var selected = $('.select_date_' + boxId).find('option:selected');
+                        var currentCost = selected.data('foo');
+                        $('.currentCost_' + boxId).find("span").remove();
+                        $('.currentCost_' + boxId).prepend("<span class='current_" + boxId + "'><b>$ " + numberWithCommas(currentCost.toFixed(2)) + "</b></span>");
+                        var investmentId = $('.select_date_' + boxId + ' option:selected').val();
+
+                        $.post('/assign-box', {
+                            box_id: boxId,
+                            box_name: boxName,
+                            order_date: orderDate,
+                            client_id: clientId,
+                            value_box: valueBox,
+                            current_cost: currentCost,
+                            investment_id: investmentId,
+                            va_id: vaUser
+                        }, function(data) {
+                            var resp = JSON.parse(data);
+                            if (resp['status'] == 0) {
+                                swal("Oops...", "Total exceed $250.00!", "warning");
+                                $('.total_' + boxId).html("");
+                            } else {
+                                $('.total_' + boxId).html("<b>$ " + numberWithCommas(resp['cost_left'].toFixed(2)) + "</b>");
+                            }
+                        });
+
+                        $.get('/get-category', {
+                            investment_id: investmentId,
+                            current_cost: currentCost
+                        }, function(data) {
+                            var cat = JSON.parse(data);
+                            var desc = "";
+
+                            for (var i = 0; i < cat.length; i++) {
+                                desc = desc.concat(cat[i]['category'] + ' (' + cat[i]['percent'] + '%) ')
+                            }
+                            var popover = $('.popover_' + boxId).attr('data-content', desc);
+                        });
+                    } else {
+                        $.post('/assign-box', {
+                            box_id: boxId,
+                            box_name: boxName,
+                            order_date: orderDate,
+                            client_id: clientId,
+                            value_box: valueBox,
+                            current_cost: 0,
+                            investment_id: 0,
+                            va_id: vaUser,
+                        }, function(data) {
+
+                        });
+                        $('.select_date_' + boxId).html("");
+                        $('.currentCost_' + boxId).find("span").remove();
+                        $('.total_' + boxId).html("");
+                    }
+
+                });
+            } else {
+                swal("Oops...", "This brand is not allowed on this client", "warning");
+            } 
+
+
         });
 
 
@@ -1478,6 +1484,15 @@
 
 
     });
+
+    $('#noty_save').on('click', function() {
+        new Noty({
+            text: 'You successfully save first phase.',
+            type: 'success'
+        }).show();
+    });
+    
+
     $('#noty_deleted').on('click', function() {
         new Noty({
             text: 'You successfully delete the report.',
