@@ -1,0 +1,4 @@
+CRITICAL - 2022-04-26 06:37:29 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\bootstrap.php(146): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\smartwholesale\client-report\spark(45): require('C:\\xampp\\htdocs...')
+#2 {main}

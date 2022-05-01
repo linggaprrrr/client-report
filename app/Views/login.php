@@ -24,11 +24,16 @@
 </head>
 
 <body>
-    <div class="content">
+    <div class="content" style="padding-top: 20px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="/assets/login/images/undraw_remotely_2j6y.png" alt="Image" class="img-fluid">
+                    <div class="login-logo">
+                        <img src="/assets/images/fba-logo.png" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="login-background">
+                        <img src="/assets/login/images/login-min.png" alt="Image" class="img-fluid">
+                    </div>
                 </div>
                 <div class="col-md-6 contents" style="align-self: center;">
                     <div class="row justify-content-center">
