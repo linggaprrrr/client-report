@@ -24,8 +24,8 @@ class Users extends BaseController
         $getAllUsers = $this->userModel->getAllUser();
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
-            'tittle' => 'User Managmeent | Report Management System',
-            'menu'  => 'User Mangement',
+            'tittle' => 'User Managment | Report Management System',
+            'menu'  => 'User Management',
             'user'  => $user,
             'users' => $getAllUsers,
             'companySetting' => $companysetting

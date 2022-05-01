@@ -128,6 +128,24 @@ $routes->post('/add-brand', 'Admin\Reports::addBrand');
 $routes->post('/rollback-assignment', 'Admin\Reports::rollbackAssignment');
 $routes->get('/get-client-by-branddesc', 'Admin\Reports::getClientByDescBrand');
 
+
+// mobile version
+$routes->get('/mobile', 'Mobile::index');
+$routes->post('/mobile-login-proccess', 'Mobile::loginProses');
+$routes->get('/mobile/logout', 'Mobile::logout');
+
+$routes->get('/mobile/dashboard', 'Mobile::dashboard');
+$routes->post('/mobile/dashboard', 'Mobile::dashboard');
+$routes->get('/mobile/account-setting', 'Mobile::accountSetting');
+$routes->post('/mobile/update-setting', 'Mobile::updateSetting');
+
+$routes->get('/mobile/get-started', 'Mobile::getStarted');
+$routes->get('/mobile/brand-approvals', 'Mobile::brandApprovals');
+$routes->get('/mobile/purchase-inventory', 'Mobile::purchaseInventory');
+$routes->get('/mobile/pl-report', 'Mobile::plReport');
+$routes->get('/mobile/news', 'Mobile::news');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -30,8 +30,8 @@ class News extends BaseController
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [
-            'tittle' => "News Announcement | Report Management System",
-            'menu' => "News Announcement",
+            'tittle' => "Announcement | Report Management System",
+            'menu' => "Announcement",
             'user' => $user,
             'news' => $news,
             'allNews' => $allNews,
