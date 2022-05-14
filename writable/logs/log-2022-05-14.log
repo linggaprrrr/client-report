@@ -1,0 +1,84 @@
+CRITICAL - 2022-05-14 02:30:14 --> Undefined index: body
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/News.php(122): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 122, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-05-14 02:30:37 --> Undefined index: body
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/News.php(122): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 122, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-05-14 06:31:58 --> Undefined property: CodeIgniter\Database\MySQLi\Result::$get
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/News.php(105): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Applications/M...', 105, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-05-14 06:32:16 --> Call to undefined method CodeIgniter\Database\MySQLi\Result::get()
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+ERROR - 2022-05-14 06:41:45 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+CRITICAL - 2022-05-14 06:41:45 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO pus...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO pus...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO pus...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/News.php(148): CodeIgniter\Database\BaseConnection->query('INSERT INTO pus...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-14 06:43:09 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+CRITICAL - 2022-05-14 06:43:09 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO pus...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO pus...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO pus...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/News.php(149): CodeIgniter\Database\BaseConnection->query('INSERT INTO pus...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-14 06:43:58 --> Table 'rms.push_notification' doesn't exist
+CRITICAL - 2022-05-14 06:43:58 --> Table 'rms.push_notification' doesn't exist
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO pus...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO pus...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO pus...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/News.php(149): CodeIgniter\Database\BaseConnection->query('INSERT INTO pus...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-05-14 06:44:52 --> Undefined variable: json_encode
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/News.php(114): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 114, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-05-14 11:22:26 --> strlen() expects parameter 1 to be string, array given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'strlen() expect...', '/Applications/M...', 113, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/News.php(113): strlen(Array)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\News->pushNotification()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}

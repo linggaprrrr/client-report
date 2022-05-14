@@ -320,6 +320,8 @@ class Reports extends BaseController
         $client = $this->request->getVar('client');
         $link = $this->request->getVar('link');
         $chart = $this->request->getFile('chart');
+        $types = $this->request->getVar('type');
+        
         $ext = $chart->getClientExtension();
         if ($ext == 'xls') {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
@@ -328,112 +330,132 @@ class Reports extends BaseController
         }
         $spreadsheet = $render->load($chart);
         $data = $spreadsheet->getActiveSheet()->toArray();
-        $chartTitle = array();
-        $monthData = array();
-        $type = array();
-        foreach ($data as $idx => $row) {
-            if (!empty($row[0])) {
-                array_push($chartTitle, $row[0]);
-                array_push($chartTitle, $row[18]);
-            } else {
-                if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
-                    $month = array();
-                    if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
-                        for ($i = 2; $i < 14; $i++) {
-                            $temp = str_replace('%', '', $row[$i]);
-                            $temp = str_replace(',', '', $temp);
-                            if (strpos($temp, '(') !== false) {
-                                $temp = str_replace('(', '', $temp);
-                                $temp = str_replace(')', '', $temp);
-                                $temp = -1 * abs($temp);
+        
+        if ($types == 'yes') {    
+            $chartTitle = array();
+            $monthData = array();
+            $type = array();
+            foreach ($data as $idx => $row) {
+                if (!empty($row[0])) {
+                    array_push($chartTitle, $row[0]);
+                } else {
+                    if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]) )) {
+                        $month = array();
+                        if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
+                            for ($i = 2; $i < 16; $i++) {
+                                if ($i != 3) {
+                                    $temp = str_replace('%', '', $row[$i]);
+                                    $temp = str_replace(',', '', $temp);
+                                    if (strpos($temp, '(') !== false) {
+                                        $temp = str_replace('(', '', $temp);
+                                        $temp = str_replace(')', '', $temp);
+                                        $temp = -1 * abs($temp);
+                                    }
+                                    array_push($month, $temp);
+                                }
                             }
-                            array_push($month, $temp);
-                        }
 
-                        array_push($type, 'percentage');
-                    } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
-                        for ($i = 2; $i < 14; $i++) {
-                            $temp = str_replace('$', '', $row[$i]);
-                            $temp = str_replace(',', '', $temp);
-                            if (strpos($temp, '(') !== false) {
-                                $temp = str_replace('(', '', $temp);
-                                $temp = str_replace(')', '', $temp);
-                                $temp = -1 * abs($temp);
+                            array_push($type, 'percentage');
+                        } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
+                            for ($i = 2; $i < 16; $i++) {
+                                if ($i != 3) {
+                                    $temp = str_replace('$', '', $row[$i]);
+                                    $temp = str_replace(',', '', $temp);
+                                    if (strpos($temp, '(') !== false) {
+                                        $temp = str_replace('(', '', $temp);
+                                        $temp = str_replace(')', '', $temp);
+                                        $temp = -1 * abs($temp);
+                                    }
+                                    array_push($month, $temp);
+                                }
                             }
-                            array_push($month, $temp);
-                        }
 
-                        array_push($type, 'currency');
-                    } else {
-                        for ($i = 2; $i < 14; $i++) {
-                            $temp = $row[$i];
-                            if (strpos($temp, '(') !== false) {
-                                $temp = str_replace('(', '', $temp);
-                                $temp = str_replace(')', '', $temp);
-                                $temp = -1 * abs($temp);
+                            array_push($type, 'currency');
+                        } else {
+                            for ($i = 2; $i < 16; $i++) {
+                                if ($i != 3) {
+                                    $temp = $row[$i];
+                                    if (strpos($temp, '(') !== false) {
+                                        $temp = str_replace('(', '', $temp);
+                                        $temp = str_replace(')', '', $temp);
+                                        $temp = -1 * abs($temp);
+                                    }
+                                    array_push($month, $temp);
+                                }
                             }
-                            array_push($month, $temp);
+                            array_push($type, 'num');
                         }
-                        array_push($type, 'num');
+                        array_push($monthData, $month);                  
                     }
-                    array_push($monthData, $month);
-                    $month = array();
-
-
-                    if (strpos($row[20], '%') !== false || strpos($row[21], '%') !== false || strpos($row[22], '%') !== false || strpos($row[23], '%') !== false || strpos($row[24], '%') !== false || strpos($row[25], '%') !== false || strpos($row[26], '%') !== false || strpos($row[27], '%') !== false || strpos($row[28], '%') !== false || strpos($row[29], '%') !== false || strpos($row[30], '%') !== false || strpos($row[31], '%') !== false) {
-                        for ($i = 20; $i < 32; $i++) {
-                            $temp = str_replace('%', '', $row[$i]);
-                            $temp = str_replace(',', '', $temp);
-                            if (strpos($temp, '(') !== false) {
-                                $temp = str_replace('(', '', $temp);
-                                $temp = str_replace(')', '', $temp);
-                                $temp = -1 * abs($temp);
-                            }
-                            array_push($month, $temp);
-                        }
-
-                        array_push($type, 'percentage');
-                    } elseif (strpos($row[20], '$') !== false || strpos($row[21], '$') !== false || strpos($row[22], '$') !== false || strpos($row[23], '$') !== false || strpos($row[24], '$') !== false || strpos($row[25], '$') !== false || strpos($row[26], '$') !== false || strpos($row[27], '$') !== false || strpos($row[28], '$') !== false || strpos($row[29], '$') !== false || strpos($row[30], '$') !== false || strpos($row[31], '$') !== false || strpos($row[32], '$') !== false) {
-                        for ($i = 20; $i < 32; $i++) {
-                            $temp = str_replace('$', '', $row[$i]);
-                            $temp = str_replace(',', '', $temp);
-                            if (strpos($temp, '(') !== false) {
-                                $temp = str_replace('(', '', $temp);
-                                $temp = str_replace(')', '', $temp);
-                                $temp = -1 * abs($temp);
-                            }
-                            array_push($month, $temp);
-                        }
-                        array_push($type, 'currency');
-                    } else {
-                        for ($i = 20; $i < 32; $i++) {
-                            $temp = $row[$i];
-                            if (strpos($temp, '(') !== false) {
-                                $temp = str_replace('(', '', $temp);
-                                $temp = str_replace(')', '', $temp);
-                                $temp = -1 * abs($temp);
-                            }
-                            array_push($month, $temp);
-                        }
-                        array_push($type, 'num');
-                    }
-
-
-                    array_push($monthData, $month);
                 }
             }
-        }
+            for ($i = 0; $i < count($chartTitle); $i++) {
+                $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
+            }    
+        } else {
+            $chartTitle = array();
+            $monthData = array();
+            $type = array();
+            foreach ($data as $idx => $row) {
+                if (!empty($row[0])) {
+                    array_push($chartTitle, $row[0]);
+                } else {
+                    if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
+                        $month = array();
+                        if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
+                            for ($i = 2; $i < 14; $i++) {
+                                $temp = str_replace('%', '', $row[$i]);
+                                $temp = str_replace(',', '', $temp);
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
 
+                            array_push($type, 'percentage');
+                        } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
+                            for ($i = 2; $i < 14; $i++) {
+                                $temp = str_replace('$', '', $row[$i]);
+                                $temp = str_replace(',', '', $temp);
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
 
-        for ($i = 0; $i < count($chartTitle); $i++) {
-            $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
+                            array_push($type, 'currency');
+                        } else {
+                            for ($i = 2; $i < 14; $i++) {
+                                $temp = $row[$i];
+                                if (strpos($temp, '(') !== false) {
+                                    $temp = str_replace('(', '', $temp);
+                                    $temp = str_replace(')', '', $temp);
+                                    $temp = -1 * abs($temp);
+                                }
+                                array_push($month, $temp);
+                            }
+                            array_push($type, 'num');
+                        }
+                        array_push($monthData, $month);                        
+                    }
+                }
+            }
+            for ($i = 0; $i < count($chartTitle); $i++) {
+                $this->reportModel->savePLReportExclude($chartTitle[$i], $monthData[$i], $type[$i], $client);
+            }
         }
+        
         $fileName = time() . $chart->getName();
         $chart->move('files', $fileName);
         $this->db->query("INSERT into log_files(date, file, link, client_id) VALUES(NOW(), " . $this->db->escape($fileName) . "," . $this->db->escape($link) . " , $client) ");
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
+    
     public function deletePLReport($id)
     {
         $this->reportModel->deletePLReport($id);
@@ -993,10 +1015,12 @@ class Reports extends BaseController
 
     public function reuploadPL()
     {
+        
         $client = $this->request->getVar('client');
         $link = $this->request->getVar('link');
         $log_id = $this->request->getVar('log_id');
         $chart = $this->request->getFile('chart');
+        $types = $this->request->getVar('type');
         $ext = $chart->getClientExtension();
         if (empty($ext)) {
             $this->db->query("UPDATE log_files SET link='$link', client_id ='$client' WHERE id='$log_id'");
@@ -1009,108 +1033,126 @@ class Reports extends BaseController
             }
             $spreadsheet = $render->load($chart);
             $data = $spreadsheet->getActiveSheet()->toArray();
-            $chartTitle = array();
-            $monthData = array();
-            $type = array();
-            foreach ($data as $idx => $row) {
-                if (!empty($row[0])) {
-                    array_push($chartTitle, $row[0]);
-                    array_push($chartTitle, $row[18]);
-                } else {
-                    if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
-                        $month = array();
-                        if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
-                            for ($i = 2; $i < 14; $i++) {
-                                $temp = str_replace('%', '', $row[$i]);
-                                $temp = str_replace(',', '', $temp);
-                                if (strpos($temp, '(') !== false) {
-                                    $temp = str_replace('(', '', $temp);
-                                    $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
+            if ($types == 'yes') {    
+                $chartTitle = array();
+                $monthData = array();
+                $type = array();
+                foreach ($data as $idx => $row) {
+                    if (!empty($row[0])) {
+                        array_push($chartTitle, $row[0]);
+                    } else {
+                        if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]) )) {
+                            $month = array();
+                            if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
+                                for ($i = 2; $i < 16; $i++) {
+                                    if ($i != 3) {
+                                        $temp = str_replace('%', '', $row[$i]);
+                                        $temp = str_replace(',', '', $temp);
+                                        if (strpos($temp, '(') !== false) {
+                                            $temp = str_replace('(', '', $temp);
+                                            $temp = str_replace(')', '', $temp);
+                                            $temp = -1 * abs($temp);
+                                        }
+                                        array_push($month, $temp);
+                                    }
                                 }
-                                array_push($month, $temp);
-                            }
-
-                            array_push($type, 'percentage');
-                        } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
-                            for ($i = 2; $i < 14; $i++) {
-                                $temp = str_replace('$', '', $row[$i]);
-                                $temp = str_replace(',', '', $temp);
-                                if (strpos($temp, '(') !== false) {
-                                    $temp = str_replace('(', '', $temp);
-                                    $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
+    
+                                array_push($type, 'percentage');
+                            } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
+                                for ($i = 2; $i < 16; $i++) {
+                                    if ($i != 3) {
+                                        $temp = str_replace('$', '', $row[$i]);
+                                        $temp = str_replace(',', '', $temp);
+                                        if (strpos($temp, '(') !== false) {
+                                            $temp = str_replace('(', '', $temp);
+                                            $temp = str_replace(')', '', $temp);
+                                            $temp = -1 * abs($temp);
+                                        }
+                                        array_push($month, $temp);
+                                    }
                                 }
-                                array_push($month, $temp);
-                            }
-
-                            array_push($type, 'currency');
-                        } else {
-                            for ($i = 2; $i < 14; $i++) {
-                                $temp = $row[$i];
-                                if (strpos($temp, '(') !== false) {
-                                    $temp = str_replace('(', '', $temp);
-                                    $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
+    
+                                array_push($type, 'currency');
+                            } else {
+                                for ($i = 2; $i < 16; $i++) {
+                                    if ($i != 3) {
+                                        $temp = $row[$i];
+                                        if (strpos($temp, '(') !== false) {
+                                            $temp = str_replace('(', '', $temp);
+                                            $temp = str_replace(')', '', $temp);
+                                            $temp = -1 * abs($temp);
+                                        }
+                                        array_push($month, $temp);
+                                    }
                                 }
-                                array_push($month, $temp);
+                                array_push($type, 'num');
                             }
-                            array_push($type, 'num');
+                            array_push($monthData, $month);                  
                         }
-                        array_push($monthData, $month);
-                        $month = array();
-
-
-                        if (strpos($row[20], '%') !== false || strpos($row[21], '%') !== false || strpos($row[22], '%') !== false || strpos($row[23], '%') !== false || strpos($row[24], '%') !== false || strpos($row[25], '%') !== false || strpos($row[26], '%') !== false || strpos($row[27], '%') !== false || strpos($row[28], '%') !== false || strpos($row[29], '%') !== false || strpos($row[30], '%') !== false || strpos($row[31], '%') !== false) {
-                            for ($i = 20; $i < 32; $i++) {
-                                $temp = str_replace('%', '', $row[$i]);
-                                $temp = str_replace(',', '', $temp);
-                                if (strpos($temp, '(') !== false) {
-                                    $temp = str_replace('(', '', $temp);
-                                    $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
-                                }
-                                array_push($month, $temp);
-                            }
-
-                            array_push($type, 'percentage');
-                        } elseif (strpos($row[20], '$') !== false || strpos($row[21], '$') !== false || strpos($row[22], '$') !== false || strpos($row[23], '$') !== false || strpos($row[24], '$') !== false || strpos($row[25], '$') !== false || strpos($row[26], '$') !== false || strpos($row[27], '$') !== false || strpos($row[28], '$') !== false || strpos($row[29], '$') !== false || strpos($row[30], '$') !== false || strpos($row[31], '$') !== false || strpos($row[32], '$') !== false) {
-                            for ($i = 20; $i < 32; $i++) {
-                                $temp = str_replace('$', '', $row[$i]);
-                                $temp = str_replace(',', '', $temp);
-                                if (strpos($temp, '(') !== false) {
-                                    $temp = str_replace('(', '', $temp);
-                                    $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
-                                }
-                                array_push($month, $temp);
-                            }
-                            array_push($type, 'currency');
-                        } else {
-                            for ($i = 20; $i < 32; $i++) {
-                                $temp = $row[$i];
-                                if (strpos($temp, '(') !== false) {
-                                    $temp = str_replace('(', '', $temp);
-                                    $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
-                                }
-                                array_push($month, $temp);
-                            }
-                            array_push($type, 'num');
-                        }
-
-
-                        array_push($monthData, $month);
                     }
                 }
-            }
-
-            for ($i = 0; $i < count($chartTitle); $i++) {
-                $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
+                for ($i = 0; $i < count($chartTitle); $i++) {
+                    $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
+                }    
+            } else {
+                $chartTitle = array();
+                $monthData = array();
+                $type = array();
+                foreach ($data as $idx => $row) {
+                    if (!empty($row[0])) {
+                        array_push($chartTitle, $row[0]);
+                    } else {
+                        if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
+                            $month = array();
+                            if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
+                                for ($i = 2; $i < 14; $i++) {
+                                    $temp = str_replace('%', '', $row[$i]);
+                                    $temp = str_replace(',', '', $temp);
+                                    if (strpos($temp, '(') !== false) {
+                                        $temp = str_replace('(', '', $temp);
+                                        $temp = str_replace(')', '', $temp);
+                                        $temp = -1 * abs($temp);
+                                    }
+                                    array_push($month, $temp);
+                                }
+    
+                                array_push($type, 'percentage');
+                            } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
+                                for ($i = 2; $i < 14; $i++) {
+                                    $temp = str_replace('$', '', $row[$i]);
+                                    $temp = str_replace(',', '', $temp);
+                                    if (strpos($temp, '(') !== false) {
+                                        $temp = str_replace('(', '', $temp);
+                                        $temp = str_replace(')', '', $temp);
+                                        $temp = -1 * abs($temp);
+                                    }
+                                    array_push($month, $temp);
+                                }
+    
+                                array_push($type, 'currency');
+                            } else {
+                                for ($i = 2; $i < 14; $i++) {
+                                    $temp = $row[$i];
+                                    if (strpos($temp, '(') !== false) {
+                                        $temp = str_replace('(', '', $temp);
+                                        $temp = str_replace(')', '', $temp);
+                                        $temp = -1 * abs($temp);
+                                    }
+                                    array_push($month, $temp);
+                                }
+                                array_push($type, 'num');
+                            }
+                            array_push($monthData, $month);                        
+                        }
+                    }
+                }
+                for ($i = 0; $i < count($chartTitle); $i++) {
+                    $this->reportModel->savePLReportExclude($chartTitle[$i], $monthData[$i], $type[$i], $client);
+                }
             }
             $fileName = time() . $chart->getName();
             $chart->move('files', $fileName);
-            $this->db->query("UPDATE log_files SET file=" . $this->db->escape($fileName) . " ,link=" . $this->db->escape($fileName) . ", client_id ='$client' WHERE id='$log_id'");
+            $this->db->query("UPDATE log_files SET file=" . $this->db->escape($fileName) . " ,link='$link', client_id ='$client' WHERE id='$log_id'");
         }
 
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
@@ -1366,6 +1408,10 @@ class Reports extends BaseController
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
+    public function getPLGraph() {
+        $id = $this->request->getVar('log_id');
+        dd($id);
+    }
     
     public function test()
     {

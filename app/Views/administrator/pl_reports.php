@@ -1,7 +1,11 @@
 <?= $this->extend('administrator/layout/template') ?>
 
 <?= $this->section('content') ?>
-
+<style>
+    .client-name {
+        font-weight: bold;
+    }
+</style>
 <div class="content">
     <div class="card">
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
@@ -17,7 +21,6 @@
                             <form action="<?= base_url('upload-pl-report') ?>" method="POST" enctype="multipart/form-data">
                                 <?php csrf_field() ?>
                                 <div class="modal-body">
-
                                     <div class="form-group">
                                         <label>Client Name:</label>
                                         <div class="input-group">
@@ -33,6 +36,20 @@
                                                     <option value="-">-</option>
                                                 <?php endif ?>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="font-weight-semibold">P&L Types: </p>
+                                        <div class="border p-3 rounded">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" name="type" id="cr_l_i_s" value="yes" checked>
+                                                <label class="custom-control-label" for="cr_l_i_s">Include Last Year</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" name="type" value="no" id="cr_l_i_u">
+                                                <label class="custom-control-label" for="cr_l_i_u">Exclude Last Year</label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -100,6 +117,7 @@
                                         <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="icon-menu7"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right" style="">
                                             <a href="#" class="dropdown-item editpl" data-toggle="modal" data-id="<?= $row['log_id'] ?>" data-target="#modal_form_reupload"><i class="icon-undo"></i> Edit</a>
+                                            <a href="#" class="dropdown-item previewpl" data-toggle="modal" data-id="<?= $row['log_id'] ?>" data-target="#modal_preview"><i class="icon-file-eye"></i> Preview</a>
                                             <div class="dropdown-divider"></div>
                                             <form action="<?= base_url("/pl-report/" . $row['client_id']) ?>" method="post">
                                                 <?= csrf_field() ?>
@@ -134,7 +152,20 @@
                                     <input type="text" class="form-control" name="fullname" id="client" value="" readonly>
                                     <input type="hidden" class="form-control" name="client" id="client_id" value="" readonly>
                                     <input type="hidden" class="form-control" name="log_id" id="log_id" value="" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p class="font-weight-semibold">P&L Types: </p>
+                                <div class="border p-3 rounded">
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="type" id="dr_ls_c" value="yes" checked>
+                                        <label class="form-check-label" for="dr_ls_c">Include Last Year</label>
+                                    </div>
 
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="type" value="no" id="dr_ls_u">
+                                        <label class="form-check-label" for="dr_ls_u">Exclude Last Year</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -164,6 +195,24 @@
 
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div id="modal_preview" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-full">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary text-white">
+                        <h5 class="modal-title">P&L Preview [<span class="client-name"></span>]</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -253,6 +302,8 @@
             $('#log_id').val(pl['log_id']);
         });
     });
+
+  
 </script>
 
 <?= $this->endSection() ?>

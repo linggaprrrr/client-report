@@ -217,7 +217,11 @@
                         $vendorNames = array();
                         $vendorQty = array();
                         foreach (array_reverse($getVendorName->getResultArray()) as $vendor) {
-                            array_push($vendorNames, $vendor['vendor']);
+                            if (strlen($vendor['vendor']) > 17) 
+                                $str = substr($vendor['vendor'], 0, 14) . '...';
+                            else 
+                                $str = $vendor['vendor'];
+                            array_push($vendorNames, $str);
                             array_push($vendorQty, $vendor['qty']);
                         }
 
@@ -256,8 +260,8 @@
                                 },
                                 legend: {},
                                 grid: {
-                                    left: '35%',
-                                    right: '8%',
+                                    left: '32%',
+                                    right: '10%',
                                     bottom: '3%',
                                     containLabel: false
                                 },
@@ -278,8 +282,8 @@
                                             show: false
                                         },
                                         axisLabel: {
-                                            margin: 10,
-                                            fontSize: 12,
+                                            margin: 5,
+                                            fontSize: 9,
                                             fontWeight: 500,
                                         }
 
@@ -298,8 +302,8 @@
                                         },
                                         axisLabel: {
                                             align: 'left',
-                                            margin: 20,
-                                            fontSize: 14,
+                                            margin: 5,
+                                            fontSize: 9,
                                             fontWeight: 500,
 
                                         }

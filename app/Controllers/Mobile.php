@@ -39,7 +39,7 @@ class Mobile extends BaseController
       if (is_null($userId)) {
           return view('mobile/login');
       } else {           
-          return redirect()->route('mobile/get-started');
+          return redirect()->to(base_url('/mobile/get-started/'. $userId));
       }
     }
 
@@ -57,7 +57,7 @@ class Mobile extends BaseController
                 if ($user->role == "client") {
                     session()->set($params);
                     if ($currentPage == base_url()) {
-                        return redirect()->to(base_url('mobile/get-started'))->with('message', 'Login Successful!');
+                        return redirect()->to(base_url('mobile/get-started/'. $user->id))->with('message', 'Login Successful!');
                     } else {
                         return redirect()->to($currentPage)->with('message', 'Login Successful!');
                     }
@@ -329,4 +329,14 @@ class Mobile extends BaseController
         ];
         return view('mobile/news', $data);
     }
+
+    public function getClientCostLeft($clientId)
+    {   
+        $getClientCostLeft = $this->reportModel->getClientCostLeft($clientId);
+        $data = array (
+            'cost_left' => $getClientCostLeft
+        );
+        echo json_encode($data);
+    }
+
 }

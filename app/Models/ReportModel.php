@@ -117,6 +117,12 @@ class ReportModel extends Model
 
     public function savePLReport($chartTitle, $monthData, $type, $client)
     {
+        $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `last_year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$monthData[12]', '$type', '$client' ) ");
+        return $query;
+    }
+
+    public function savePLReportExclude($chartTitle, $monthData, $type, $client)
+    {
         $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$type', '$client' ) ");
         return $query;
     }

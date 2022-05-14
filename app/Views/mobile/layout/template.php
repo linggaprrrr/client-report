@@ -140,6 +140,10 @@
     .fa-sun {
         color: #F5EC30;
     }
+
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
 </style>
 
 <body>

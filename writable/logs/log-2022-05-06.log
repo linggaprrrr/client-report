@@ -1,0 +1,189 @@
+CRITICAL - 2022-05-06 04:33:49 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:34:55 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:35:47 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:35:48 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:35:49 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:35:58 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:35:59 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:36:46 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:36:47 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:36:47 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:37:38 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:37:38 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:37:39 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:37:39 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:37:39 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:37:40 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:38:15 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:38:16 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:38:17 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:38:17 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-05-06 04:38:32 -->  route cannot be found while reverse-routing.
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/HTTP/RedirectResponse.php(56): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute('')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Mobile.php(42): CodeIgniter\HTTP\RedirectResponse->route(false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->index()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}

@@ -49,13 +49,15 @@ class News extends BaseController
         $user = $this->userModel->find($userId);
         $news = $this->newsModel->getLastNews();
         $allNews = $this->newsModel->getNews();
+        $notifications = $this->db->query("SELECT * FROM push_notifications ORDER BY date DESC");
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
-            'tittle' => "News Announcement | Report Management System",
-            'menu' => "News Announcement",
+            'tittle' => "Announcements | Report Management System",
+            'menu' => "Announcements",
             'user' => $user,
             'news' => $news,
             'allNews' => $allNews,
+            'notifications' => $notifications,
             'companySetting' => $companysetting
         ];
         return view('administrator/news', $data);
@@ -95,4 +97,65 @@ class News extends BaseController
         $this->newsModel->delete($id);
         return redirect()->back()->with('delete', 'News Successfully Created!');
     }
+
+    public function getPushNotifications() {
+        return 0;
+    }
+
+    public function pushNotification() {
+        $title = $this->request->getVar('title');
+        $body = $this->request->getVar('body');
+        $getDevicesToken = $this->db->query("SELECT token FROM device_token");
+        $regists = array();
+        if ($getDevicesToken->getNumRows() > 0) {
+            foreach ($getDevicesToken->getResultArray() as $tokenApp) {
+                array_push($regists, $tokenApp['token']);
+            }
+        }
+        
+        $curl = curl_init();
+        $authKey = "key=AAAAQ5YfKhs:APA91bH4aSGkr65YAi6DWa2hnzSBO_rdyJyNs48Mr0l5T9vs_4VXEdQQ2x4zvitmZtNzBguWJEMHhAIbODzvBX3lMZ-YbxVn5hjKMMBlc3ikOTAyxysdEJZ5g7T_apNzoaZO01NI2R_s";
+        $registration_ids = json_encode($regists);
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => '{
+                        "registration_ids": ' . $registration_ids . ',
+                        "notification": {
+                            "title": "'. $title .'",
+                            "body": "'. $body .'"
+                        }
+                    }',
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: " . $authKey,
+            "Content-Type: application/json",
+            "cache-control: no-cache"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+        
+        $this->db->query("INSERT INTO push_notifications(title, body, status) VALUES('$title', '$body', 1) ");
+        return redirect()->back()->with('successPush', 'News Successfully Created!');
+    }
+
+    public function sendDeviceToken() {
+        $token = $this->request->getVar('token');
+        $this->db->query("INSERT IGNORE INTO device_token(token) VALUES ('$token') ");
+    }
+
+    
 }
