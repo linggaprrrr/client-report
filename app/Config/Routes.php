@@ -96,6 +96,7 @@ $routes->get('admin/company-setting', 'Admin\Users::companySetting');
 $routes->get('/purchase-inventory', 'Clients::purchaseInventory');
 $routes->get('/pl-report', 'Clients::plReport');
 $routes->get('/test_json', 'Clients::test_json');
+$routes->post('bulk-upload-pl-report', 'Admin\Reports::bulkUpload');
 
 
 //va 

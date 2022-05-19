@@ -111,7 +111,7 @@ class ReportModel extends Model
 
     public function getPLReport()
     {
-        $query = $this->db->query("SELECT log_files.client_id, link, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL ORDER BY date DESC");
+        $query = $this->db->query("SELECT log_files.client_id, link, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL AND link NOT LIKE 'BULK' ORDER BY date DESC");
         return $query;
     }
 
@@ -130,6 +130,11 @@ class ReportModel extends Model
     public function showPLReport($id)
     {
         $query = $this->db->query("SELECT * FROM chart_pl WHERE client_id = $id");
+        return $query;
+    }
+
+    public function getBulkUploaded() {
+        $query = $this->db->query("SELECT * FROM log_files WHERE link LIKE 'BULK' ");
         return $query;
     }
 

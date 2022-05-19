@@ -105,6 +105,7 @@ class News extends BaseController
     public function pushNotification() {
         $title = $this->request->getVar('title');
         $body = $this->request->getVar('body');
+        $this->db->query("INSERT INTO push_notifications(title, body, status) VALUES(". $this->db->escape($title) .", ". $this->db->escape($body) .", 1) ");
         $getDevicesToken = $this->db->query("SELECT token FROM device_token");
         $regists = array();
         if ($getDevicesToken->getNumRows() > 0) {
@@ -112,7 +113,6 @@ class News extends BaseController
                 array_push($regists, $tokenApp['token']);
             }
         }
-        
         $curl = curl_init();
         $authKey = "key=AAAAQ5YfKhs:APA91bH4aSGkr65YAi6DWa2hnzSBO_rdyJyNs48Mr0l5T9vs_4VXEdQQ2x4zvitmZtNzBguWJEMHhAIbODzvBX3lMZ-YbxVn5hjKMMBlc3ikOTAyxysdEJZ5g7T_apNzoaZO01NI2R_s";
         $registration_ids = json_encode($regists);
@@ -142,13 +142,7 @@ class News extends BaseController
         $err = curl_error($curl);
 
         curl_close($curl);
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
-        
-        $this->db->query("INSERT INTO push_notifications(title, body, status) VALUES('$title', '$body', 1) ");
+
         return redirect()->back()->with('successPush', 'News Successfully Created!');
     }
 

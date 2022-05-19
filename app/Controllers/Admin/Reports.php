@@ -299,6 +299,7 @@ class Reports extends BaseController
         $totalReport = $this->reportModel->totalReport();
         $getAllFiles = $this->reportModel->getPLReport();
         $getAllClient = $this->reportModel->getAllClient();
+        $getBulk = $this->reportModel->getBulkUploaded();
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [
@@ -308,6 +309,7 @@ class Reports extends BaseController
             'totalReport' => $totalReport,
             'getAllFiles' => $getAllFiles,
             'getAllClient' => $getAllClient,
+            'getBulk' => $getBulk,
             'user' => $user,
             'companySetting' => $companysetting
         ];
@@ -380,6 +382,10 @@ class Reports extends BaseController
                                         $temp = str_replace(')', '', $temp);
                                         $temp = -1 * abs($temp);
                                     }
+
+                                    if (strpos($temp, ',') !== false) {
+                                        $temp = str_replace(',', '', $temp);                                      
+                                    }
                                     array_push($month, $temp);
                                 }
                             }
@@ -436,6 +442,9 @@ class Reports extends BaseController
                                     $temp = str_replace(')', '', $temp);
                                     $temp = -1 * abs($temp);
                                 }
+                                if (strpos($temp, '.') !== false) {
+                                    $temp = str_replace('.', '', $temp);
+                                }
                                 array_push($month, $temp);
                             }
                             array_push($type, 'num');
@@ -449,8 +458,7 @@ class Reports extends BaseController
             }
         }
         
-        $fileName = time() . $chart->getName();
-        $chart->move('files', $fileName);
+        $fileName = $chart->getName();
         $this->db->query("INSERT into log_files(date, file, link, client_id) VALUES(NOW(), " . $this->db->escape($fileName) . "," . $this->db->escape($link) . " , $client) ");
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
@@ -1082,6 +1090,9 @@ class Reports extends BaseController
                                             $temp = str_replace(')', '', $temp);
                                             $temp = -1 * abs($temp);
                                         }
+                                        if (strpos($temp, ',') !== false) {
+                                            $temp = str_replace(',', '', $temp);                                      
+                                        }
                                         array_push($month, $temp);
                                     }
                                 }
@@ -1138,6 +1149,9 @@ class Reports extends BaseController
                                         $temp = str_replace(')', '', $temp);
                                         $temp = -1 * abs($temp);
                                     }
+                                    if (strpos($temp, ',') !== false) {
+                                        $temp = str_replace(',', '', $temp);                                      
+                                    }
                                     array_push($month, $temp);
                                 }
                                 array_push($type, 'num');
@@ -1150,14 +1164,75 @@ class Reports extends BaseController
                     $this->reportModel->savePLReportExclude($chartTitle[$i], $monthData[$i], $type[$i], $client);
                 }
             }
-            $fileName = time() . $chart->getName();
-            $chart->move('files', $fileName);
+            $fileName = $chart->getName();
             $this->db->query("UPDATE log_files SET file=" . $this->db->escape($fileName) . " ,link='$link', client_id ='$client' WHERE id='$log_id'");
         }
 
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
+    public function bulkUpload() {
+        $bulkedFile = $this->request->getFile('bulk_file');
+        $ext = $bulkedFile->getClientExtension();
+        if ($ext == 'xls') {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+        $spreadsheet = $render->load($bulkedFile);
+        $data = $spreadsheet->getActiveSheet()->toArray();    
+        $client = null;
+        $clientName = "";
+        $type = 'num';
+        foreach ($data as $idx => $row) {
+            if ($idx != 0) {
+                $chartTitle = $row[4];
+                $getClient = $this->db->query("SELECT id, fullname FROM users WHERE fullname LIKE ". $this->db->escape($row[2]) ." OR company LIKE ". $this->db->escape($row[2]) ."'%' LIMIT 1");
+                if ($getClient->getNumRows() > 0) {
+                    $client = $getClient->getRow();
+                    $isActive = $this->db->query("SELECT * FROM chart_pl WHERE client_id='$client->id' AND chart='$row[4]' ");
+                    if ($isActive->getNumRows() > 0) {
+                        $isActive = $isActive->getRow();
+                        if ($isActive->client_id == $client->id) {
+                            $this->db->query("DELETE FROM chart_pl WHERE client_id='$client->id' ");
+                        }
+                    }
+
+                    if (strcasecmp($row[4], "Gross Profit Margin") == 0 || strcasecmp($row[4], "Fees and Subtractions Rate") == 0 || strcasecmp($row[4], "Net Profit Margin") == 0) {                                
+                        $type = 'percentage';
+                    } elseif (strcasecmp($row[4], "Net Sales") == 0 || strcasecmp($row[4], "COGS") == 0 || strcasecmp($row[4], "Gross Profit") == 0 || strcasecmp($row[4], "Fees and Subtractions") == 0 || strcasecmp($row[4], "Net Profit") == 0) {                                
+                        $type = 'currency';
+                    } else {
+                        $type = 'num';
+                        $row[5] = str_replace(',', '', $row[5]);  
+                        $row[6] = str_replace(',', '', $row[6]);  
+                        $row[7] = str_replace(',', '', $row[7]);  
+                        $row[8] = str_replace(',', '', $row[8]);  
+                        $row[9] = str_replace(',', '', $row[9]);  
+                        $row[10] = str_replace(',', '', $row[10]);  
+                        $row[11] = str_replace(',', '', $row[11]);  
+                        $row[12] = str_replace(',', '', $row[12]);  
+                        $row[13] = str_replace(',', '', $row[13]);  
+                        $row[14] = str_replace(',', '', $row[14]);  
+                        $row[15] = str_replace(',', '', $row[15]);  
+                        $row[16] = str_replace(',', '', $row[16]);  
+                        $row[17] = str_replace(',', '', $row[17]);  
+                        $row[18] = str_replace(',', '', $row[18]);  
+                    } 
+                    $this->db->query("INSERT INTO chart_pl(`chart`, `last_year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `avg`, `type`, `client_id`) 
+                    VALUES('$chartTitle', '$row[5]', '$row[6]', '$row[7]', '$row[8]', '$row[9]', '$row[10]', '$row[11]', '$row[12]', '$row[13]', '$row[14]', '$row[15]', '$row[16]', '$row[17]', '$row[18]', '$type', '$client->id') ");                                    
+                    if ($clientName != $row[2]) {
+                        $this->db->query("INSERT INTO log_files(date, file, link, client_id) VALUES(NOW(), " . $this->db->escape($row[0]) . "," . $this->db->escape($row[1]) . " , '$client->id') ");
+                        $clientName = $row[2];
+                    }       
+                }   
+            }
+        }
+        $fileName = $bulkedFile->getName();
+        $this->db->query("INSERT into log_files(date, file, link, client_id) VALUES(NOW(), " . $this->db->escape($fileName) . ", 'BULK', '') ");
+        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
+    }
+        
     public function getTopInvestment()
     {
         $topInvestment = $this->investmentModel->getTopInvestment();

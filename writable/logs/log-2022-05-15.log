@@ -1,0 +1,237 @@
+CRITICAL - 2022-05-15 00:55:37 --> Undefined variable: id
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1199): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 1199, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-05-15 00:56:29 --> Undefined variable: id
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1199): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 1199, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-05-15 00:56:40 --> Undefined variable: id
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1199): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 1199, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-05-15 21:30:40 --> syntax error, unexpected 'public' (T_PUBLIC), expecting end of file
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-05-15 21:30:48 --> syntax error, unexpected 'public' (T_PUBLIC), expecting end of file
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-05-15 21:30:58 --> syntax error, unexpected 'public' (T_PUBLIC), expecting end of file
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-05-15 22:47:29 --> Array to string conversion
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1209): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Array to string...', '/Applications/M...', 1209, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+ERROR - 2022-05-15 22:50:09 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dec, type, client_id) 
+                        VALUE('223', '223', '215', '199',' at line 1
+CRITICAL - 2022-05-15 22:50:09 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dec, type, client_id) 
+                        VALUE('223', '223', '215', '199',' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 22:51:28 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dec, type, client_id) 
+                        VALUE('223', '223', '215', '199',' at line 1
+CRITICAL - 2022-05-15 22:51:28 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dec, type, client_id) 
+                        VALUE('223', '223', '215', '199',' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 22:52:43 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dec, type, client_id) 
+                        VALUE('223', '223', '215', '199',' at line 1
+CRITICAL - 2022-05-15 22:52:43 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dec, type, client_id) 
+                        VALUE('223', '223', '215', '199',' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 22:53:28 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+CRITICAL - 2022-05-15 22:53:28 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 22:54:51 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185' at line 2
+CRITICAL - 2022-05-15 22:54:51 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185' at line 2
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 22:56:45 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185' at line 2
+CRITICAL - 2022-05-15 22:56:45 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185' at line 2
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 22:57:34 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185' at line 2
+CRITICAL - 2022-05-15 22:57:34 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185' at line 2
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-05-15 22:59:41 --> syntax error, unexpected '$chartTitle' (T_VARIABLE), expecting ')'
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 23:00:21 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185)' at line 2
+CRITICAL - 2022-05-15 23:00:21 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185)' at line 2
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 23:01:21 --> Unknown column ' feb' in 'field list'
+CRITICAL - 2022-05-15 23:01:21 --> Unknown column ' feb' in 'field list'
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 23:01:42 --> Unknown column 'num' in 'field list'
+CRITICAL - 2022-05-15 23:01:42 --> Unknown column 'num' in 'field list'
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 23:50:44 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185)' at line 2
+CRITICAL - 2022-05-15 23:50:44 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' , , , , , , , , 217.33333333333, num, 185)' at line 2
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-05-15 23:53:09 --> syntax error, unexpected '' (T_ENCAPSED_AND_WHITESPACE), expecting ']'
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-15 23:53:38 --> Unknown column ' feb' in 'field list'
+CRITICAL - 2022-05-15 23:53:38 --> Unknown column ' feb' in 'field list'
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO cha...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO cha...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO cha...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1204): CodeIgniter\Database\BaseConnection->query('INSERT INTO cha...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}

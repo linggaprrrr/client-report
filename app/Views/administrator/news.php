@@ -8,14 +8,12 @@
         <div class="card-body">
             <ul class="nav nav-tabs nav-tabs-bottom">
                 <li class="nav-item">
-                    <a href="#icon-only-tab1" class="nav-link active" data-toggle="tab">
-                        <span class="d-lg-none ml-2">Active</span>
+                    <a href="#icon-only-tab1" class="nav-link active" data-toggle="tab" id="tab-icon">
                         News
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#icon-only-tab2" class="nav-link" id="myfav" data-toggle="tab">
-                        <span class="d-lg-none ml-2">Inactive</span>
+                    <a href="#icon-only-tab2" class="nav-link" data-toggle="tab" id="tab-icon2">
                         Push Notifications
                     </a>
                 </li>
@@ -168,116 +166,101 @@
 
                 </div>
                 <div class="tab-pane fade" id="icon-only-tab2">
-                    <div class="tab-pane fade show active" id="icon-only-tab1">
-                        <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
-                            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                                    <i class="icon-bubble-lines3"></i>
-                                </a>
-                                <div class="ml-3">
-                                    <h5 class="font-weight-semibold mb-0"><?= $notifications->getNumRows() ?></h5>
-                                    <span class="text-muted">Total Notificatios</span>
-                                </div>
+                    <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
+                        <div class="d-flex align-items-center mb-3 mb-lg-0">
+                            <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                                <i class="icon-bubble-lines3"></i>
+                            </a>
+                            <div class="ml-3">
+                                <h5 class="font-weight-semibold mb-0"><?= $notifications->getNumRows() ?></h5>
+                                <span class="text-muted">Total Notificatios</span>
                             </div>
+                        </div>
 
-                            <div>
-                                <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_notification"><i class="icon-add-to-list mr-2"></i>Create Notification</button>
-                                <div id="modal_notification" class="modal fade" tabindex="-1">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header bg-secondary text-white">
-                                                <h5 class="modal-title"><i class="icon-bubble-lines3 mr-2"></i>Create Notification</h5>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <form action="<?= base_url('create-notification') ?>" method="POST" enctype="multipart/form-data">
-                                                <?php csrf_field() ?>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label>Title:</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="icon-bubble-lines3"></i></span>
-                                                            </span>
-                                                            <input type="text" class="form-control" name="title" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Body:</label>
-                                                        <div class="input-group">
-                                                            <textarea class="form-control" name="body" required></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <div class="text-right">
-                                                        <button type="submit" class="btn btn-secondary">Send <i class="icon-paperplane ml-2"></i></button>
-                                                    </div>
-
-                                                </div>
-                                            </form>
+                        <div>
+                            <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_notification"><i class="icon-add-to-list mr-2"></i>Create Notification</button>
+                            <div id="modal_notification" class="modal fade" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-secondary text-white">
+                                            <h5 class="modal-title"><i class="icon-bubble-lines3 mr-2"></i>Create Notification</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
+                                        <form action="<?= base_url('create-notification') ?>" method="POST" enctype="multipart/form-data">
+                                            <?php csrf_field() ?>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label>Title:</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="icon-bubble-lines3"></i></span>
+                                                        </span>
+                                                        <input type="text" class="form-control" name="title" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Body:</label>
+                                                    <div class="input-group">
+                                                        <textarea class="form-control" name="body" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="text-right">
+                                                    <button type="submit" class="btn btn-secondary">Send <i class="icon-paperplane ml-2"></i></button>
+                                                </div>
+
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <table class="table datatable-basic-2" style="font-size: 14px;">
-                            <thead>
-                                <tr>
-                                    <th style="width: 5%">No</th>
-                                    <th>Notification </th>
-                                    <th style="width: 15%" class="text-center">Date </th>
-                                    <th style="width: 10%" class="text-center">Status</th>
-
-                                    <th class="text-center" style="width: 20px;"><i class="icon-arrow-down12"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if ($notifications->getNumRows() > 0) : ?>
-                                    <?php $no = 1 ?>
-                                    <?php foreach ($notifications->getResultArray() as $notif) : ?>
-                                        <tr>
-                                            <td class="text-center"><?= $no++ ?></td>
-                                            <td>
-                                                <li class="media" style="align-content: center;">
-                                                    <div class="mr-3">
-                                                        <i class="icon-bubble-lines3 mr-3 icon-3x"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <span class="media-title d-block font-weight-semibold"><?= $notif['title'] ?></span>
-                                                        <?= $notif['body'] ?>
-                                                    </div>
-                                                </li>
-                                            </td>
-                                            <td class="text-center"><?= strtoupper(date("M-d-y H:i", strtotime($notif['date']))) ?></td>
-                                            <td class="text-center">
-                                                <?php if ($notif['status'] == 1) : ?>
-                                                    Completed
-                                                <?php else:  ?>
-                                                    Failed
-                                                <?php endif ?>
-                                            </td>
-
-                                            <td class="text-center">
-                                                <div class="list-icons">
-                                                    <div class="dropdown">
-                                                        <a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">                                                        
-                                                            <form action="<?= base_url("/delete-news/" . $news['id']) ?>" method="post">
-                                                                <?= csrf_field() ?>
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <button type="submit" class="dropdown-item"><i class="icon-cross2 text-danger"></i> Delete</a>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                    <?php endforeach ?>
-                                <?php endif ?>
-                            </tbody>
-                        </table>
                     </div>
+                    <table class="table datatable-basic-2" style="font-size: 14px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">No</th>
+                                <th>Notification </th>
+                                <th style="width: 15%" class="text-center">Date </th>
+                                <th style="width: 10%" class="text-center">Status</th>
+
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if ($notifications->getNumRows() > 0) : ?>
+                                <?php $no = 1 ?>
+                                <?php foreach ($notifications->getResultArray() as $notif) : ?>
+                                    <tr>
+                                        <td class="text-center"><?= $no++ ?></td>
+                                        <td>
+                                            <li class="media" style="align-content: center;">
+                                                <div class="mr-3">
+                                                    <i class="icon-bubble-lines3 mr-3 icon-3x"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <span class="media-title d-block font-weight-semibold"><?= $notif['title'] ?></span>
+                                                    <?= $notif['body'] ?>
+                                                </div>
+                                            </li>
+                                        </td>
+                                        <td class="text-center"><?= strtoupper(date("M-d-y H:i", strtotime($notif['date']))) ?></td>
+                                        <td class="text-center">
+                                            <?php if ($notif['status'] == 1) : ?>
+                                                Completed
+                                            <?php else:  ?>
+                                                Failed
+                                            <?php endif ?>
+                                        </td>
+
+                                    
+
+                                    </tr>
+                                <?php endforeach ?>
+                            <?php endif ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -324,6 +307,8 @@
         <?php if (session()->getFlashdata('successPush')) : ?>
             $('#icon-only-tab1').removeClass("show active");
             $('#icon-only-tab2').addClass("show active");
+            $('#tab-icon').removeClass("active");
+            $('#tab-icon2').addClass("active");
             $('#noty_notif').click();
         <?php endif ?>
 
