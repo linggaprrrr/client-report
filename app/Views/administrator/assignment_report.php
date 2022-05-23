@@ -107,6 +107,73 @@
                 </div>
             </div>
             <div>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal_assignbrand"><i class="icon-bold2 mr-2"></i>Assign Brand</button>
+                <div id="modal_assignbrand" class="modal fade">
+                    <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header bg-secondary text-white">
+                                <h5 class="modal-title">Assign Brand</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="brand-list">
+                                    <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-4">
+
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-3 col-form-label font-weight-bold">CLIENT:</label>
+                                            <div class="col-sm-9">
+                                            <select class="form-control select-search user-select user_list" name="user" data-fouc>
+                                                <option value="0">...</option>
+                                                <?php foreach ($users->getResultArray() as $client) : ?>
+                                                <option value="<?= $client['id'] ?>"><?= $client['fullname'] . " (" . $client['company'] . ")" ?></option>
+                                                <?php endforeach ?>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-4">
+
+                                        </div>
+                                        <div class="col-md-4">
+
+                                   
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="card-body">
+                                    <div class="form-group" id="brandcontent">
+                                        <p class="font-weight-semibold"></p>
+                                        <div class="row brandlist">
+                                        <?php foreach ($brands->getResultArray() as $brand) : ?>
+                                            <div class="col-md-2">
+                                            <label class="custom-control custom-control-dark custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input brand_check">
+                                                <span class="custom-control-label font-weight-bold"><?= $brand['brand_name'] ?></span>
+                                            </label>
+                                            </div>
+                                        <?php endforeach ?>
+                                        </div>
+                                    </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-secondary btn_check" ><i class="icon-checkmark2"></i> Save</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="text-right">
+                                <a class="btn btn-light" data-dismiss="modal">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
                 <div>
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#week_modal"><i class="icon-gear mr-2"></i>Period Setting</button>
                     <div id="week_modal" class="modal fade" tabindex="-1">
@@ -275,7 +342,7 @@
                                     <td class="text-center"><span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span></td>
                                     <td class="text-center font-weight-bold value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
                                     <td class="text-center">
-                                        <select class="form-control select-search va_box_<?= $no ?>" name="va[]" data-fouc>
+                                        <select class="form-control va_box_<?= $no ?>" name="va[]">
                                             <option value="0">...</option>
                                             <?php foreach ($getAllVA->getResultArray() as $va) : ?>
                                                 <?php if ($va['id'] == $row['va_id']) : ?>
@@ -338,6 +405,7 @@
                                                 None
                                             <?php endif ?>
                                         </p>
+                                        
                                     </td>
                                     <td class="text-center category_box_<?= $no ?>">
                                         <b><?= strtoupper($row['category']) ?></b>
@@ -346,7 +414,7 @@
                                     <td class="text-center font-weight-bold value_box_<?= $no ?>">$ <?= $row['box_value'] ?></td>
 
                                     <td class="text-center">
-                                        <select class="form-control select-search va_box_<?= $no ?>" name="va[]" data-fouc>
+                                        <select class="form-control va_box_<?= $no ?>" name="va[]">
                                             <option value="0">...</option>
                                             <?php foreach ($getAllVA->getResultArray() as $va) : ?>
                                                 <option value="<?= $va['id'] ?>"><b><?= $va['fullname'] ?></b></option>
@@ -652,7 +720,37 @@
         </table>
 
     </div>
+    <div class="modal fade assignboxmodal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header pb-3">
+                        <h5><b><span class="modal-title-assign">#title</span></b> </h5>
+                    </div>
+                    <div class="modal-body py-0">                
+                            <?php csrf_field() ?>
+                            <div class="form-group">
+                                <label for=""><b>Select Client:</b></label>
+                                <div class="input-group">
+                                    <select class="form-control select-client-reject" name="client">
+                                        <option value="0">...</option>
+                                        <?php foreach ($getAllClient->getResultArray() as $client) : ?>
+                                            <option value="<?= $client['id'] ?>"><b><?= $client['fullname'] ?> (<?= $client['company'] ?> )</b></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
 
+                            </div>
+                        
+                    </div>
+                    <div class="modal-footer pt-3">
+                        <a class="btn btn-light" data-dismiss="modal">Cancel</a>
+                        <button type="submit" class="btn btn-secondary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="modal fade modal_scrollable_box" tabindex="-1">
         <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
@@ -1006,6 +1104,70 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
     $(document).ready(function() {
+        $('.user-select').change(function() {
+            const id = $(this).val();
+            $.get('/get-brands-client', {
+                userid: id
+            }, function(data) {
+                $('.brandlist').html("");
+                const brand = JSON.parse(data);
+                for (var i = 0; i < brand.length; i++) {
+                if (brand[i]['checked'] == 1) {
+                    $('.brandlist').append('<div class="col-md-2"> <label class="custom-control custom-control-dark custom-checkbox mb-2"> <input type="checkbox" name="brand[]" value="' + brand[i]['id'] + '" class="custom-control-input brand_check" checked> <span class="custom-control-label font-weight-bold">' + brand[i]['brand_name'] + '</span> </label> </div>');
+                } else {
+                    $('.brandlist').append(' <div class="col-md-2"> <label class="custom-control custom-control-dark custom-checkbox mb-2"> <input type="checkbox" name="brand[]" value="' + brand[i]['id'] + '" class="custom-control-input brand_check" > <span class="custom-control-label font-weight-bold">' + brand[i]['brand_name'] + '</span> </label> </div>');
+                }
+                }
+            })
+        });
+
+        $('.brand-select').change(function() {
+            const id = $(this).val();
+            $.get('/get-client-by-brand', {
+                brandid: id
+            }, function(data) {
+                $('.userlist').html("");
+                const user = JSON.parse(data);
+                $('#totalclient').html(user.length);
+                for (var i = 0; i < user.length; i++) {
+                if (user[i]['checked'] == 1) {
+                    $('.userlist').append('<div class="col-md-3"><dl class="mb-0"> <dt class="font-weight-bold"><i class="icon-checkmark-circle"></i> ' + user[i]['fullname'] + ' (' + user[i]['company'] + ')</dt> </dl></div>');
+                }
+                }
+            })
+        });
+
+        $("form#brand-list").on("submit", function(e) {
+            e.preventDefault();
+            $.post('<?= base_url('/save-brand-client') ?>', $(this).serialize(), function(data) {
+            if (data != "0") {
+                new Noty({
+                text: 'Brands has been saved.',
+                type: 'alert'
+                }).show();
+            } else {
+                new Noty({
+                text: 'Please select client first',
+                type: 'alert'
+                }).show();
+            }
+            });
+        });
+
+
+        $("form#formaddbrand").on("submit", function(e) {
+            e.preventDefault();
+            $.post('<?= base_url('/add-brand') ?>', $(this).serialize(), function(data) {
+            new Noty({
+                text: 'New Brand has been saved.',
+                type: 'alert'
+            }).show();
+            $("#brandcontent").load(location.href + " #brandcontent");
+
+            $('#modal_form_upload').modal('hide');
+            });
+        });
+
         $('.rollback').on('click', function() {
             var boxName = $(this).data('id');
             swal("Enter your password:", {
@@ -1152,8 +1314,9 @@
         $("." + clientId)
             .empty()
             .append('<option value="0">...</option>');
-        const myarr = desc.split("-");
+        const myarr = desc.split("-").join(', ').split('/').join(', ').split(', ');
         const newDesc = myarr[0];
+        console.log(newDesc);
         $.get('/get-client-by-branddesc', {
             description: newDesc
         }, function(data) {

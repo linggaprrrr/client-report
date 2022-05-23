@@ -78,7 +78,7 @@ class InvestmentModel extends Model
     public function getAllInvestment($status = null)
     {
         if ($status == null || $status == 'incomplete') {
-            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as total_cost, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'incomplete' GROUP BY reports.investment_id ORDER BY status DESC, cost_left ASC");
+            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, IFNULL(SUM(reports.cost), 0) as total_cost, (investments.cost - IFNULL(SUM(reports.cost), 0)) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFt JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'incomplete' GROUP BY investments.id ORDER BY status DESC, cost_left ASC");
         } elseif ($status == 'assign') {
             $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as total_cost, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'assign' GROUP BY reports.investment_id ORDER BY status DESC, cost_left ASC");
         } else {

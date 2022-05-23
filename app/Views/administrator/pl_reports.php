@@ -100,6 +100,7 @@
                                         <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="icon-menu7"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right" style="">
                                             <a href="#" class="dropdown-item editpl" data-toggle="modal" data-id="<?= $row['log_id'] ?>" data-target="#modal_form_reupload"><i class="icon-undo"></i> Edit</a>
+                                            <a href="#" class="dropdown-item previewpl" data-toggle="modal" data-id="<?= $row['log_id'] ?>" data-target="#modal_preview"><i class="icon-file-eye"></i> Preview</a>
                                             <div class="dropdown-divider"></div>
                                             <form action="<?= base_url("/pl-report/" . $row['client_id']) ?>" method="post">
                                                 <?= csrf_field() ?>
@@ -164,6 +165,26 @@
 
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div id="modal_preview" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-full">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary text-white">
+                        <h5 class="modal-title">P&L Report Preview </h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="loading">Please wait</div>
+                         <iframe src="" frameborder="0"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                            <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
                 </div>
             </div>
         </div>
@@ -253,6 +274,11 @@
             $('#log_id').val(pl['log_id']);
         });
     });
+
+    $('.previewpl').click(function() {
+     
+    });
+
 </script>
 
 <?= $this->endSection() ?>

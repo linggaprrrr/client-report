@@ -22,11 +22,17 @@
                                         <option value="incomplete">...</option>
                                         <option value="assign">READY TO ASSIGN</option>
                                         <option value="complete" selected>COMPLETE</option>
+                                    <?php else : ?>
+                                        <option value="incomplete" selected>...</option>
+                                        <option value="assign">READY TO ASSIGN</option>
+                                        <option value="complete">COMPLETE</option>
                                     <?php endif ?>
+                
                                 <?php else : ?>
                                     <option value="incomplete" selected>...</option>
                                     <option value="assign">READY TO ASSIGN</option>
                                     <option value="complete">COMPLETE</option>
+                                
                                 <?php endif ?>
                             </select>
                         </div>

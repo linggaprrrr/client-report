@@ -456,6 +456,8 @@ class Reports extends BaseController
         $getAllAssignReportCompleted = $this->assignReportModel->getAllAssignReportCompleted();
         $getWeeks = $this->assignReportModel->getWeeks();
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
+        $getUsers = $this->userModel->where('role', 'client')->orderBy('fullname', 'ASC')->get();
+        $getBrands = $this->categoryModel->getBrands();
         
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
@@ -467,6 +469,8 @@ class Reports extends BaseController
             'getAllAssignReportPending' => $getAllAssignReportPending,
             'getAllAssignReportCompleted' => $getAllAssignReportCompleted,
             'weeks' => $getWeeks,
+            'brands' => $getBrands,
+            'users' => $getUsers,
             'companySetting' => $companysetting
         ];
         return view('administrator/assignment_report', $data);
