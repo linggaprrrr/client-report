@@ -44,7 +44,7 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <!-- Main -->
                 <li class="nav-item">
-                    <a href="<?= base_url('/mobile/get-started') ?>" class="nav-link">
+                    <a href="<?= base_url('/mobile/get-started/'. $user['id']) ?>" class="nav-link">
                         <i class="icon-rocket"></i>
                         <span>
                             Get Started

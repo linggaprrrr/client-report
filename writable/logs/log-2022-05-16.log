@@ -1,0 +1,79 @@
+CRITICAL - 2022-05-16 02:04:25 --> Undefined property: CodeIgniter\Database\MySQLi\Result::$client_id
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1196): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Applications/M...', 1196, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+ERROR - 2022-05-16 05:43:50 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Concierge (SFBA)%' LIMIT 1' at line 1
+CRITICAL - 2022-05-16 05:43:50 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Concierge (SFBA)%' LIMIT 1' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT id, full...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT id, full...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT id, full...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1191): CodeIgniter\Database\BaseConnection->query('SELECT id, full...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-05-16 05:47:33 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Concierge (SFBA)%' LIMIT 1' at line 1
+CRITICAL - 2022-05-16 05:47:33 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Concierge (SFBA)%' LIMIT 1' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT id, full...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT id, full...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT id, full...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1191): CodeIgniter\Database\BaseConnection->query('SELECT id, full...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->bulkUpload()
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-05-16 06:02:00 --> syntax error, unexpected '{'
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-05-16 11:00:47 --> Undefined variable: jan
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Views/client/pl_report.php(72): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 72, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/Common.php(1097): CodeIgniter\View\View->render('client/pl_repor...', Array, true)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Clients.php(196): view('client/pl_repor...', Array)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Clients->plReport()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-05-16 11:01:37 --> Undefined variable: jan
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Views/client/pl_report.php(72): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 72, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/Common.php(1097): CodeIgniter\View\View->render('client/pl_repor...', Array, true)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Clients.php(196): view('client/pl_repor...', Array)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Clients->plReport()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-05-16 11:03:09 --> Function money_format() is deprecated
+#0 /Applications/MAMP/htdocs/smartfba/client-report/app/Views/client/pl_report.php(58): CodeIgniter\Debug\Exceptions->errorHandler(8192, 'Function money_...', '/Applications/M...', 58, Array)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/Common.php(1097): CodeIgniter\View\View->render('client/pl_repor...', Array, true)
+#4 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Clients.php(196): view('client/pl_repor...', Array)
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Clients->plReport()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

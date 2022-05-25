@@ -1,0 +1,13 @@
+ERROR - 2022-05-17 04:42:09 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2'%' GROUP BY users.id' at line 1
+CRITICAL - 2022-05-17 04:42:09 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2'%' GROUP BY users.id' at line 1
+#0 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT users.fu...', 0)
+#1 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT users.fu...')
+#2 /Applications/MAMP/htdocs/smartfba/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT users.fu...')
+#3 /Applications/MAMP/htdocs/smartfba/client-report/app/Models/CategoryModel.php(38): CodeIgniter\Database\BaseConnection->query('SELECT users.fu...')
+#4 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1349): App\Models\CategoryModel->selectedClient('2')
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->getClientBrand()
+#6 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

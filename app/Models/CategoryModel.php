@@ -35,7 +35,7 @@ class CategoryModel extends Model
 
     public function selectedClient($brandid)
     {
-        $query = $this->db->query("SELECT users.id, users.fullname, users.company FROM users JOIN investments ON users.id = investments.client_id JOIN brands WHERE investments.status='assign' AND brands.id = '$brandid' AND FIND_IN_SET('$brandid', brand_approval)");
+        $query = $this->db->query("SELECT users.fullname, users.company, users.id FROM users JOIN brands WHERE brands.id = '$brandid' AND FIND_IN_SET('$brandid', brand_approval)");
         return $query;
     }
 }

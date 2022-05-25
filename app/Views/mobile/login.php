@@ -20,10 +20,34 @@
     <!-- Style -->
     <link rel="stylesheet" href="/assets/login/css/style.css">
     <!-- /theme JS files -->
-
+    <style type="text/css">
+    .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background-color: #f8fafb;
+    }
+    .preloader .loading {
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font: 14px arial;
+    }
+    </style>
 </head>
 
 <body>
+    <div class="preloader">
+        <div class="loading">
+            <img src="/assets/images/loading.gif" width="80">
+            <p>Please Wait...</p>
+        </div>
+    </div>
     <div class="content">
         <div class="container">
             <div class="row">
@@ -82,5 +106,9 @@
     <script src="/assets/login/js/bootstrap.min.js"></script>
     <script src="/assets/login/js/main.js"></script>
 </body>
-
+<script>
+    $(document).ready(function(){
+        $(".preloader").fadeOut(1500);
+    })
+</script>
 </html>

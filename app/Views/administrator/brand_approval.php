@@ -198,7 +198,7 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="form-group" id="brandcontent">
+              <div class="form-group" id="clientcontent">
                 <p class="font-weight-semibold"></p>
                 <div class="row userlist">
                   <?php foreach ($users->getResultArray() as $user) : ?>

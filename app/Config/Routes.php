@@ -74,6 +74,8 @@ $routes->get('/admin/brand-approvals', 'Admin\Reports::brandApproval');
 $routes->post('/reassign-box', 'Admin\Reports::reassignBox');
 $routes->post('/upload-brand', 'Admin\Reports::uploadBrand');
 $routes->post('/upload-brand-per-store', 'Admin\Reports::uploadBrandPerStore');
+$routes->get('/admin/push-notification', 'NegetPushNotifications');
+$routes->post('create-notification', 'News::pushNotification');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -94,6 +96,7 @@ $routes->get('admin/company-setting', 'Admin\Users::companySetting');
 $routes->get('/purchase-inventory', 'Clients::purchaseInventory');
 $routes->get('/pl-report', 'Clients::plReport');
 $routes->get('/test_json', 'Clients::test_json');
+$routes->post('bulk-upload-pl-report', 'Admin\Reports::bulkUpload');
 
 
 //va 
@@ -127,6 +130,7 @@ $routes->post('/save-brand-client', 'Admin\Reports::saveClientBrand');
 $routes->post('/add-brand', 'Admin\Reports::addBrand');
 $routes->post('/rollback-assignment', 'Admin\Reports::rollbackAssignment');
 $routes->get('/get-client-by-branddesc', 'Admin\Reports::getClientByDescBrand');
+$routes->get('/get-pl-graph', 'Admin\Reports::getPLGraph');
 
 
 // mobile version
@@ -139,11 +143,17 @@ $routes->post('/mobile/dashboard', 'Mobile::dashboard');
 $routes->get('/mobile/account-setting', 'Mobile::accountSetting');
 $routes->post('/mobile/update-setting', 'Mobile::updateSetting');
 
-$routes->get('/mobile/get-started', 'Mobile::getStarted');
+$routes->get('/mobile/get-started/(:num)', 'Mobile::getStarted');
 $routes->get('/mobile/brand-approvals', 'Mobile::brandApprovals');
 $routes->get('/mobile/purchase-inventory', 'Mobile::purchaseInventory');
 $routes->get('/mobile/pl-report', 'Mobile::plReport');
 $routes->get('/mobile/news', 'Mobile::news');
+
+
+// API
+$routes->get('/mobile/client-cost-left/(:num)', 'Mobile::getClientCostLeft/$1');
+$routes->post('/api/send-device-token', 'News::sendDeviceToken');
+
 
 
 /*

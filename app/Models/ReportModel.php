@@ -5,7 +5,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class ReportModel extends Model
-{
+{   
     protected $table = 'reports';
     protected $allowedFields = ['sku', 'item_description', 'cond', 'qty', 'retail_value', 'original_value', 'cost', 'vendor', 'client_id', 'investment_id'];
     protected $db = "";
@@ -111,11 +111,17 @@ class ReportModel extends Model
 
     public function getPLReport()
     {
-        $query = $this->db->query("SELECT log_files.client_id, link, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL ORDER BY date DESC");
+        $query = $this->db->query("SELECT log_files.client_id, link, log_files.id as log_id, fullname, company, file, date from users join log_files on users.id=log_files.client_id where role <> 'superadmin' AND investment_id IS NULL AND link NOT LIKE 'BULK' ORDER BY date DESC");
         return $query;
     }
 
     public function savePLReport($chartTitle, $monthData, $type, $client)
+    {
+        $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `last_year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$monthData[12]', '$type', '$client' ) ");
+        return $query;
+    }
+
+    public function savePLReportExclude($chartTitle, $monthData, $type, $client)
     {
         $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$type', '$client' ) ");
         return $query;
@@ -124,6 +130,11 @@ class ReportModel extends Model
     public function showPLReport($id)
     {
         $query = $this->db->query("SELECT * FROM chart_pl WHERE client_id = $id");
+        return $query;
+    }
+
+    public function getBulkUploaded() {
+        $query = $this->db->query("SELECT * FROM log_files WHERE link LIKE 'BULK' ");
         return $query;
     }
 
