@@ -147,8 +147,6 @@
                                             <label class="custom-control custom-control-dark custom-checkbox mb-2">
                                                 <?php if ($brand['checked'] == 1) : ?>
                                                     <input type="checkbox" class="custom-control-input" checked disabled>
-                                                <?php else : ?>
-                                                    <input type="checkbox" class="custom-control-input" disabled>
                                                 <?php endif ?>
                                                 <span class="custom-control-label font-weight-bold"><?= $brand['brand_name'] ?></span>
                                             </label>

@@ -26,7 +26,7 @@
             <?php foreach ($plReport->getResultArray() as $row) : ?>
                 <div class="col-xl-12">
                         <!-- Multi level donut chart -->
-                        <?php if (!is_null($row['last_year']) || !empty($row['last_year']) || $row['last_year'] != 0 ) :?>
+                        <?php if ($row['last_year'] != "0" ) :?>
                                 <div class="card" >
                                     <div class="card-header">
                                         <h5 class="card-title"><b><?= strtoupper($row['chart']) ?></b> </h5>
@@ -37,9 +37,13 @@
                                             <?php
                                             $temp = array($row['last_year'], $row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
                                             $total = array_sum($temp) - $row['last_year'];
-                                            $avg = $total / (count(array_filter($temp))-1);
+                                            if ($total < 0) {
+                                                $avg = 0;                                                
+                                            } else {
+                                                $avg = $total / count(array_filter($temp));
+                                            }
                                             if ($row['type'] == 'percentage') {
-                                                $total = $avg = round($avg, 2);
+                                                $total = round($avg, 2);
                                                 $lastYear = round($row['last_year'], 2);
                                                 $jan = ($row['jan'] == 0) ? null : number_format($row['jan'], 2);
                                                 $feb = ($row['feb'] == 0) ? null : number_format($row['feb'], 2);
@@ -87,6 +91,7 @@
                                                 '#d96459', '#618685',
                                                 '#d9ad7c', '#618685',
                                             ];
+                                            
                                             ?>
                                             <div class="chart has-fixed-height" id="<?= $chartId ?>"></div>
                                             <script type="text/javascript">
@@ -215,10 +220,14 @@
                                             <?php
                                             $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
                                             $total = array_sum($temp);
-                                            $avg = $total / count(array_filter($temp));                                           
+                                            if ($total < 0) {
+                                                $avg = 0;                                                
+                                            } else {
+                                                $avg = $total / count(array_filter($temp));
+                                            }
+                                                                                       
                                             if ($row['type'] == 'percentage') {
                                                 $total = round($avg, 2);
-                                                $lastYear = round($row['last_year'], 2);
                                                 $jan = ($row['jan'] == 0) ? null : number_format($row['jan'], 2);
                                                 $feb = ($row['feb'] == 0) ? null : number_format($row['feb'], 2);
                                                 $mar = ($row['mar'] == 0) ? null : number_format($row['mar'], 2);
@@ -233,7 +242,6 @@
                                                 $dec = ($row['dec'] == 0) ? null : number_format($row['dec'], 2);
                                             } else {
                                                 $avg = round($avg);
-                                                $lastYear = round($row['last_year']);
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan']);
                                                 $feb = ($row['feb'] == 0) ? null : round($row['feb']);
                                                 $mar = ($row['mar'] == 0) ? null : round($row['mar']);

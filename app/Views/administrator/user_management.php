@@ -185,7 +185,8 @@
         </table>
     </div>
     <!-- /blocks with chart -->
-
+    <button type="button" id="noty_created" style="display: none;"></button>
+    <button type="button" id="noty_deleted" style="display: none;"></button>
 </div>
 
 <?= $this->endSection() ?>
@@ -194,6 +195,9 @@
 
 <script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <script src="/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
+<script src="/assets/js/plugins/notifications/noty.min.js"></script>
+<script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -203,8 +207,27 @@
                 $('#btnAdd').removeClass('disabled');
             } else
                 $('#message').html('Password not matching!').css('color', 'red');
-
         });
+
+        <?php if (session()->getFlashdata('success')) : ?>
+            $('#noty_created').click();
+        <?php endif ?>
+        <?php if (session()->getFlashdata('delete')) : ?>
+            $('#noty_deleted').click();
+        <?php endif ?>
+    });
+
+    $('#noty_created').on('click', function() {
+        new Noty({
+            text: 'You successfully upload the report.',
+            type: 'alert'
+        }).show();
+    });
+    $('#noty_deleted').on('click', function() {
+        new Noty({
+            text: 'You successfully delete the report.',
+            type: 'alert'
+        }).show();
     });
 </script>
 

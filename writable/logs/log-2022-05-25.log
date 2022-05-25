@@ -1,0 +1,10 @@
+CRITICAL - 2022-05-25 00:43:12 --> Brands Approved Per Store!D3 -> Formula Error: An unexpected error occurred
+#0 /Applications/MAMP/htdocs/smartfba/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2567): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartfba/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2670): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A1:Y4106', NULL, true, true, false)
+#2 /Applications/MAMP/htdocs/smartfba/client-report/app/Controllers/Admin/Reports.php(1460): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->toArray()
+#3 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadBrandPerStore()
+#4 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 /Applications/MAMP/htdocs/smartfba/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartfba/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartfba/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}

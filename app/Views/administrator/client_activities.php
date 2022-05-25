@@ -204,13 +204,13 @@
     $('#noty_created').on('click', function() {
         new Noty({
             text: 'You successfully upload the manifest.',
-            type: 'success'
+            type: 'alert'
         }).show();
     });
     $('#noty_link').on('click', function() {
         new Noty({
             text: 'You successfully update the link.',
-            type: 'success'
+            type: 'alert'
         }).show();
     });
     $('#noty_deleted').on('click', function() {

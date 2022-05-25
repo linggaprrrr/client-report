@@ -80,7 +80,7 @@ class InvestmentModel extends Model
         if ($status == null || $status == 'incomplete') {
             $query = $this->db->query("SELECT investments.*, users.fullname, users.company, IFNULL(SUM(reports.cost), 0) as total_cost, (investments.cost - IFNULL(SUM(reports.cost), 0)) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFt JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'incomplete' GROUP BY investments.id ORDER BY status DESC, cost_left ASC");
         } elseif ($status == 'assign') {
-            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as total_cost, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'assign' GROUP BY reports.investment_id ORDER BY status DESC, cost_left ASC");
+            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, IFNULL(SUM(reports.cost), 0) as total_cost, (investments.cost - IFNULL(SUM(reports.cost), 0)) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFt JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'assign' GROUP BY investments.id  ORDER BY `cost_left`  DESC;");
         } else {
             $query = $this->db->query("SELECT investments.*, users.fullname, users.company, SUM(reports.cost) as total_cost, (investments.cost - SUM(reports.cost)) as cost_left FROM investments JOIN users on investments.client_id = users.id JOIN reports ON reports.investment_id = investments.id WHERE users.role = 'client' AND status = 'complete' GROUP BY reports.investment_id ORDER BY status DESC, cost_left ASC");
         }
@@ -90,7 +90,7 @@ class InvestmentModel extends Model
 
     public function getInvestcmentClient($id)
     {
-        $query = $this->db->query("SELECT investments.id, (investments.cost-SUM(reports.cost)) as cost, investments.date FROM investments JOIN users ON users.id = investments.client_id JOIN reports ON reports.investment_id = investments.id  WHERE investments.client_id='$id' AND status = 'assign' GROUP BY investments.id ");
+        $query = $this->db->query("SELECT investments.id, (investments.cost-IFNULL(SUM(reports.cost), 0)) as cost, investments.date FROM investments JOIN users ON users.id = investments.client_id LEFT JOIN reports ON reports.investment_id = investments.id  WHERE investments.client_id='$id' AND status = 'assign' GROUP BY investments.id; ");
         return $query;
     }
 
