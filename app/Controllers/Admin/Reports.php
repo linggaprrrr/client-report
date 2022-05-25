@@ -1187,7 +1187,7 @@ class Reports extends BaseController
         foreach ($data as $idx => $row) {
             if ($idx != 0) {
                 $chartTitle = $row[4];
-                $getClient = $this->db->query("SELECT id, fullname FROM users WHERE fullname LIKE ". $this->db->escape($row[2]) ." OR company LIKE ". $this->db->escape($row[2]) ."'%' LIMIT 1");
+                $getClient = $this->db->query("SELECT id, fullname FROM users WHERE fullname LIKE ". $this->db->escape($row[2]) ." OR company LIKE ". $this->db->escape($row[2]) ." LIMIT 1");
                 if ($getClient->getNumRows() > 0) {
                     $client = $getClient->getRow();
                     $isActive = $this->db->query("SELECT * FROM chart_pl WHERE client_id='$client->id' AND chart='$row[4]' ");
@@ -1433,11 +1433,15 @@ class Reports extends BaseController
             }
             $spreadsheet = $render->load($brand);
             $data = $spreadsheet->getActiveSheet()->toArray();
+            $idx = 1;
             foreach ($data as $row) {
-                if (!empty($row[5])) {
-                    $brandName = trim($row[5]);
-                    $this->db->query("INSERT IGNORE INTO brands(brand_name) VALUES (" . $this->db->escape($brandName) . ") ");
+                if ($idx != 1) {
+                    if (!empty($row[1])) {
+                        $brandName = trim($row[1]);
+                        $this->db->query("INSERT IGNORE INTO brands(brand_name) VALUES (" . $this->db->escape($brandName) . ") ");
+                    }
                 }
+                $idx++;
             }
         }
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
@@ -1470,7 +1474,7 @@ class Reports extends BaseController
                             }
                             $tempName = trim($row[1]);
                         }
-                        $brandName = trim($row[3]);
+                        $brandName = trim($row[2]);
                         $getBrandId = $this->db->query('SELECT id FROM brands WHERE brand_name LIKE ' . $this->db->escape($brandName) . ' ')->getRow();
 
                         if (!empty($getBrandId)) {

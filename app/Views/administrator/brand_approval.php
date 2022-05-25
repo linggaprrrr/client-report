@@ -59,7 +59,7 @@
                 <p class="font-weight-semibold"></p>
                 <div class="row brandlist">
                   <?php foreach ($brands->getResultArray() as $brand) : ?>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       <label class="custom-control custom-control-dark custom-checkbox mb-2">
                         <input type="checkbox" class="custom-control-input brand_check">
                         <span class="custom-control-label font-weight-bold"><?= $brand['brand_name'] ?></span>
@@ -151,8 +151,8 @@
                         <div class="form-group">
                           <label>File:</label>
                           <label class="custom-file">
-                            <input type="file" name="store" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
-                            <span class="custom-file-label" id="file-upload-filename">Choose file</span>
+                            <input type="file" name="store" class="custom-file-input" id="file-upload2" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+                            <span class="custom-file-label" id="file-upload-filename2">Choose file</span>
                           </label>
                           <span class="form-text text-muted">Accepted formats: xls/xlsx. Max file size 10Mb</span>
                         </div>
@@ -237,16 +237,23 @@
   $(document).ready(function() {
     var input = document.getElementById('file-upload');
     var infoArea = document.getElementById('file-upload-filename');
+    
+    var input2 = document.getElementById('file-upload2');
+    var infoArea2 = document.getElementById('file-upload-filename2');
 
     input.addEventListener('change', showFileName);
+    input2.addEventListener('change', showFileName2);
 
     function showFileName(event) {
-      // the change event gives us the input it occurred in 
       var input = event.srcElement;
-      // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
       var fileName = input.files[0].name;
-      // use fileName however fits your app best, i.e. add it into a div
       infoArea.textContent = '' + fileName;
+    }
+
+    function showFileName2(event) {
+      var input2 = event.srcElement;
+      var fileName2 = input2.files[0].name;
+      infoArea2.textContent = '' + fileName2;
     }
 
     $('.checkbox_check').change(function() {
