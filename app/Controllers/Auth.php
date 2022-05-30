@@ -20,10 +20,13 @@ class Auth extends BaseController
     public function login()
     {
         $userId = session()->get('user_id');
-
+        $company = $this->db->query("SELECT logo FROM company LIMIT 1")->getRow();
+       
         if (is_null($userId)) {
-
-            return view('login');
+            $data = array(
+                'logo' => $company->logo
+            );
+            return view('login', $data);
         } else {
             if (session()->get('role') == 'superadmin') {
                 return redirect()->route('admin/dashboard');
@@ -36,6 +39,7 @@ class Auth extends BaseController
     {
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
+       
         $currentPage = $post['current'];
         if ($user) {
             if (password_verify($post['password'], $user->password)) {

@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="login-logo">
-                        <img src="/assets/images/fba-logo.png" alt="Image" class="img-fluid">
+                        <img src="/assets/images/<?= $logo ?>" alt="Image" class="img-fluid">
                     </div>
                     <div class="login-background">
                         <img src="/assets/login/images/login-min.png" alt="Image" class="img-fluid">

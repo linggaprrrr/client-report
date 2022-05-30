@@ -131,35 +131,6 @@
                 <table class="table datatable-basic" style="font-size: 12px;">
                     <thead>
                         <tr>
-<<<<<<< HEAD
-                            <td class="text-center"><?= $no++ ?></td>
-                            <td><?= $row['fullname'] ?></td>
-                            <td><?= $row['company'] ?></td>
-                            <td><a href="<?= base_url('files/' . $row['file']) ?>" download="<?= $row['file'] ?>"><?= $row['file'] ?></a></td>
-                            <td class="text-center"><?= $row['date'] ?></td>
-                            <td class="text-center">
-                                <?php if (!empty($row['link'])) : ?>
-                                    <a href="<?= $row['link'] ?>" target="_blank"><i class="icon-link"></i></a>
-                                <?php endif ?>
-                            </td>
-                            <td class="text-center">
-                                <div class="list-icons">
-                                    <div class="dropdown position-static">
-                                        <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="icon-menu7"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right" style="">
-                                            <a href="#" class="dropdown-item editpl" data-toggle="modal" data-id="<?= $row['log_id'] ?>" data-target="#modal_form_reupload"><i class="icon-undo"></i> Edit</a>
-                                            <a href="#" class="dropdown-item previewpl" data-toggle="modal" data-id="<?= $row['log_id'] ?>" data-target="#modal_preview"><i class="icon-file-eye"></i> Preview</a>
-                                            <div class="dropdown-divider"></div>
-                                            <form action="<?= base_url("/pl-report/" . $row['client_id']) ?>" method="post">
-                                                <?= csrf_field() ?>
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="dropdown-item"><i class="icon-cross2 text-danger"></i> Delete
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-=======
                             <th style="width: 5%">No</th>
                             <th>Client Name</th>
                             <th>Company Name</th>
@@ -167,7 +138,6 @@
                             <th>Date Uploaded</th>
                             <th>Google Sheet</th>
                             <th>Action</th>
->>>>>>> 19b1e85f53821f8ee78f4149cf2a853a676c5f4a
                         </tr>
                     </thead>
                     <tbody>
@@ -302,21 +272,6 @@
             <div class="modal-dialog modal-full">
                 <div class="modal-content">
                     <div class="modal-header bg-secondary text-white">
-<<<<<<< HEAD
-                        <h5 class="modal-title">P&L Report Preview </h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="loading">Please wait</div>
-                         <iframe src="" frameborder="0"></iframe>
-                    </div>
-                    <div class="modal-footer">
-                            <div class="text-right">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-
-                        </div>
-=======
                         <h5 class="modal-title">P&L Preview [<span class="client-name"></span>]</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
@@ -328,7 +283,6 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
->>>>>>> 19b1e85f53821f8ee78f4149cf2a853a676c5f4a
                 </div>
             </div>
         </div>
@@ -431,12 +385,6 @@
         });
     });
 
-<<<<<<< HEAD
-    $('.previewpl').click(function() {
-     
-    });
-
-=======
     
     var DatatableBasic = function() {
         var _componentDatatableBasic = function() {
@@ -516,7 +464,6 @@
             }
         }
     }();
->>>>>>> 19b1e85f53821f8ee78f4149cf2a853a676c5f4a
 </script>
 
 <?= $this->endSection() ?>
