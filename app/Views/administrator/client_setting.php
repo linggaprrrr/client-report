@@ -68,6 +68,44 @@
                         <textarea class="form-control" name="address" col=4><?= $profile['address'] ?></textarea>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Under Company</label>
+                    <div class="col-lg-10">
+                        <select class="form-control" name="under_comp">
+                          <?php if ($profile['under_comp'] == 2) :?>
+                                <option value="0">-</option>
+                                <option value="2" selected>ELITE</option>          
+                                <option value="3">SFBA</option>          
+                                <option value="4">SE</option>          
+                                <option value="5">ALPHA</option>          
+                            <?php elseif ($profile['under_comp'] == 3) : ?>
+                                <option value="0">-</option>
+                                <option value="2">ELITE</option>          
+                                <option value="3" selected>SFBA</option>          
+                                <option value="4">SE</option>          
+                                <option value="5">ALPHA</option>          
+                            <?php elseif ($profile['under_comp'] == 4) : ?>
+                                <option value="0">-</option>
+                                <option value="2">ELITE</option>          
+                                <option value="3">SFBA</option>          
+                                <option value="4" selected>SE</option>          
+                                <option value="5">ALPHA</option>          
+                            <?php elseif ($profile['under_comp'] == 5) : ?>
+                                <option value="0">-</option>
+                                <option value="2">ELITE</option>          
+                                <option value="3">SFBA</option>          
+                                <option value="4">SE</option>          
+                                <option value="5" selected>ALPHA</option>          
+                            <?php else: ?>
+                                <option value="0" selected>-</option>
+                                <option value="2">ELITE</option>          
+                                <option value="3">SFBA</option>          
+                                <option value="4">SE</option>          
+                                <option value="5">ALPHA</option>          
+                            <?php endif ?>
+                        </select>
+                    </div>
+                </div>
                 <fieldset class="mb-3">
                     <legend class="text-uppercase font-size-sm font-weight-bold">Change Password</legend>
                     <div class="form-group row">

@@ -126,6 +126,7 @@ class Clients extends BaseController
                         "company" => $post['company'],
                         "address" => $post['address'],
                         "photo" => $fileName,
+                        "under_comp" => $post['under_comp'],
                         "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
                     ));
                 } else {
@@ -134,6 +135,7 @@ class Clients extends BaseController
                         "fullname" => $post['fullname'],
                         "company" => $post['company'],
                         "address" => $post['address'],
+                        "under_comp" => $post['under_comp'],
                         "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
                     ));
                 }
@@ -148,6 +150,7 @@ class Clients extends BaseController
                     "company" => $post['company'],
                     "address" => $post['address'],
                     "photo" => $fileName,
+                    "under_comp" => $post['under_comp']
                 ));
             } else {
                 $this->userModel->save(array(
@@ -155,6 +158,7 @@ class Clients extends BaseController
                     "fullname" => $post['fullname'],
                     "company" => $post['company'],
                     "address" => $post['address'],
+                    "under_comp" => $post['under_comp']
                 ));
             }
         }

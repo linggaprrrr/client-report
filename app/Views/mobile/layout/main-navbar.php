@@ -2,7 +2,7 @@
     <div class="d-flex flex-1 pl-3">
         <div class="navbar-brand wmin-0 mr-1 p-1">
             <a href="<?= base_url('/mobile') ?>" class="d-inline-block">
-                <img src="/assets/images/fba-logo.png" class="d-none d-sm-block" alt="FBA Logo" style="width: 255px">
+                <img src="/assets/images/fba.png" class="d-none d-sm-block" alt="FBA Logo" style="width: 255px">
                 <img src="/assets/images/fba-logo-only.png" class="d-sm-none" alt="" style="width: 100%;">
             </a>
         </div>
@@ -54,7 +54,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a href="<?= base_url('/mobile/account-setting') ?>" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+                
                     <a href="<?= base_url('/mobile/logout') ?>" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
                 </div>
             </li>

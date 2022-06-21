@@ -20,14 +20,7 @@
                         <i class="fa fa-amazon"></i>
                         <span class="d-lg-none ml-2">Active</span>
                     </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#icon-only-tab2" class="nav-link" id="myfav" data-toggle="tab" data-popup="tooltip" title="Set up your brand!" data-trigger="click">
-                        <i class="fa fa-heart"></i>
-                        <span class="d-lg-none ml-2">Inactive</span>
-                    </a>
-                </li>
+                </li>           
             </ul>
 
             <div class="tab-content">
@@ -98,29 +91,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="icon-only-tab2">
-                    <div class="form-group">
-                        <p class="font-weight-semibold">Mark your favorite brand</p>
-                        <form id="brand_approval">
-                            <div class="border p-3 rounded">
-                                <div class="row">
-                                    <?php foreach ($brands as $brand) : ?>
-                                        <div class="col-md-2">
-                                            <label class="custom-control custom-control-dark custom-checkbox mb-2">
-                                                <?php if ($brand['checked'] == 1) : ?>
-                                                    <input type="checkbox" class="custom-control-input" checked disabled>
-                                                <?php endif ?>
-                                                <span class="custom-control-label font-weight-bold"><?= $brand['brand_name'] ?></span>
-                                            </label>
-                                        </div>
-                                    <?php endforeach ?>
-                                </div>
-
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
