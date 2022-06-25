@@ -26,6 +26,7 @@
             <?php foreach ($plReport->getResultArray() as $row) : ?>
                 <div class="col-xl-12">
                         <!-- Multi level donut chart -->
+                        <?php echo $row['last_year'] ?>
                         <?php if ($row['last_year'] != "0" ) :?>
                                 <div class="card" >
                                     <div class="card-header">
@@ -74,7 +75,7 @@
                                                 $dec = ($row['dec'] == 0) ? null : round($row['dec']);
                                             }
                                            
-                                            $data = array("{value: ". $lastYear .", itemStyle: {color: '#a90000'}}", $jan, $feb, $mar, $apr, $may, $jun, $jul, $may, $sep, $oct, $nov, $dec, round($avg, 2));
+                                            $data = array("{value: ". $lastYear .", itemStyle: {color: '#a90000'}}", $jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, round($avg, 2));
                                             $chartData = json_encode($data);                                            
                                             $chartData = str_replace('"','', (string) $chartData);
                                             $chartId = "viz_" . $no;
@@ -255,7 +256,7 @@
                                                 $nov = ($row['nov'] == 0) ? null : round($row['nov']);
                                                 $dec = ($row['dec'] == 0) ? null : round($row['dec']);
                                             }
-                                            $data = array($jan, $feb, $mar, $apr, $may, $jun, $jul, $may, $sep, $oct, $nov, $dec, round($avg, 2));
+                                            $data = array($jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, round($avg, 2));
                                             $chartData = json_encode($data);
                                             $chartData = str_replace('"','', (string) $chartData);
                                             $chartId = "viz_" . $no;

@@ -31,11 +31,16 @@ class Clients extends BaseController
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
         }
+        
         $user = $this->userModel->find($userId);
         $investId = $this->investmentModel->getInvestmentId($userId);
         // dd($investId);
         $dateId = $this->request->getVar('investdate');
-        $news = $this->newsModel->getLastNews();
+        $underComp = 1;
+        if (str_contains(base_url(uri_string()), 'eliteapp')) {
+            $underComp = 2;
+        }
+        $news = $this->newsModel->getLastNews($underComp);
         if ($dateId == null) {
             if ($user['role'] == 'client' and $investId == null) {
                 $data = [
