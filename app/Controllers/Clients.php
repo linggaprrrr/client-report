@@ -92,6 +92,8 @@ class Clients extends BaseController
             'getVendorName' => $getVendorName,
             'news' => $news
         ];
+        $page = 'manifest';
+        $this->userModel->logActivity($userId, $page);
         return view('client/dashboard', $data);
     }
 
@@ -182,7 +184,8 @@ class Clients extends BaseController
             'menu' => "Purchase Inventory",
             'user' => $user
         ];
-
+        $page = 'purchase-inventory';
+        $this->userModel->logActivity($userId, $page);
         return view('client/purchase_inventory', $data);
     }
 
@@ -202,6 +205,8 @@ class Clients extends BaseController
             'plReport' => $plReport,
             'file' => $downloadPLReport
         ];
+        $page = 'p&l';
+        $this->userModel->logActivity($userId, $page);
         return view('client/pl_report', $data);
     }
 
@@ -227,6 +232,8 @@ class Clients extends BaseController
             'costLeft' => $getClientCostLeft,
             'monthDiff' => $monthdiff
         ];
+        $page = 'get-started';
+        $this->userModel->logActivity($userId, $page);
         return view('client/getstarted', $data);
     }
 
@@ -269,6 +276,8 @@ class Clients extends BaseController
             'user' => $user,
             'brands' => $temp_brand
         ];
+        $page = 'brand-approval';
+        $this->userModel->logActivity($userId, $page);
         return view('client/brand_approvals', $data);
     }
 }

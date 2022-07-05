@@ -395,6 +395,8 @@ class Reports extends BaseController
                     }
                 }
             }
+
+            
             for ($i = 0; $i < count($chartTitle); $i++) {
                 $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
             }    
@@ -406,10 +408,10 @@ class Reports extends BaseController
                 if (!empty($row[0])) {
                     array_push($chartTitle, $row[0]);
                 } else {
-                    if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
+                    if (!empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8]) || !empty($row[9]) || !empty($row[10] || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]))) {
                         $month = array();
-                        if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
-                            for ($i = 2; $i < 14; $i++) {
+                        if (strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false || strpos($row[14], '%') !== false || strpos($row[15], '%') !== false) {
+                            for ($i = 4; $i < 16; $i++) {
                                 $temp = str_replace('%', '', $row[$i]);
                                 $temp = str_replace(',', '', $temp);
                                 if (strpos($temp, '(') !== false) {
@@ -421,8 +423,8 @@ class Reports extends BaseController
                             }
 
                             array_push($type, 'percentage');
-                        } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
-                            for ($i = 2; $i < 14; $i++) {
+                        } elseif (strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false || strpos($row[14], '$') !== false || strpos($row[15], '$') !== false) {
+                            for ($i = 4; $i < 16; $i++) {
                                 $temp = str_replace('$', '', $row[$i]);
                                 $temp = str_replace(',', '', $temp);
                                 if (strpos($temp, '(') !== false) {
@@ -435,7 +437,7 @@ class Reports extends BaseController
 
                             array_push($type, 'currency');
                         } else {
-                            for ($i = 2; $i < 14; $i++) {
+                            for ($i = 4; $i < 16; $i++) {
                                 $temp = $row[$i];
                                 if (strpos($temp, '(') !== false) {
                                     $temp = str_replace('(', '', $temp);

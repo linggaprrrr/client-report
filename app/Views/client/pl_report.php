@@ -36,6 +36,7 @@
                                         <div class="chart-container">
                                             <?php
                                             $temp = array($row['last_year'], $row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
+                                            
                                             $total = array_sum($temp) - $row['last_year'];
                                             if ($total < 0) {
                                                 $avg = 0;                                                
@@ -85,6 +86,17 @@
                                                 '#563f46', '#618685',
                                                 '#838060', '#618685',
                                                 '#d96459', '#618685',
+                                                '#d9ad7c', '#618685',
+                                                '#667292', '#618685',
+                                                '#96897f', '#618685',
+                                                '#86af49', '#618685',
+                                                '#d96459', '#618685',
+                                                '#d9ad7c', '#618685',
+                                                '#667292', '#618685',
+                                                '#96897f', '#618685',
+                                                '#86af49', '#618685',
+                                                '#d96459', '#618685',
+                                                '#d9ad7c', '#618685',
                                                 '#d9ad7c', '#618685',
                                                 '#667292', '#618685',
                                                 '#96897f', '#618685',
@@ -220,6 +232,7 @@
                                         <div class="chart-container">
                                             <?php
                                             $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
+                                            
                                             $total = array_sum($temp);
                                             if ($total < 0) {
                                                 $avg = 0;                                                
@@ -259,6 +272,7 @@
                                             }
                                             $data = array($jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, round($avg, 2));
                                             $chartData = json_encode($data);
+
                                             $chartData = str_replace('"','', (string) $chartData);
                                             $chartId = "viz_" . $no;
                                             $color = [
@@ -273,8 +287,22 @@
                                                 '#86af49', '#618685',
                                                 '#d96459', '#618685',
                                                 '#d9ad7c', '#618685',
+                                                '#667292', '#618685',
+                                                '#96897f', '#618685',
+                                                '#86af49', '#618685',
+                                                '#d96459', '#618685',
+                                                '#d9ad7c', '#618685',
+                                                '#d9ad7c', '#618685',
+                                                '#667292', '#618685',
+                                                '#96897f', '#618685',
+                                                '#86af49', '#618685',
+                                                '#d96459', '#618685',
+                                                '#d9ad7c', '#618685',
                                             ];
+
+                                            
                                             ?>
+                                        
                                             <div class="chart has-fixed-height" id="<?= $chartId ?>"></div>
                                             <script type="text/javascript">
                                                 var nameData = [],
@@ -392,7 +420,7 @@
                             <?php endif ?>    
                         
                         <!-- /multi level donut chart -->
-
+                        
                     </div>
                 <?php $no++; ?>
             <?php endforeach ?>

@@ -41,6 +41,8 @@ class News extends BaseController
             'allNews' => $allNews,
             'companySetting' => $companysetting
         ];
+        $page = 'announcements';
+        $this->userModel->logActivity($userId, $page);
         return view('client/news', $data);
     }
 
