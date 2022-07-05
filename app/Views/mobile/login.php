@@ -148,6 +148,7 @@
                                 </div>
                                 <input type="hidden" name="current" id="" value="<?= base_url(uri_string()) ?>">
                                 <input type="submit" value="Log In" class="btn btn-block btn-primary">
+<<<<<<< HEAD
                                 <div style="text-align: center; padding-top: 10px;padding-left: 5px;">
                                     <a href="https://apps.apple.com/id/app/smart-fba-client-portal/id1618568127" target="_blink"><img src="/assets/images/appstore.png" style="max-width: 160px;"></a>
                                     <div class="popup" onclick="myFunction()">
@@ -155,6 +156,9 @@
                                         <span class="popuptext" id="myPopup">Soon!</span>
                                     </div>
                                 </div>
+=======
+                                
+>>>>>>> 14d588b044ffcd68551fa595c95605d0b7a5fdda
                             </form>
 
                         </div>

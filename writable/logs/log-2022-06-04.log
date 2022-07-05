@@ -1,0 +1,87 @@
+CRITICAL - 2022-06-04 07:41:51 --> Trying to access array offset on value of type null
+#0 C:\xampp\htdocs\smartwholesale\client-report\app\Views\administrator\company_setting.php(50): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to acces...', 'C:\\xampp\\htdocs...', 50)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/c...', Array, true)
+#4 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Users.php(191): view('administrator/c...', Array)
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Users->elite()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-06-04 07:48:58 --> Unknown column 'link' in 'where clause'
+CRITICAL - 2022-06-04 07:48:58 --> Unknown column 'link' in 'where clause'
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT * FROM c...', 0)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT * FROM c...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM c...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Users.php(181): CodeIgniter\Database\BaseConnection->query('SELECT * FROM c...')
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Users->elite()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-06-04 07:53:03 --> Cannot use object of type stdClass as array
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/c...', Array, true)
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Users.php(191): view('administrator/c...', Array)
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Users->elite()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-06-04 07:53:25 --> Cannot use object of type stdClass as array
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/c...', Array, true)
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Users.php(191): view('administrator/c...', Array)
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Users->elite()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-06-04 07:56:31 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '='elite'' at line 1
+CRITICAL - 2022-06-04 07:56:31 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '='elite'' at line 1
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT * FROM c...', 0)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT * FROM c...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM c...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Users.php(179): CodeIgniter\Database\BaseConnection->query('SELECT * FROM c...')
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Users->elite()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-06-04 07:56:38 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '='elite'' at line 1
+CRITICAL - 2022-06-04 07:56:38 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '='elite'' at line 1
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT * FROM c...', 0)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT * FROM c...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM c...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Users.php(179): CodeIgniter\Database\BaseConnection->query('SELECT * FROM c...')
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Users->elite()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-06-04 07:56:47 --> Undefined variable $companySetting
+#0 C:\xampp\htdocs\smartwholesale\client-report\app\Views\administrator\layout\main-navbar.php(5): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 5)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(432): CodeIgniter\View\View->render('administrator/l...', NULL, true)
+#4 C:\xampp\htdocs\smartwholesale\client-report\app\Views\administrator\layout\template.php(148): CodeIgniter\View\View->include('administrator/l...')
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(230): CodeIgniter\View\View->render('administrator/l...', Array, true)
+#8 C:\xampp\htdocs\smartwholesale\client-report\system\Common.php(1097): CodeIgniter\View\View->render('administrator/c...', Array, true)
+#9 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Users.php(188): view('administrator/c...', Array)
+#10 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Users->elite()
+#11 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#12 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#14 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#15 {main}

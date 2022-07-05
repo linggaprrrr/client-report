@@ -26,6 +26,7 @@
             <?php foreach ($plReport->getResultArray() as $row) : ?>
                 <div class="col-xl-12">
                         <!-- Multi level donut chart -->
+                        <?php echo $row['last_year'] ?>
                         <?php if ($row['last_year'] != "0" ) :?>
                                 <div class="card" >
                                     <div class="card-header">

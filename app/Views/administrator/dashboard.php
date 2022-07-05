@@ -253,6 +253,7 @@
                     <th>Total Client Cost</th>
                     <th>Total Fulfilled</th>
                     <th>Total Cost Left</th>
+                    <th>Google Sheet</th>
                     <th class="text-center">Status</th>
                 </tr>
             </thead>
@@ -277,6 +278,7 @@
                             <td class="text-center">$ <?= number_format($row['client_cost'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['total_fulfilled'], 2) ?></td>
                             <td class="text-center">$ <?= number_format($row['cost_left'], 2) ?></td>
+                            <td class="text-center"><a href="<?= $row['link'] ?>" target="_blank"><i class="icon-file-excel"></i></a></td>
                             <?php if ($row['status'] == 'complete') : ?>
                                 <td class="text-center font-weight-bold"><span class="badge badge-primary">COMPLETE</span></td>
                             <?php else : ?>
