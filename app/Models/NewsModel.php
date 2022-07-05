@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class NewsModel extends Model
 {
     protected $table = 'news';
-    protected $allowedFields = ['type', 'title', 'message', 'date', 'to'];
+    protected $allowedFields = ['type', 'title', 'message', 'date', 'under_comp'];
     protected $db = "";
 
     public function getLastNews($underComp)

@@ -2,7 +2,7 @@
     <div class="d-flex flex-1 pl-3">
         <div class="navbar-brand wmin-0 mr-1 p-1">
             <a href="<?= base_url('/mobile') ?>" class="d-inline-block">
-                <img src="/assets/images/fba.png" class="d-none d-sm-block" alt="FBA Logo" style="width: 255px">
+                <img src="/assets/images/fba-logo-only.png" class="d-none d-sm-block" alt="FBA Logo" style="width: 100px">
                 <img src="/assets/images/fba-logo-only.png" class="d-sm-none" alt="" style="width: 100%;">
             </a>
         </div>

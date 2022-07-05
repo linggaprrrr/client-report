@@ -324,7 +324,7 @@ class Mobile extends BaseController
             $underComp = 2;
         }
         $news = $this->newsModel->getLastNews($underComp);
-        $allNews = $this->newsModel->getNews($underComp);
+        $allNews = $this->newsModel->getNews();
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [

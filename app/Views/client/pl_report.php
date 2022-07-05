@@ -26,7 +26,6 @@
             <?php foreach ($plReport->getResultArray() as $row) : ?>
                 <div class="col-xl-12">
                         <!-- Multi level donut chart -->
-                        <?php echo $row['last_year'] ?>
                         <?php if ($row['last_year'] != "0" ) :?>
                                 <div class="card" >
                                     <div class="card-header">
@@ -44,20 +43,21 @@
                                                 $avg = $total / count(array_filter($temp));
                                             }
                                             if ($row['type'] == 'percentage') {
-                                                $total = round($avg, 2);
-                                                $lastYear = round($row['last_year'], 2);
-                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan'], 2);
-                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb'], 2);
-                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar'], 2);
-                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr'], 2);
-                                                $may = ($row['may'] == 0) ? null : number_format($row['may'], 2);
-                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun'], 2);
-                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul'], 2);
-                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug'], 2);
-                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep'], 2);
-                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct'], 2);
-                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov'], 2);
-                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec'], 2);
+                                                $total = round($avg*100, 2);
+                                                $lastYear = round($row['last_year'] * 100, 2);
+                                                $avg = round($avg*100);
+                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan']*100, 2);
+                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb']*100, 2);
+                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar']*100, 2);
+                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr']*100, 2);
+                                                $may = ($row['may'] == 0) ? null : number_format($row['may']*100, 2);
+                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun']*100, 2);
+                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul']*100, 2);
+                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug']*100, 2);
+                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep']*100, 2);
+                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct']*100, 2);
+                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov']*100, 2);
+                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec']*100, 2);
                                             } else {
                                                 $avg = round($avg);
                                                 $lastYear = round($row['last_year']);
@@ -228,19 +228,20 @@
                                             }
                                                                                        
                                             if ($row['type'] == 'percentage') {
-                                                $total = round($avg, 2);
-                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan'], 2);
-                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb'], 2);
-                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar'], 2);
-                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr'], 2);
-                                                $may = ($row['may'] == 0) ? null : number_format($row['may'], 2);
-                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun'], 2);
-                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul'], 2);
-                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug'], 2);
-                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep'], 2);
-                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct'], 2);
-                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov'], 2);
-                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec'], 2);
+                                                $total = round($avg*100, 2);
+                                                $avg = round($avg*100);
+                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan']*100, 2);
+                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb']*100, 2);
+                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar']*100, 2);
+                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr']*100, 2);
+                                                $may = ($row['may'] == 0) ? null : number_format($row['may']*100, 2);
+                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun']*100, 2);
+                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul']*100, 2);
+                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug']*100, 2);
+                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep']*100, 2);
+                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct']*100, 2);
+                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov']*100, 2);
+                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec']*100, 2);
                                             } else {
                                                 $avg = round($avg);
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan']);

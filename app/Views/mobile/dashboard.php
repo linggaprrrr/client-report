@@ -86,7 +86,7 @@
 
             </h6>
             <div class="header-elements">
-                <form method="get" action="<?= base_url('/mobile/dashboard') ?>" class="form-inline">
+                <form method="get" action="<?= base_url('/dashboard') ?>" class="form-inline">
                     <div class="form-group row">
                         <label class="font-weight-bold mr-2">Order Date: </label>
                         <div class="form-group" style="width: 200px; text-align-last:center; font-weight: 700; font-size: 12px;text-transform: uppercase;">
@@ -155,7 +155,7 @@
 
             </div>
         </div>
-
+		<?php d($getAllReports->getResultArray()); ?>
         <table class="table datatable-basic" style="font-size: 12px;">
             <thead>
                 <tr>
@@ -217,11 +217,7 @@
                         $vendorNames = array();
                         $vendorQty = array();
                         foreach (array_reverse($getVendorName->getResultArray()) as $vendor) {
-                            if (strlen($vendor['vendor']) > 17) 
-                                $str = substr($vendor['vendor'], 0, 14) . '...';
-                            else 
-                                $str = $vendor['vendor'];
-                            array_push($vendorNames, $str);
+                            array_push($vendorNames, $vendor['vendor']);
                             array_push($vendorQty, $vendor['qty']);
                         }
 
@@ -260,8 +256,8 @@
                                 },
                                 legend: {},
                                 grid: {
-                                    left: '32%',
-                                    right: '10%',
+                                    left: '35%',
+                                    right: '8%',
                                     bottom: '3%',
                                     containLabel: false
                                 },
@@ -282,8 +278,8 @@
                                             show: false
                                         },
                                         axisLabel: {
-                                            margin: 5,
-                                            fontSize: 9,
+                                            margin: 10,
+                                            fontSize: 12,
                                             fontWeight: 500,
                                         }
 
@@ -302,8 +298,8 @@
                                         },
                                         axisLabel: {
                                             align: 'left',
-                                            margin: 5,
-                                            fontSize: 9,
+                                            margin: 20,
+                                            fontSize: 14,
                                             fontWeight: 500,
 
                                         }

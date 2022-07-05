@@ -164,7 +164,7 @@ class ReportModel extends Model
 
     public function getClientCostLeft($id)
     {
-        $totalCost = $this->db->query("SELECT SUM(reports.cost) as total_cost FROM reports JOIN investments ON investments.id = reports.investment_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.id DESC LIMIT 1 ")->getRow();
+        $totalCost = $this->db->query("SELECT SUM(reports.cost) as total_cost FROM reports JOIN investments ON investments.id = reports.investment_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.date DESC LIMIT 1 ")->getRow();
         $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM (SELECT investments.id, fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.date DESC LIMIT 1 ) as t ")->getRow();
         $totalCostLeft = $totalInvest->total_invest - $totalCost->total_cost;
         return $totalCostLeft;

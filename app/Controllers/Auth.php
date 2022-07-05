@@ -19,6 +19,13 @@ class Auth extends BaseController
 
     public function login()
     {
+        $ip = getenv('HTTP_CLIENT_IP')?:
+            getenv('HTTP_X_FORWARDED_FOR')?:
+            getenv('HTTP_X_FORWARDED')?:
+            getenv('HTTP_FORWARDED_FOR')?:
+            getenv('HTTP_FORWARDED')?:
+            getenv('REMOTE_ADDR');
+        
         $userId = session()->get('user_id');
         $company = $this->db->query("SELECT logo FROM company LIMIT 1")->getRow();
        
