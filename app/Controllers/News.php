@@ -34,8 +34,8 @@ class News extends BaseController
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [
-            'tittle' => "Announcement | Report Management System",
-            'menu' => "Announcement",
+            'tittle' => "Announcements | Report Management System",
+            'menu' => "Announcements",
             'user' => $user,
             'news' => $news,
             'allNews' => $allNews,
@@ -58,7 +58,7 @@ class News extends BaseController
             $underComp = 2;
         }
         $news = $this->newsModel->getLastNews($underComp);
-        $allNews = $this->newsModel->getNews($underComp);
+        $allNews = $this->newsModel->getNews();
         $notifications = $this->db->query("SELECT * FROM push_notifications ORDER BY date DESC");
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [

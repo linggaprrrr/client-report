@@ -17,10 +17,14 @@ class NewsModel extends Model
         return $query;
     }
 
-    public function getNews($underComp)
+    public function getNews($underComp = null)
     {
         $this->db = \Config\Database::connect();
-        $query = $this->db->query("SELECT * FROM news WHERE under_comp='$underComp' ORDER BY id DESC");
+        if ($underComp == null) {
+            $query = $this->db->query("SELECT * FROM news ORDER BY id DESC");
+        } else {
+            $query = $this->db->query("SELECT * FROM news WHERE under_comp='$underComp' ORDER BY id DESC");
+        }
         return $query;
     }
 }

@@ -42,6 +42,8 @@ $routes->get('/admin/client-activities', 'Admin\Reports::clientActivities');
 $routes->get('/admin/user-management', 'Admin\Users::index');
 $routes->get('/admin/account-setting', 'Admin\Users::accountSetting');
 $routes->post('/upload-report', 'Admin\Reports::uploadReport');
+$routes->post('/upload-report-bulk', 'Admin\Reports::uploadReportBulk');
+$routes->post('/assign-report-bulk', 'Admin\Reports::assignReportBulk');
 $routes->delete('/report/(:num)', 'Admin\Reports::deleteReport/$1');
 $routes->post('/add-client', 'Admin\Users::addClient');
 $routes->delete('/delete-client/(:num)', 'Admin\Users::deleteClient/$1');

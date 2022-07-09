@@ -30,7 +30,7 @@ var DatatableBasic = function() {
             pageLength : 25,
             columnDefs: [{ 
                 orderable: true,
-                targets: [ 5 ]
+                targets: [ 4 ]
             }],
             dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
             language: {

@@ -231,13 +231,6 @@ class Reports extends BaseController
 
                 $this->investmentModel->save($investment);
                 $investmentLastId = $this->investmentModel->getLastId();
-                $category = array(
-                    "category_name" => $data[1],
-                    "investment_id" => $investmentLastId,
-                    "created_at" => date("Y-m-d H:i:s"),
-                    "updated_at" => date("Y-m-d H:i:s")
-                );
-                $this->categoryModel->save($category);
             } elseif ($idx > 2) {
                 if (!empty($data[1] || strcasecmp($data[1], "tracking") != 0)) {
                     if (!empty($data[0])) {
@@ -277,6 +270,117 @@ class Reports extends BaseController
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
+    public function uploadReportBulk() {
+        $reports = $this->request->getFileMultiple('file');
+        $files = array();
+        foreach ($reports as $report) {
+            array_push($files, $report->getName());
+            $fileName = $report->getName();
+            if (file_exists(FCPATH. "/files/". $fileName)) {
+                $fileName = "NEW ". time() . $report->getName(); 
+            }
+            $report->move('files', $fileName);
+        }
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $totalClientUploaded = $this->reportModel->totalClientUploaded();
+        $totalReport = $this->reportModel->totalReport();
+        $getAllFiles = $this->reportModel->getAllFiles();
+        $getAllClient = $this->reportModel->getAllClient();
+        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
+
+        $data = [
+            'tittle' => 'Client Activities | Report Management System',
+            'menu' => 'Client Activities',
+            'totalClientUploaded' => $totalClientUploaded,
+            'totalReport' => $totalReport,
+            'getAllFiles' => $getAllFiles,
+            'getAllClient' => $getAllClient,
+            'files' => $files,
+            'user' => $user,
+            'companySetting' => $companysetting
+        ];
+        
+        return view('administrator/client_activities_bulk_upload', $data);
+      
+    }
+
+    public function assignReportBulk() {
+        $client = $this->request->getVar('client');
+        $date = $this->request->getVar('date');
+        $file = $this->request->getVar('file');
+        $link = $this->request->getVar('link');
+       
+        $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        for ($i = 0; $i < count($file); $i++) {
+            $investmentId = "";
+            $newDate = date('Y-m-d', strtotime($date[$i]));
+            $check = $this->db->query("SELECT * FROM investments WHERE date = '$newDate' AND client_id='$client[$i]' ")->getRow();
+        
+            if (!empty($check)) {
+                $investmentId = $check->id;
+                $this->db->query("DELETE FROM investments WHERE id = '$investmentId' ");
+                $this->db->query("DELETE FROM reports WHERE investment_id = '$investmentId' ");
+                $this->db->query("DELETE FROM log_files WHERE investment_id = '$investmentId' ");
+            } 
+
+            $spreadsheet = $render->load(FCPATH. "/files/". $file[$i]);
+            $data = $spreadsheet->getActiveSheet()->toArray();
+            $category = array();
+            $reportData = array();
+            $investment = array();
+            $investmentLastId = "";
+            foreach ($data as $idx => $data) {
+                if ($idx == 1) {
+                    $tempInvest = str_replace('$', '', $data[5]);
+                    $tempInvest = str_replace(',', '', $tempInvest);
+                    $investment = array(
+                        "cost" => $tempInvest,
+                        "date" => $newDate,
+                        "client_id" => $client[$i]
+                    );
+
+                    $this->investmentModel->save($investment);
+                    $investmentLastId = $this->investmentModel->getLastId();
+            
+                } elseif ($idx > 2) {
+                    if (!empty($data[1] || strcasecmp($data[1], "tracking") != 0)) {
+                        if (!empty($data[0])) {
+                            $retail = str_replace('$', '', $data[4]);
+                            $retail = str_replace(',', '', $retail);
+                            $original = str_replace('$', '', $data[5]);
+                            $original = str_replace(',', '', $original);
+                            $cost = str_replace('$', '', $data[6]);
+                            $cost = str_replace(',', '', $cost);
+                            $reportData = array(
+                                "sku" => $data[0],
+                                "item_description" => trim($data[1]),
+                                "cond" => $data[2],
+                                "qty" => $data[3],
+                                "retail_value" => $retail,
+                                "original_value" => $original,
+                                "cost" => $cost,
+                                "vendor" => $data[7],
+                                "client_id" => $client[$i],
+                                "investment_id" => $investmentLastId,
+                                "created_at" => date("Y-m-d H:i:s"),
+                                "updated_at" => date("Y-m-d H:i:s")
+                            );
+                            $this->reportModel->save($reportData);
+                        }
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            $fileName = $file[$i];
+            $this->db->query("INSERT into log_files(date, file, link, client_id, investment_id) VALUES(NOW()," . $this->db->escape($fileName) . ", " . $this->db->escape($link[$i]) . " ,$client[$i], $investmentLastId) ");
+        }
+        return redirect()->to('/admin/client-activities')->with('success', 'Report Successfully Uploaded!');
+    }
 
     public function deleteReport($id)
     {
