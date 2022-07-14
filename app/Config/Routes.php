@@ -157,7 +157,11 @@ $routes->get('/mobile/client-cost-left/(:num)', 'Mobile::getClientCostLeft/$1');
 $routes->post('/api/send-device-token', 'News::sendDeviceToken');
 
 
-
+// master
+$routes->get('/master/manifest', 'Admin\Reports::master');
+$routes->get('/master/manifest/(:num)', 'Admin\Reports::master/$1');
+$routes->post('/master/manifest', 'Admin\Reports::master');
+$routes->get('/master/pl-report/(:num)', 'Admin\Reports::masterPLReport/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -27,7 +27,7 @@
                 <div class="tab-pane fade show active" id="icon-only-tab1">
                     <span>
                         <p class="text-justify"><b>Purchasing Brand Approvals is a great idea and a strategic long term play for your Amazon FBA store. Getting "ungated" in a brand gives you a leg up on other sellers who are not approved for those brands. Less competition tends to garner higher sales volume as well as the potential for higher margins. </b></p>
-                        <p class="text-justify"><b>Please see below for some of the brands we suggest. Please note that because someone is ungated in a specific brand, does not mean that any subsequent order will be only that brand. All orders will have a mix of unrestricted merchandise as well as restricted merchandise depending on availability. If you are interested in purchasing brand approvals please fill out the link below.</b></p>
+                        <p class="text-justify"><b>Please see below for some of the brands we suggest. Please note that because someone is ungated in a specific brand, does not mean that any subsequent order will be only that brand. All orders will have a mix of unrestricted merchandise as well as restricted merchandise depending on availability. If you are interested in purchasing brand approvals please contact your Customer service team.</b></p>
                     </span>
                     <div class="text-center">
                         <img src="<?= base_url() ?>/assets/images/brandapprovals.png">

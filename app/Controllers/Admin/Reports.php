@@ -1597,6 +1597,110 @@ class Reports extends BaseController
         $id = $this->request->getVar('log_id');
         dd($id);
     }
+
+    public function master($id = null) {
+        $dateId = $this->request->getVar('investdate');
+        $client = $this->request->getVar('client');
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        }
+        $userId = 9;
+        
+        if (!is_null($id)) {
+            $userId = $id;
+        }
+
+        if (!is_null($client) || !empty($client)) {
+            $userId = $client;
+        }
+        $user = $this->userModel->find($userId);
+        $investId = $this->investmentModel->getInvestmentId($userId);
+        $getAllClient = $this->db->query("SELECT * FROM users WHERE role = 'client' ");
+       
+        
+        if ($dateId == null) {
+            if ($user['role'] == 'client' and $investId == null) {
+                $data = [
+                    'tittle' => 'Dashboard | Report Management System',
+                    'menu' => 'Dashboard',
+                    'user' => $user,
+                    'clients' => $getAllClient,
+                    'clientSelect' => $userId
+                ];
+
+                return view('administrator/master/dashboard2', $data);
+            }
+
+            $lastInvestment = $this->investmentModel->getLastDateOfInvestment($userId);
+            $category = $this->categoryModel->getCategory($investId);
+            $totalInvest = $this->investmentModel->totalClientInvestment($investId);
+            $totalUnit = $this->reportModel->totalUnit($investId);
+            $totalRetail = $this->reportModel->totalRetail($investId);
+            $totalCostLeft = $this->reportModel->totalCostLeft($investId);
+            $totalFulfilled = $this->reportModel->totalFulfilled($investId);
+            $getAllReportClient = $this->reportModel->getAllReportClient($investId);
+            $investmentDate = $this->investmentModel->investmentDate($user['id']);
+            $getVendorName = $this->reportModel->getVendorName($investId);
+        } else {
+            $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
+            $category = $this->categoryModel->getCategory($dateId);
+            $totalInvest = $this->investmentModel->totalClientInvestment($dateId);
+            $totalUnit = $this->reportModel->totalUnit($dateId);
+            $totalRetail = $this->reportModel->totalRetail($dateId);
+            $totalCostLeft = $this->reportModel->totalCostLeft($dateId);
+            $totalFulfilled = $this->reportModel->totalFulfilled($dateId);
+            $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
+            $investmentDate = $this->investmentModel->investmentDate($user['id']);
+            $getVendorName = $this->reportModel->getVendorName($dateId);
+        }   
+
+        
+        
+        $data = [
+            'tittle' => 'Dashboard | Report Management System',
+            'menu' => 'Dashboard',
+            'user' => $user,
+            'totalInvest' => $totalInvest,
+            'totalUnit' => $totalUnit,
+            'totalRetail' => $totalRetail,
+            'totalCostLeft' => $totalCostLeft,
+            'totalFulfilled' => $totalFulfilled,
+            'getAllReports' => $getAllReportClient,
+            'investDate' => $investmentDate,
+            'lastInvestment' => $lastInvestment,
+            'getVendorName' => $getVendorName,
+            'clients' => $getAllClient,
+            'clientSelect' => $userId
+    
+        ];
+        $page = 'manifest';
+        return view('administrator/master/dashboard', $data);
+    }
+
+    public function masterPLReport($id)
+    {
+        $userId = $id;
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        }
+        $user = $this->userModel->find($userId);
+        $plReport = $this->reportModel->showPLReport($userId);
+        $downloadPLReport = $this->reportModel->downloadPLReport($userId);
+        $getAllClient = $this->db->query("SELECT * FROM users WHERE role = 'client' ");
+        $data = [
+            'tittle' => "P&L Report | Report Management System",
+            'menu' => "P&L Report",
+            'user' => $user,
+            'plReport' => $plReport,
+            'file' => $downloadPLReport,
+            'clients' => $getAllClient,
+            'clientSelect' => $userId
+        ];
+        $page = 'p&l';
+        $this->userModel->logActivity($userId, $page);
+        return view('administrator/master/pl_report', $data);
+    }
     
     public function test()
     {

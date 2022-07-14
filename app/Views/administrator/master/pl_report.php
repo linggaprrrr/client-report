@@ -1,4 +1,4 @@
-<?= $this->extend('mobile/layout/template') ?>
+<?= $this->extend('administrator/master/layout/template') ?>
 
 <?= $this->section('content') ?>
 
@@ -43,23 +43,22 @@
                                             if ($row['type'] == 'percentage') {
                             
                                                 $total = round($avg, 2);
-                                                $lastYear = round($row['last_year'], 2);
-                                                
-                                              
-                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan'], 2);
-                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb'], 2);
-                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar'], 2);
-                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr'], 2);
-                                                $may = ($row['may'] == 0) ? null : number_format($row['may'], 2);
-                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun'], 2);
-                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul'], 2);
-                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug'], 2);
-                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep'], 2);
-                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct'], 2);
-                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov'], 2);
-                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec'], 2);
+                                                $lastYear = round($row['last_year']);
+                                                $avg = round($avg * 100);
+                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan'] * 100, 0);
+                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb'] * 100, 0);
+                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar'] * 100, 0);
+                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr'] * 100, 0);
+                                                $may = ($row['may'] == 0) ? null : number_format($row['may'] * 100, 0);
+                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun'] * 100, 0);
+                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul'] * 100, 0);
+                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug'] * 100, 0);
+                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep'] * 100, 0);
+                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct'] * 100, 0);
+                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov'] * 100, 0);
+                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec'] * 100, 0);
                                             } else {
-                                                
+                                                $avg = ceil($avg);
                                                 $lastYear = round($row['last_year']);
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan']);
                                                 $feb = ($row['feb'] == 0) ? null : round($row['feb']);
@@ -75,7 +74,7 @@
                                                 $dec = ($row['dec'] == 0) ? null : round($row['dec']);
                                             }
                                            
-                                            $data = array("{value: ". $lastYear .", itemStyle: {color: '#a90000'}}", $jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, round($avg));
+                                            $data = array("{value: ". $lastYear .", itemStyle: {color: '#a90000'}}", $jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, $avg);
                                             $chartData = json_encode($data);                                            
                                             $chartData = str_replace('"','', (string) $chartData);
                                             $chartId = "viz_" . $no;
@@ -120,10 +119,11 @@
                                                             text: 'Total',
                                                             subtext: '$ <?= number_format($total, 0) ?>'
                                                         <?php elseif ($row['type'] == 'percentage') : ?>
+                                                            text: '',
                                                             subtext: ''
                                                         <?php else : ?>
                                                             text: 'Total',
-                                                            subtext: '<?= $total ?>'
+                                                            subtext: '<?= ceil($total) ?>'
                                                         <?php endif ?>,
                                                         left: 'right',
                                                         textStyle: {
@@ -239,19 +239,21 @@
                                                                                        
                                             if ($row['type'] == 'percentage') {
                                                 $total = round($avg, 2);
-                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan'], 2);
-                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb'], 2);
-                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar'], 2);
-                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr'], 2);
-                                                $may = ($row['may'] == 0) ? null : number_format($row['may'], 2);
-                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun'], 2);
-                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul'], 2);
-                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug'], 2);
-                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep'], 2);
-                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct'], 2);
-                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov'], 2);
-                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec'], 2);
+                                                $avg = round($avg * 100);
+                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan'] * 100, 0);
+                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb'] * 100, 0);
+                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar'] * 100, 0);
+                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr'] * 100, 0);
+                                                $may = ($row['may'] == 0) ? null : number_format($row['may'] * 100, 0);
+                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun'] * 100, 0);
+                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul'] * 100, 0);
+                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug'] * 100, 0);
+                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep'] * 100, 0);
+                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct'] * 100, 0);
+                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov'] * 100, 0);
+                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec'] * 100, 0);
                                             } else {
+                                                $avg = ceil($avg);
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan']);
                                                 $feb = ($row['feb'] == 0) ? null : round($row['feb']);
                                                 $mar = ($row['mar'] == 0) ? null : round($row['mar']);
@@ -265,7 +267,7 @@
                                                 $nov = ($row['nov'] == 0) ? null : round($row['nov']);
                                                 $dec = ($row['dec'] == 0) ? null : round($row['dec']);
                                             }
-                                            $data = array($jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, round($avg));
+                                            $data = array($jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, $avg);
                                             $chartData = json_encode($data);
                                             
                                             $chartData = str_replace('"','', (string) $chartData);
@@ -317,7 +319,7 @@
                                                             subtext: ''
                                                         <?php else : ?>
                                                             text: 'Total',
-                                                            subtext: '<?= $total ?>'
+                                                            subtext: '<?= ceil($total) ?>'
                                                             
                                                         <?php endif ?>,
                                                         left: 'right',
@@ -435,6 +437,9 @@
 <script src="/assets/js/plugins/ui/moment/moment.min.js"></script>
 <script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <script src="/assets/js/demo_pages/datatables_basic.js"></script>
+<script src="/assets/js/demo_pages/form_select2.js"></script>
+<script src="/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+<script src="/assets//js/plugins/forms/selects/select2.min.js"></script>
 
 
 <?= $this->endSection() ?>

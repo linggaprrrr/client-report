@@ -86,7 +86,7 @@ class Clients extends BaseController
             'totalCostLeft' => $totalCostLeft,
             'totalFulfilled' => $totalFulfilled,
             'getAllReports' => $getAllReportClient,
-            'category' => $category->category_name,
+            
             'investDate' => $investmentDate,
             'lastInvestment' => $lastInvestment,
             'getVendorName' => $getVendorName,
