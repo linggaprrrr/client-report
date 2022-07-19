@@ -197,6 +197,7 @@ class Reports extends BaseController
         $date = date('Y-m-d', strtotime($date));
 
         $investmentId = "";
+        
         $check = $this->db->query("SELECT * FROM investments WHERE date = '$date' AND client_id='$client' ")->getRow();
         if (!empty($check)) {
             $investmentId = $check->id;
@@ -205,13 +206,17 @@ class Reports extends BaseController
             $this->db->query("DELETE FROM log_files WHERE investment_id = '$investmentId' ");
         } 
         
+    
+
         $ext = $report->getClientExtension();
         if ($ext == 'xls') {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
         } else {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         }
+        
         $spreadsheet = $render->load($report);
+    
         $data = $spreadsheet->getActiveSheet()->toArray();
         $category = array();
         $reportData = array();
@@ -311,9 +316,9 @@ class Reports extends BaseController
     public function assignReportBulk() {
         $client = $this->request->getVar('client');
         $date = $this->request->getVar('date');
-        $file = $this->request->getVar('file');
+        $file = $this->request->getVar('file[]');
         $link = $this->request->getVar('link');
-       
+  
         $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         for ($i = 0; $i < count($file); $i++) {
             $investmentId = "";
@@ -436,7 +441,7 @@ class Reports extends BaseController
         }
         $spreadsheet = $render->load($chart);
         $data = $spreadsheet->getActiveSheet()->toArray();
-        
+        d($data);
         if ($types == 'yes') {    
             $chartTitle = array();
             $monthData = array();
@@ -499,7 +504,7 @@ class Reports extends BaseController
                     }
                 }
             }
-
+            dd($monthData);
             
             for ($i = 0; $i < count($chartTitle); $i++) {
                 $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
@@ -559,6 +564,7 @@ class Reports extends BaseController
                     }
                 }
             }
+            dd($monthData);
             for ($i = 0; $i < count($chartTitle); $i++) {
                 $this->reportModel->savePLReportExclude($chartTitle[$i], $monthData[$i], $type[$i], $client);
             }

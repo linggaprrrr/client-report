@@ -24,4 +24,12 @@ class UserModel extends Model
             $this->db->query("INSERT INTO log_logins(user_id, ip_address) VALUES('$user', '$ip')");
         }
     }
+
+    public function logActivityMobile($user, $page, $ip = null) {
+        $this->db = \Config\Database::connect();
+        $this->db->query("INSERT INTO log_pages(user_id, page) VALUES('$user', '$page')");
+        if (!is_null($ip)) {
+            $this->db->query("INSERT INTO log_logins(user_id, ip_address, media) VALUES('$user', '$ip', 'iOS')");
+        }
+    }
 }

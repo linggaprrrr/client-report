@@ -39,12 +39,16 @@
                                             
                                             $total = array_sum($temp) - $row['last_year'];
                                             $avg = $total / (count(array_filter($temp)) - 1 );
+
+                                            $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+                                            $usd = $fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, 'EUR');
+                                            $usd = $fmt->setAttribute(NumberFormatter::FRACTION_DIGITS, 0);
                                          
                                             if ($row['type'] == 'percentage') {
                             
                                                 $total = round($avg, 2);
-                                                $lastYear = round($row['last_year']);
-                                                $avg = round($avg * 100);
+                                                $lastYear = round($row['last_year'] * 100);
+                                                $avg = ($row['avg'] == 0) ? null : number_format($row['avg'] * 100, 0);
                                                 $jan = ($row['jan'] == 0) ? null : number_format($row['jan'] * 100, 0);
                                                 $feb = ($row['feb'] == 0) ? null : number_format($row['feb'] * 100, 0);
                                                 $mar = ($row['mar'] == 0) ? null : number_format($row['mar'] * 100, 0);
@@ -58,8 +62,8 @@
                                                 $nov = ($row['nov'] == 0) ? null : number_format($row['nov'] * 100, 0);
                                                 $dec = ($row['dec'] == 0) ? null : number_format($row['dec'] * 100, 0);
                                             } else {
-                                                $avg = ceil($avg);
                                                 $lastYear = round($row['last_year']);
+                                                $avg = ($row['avg'] == 0) ? null : round($row['avg']);                                                
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan']);
                                                 $feb = ($row['feb'] == 0) ? null : round($row['feb']);
                                                 $mar = ($row['mar'] == 0) ? null : round($row['mar']);
@@ -104,6 +108,85 @@
                                             ];
                                             
                                             ?>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="text-center">Last Year</th>
+                                                    <th scope="col" class="text-center">Jan</th>
+                                                    <th scope="col" class="text-center">Feb</th>
+                                                    <th scope="col" class="text-center">Mar</th>
+                                                    <th scope="col" class="text-center">Apr</th>
+                                                    <th scope="col" class="text-center">May</th>
+                                                    <th scope="col" class="text-center">Jun</th>
+                                                    <th scope="col" class="text-center">Jul</th>
+                                                    <th scope="col" class="text-center">Aug</th>
+                                                    <th scope="col" class="text-center">Sep</th>
+                                                    <th scope="col" class="text-center">Oct</th>
+                                                    <th scope="col" class="text-center">Nov</th>
+                                                    <th scope="col" class="text-center">Dec</th>
+                                                    <th scope="col" class="text-center">Average</th>
+                                                    <th scope="col" class="text-center">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($row['type'] == 'currency') : ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : $fmt->formatCurrency($row['last_year'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : $fmt->formatCurrency($row['jan'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : $fmt->formatCurrency($row['feb'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : $fmt->formatCurrency($row['mar'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : $fmt->formatCurrency($row['apr'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : $fmt->formatCurrency($row['avg'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= $fmt->formatCurrency($total, 'USD'); ?></td>
+                                                        
+                                                    </tr>
+                                                <?php elseif ($row['type'] == 'percentage') : ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : number_format($row['last_year'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : number_format($row['jan'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : number_format($row['feb'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : number_format($row['mar'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : number_format($row['apr'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : number_format($row['may'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : number_format($row['jun'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : number_format($row['jul'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : number_format($row['aug'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : number_format($row['sep'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : number_format($row['oct'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : number_format($row['nov'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : number_format($row['dec'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : number_format($row['avg'] * 100, 0). '%' ?></td> 
+                                                        <td class="text-center">-</td>
+                                                    </tr>
+                                                <?php else : ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : round($row['last_year']) ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : round($row['jan']) ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : round($row['feb']) ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : round($row['mar']) ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : round($row['apr']) ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : round($row['may']) ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : round($row['jun']) ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : round($row['jul']) ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : round($row['aug']) ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : round($row['sep']) ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : round($row['oct']) ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : round($row['nov']) ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : round($row['dec']) ?></td>
+                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : round($row['avg']) ?></td>
+                                                        <td class="text-center"><?= round($total) ?></td>
+                                                    </tr>
+                                                <?php endif ?>
+                                            </tbody>
+                                        </table>
                                             <div class="chart has-fixed-height" id="<?= $chartId ?>"></div>
                                             <script type="text/javascript">
                                                 var nameData = [],
@@ -161,8 +244,7 @@
                                                         },
                                                         axisLabel: {
                                                             fontSize: 11,
-                                                            fontWeight: 'bold',
-                                                            rotate: 60
+                                                            fontWeight: 'bold',                                                        
                                                         }
 
 
@@ -189,20 +271,7 @@
 
                                                         data: <?= $chartData ?>,
 
-                                                        label: {
-                                                            verticalAlign: 'top',
-                                                            fontWeight: 'bold',
-                                                            position: 'insideTop',
-                                                            <?php if ($row['type'] == "percentage") : ?>
-                                                                show: true,
-                                                                formatter: '{c}%'
-                                                            <?php elseif ($row['type'] == "currency") : ?>
-                                                                show: true,
-                                                                formatter: '$ {c}'
-                                                            <?php else : ?>
-                                                                show: true,
-                                                            <?php endif ?>
-                                                        },
+                                                        
                                                         yaxis: { 
                                                             min: 0.5 
                                                         },
@@ -228,18 +297,24 @@
                                     <div class="card-header">
                                         <h5 class="card-title"><b><?= strtoupper($row['chart']) ?></b> </h5>
                                     </div>
-
+                                    
                                     <div class="card-body">
                                         <div class="chart-container">
-                                            <?php
-                                            $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
-                                           
+                                        <?php 
+                                            $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']); 
+                                            
                                             $total = array_sum($temp);
-                                            $avg = $total / count(array_filter($temp));
+                                            $avg = $total / count(array_filter($temp));    
+                                            
+                                         
+                                            $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+                                            $usd = $fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, 'EUR');
+                                            $usd = $fmt->setAttribute(NumberFormatter::FRACTION_DIGITS, 0);
+
                                                                                        
                                             if ($row['type'] == 'percentage') {
                                                 $total = round($avg, 2);
-                                                $avg = round($avg * 100);
+                                                $avg = ($row['avg'] == 0) ? null : number_format($row['avg'] * 100, 0);
                                                 $jan = ($row['jan'] == 0) ? null : number_format($row['jan'] * 100, 0);
                                                 $feb = ($row['feb'] == 0) ? null : number_format($row['feb'] * 100, 0);
                                                 $mar = ($row['mar'] == 0) ? null : number_format($row['mar'] * 100, 0);
@@ -253,7 +328,8 @@
                                                 $nov = ($row['nov'] == 0) ? null : number_format($row['nov'] * 100, 0);
                                                 $dec = ($row['dec'] == 0) ? null : number_format($row['dec'] * 100, 0);
                                             } else {
-                                                $avg = ceil($avg);
+                                            
+                                                $avg = ($row['avg'] == 0) ? null : round($row['avg']);
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan']);
                                                 $feb = ($row['feb'] == 0) ? null : round($row['feb']);
                                                 $mar = ($row['mar'] == 0) ? null : round($row['mar']);
@@ -299,7 +375,85 @@
 
                                             
                                             ?>
-                                        
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="text-center">Last Year</th>
+                                                    <th scope="col" class="text-center">Jan</th>
+                                                    <th scope="col" class="text-center">Feb</th>
+                                                    <th scope="col" class="text-center">Mar</th>
+                                                    <th scope="col" class="text-center">Apr</th>
+                                                    <th scope="col" class="text-center">May</th>
+                                                    <th scope="col" class="text-center">Jun</th>
+                                                    <th scope="col" class="text-center">Jul</th>
+                                                    <th scope="col" class="text-center">Aug</th>
+                                                    <th scope="col" class="text-center">Sep</th>
+                                                    <th scope="col" class="text-center">Oct</th>
+                                                    <th scope="col" class="text-center">Nov</th>
+                                                    <th scope="col" class="text-center">Dec</th>
+                                                    <th scope="col" class="text-center">Average</th>
+                                                    <th scope="col" class="text-center">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($row['type'] == 'currency') : ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : $fmt->formatCurrency($row['last_year'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : $fmt->formatCurrency($row['jan'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : $fmt->formatCurrency($row['feb'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : $fmt->formatCurrency($row['mar'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : $fmt->formatCurrency($row['apr'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : $fmt->formatCurrency($row['avg'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= $fmt->formatCurrency($total, 'USD'); ?></td>
+                                                        
+                                                    </tr>
+                                                <?php elseif ($row['type'] == 'percentage') : ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : number_format($row['last_year'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : number_format($row['jan'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : number_format($row['feb'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : number_format($row['mar'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : number_format($row['apr'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : number_format($row['may'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : number_format($row['jun'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : number_format($row['jul'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : number_format($row['aug'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : number_format($row['sep'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : number_format($row['oct'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : number_format($row['nov'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : number_format($row['dec'] * 100, 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : number_format($row['avg'] * 100, 0). '%' ?></td> 
+                                                        <td class="text-center">-</td>
+                                                    </tr>
+                                                <?php else : ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : round($row['last_year']) ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : round($row['jan']) ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : round($row['feb']) ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : round($row['mar']) ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : round($row['apr']) ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : round($row['may']) ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : round($row['jun']) ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : round($row['jul']) ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : round($row['aug']) ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : round($row['sep']) ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : round($row['oct']) ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : round($row['nov']) ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : round($row['dec']) ?></td>
+                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : round($row['avg']) ?></td>
+                                                        <td class="text-center"><?= round($total) ?></td>
+                                                    </tr>
+                                                <?php endif ?>
+                                            </tbody>
+                                        </table>
                                             <div class="chart has-fixed-height" id="<?= $chartId ?>"></div>
                                             <script type="text/javascript">
                                                 var nameData = [],
@@ -384,20 +538,7 @@
 
                                                         data: <?= $chartData ?>,
 
-                                                        label: {
-                                                            verticalAlign: 'top',
-                                                            fontWeight: 'bold',
-                                                            position: 'insideTop',
-                                                            <?php if ($row['type'] == "percentage") : ?>
-                                                                show: true,
-                                                                formatter: '{c}%'
-                                                            <?php elseif ($row['type'] == "currency") : ?>
-                                                                show: true,
-                                                                formatter: '$ {c}'
-                                                            <?php else : ?>
-                                                                show: true,
-                                                            <?php endif ?>
-                                                        },
+                                                       
                                                         yaxis: { 
                                                             min: 0.5 
                                                         },

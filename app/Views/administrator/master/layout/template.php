@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?= $this->include('administrator/master/layout/header'); ?>
+    <?= $this->include('mobile/master/layout/header'); ?>
     <title><?= $tittle ?></title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
 </head>
@@ -148,14 +148,14 @@
 
 <body>
     <!-- Main navbar -->
-    <?= $this->include('administrator/master/layout/main-navbar') ?>
+    <?= $this->include('mobile/master/layout/main-navbar') ?>
     <!-- /main navbar -->
 
 
     <!-- Page content -->
     <div class="page-content">
         <!-- Main sidebar -->
-        <?= $this->include('administrator/master/layout/sidebar') ?>
+        <?= $this->include('mobile/master/layout/sidebar') ?>
         <div class="content-wrapper">
             <!-- Inner content -->
             <div class="content-inner">
@@ -185,10 +185,10 @@
                 <!-- content  -->
                 <?= $this->renderSection('content'); ?>
 
-                <?= $this->include('administrator/master/layout/footer') ?>
+                <?= $this->include('mobile/master/layout/footer') ?>
             </div>
         </div>
-        <?= $this->include('administrator/master/layout/notif') ?>
+        <?= $this->include('mobile/master/layout/notif') ?>
 </body>
 <?= $this->renderSection('js') ?>
 <!-- Your SDK code -->

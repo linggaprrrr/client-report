@@ -1,0 +1,42 @@
+ERROR - 2022-07-19 03:48:22 --> Error connecting to the database: No connection could be made because the target machine actively refused it.
+
+CRITICAL - 2022-07-19 03:48:22 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it.
+
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Auth.php(23): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Auth->login()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-07-19 03:52:26 --> Undefined variable: report
+#0 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(322): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 322, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignReportBulk()
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-07-19 03:52:57 --> Call to a member function getClientExtension() on null
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignReportBulk()
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-07-19 03:54:39 --> Call to a member function getClientExtension() on null
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignReportBulk()
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-07-19 03:55:10 --> Call to a member function getClientExtension() on null
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->assignReportBulk()
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}

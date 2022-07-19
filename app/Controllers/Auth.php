@@ -42,6 +42,7 @@ class Auth extends BaseController
         if ($user->under_comp != '1') {
             return redirect()->back()->with('error', 'Username Not Found!');
         }
+
         $currentPage = $post['current'];
         if ($user) {
             if (password_verify($post['password'], $user->password)) {

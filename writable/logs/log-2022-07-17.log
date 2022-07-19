@@ -1,0 +1,157 @@
+ERROR - 2022-07-17 10:44:48 --> Error connecting to the database: No connection could be made because the target machine actively refused it.
+
+CRITICAL - 2022-07-17 10:44:48 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it.
+
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Auth.php(23): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Auth->login()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-07-17 10:58:46 --> PhpOffice\PhpSpreadsheet\Reader\Xlsx::parseRichText(): Node no longer exists
+#0 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(1684): CodeIgniter\Debug\Exceptions->errorHandler(2, 'PhpOffice\\PhpSp...', 'C:\\xampp\\htdocs...', 1684, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(497): PhpOffice\PhpSpreadsheet\Reader\Xlsx->parseRichText(Object(SimpleXMLElement))
+#2 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(216): PhpOffice\PhpSpreadsheet\Reader\Xlsx->load('C:\\xampp\\tmp\\ph...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-07-17 10:58:46 --> Uncaught ErrorException: print_r(): Node no longer exists in C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php:96
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'print_r(): Node...', 'C:\\xampp\\htdocs...', 96, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php(96): print_r(Array, true)
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(229): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(232): CodeIgniter\Debug\Exceptions->CodeIgniter\Debug\{closure}()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(116): CodeIgniter\Debug\Exceptions->render(Object(ErrorException), 500)
+#5 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#6 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-07-17 10:59:09 --> PhpOffice\PhpSpreadsheet\Reader\Xlsx::parseRichText(): Node no longer exists
+#0 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(1684): CodeIgniter\Debug\Exceptions->errorHandler(2, 'PhpOffice\\PhpSp...', 'C:\\xampp\\htdocs...', 1684, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(497): PhpOffice\PhpSpreadsheet\Reader\Xlsx->parseRichText(Object(SimpleXMLElement))
+#2 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(216): PhpOffice\PhpSpreadsheet\Reader\Xlsx->load('C:\\xampp\\tmp\\ph...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-07-17 10:59:09 --> Uncaught ErrorException: print_r(): Node no longer exists in C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php:96
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'print_r(): Node...', 'C:\\xampp\\htdocs...', 96, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php(96): print_r(Array, true)
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(229): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(232): CodeIgniter\Debug\Exceptions->CodeIgniter\Debug\{closure}()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(116): CodeIgniter\Debug\Exceptions->render(Object(ErrorException), 500)
+#5 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#6 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-07-17 10:59:25 --> PhpOffice\PhpSpreadsheet\Reader\Xlsx::parseRichText(): Node no longer exists
+#0 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(1684): CodeIgniter\Debug\Exceptions->errorHandler(2, 'PhpOffice\\PhpSp...', 'C:\\xampp\\htdocs...', 1684, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(497): PhpOffice\PhpSpreadsheet\Reader\Xlsx->parseRichText(Object(SimpleXMLElement))
+#2 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(216): PhpOffice\PhpSpreadsheet\Reader\Xlsx->load('C:\\xampp\\tmp\\ph...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-07-17 10:59:25 --> Uncaught ErrorException: print_r(): Node no longer exists in C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php:96
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'print_r(): Node...', 'C:\\xampp\\htdocs...', 96, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php(96): print_r(Array, true)
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(229): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(232): CodeIgniter\Debug\Exceptions->CodeIgniter\Debug\{closure}()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(116): CodeIgniter\Debug\Exceptions->render(Object(ErrorException), 500)
+#5 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#6 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-07-17 11:05:42 --> PhpOffice\PhpSpreadsheet\Reader\Xlsx::parseRichText(): Node no longer exists
+#0 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(1684): CodeIgniter\Debug\Exceptions->errorHandler(2, 'PhpOffice\\PhpSp...', 'C:\\xampp\\htdocs...', 1684, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(497): PhpOffice\PhpSpreadsheet\Reader\Xlsx->parseRichText(Object(SimpleXMLElement))
+#2 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(216): PhpOffice\PhpSpreadsheet\Reader\Xlsx->load('C:\\xampp\\tmp\\ph...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-07-17 11:05:42 --> Uncaught ErrorException: print_r(): Node no longer exists in C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php:96
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'print_r(): Node...', 'C:\\xampp\\htdocs...', 96, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php(96): print_r(Array, true)
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(229): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(232): CodeIgniter\Debug\Exceptions->CodeIgniter\Debug\{closure}()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(116): CodeIgniter\Debug\Exceptions->render(Object(ErrorException), 500)
+#5 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#6 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-07-17 11:23:39 --> PhpOffice\PhpSpreadsheet\Reader\Xlsx::parseRichText(): Node no longer exists
+#0 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(1684): CodeIgniter\Debug\Exceptions->errorHandler(2, 'PhpOffice\\PhpSp...', 'C:\\xampp\\htdocs...', 1684, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(497): PhpOffice\PhpSpreadsheet\Reader\Xlsx->parseRichText(Object(SimpleXMLElement))
+#2 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(217): PhpOffice\PhpSpreadsheet\Reader\Xlsx->load('C:\\xampp\\tmp\\ph...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-07-17 11:23:39 --> Uncaught ErrorException: print_r(): Node no longer exists in C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php:96
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'print_r(): Node...', 'C:\\xampp\\htdocs...', 96, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php(96): print_r(Array, true)
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(229): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(232): CodeIgniter\Debug\Exceptions->CodeIgniter\Debug\{closure}()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(116): CodeIgniter\Debug\Exceptions->render(Object(ErrorException), 500)
+#5 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#6 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-07-17 11:24:04 --> PhpOffice\PhpSpreadsheet\Reader\Xlsx::parseRichText(): Node no longer exists
+#0 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(1684): CodeIgniter\Debug\Exceptions->errorHandler(2, 'PhpOffice\\PhpSp...', 'C:\\xampp\\htdocs...', 1684, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Reader\Xlsx.php(497): PhpOffice\PhpSpreadsheet\Reader\Xlsx->parseRichText(Object(SimpleXMLElement))
+#2 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(218): PhpOffice\PhpSpreadsheet\Reader\Xlsx->load('C:\\xampp\\tmp\\ph...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadReport()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-07-17 11:24:04 --> Uncaught ErrorException: print_r(): Node no longer exists in C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php:96
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'print_r(): Node...', 'C:\\xampp\\htdocs...', 96, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Views\errors\html\error_exception.php(96): print_r(Array, true)
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(229): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(232): CodeIgniter\Debug\Exceptions->CodeIgniter\Debug\{closure}()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\Debug\Exceptions.php(116): CodeIgniter\Debug\Exceptions->render(Object(ErrorException), 500)
+#5 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#6 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-07-17 22:02:10 --> Undefined variable: logo
+#0 C:\xampp\htdocs\smartwholesale\client-report\app\Views\login.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 90, Array)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Common.php(1097): CodeIgniter\View\View->render('login', Array, true)
+#4 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(43): view('login')
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}

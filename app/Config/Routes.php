@@ -162,6 +162,12 @@ $routes->get('/master/manifest', 'Admin\Reports::master');
 $routes->get('/master/manifest/(:num)', 'Admin\Reports::master/$1');
 $routes->post('/master/manifest', 'Admin\Reports::master');
 $routes->get('/master/pl-report/(:num)', 'Admin\Reports::masterPLReport/$1');
+
+$routes->get('/mobile/master/manifest', 'Mobile::master');
+$routes->get('/mobile/master/manifest/(:num)', 'Mobile::master/$1');
+$routes->post('/mobile/master/manifest', 'Mobile::master');
+$routes->get('/mobile/master/pl-report/(:num)', 'Mobile::masterPLReport/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

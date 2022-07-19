@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <button type="submit" class="btn btn-secondary"><i class="icon-paperplane  mr-2"></i>Submit</button>
-                    <button type="button" class="btn btn-danger cancel"><i class="icon-cross2 mr-2"></i>Cancel</button>
+                    <a href="<?= base_url('/admin/client-activities') ?>" class="btn btn-danger cancel"><i class="icon-cross2 mr-2"></i>Cancel</a>
 
                 </div>
             </div>

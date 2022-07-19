@@ -1,0 +1,11 @@
+CRITICAL - 2022-07-16 00:17:05 --> Call to undefined function money_format()
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include()
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Common.php(1097): CodeIgniter\View\View->render('mobile/master/p...', Array, true)
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Mobile.php(461): view('mobile/master/p...', Array)
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Mobile->masterPLReport('9')
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
