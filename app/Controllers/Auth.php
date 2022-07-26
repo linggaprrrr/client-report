@@ -18,15 +18,12 @@ class Auth extends BaseController
     }
 
     public function login()
-    {        
+    {
         $userId = session()->get('user_id');
-        $company = $this->db->query("SELECT logo FROM company LIMIT 1")->getRow();
-       
+
         if (is_null($userId)) {
-            $data = array(
-                'logo' => $company->logo
-            );
-            return view('login', $data);
+
+            return view('login');
         } else {
             if (session()->get('role') == 'superadmin') {
                 return redirect()->route('admin/dashboard');
@@ -39,10 +36,6 @@ class Auth extends BaseController
     {
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
-        if ($user->under_comp != '1') {
-            return redirect()->back()->with('error', 'Username Not Found!');
-        }
-
         $currentPage = $post['current'];
         if ($user) {
             if (password_verify($post['password'], $user->password)) {
@@ -51,11 +44,6 @@ class Auth extends BaseController
                     'role' => $user->role
                 ];
                 session()->set($params);
-                            
-                if ($user->role == "master" && $user->under_comp == '1') {
-                    return redirect()->to(base_url('master/manifest'))->with('message', 'Login Successful!');
-                }
-              
                 if ($user->role == "superadmin") {
                     if ($currentPage == base_url()) {
                         return redirect()->to(base_url('admin/dashboard'))->with('message', 'Login Successful!');
@@ -64,10 +52,7 @@ class Auth extends BaseController
                     }
                 } elseif ($user->role == "va" || $user->role == "admin") {
                     return redirect()->to(base_url('va/assignment-report'))->with('message', 'Login Successful!');
-                }  else {
-                    $ip = getenv('HTTP_CLIENT_IP')?: getenv('HTTP_X_FORWARDED_FOR')?: getenv('HTTP_X_FORWARDED')?: getenv('HTTP_FORWARDED_FOR')?: getenv('HTTP_FORWARDED')?: getenv('REMOTE_ADDR');
-                    $page = 'get-started';
-                    $this->userModel->logActivity($user->id, $page, $ip);
+                } else {
                     if ($currentPage == base_url() || $currentPage == base_url() . '/login') {
                         return redirect()->to(base_url('get-started'))->with('message', 'Login Successful!');
                     } else {

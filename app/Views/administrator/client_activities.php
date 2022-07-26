@@ -108,39 +108,6 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_form_upload_bulk"><i class="icon-file-upload mr-2"></i>Bulk Upload</button>
-                <div id="modal_form_upload_bulk" class="modal fade" tabindex="-1">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header bg-secondary text-white">
-                                <h5 class="modal-title">Bulk Upload Client Manifest</h5>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <form action="<?= base_url('upload-report-bulk') ?>" method="POST" enctype="multipart/form-data">
-                                <?php csrf_field() ?>
-                                <div class="modal-body">
-                                    
-                                    <div class="form-group">
-                                        <label>File:</label>
-                                        <label class="custom-file">
-
-                                            <input type="file" name="file[]" class="custom-file-input" id="file-upload2" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple required>
-                                            <span class="custom-file-label" id="file-upload-filename2">Choose file</span>
-                                        </label>
-                                        <span class="form-text text-muted">Accepted formats: xls/xlsx. Max file size 10Mb</span>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <div class="text-right">
-                                        <button type="submit" class="btn btn-secondary">Save <i class="icon-paperplane ml-2"></i></button>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -234,8 +201,6 @@
         <?php endif ?>
     });
 
-
-
     $('#noty_created').on('click', function() {
         new Noty({
             text: 'You successfully upload the manifest.',
@@ -276,11 +241,8 @@
     });
     var input = document.getElementById('file-upload');
     var infoArea = document.getElementById('file-upload-filename');
-    var input2 = document.getElementById('file-upload2');
-    var infoArea2 = document.getElementById('file-upload-filename2');
 
     input.addEventListener('change', showFileName);
-    input2.addEventListener('change', showFileName2);
 
     function showFileName(event) {
         // the change event gives us the input it occurred in 
@@ -289,15 +251,6 @@
         var fileName = input.files[0].name;
         // use fileName however fits your app best, i.e. add it into a div
         infoArea.textContent = '' + fileName;
-    }
-
-    function showFileName2(event) {
-        // the change event gives us the input it occurred in 
-        var input = event.srcElement;
-        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-        var fileName = input2.files[0].name;
-        // use fileName however fits your app best, i.e. add it into a div
-        infoArea2.textContent = '' + fileName;
     }
 </script>
 

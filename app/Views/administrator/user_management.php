@@ -91,21 +91,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Under Company</label>
-                                        <div class="input-group">
-                                            <span class="input-group-prepend">
-                                                <span class="input-group-text"><i class="icon-collaboration"></i></span>
-                                            </span>
-                                            <select name="under_comp" id="" class="form-control">
-                                                <option value="0">-</option>
-                                                <option value="2">ELITE</option>
-                                                <option value="3">SFBA</option>
-                                                <option value="4">SE</option>
-                                                <option value="5">ALPHA</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <label>Password</label>
                                         <div class="input-group">
                                             <span class="input-group-prepend">
@@ -150,7 +135,6 @@
                     <th>Username</th>
                     <th>Company Name</th>
                     <th>Role</th>
-                    <th>Under Comp.</th>
                     <th class="text-center" style="width:5%">Actions</th>
                 </tr>
             </thead>
@@ -178,19 +162,6 @@
                             </td>
                             <td>
                                 <div class="font-weight-bold"><?= strtoupper($row['role']) ?></div>
-                            </td>
-                            <td>
-                                <?php if ($row['under_comp'] == 2) :?>
-                                    <div class="font-weight-bold">ELITE</div>
-                                <?php elseif ($row['under_comp'] == 3) : ?>
-                                    <div class="font-weight-bold">SFBA</div>
-                                <?php elseif ($row['under_comp'] == 4) : ?>
-                                    <div class="font-weight-bold">SE</div>
-                                <?php elseif ($row['under_comp'] == 5) : ?>
-                                    <div class="font-weight-bold">ALPHA</div>
-                                <?php else: ?>
-                                    <div class="font-weight-bold">-</div>
-                                <?php endif ?>
                             </td>
                             <td class="text-center">
                                 <div class="list-icons">

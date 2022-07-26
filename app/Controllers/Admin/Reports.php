@@ -51,7 +51,7 @@ class Reports extends BaseController
         $finSummary = $this->reportModel->finSummary("spend");
         $finSummaryFulfill = $this->reportModel->finSummary();
         $costUnderOnek = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - cost_ as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id WHERE (investments.cost - cost_) BETWEEN 1 AND 1000 ORDER BY (investments.cost - cost_) ASC");
-        $news = $this->newsModel->getLastNews(1);
+        $news = $this->newsModel->getLastNews();
         $getBoxCost = $this->assignReportModel->getCostBox();
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $tempBoxSummary = array();
@@ -197,7 +197,6 @@ class Reports extends BaseController
         $date = date('Y-m-d', strtotime($date));
 
         $investmentId = "";
-        
         $check = $this->db->query("SELECT * FROM investments WHERE date = '$date' AND client_id='$client' ")->getRow();
         if (!empty($check)) {
             $investmentId = $check->id;
@@ -206,17 +205,13 @@ class Reports extends BaseController
             $this->db->query("DELETE FROM log_files WHERE investment_id = '$investmentId' ");
         } 
         
-    
-
         $ext = $report->getClientExtension();
         if ($ext == 'xls') {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
         } else {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         }
-        
         $spreadsheet = $render->load($report);
-    
         $data = $spreadsheet->getActiveSheet()->toArray();
         $category = array();
         $reportData = array();
@@ -236,6 +231,13 @@ class Reports extends BaseController
 
                 $this->investmentModel->save($investment);
                 $investmentLastId = $this->investmentModel->getLastId();
+                $category = array(
+                    "category_name" => $data[1],
+                    "investment_id" => $investmentLastId,
+                    "created_at" => date("Y-m-d H:i:s"),
+                    "updated_at" => date("Y-m-d H:i:s")
+                );
+                $this->categoryModel->save($category);
             } elseif ($idx > 2) {
                 if (!empty($data[1] || strcasecmp($data[1], "tracking") != 0)) {
                     if (!empty($data[0])) {
@@ -275,117 +277,6 @@ class Reports extends BaseController
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
-    public function uploadReportBulk() {
-        $reports = $this->request->getFileMultiple('file');
-        $files = array();
-        foreach ($reports as $report) {
-            array_push($files, $report->getName());
-            $fileName = $report->getName();
-            if (file_exists(FCPATH. "/files/". $fileName)) {
-                $fileName = "NEW ". time() . $report->getName(); 
-            }
-            $report->move('files', $fileName);
-        }
-        $userId = session()->get('user_id');
-        if (is_null($userId)) {
-            return view('login');
-        }
-        $user = $this->userModel->find($userId);
-        $totalClientUploaded = $this->reportModel->totalClientUploaded();
-        $totalReport = $this->reportModel->totalReport();
-        $getAllFiles = $this->reportModel->getAllFiles();
-        $getAllClient = $this->reportModel->getAllClient();
-        $companysetting = $this->db->query("SELECT * FROM company")->getRow();
-
-        $data = [
-            'tittle' => 'Client Activities | Report Management System',
-            'menu' => 'Client Activities',
-            'totalClientUploaded' => $totalClientUploaded,
-            'totalReport' => $totalReport,
-            'getAllFiles' => $getAllFiles,
-            'getAllClient' => $getAllClient,
-            'files' => $files,
-            'user' => $user,
-            'companySetting' => $companysetting
-        ];
-        
-        return view('administrator/client_activities_bulk_upload', $data);
-      
-    }
-
-    public function assignReportBulk() {
-        $client = $this->request->getVar('client');
-        $date = $this->request->getVar('date');
-        $file = $this->request->getVar('file[]');
-        $link = $this->request->getVar('link');
-  
-        $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        for ($i = 0; $i < count($file); $i++) {
-            $investmentId = "";
-            $newDate = date('Y-m-d', strtotime($date[$i]));
-            $check = $this->db->query("SELECT * FROM investments WHERE date = '$newDate' AND client_id='$client[$i]' ")->getRow();
-        
-            if (!empty($check)) {
-                $investmentId = $check->id;
-                $this->db->query("DELETE FROM investments WHERE id = '$investmentId' ");
-                $this->db->query("DELETE FROM reports WHERE investment_id = '$investmentId' ");
-                $this->db->query("DELETE FROM log_files WHERE investment_id = '$investmentId' ");
-            } 
-
-            $spreadsheet = $render->load(FCPATH. "/files/". $file[$i]);
-            $data = $spreadsheet->getActiveSheet()->toArray();
-            $category = array();
-            $reportData = array();
-            $investment = array();
-            $investmentLastId = "";
-            foreach ($data as $idx => $data) {
-                if ($idx == 1) {
-                    $tempInvest = str_replace('$', '', $data[5]);
-                    $tempInvest = str_replace(',', '', $tempInvest);
-                    $investment = array(
-                        "cost" => $tempInvest,
-                        "date" => $newDate,
-                        "client_id" => $client[$i]
-                    );
-
-                    $this->investmentModel->save($investment);
-                    $investmentLastId = $this->investmentModel->getLastId();
-            
-                } elseif ($idx > 2) {
-                    if (!empty($data[1] || strcasecmp($data[1], "tracking") != 0)) {
-                        if (!empty($data[0])) {
-                            $retail = str_replace('$', '', $data[4]);
-                            $retail = str_replace(',', '', $retail);
-                            $original = str_replace('$', '', $data[5]);
-                            $original = str_replace(',', '', $original);
-                            $cost = str_replace('$', '', $data[6]);
-                            $cost = str_replace(',', '', $cost);
-                            $reportData = array(
-                                "sku" => $data[0],
-                                "item_description" => trim($data[1]),
-                                "cond" => $data[2],
-                                "qty" => $data[3],
-                                "retail_value" => $retail,
-                                "original_value" => $original,
-                                "cost" => $cost,
-                                "vendor" => $data[7],
-                                "client_id" => $client[$i],
-                                "investment_id" => $investmentLastId,
-                                "created_at" => date("Y-m-d H:i:s"),
-                                "updated_at" => date("Y-m-d H:i:s")
-                            );
-                            $this->reportModel->save($reportData);
-                        }
-                    } else {
-                        continue;
-                    }
-                }
-            }
-            $fileName = $file[$i];
-            $this->db->query("INSERT into log_files(date, file, link, client_id, investment_id) VALUES(NOW()," . $this->db->escape($fileName) . ", " . $this->db->escape($link[$i]) . " ,$client[$i], $investmentLastId) ");
-        }
-        return redirect()->to('/admin/client-activities')->with('success', 'Report Successfully Uploaded!');
-    }
 
     public function deleteReport($id)
     {
@@ -441,7 +332,7 @@ class Reports extends BaseController
         }
         $spreadsheet = $render->load($chart);
         $data = $spreadsheet->getActiveSheet()->toArray();
-        d($data);
+        
         if ($types == 'yes') {    
             $chartTitle = array();
             $monthData = array();
@@ -504,8 +395,6 @@ class Reports extends BaseController
                     }
                 }
             }
-            dd($monthData);
-            
             for ($i = 0; $i < count($chartTitle); $i++) {
                 $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
             }    
@@ -517,10 +406,10 @@ class Reports extends BaseController
                 if (!empty($row[0])) {
                     array_push($chartTitle, $row[0]);
                 } else {
-                    if (!empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8]) || !empty($row[9]) || !empty($row[10] || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]))) {
+                    if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
                         $month = array();
-                        if (strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false || strpos($row[14], '%') !== false || strpos($row[15], '%') !== false) {
-                            for ($i = 4; $i < 16; $i++) {
+                        if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
+                            for ($i = 2; $i < 14; $i++) {
                                 $temp = str_replace('%', '', $row[$i]);
                                 $temp = str_replace(',', '', $temp);
                                 if (strpos($temp, '(') !== false) {
@@ -532,8 +421,8 @@ class Reports extends BaseController
                             }
 
                             array_push($type, 'percentage');
-                        } elseif (strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false || strpos($row[14], '$') !== false || strpos($row[15], '$') !== false) {
-                            for ($i = 4; $i < 16; $i++) {
+                        } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
+                            for ($i = 2; $i < 14; $i++) {
                                 $temp = str_replace('$', '', $row[$i]);
                                 $temp = str_replace(',', '', $temp);
                                 if (strpos($temp, '(') !== false) {
@@ -546,7 +435,7 @@ class Reports extends BaseController
 
                             array_push($type, 'currency');
                         } else {
-                            for ($i = 4; $i < 16; $i++) {
+                            for ($i = 2; $i < 14; $i++) {
                                 $temp = $row[$i];
                                 if (strpos($temp, '(') !== false) {
                                     $temp = str_replace('(', '', $temp);
@@ -564,7 +453,6 @@ class Reports extends BaseController
                     }
                 }
             }
-            dd($monthData);
             for ($i = 0; $i < count($chartTitle); $i++) {
                 $this->reportModel->savePLReportExclude($chartTitle[$i], $monthData[$i], $type[$i], $client);
             }
@@ -1586,7 +1474,7 @@ class Reports extends BaseController
                             }
                             $tempName = trim($row[1]);
                         }
-                        $brandName = trim($row[2]);
+                        $brandName = trim($row[3]);
                         $getBrandId = $this->db->query('SELECT id FROM brands WHERE brand_name LIKE ' . $this->db->escape($brandName) . ' ')->getRow();
 
                         if (!empty($getBrandId)) {
@@ -1602,110 +1490,6 @@ class Reports extends BaseController
     public function getPLGraph() {
         $id = $this->request->getVar('log_id');
         dd($id);
-    }
-
-    public function master($id = null) {
-        $dateId = $this->request->getVar('investdate');
-        $client = $this->request->getVar('client');
-        $userId = session()->get('user_id');
-        if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
-        }
-        $userId = 9;
-        
-        if (!is_null($id)) {
-            $userId = $id;
-        }
-
-        if (!is_null($client) || !empty($client)) {
-            $userId = $client;
-        }
-        $user = $this->userModel->find($userId);
-        $investId = $this->investmentModel->getInvestmentId($userId);
-        $getAllClient = $this->db->query("SELECT * FROM users WHERE role = 'client' ");
-       
-        
-        if ($dateId == null) {
-            if ($user['role'] == 'client' and $investId == null) {
-                $data = [
-                    'tittle' => 'Dashboard | Report Management System',
-                    'menu' => 'Dashboard',
-                    'user' => $user,
-                    'clients' => $getAllClient,
-                    'clientSelect' => $userId
-                ];
-
-                return view('administrator/master/dashboard2', $data);
-            }
-
-            $lastInvestment = $this->investmentModel->getLastDateOfInvestment($userId);
-            $category = $this->categoryModel->getCategory($investId);
-            $totalInvest = $this->investmentModel->totalClientInvestment($investId);
-            $totalUnit = $this->reportModel->totalUnit($investId);
-            $totalRetail = $this->reportModel->totalRetail($investId);
-            $totalCostLeft = $this->reportModel->totalCostLeft($investId);
-            $totalFulfilled = $this->reportModel->totalFulfilled($investId);
-            $getAllReportClient = $this->reportModel->getAllReportClient($investId);
-            $investmentDate = $this->investmentModel->investmentDate($user['id']);
-            $getVendorName = $this->reportModel->getVendorName($investId);
-        } else {
-            $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
-            $category = $this->categoryModel->getCategory($dateId);
-            $totalInvest = $this->investmentModel->totalClientInvestment($dateId);
-            $totalUnit = $this->reportModel->totalUnit($dateId);
-            $totalRetail = $this->reportModel->totalRetail($dateId);
-            $totalCostLeft = $this->reportModel->totalCostLeft($dateId);
-            $totalFulfilled = $this->reportModel->totalFulfilled($dateId);
-            $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
-            $investmentDate = $this->investmentModel->investmentDate($user['id']);
-            $getVendorName = $this->reportModel->getVendorName($dateId);
-        }   
-
-        
-        
-        $data = [
-            'tittle' => 'Dashboard | Report Management System',
-            'menu' => 'Dashboard',
-            'user' => $user,
-            'totalInvest' => $totalInvest,
-            'totalUnit' => $totalUnit,
-            'totalRetail' => $totalRetail,
-            'totalCostLeft' => $totalCostLeft,
-            'totalFulfilled' => $totalFulfilled,
-            'getAllReports' => $getAllReportClient,
-            'investDate' => $investmentDate,
-            'lastInvestment' => $lastInvestment,
-            'getVendorName' => $getVendorName,
-            'clients' => $getAllClient,
-            'clientSelect' => $userId
-    
-        ];
-        $page = 'manifest';
-        return view('administrator/master/dashboard', $data);
-    }
-
-    public function masterPLReport($id)
-    {
-        $userId = $id;
-        if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
-        }
-        $user = $this->userModel->find($userId);
-        $plReport = $this->reportModel->showPLReport($userId);
-        $downloadPLReport = $this->reportModel->downloadPLReport($userId);
-        $getAllClient = $this->db->query("SELECT * FROM users WHERE role = 'client' ");
-        $data = [
-            'tittle' => "P&L Report | Report Management System",
-            'menu' => "P&L Report",
-            'user' => $user,
-            'plReport' => $plReport,
-            'file' => $downloadPLReport,
-            'clients' => $getAllClient,
-            'clientSelect' => $userId
-        ];
-        $page = 'p&l';
-        $this->userModel->logActivity($userId, $page);
-        return view('administrator/master/pl_report', $data);
     }
     
     public function test()

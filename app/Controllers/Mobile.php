@@ -47,9 +47,6 @@ class Mobile extends BaseController
     {
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
-        if ($user->under_comp != '1') {
-            return redirect()->back()->with('error', 'Username Not Found!');
-        }
         $currentPage = $post['current'];
         if ($user) {
             if (password_verify($post['password'], $user->password)) {
@@ -57,27 +54,20 @@ class Mobile extends BaseController
                     'user_id' => $user->id,
                     'role' => $user->role
                 ];
-                session()->set($params);
-                            
-                if ($user->role == "master" && $user->under_comp == '1') {
-                    return redirect()->to(base_url('mobile/master/manifest'))->with('message', 'Login Successful!');
-                }
-              
                 if ($user->role == "client") {
-                    $ip = getenv('HTTP_CLIENT_IP')?: getenv('HTTP_X_FORWARDED_FOR')?: getenv('HTTP_X_FORWARDED')?: getenv('HTTP_FORWARDED_FOR')?: getenv('HTTP_FORWARDED')?: getenv('REMOTE_ADDR');
-                    $page = 'get-started';
-                    $this->userModel->logActivityMobile($user->id, $page, $ip);
-                    if ($currentPage == base_url() || $currentPage == base_url() . '/login') {
-                        return redirect()->to(base_url('mobile/get-started'))->with('message', 'Login Successful!');
+                    session()->set($params);
+                    if ($currentPage == base_url()) {
+                        return redirect()->to(base_url('mobile/get-started/'. $user->id))->with('message', 'Login Successful!');
                     } else {
                         return redirect()->to($currentPage)->with('message', 'Login Successful!');
                     }
+                } else {
+                  return redirect()->back()->with('error', 'Incorrect Password!');
                 }
             } else {
                 return redirect()->back()->with('error', 'Incorrect Password!');
             }
         } else {
-
             return redirect()->back()->with('error', 'Username Not Found!');
         }
     }
@@ -168,11 +158,7 @@ class Mobile extends BaseController
         $investId = $this->investmentModel->getInvestmentId($userId);
         // dd($investId);
         $dateId = $this->request->getVar('investdate');
-        $underComp = 1;
-        if (str_contains(base_url(uri_string()), 'eliteapp')) {
-            $underComp = 2;
-        }
-        $news = $this->newsModel->getLastNews($underComp);
+        $news = $this->newsModel->getLastNews();
         if ($dateId == null) {
             if ($user['role'] == 'client' and $investId == null) {
                 $data = [
@@ -329,12 +315,8 @@ class Mobile extends BaseController
             return redirect()->to(base_url('/login'));
         }
         $user = $this->userModel->find($userId);
-        $underComp = 1;
-        if (str_contains(base_url(uri_string()), 'eliteapp')) {
-            $underComp = 2;
-        }
-        $news = $this->newsModel->getLastNews($underComp);
-        $allNews = $this->newsModel->getNews($underComp);
+        $news = $this->newsModel->getLastNews();
+        $allNews = $this->newsModel->getNews();
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [
@@ -355,110 +337,6 @@ class Mobile extends BaseController
             'cost_left' => $getClientCostLeft
         );
         echo json_encode($data);
-    }
-
-    public function master($id = null) {
-        $dateId = $this->request->getVar('investdate');
-        $client = $this->request->getVar('client');
-        $userId = session()->get('user_id');
-        if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
-        }
-        $userId = 9;
-        
-        if (!is_null($id)) {
-            $userId = $id;
-        }
-
-        if (!is_null($client) || !empty($client)) {
-            $userId = $client;
-        }
-        $user = $this->userModel->find($userId);
-        $investId = $this->investmentModel->getInvestmentId($userId);
-        $getAllClient = $this->db->query("SELECT * FROM users WHERE role = 'client' ");
-       
-        
-        if ($dateId == null) {
-            if ($user['role'] == 'client' and $investId == null) {
-                $data = [
-                    'tittle' => 'Dashboard | Report Management System',
-                    'menu' => 'Dashboard',
-                    'user' => $user,
-                    'clients' => $getAllClient,
-                    'clientSelect' => $userId
-                ];
-
-                return view('mobile/master/dashboard2', $data);
-            }
-
-            $lastInvestment = $this->investmentModel->getLastDateOfInvestment($userId);
-            $category = $this->categoryModel->getCategory($investId);
-            $totalInvest = $this->investmentModel->totalClientInvestment($investId);
-            $totalUnit = $this->reportModel->totalUnit($investId);
-            $totalRetail = $this->reportModel->totalRetail($investId);
-            $totalCostLeft = $this->reportModel->totalCostLeft($investId);
-            $totalFulfilled = $this->reportModel->totalFulfilled($investId);
-            $getAllReportClient = $this->reportModel->getAllReportClient($investId);
-            $investmentDate = $this->investmentModel->investmentDate($user['id']);
-            $getVendorName = $this->reportModel->getVendorName($investId);
-        } else {
-            $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
-            $category = $this->categoryModel->getCategory($dateId);
-            $totalInvest = $this->investmentModel->totalClientInvestment($dateId);
-            $totalUnit = $this->reportModel->totalUnit($dateId);
-            $totalRetail = $this->reportModel->totalRetail($dateId);
-            $totalCostLeft = $this->reportModel->totalCostLeft($dateId);
-            $totalFulfilled = $this->reportModel->totalFulfilled($dateId);
-            $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
-            $investmentDate = $this->investmentModel->investmentDate($user['id']);
-            $getVendorName = $this->reportModel->getVendorName($dateId);
-        }   
-
-        
-        
-        $data = [
-            'tittle' => 'Dashboard | Report Management System',
-            'menu' => 'Dashboard',
-            'user' => $user,
-            'totalInvest' => $totalInvest,
-            'totalUnit' => $totalUnit,
-            'totalRetail' => $totalRetail,
-            'totalCostLeft' => $totalCostLeft,
-            'totalFulfilled' => $totalFulfilled,
-            'getAllReports' => $getAllReportClient,
-            'investDate' => $investmentDate,
-            'lastInvestment' => $lastInvestment,
-            'getVendorName' => $getVendorName,
-            'clients' => $getAllClient,
-            'clientSelect' => $userId
-    
-        ];
-        $page = 'manifest';
-        return view('mobile/master/dashboard', $data);
-    }
-
-    public function masterPLReport($id)
-    {
-        $userId = $id;
-        if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
-        }
-        $user = $this->userModel->find($userId);
-        $plReport = $this->reportModel->showPLReport($userId);
-        $downloadPLReport = $this->reportModel->downloadPLReport($userId);
-        $getAllClient = $this->db->query("SELECT * FROM users WHERE role = 'client' ");
-        $data = [
-            'tittle' => "P&L Report | Report Management System",
-            'menu' => "P&L Report",
-            'user' => $user,
-            'plReport' => $plReport,
-            'file' => $downloadPLReport,
-            'clients' => $getAllClient,
-            'clientSelect' => $userId
-        ];
-        $page = 'p&l';
-        $this->userModel->logActivity($userId, $page);
-        return view('mobile/master/pl_report', $data);
     }
 
 }

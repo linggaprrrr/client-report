@@ -37,7 +37,7 @@
                     <h6 class="font-weight-semibold mb-0">
                     <select name="client" class="form-control select-search" id="select-client"  onchange="this.form.submit()" data-fouc>
                         <?php foreach ($clients->getResultArray() as $row) : ?>
-                            <option value="<?= $row['id'] ?>" <?= $row['id'] == $clientSelect ? 'selected' : '' ?> ><?= $row['fullname'] ?></option>
+                            <option value="<?= $row['id'] ?>" <?= $row['id'] == $clientSelect ? 'selected' : '' ?> ><?= $row['company'] .' - '. $row['company'] ?></option>
                         <?php endforeach ?>
                     </select>
                     </h6>

@@ -132,7 +132,7 @@
     $('#noty_created').on('click', function() {
         new Noty({
             text: 'You successfully update your pofile.',
-            type: 'alert'
+            type: 'success'
         }).show();
     });
     $('#noty_deleted').on('click', function() {

@@ -76,7 +76,7 @@ $routes->get('/admin/brand-approvals', 'Admin\Reports::brandApproval');
 $routes->post('/reassign-box', 'Admin\Reports::reassignBox');
 $routes->post('/upload-brand', 'Admin\Reports::uploadBrand');
 $routes->post('/upload-brand-per-store', 'Admin\Reports::uploadBrandPerStore');
-$routes->get('/admin/push-notification', 'NegetPushNotifications');
+$routes->get('/admin/push-notification', 'News::getPushNotifications');
 $routes->post('create-notification', 'News::pushNotification');
 
 // client side

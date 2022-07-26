@@ -59,15 +59,6 @@
                                                         <textarea id="summernote" name="message" required></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>To:</label>
-                                                    <div class="input-group">
-                                                        <select class="form-control" name="to">
-                                                            <option value="1">SWClient</option>
-                                                            <option value="2">Elite</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
 
                                             </div>
 
@@ -89,7 +80,6 @@
                                 <th style="width: 5%">No</th>
                                 <th>News </th>
                                 <th style="width: 15%" class="text-center">Date </th>
-                                <th class="text-center">To</th>
                                 <th class="text-center" style="width: 20px;"><i class="icon-arrow-down12"></i></th>
                             </tr>
                         </thead>
@@ -112,21 +102,13 @@
                                             </li>
                                         </td>
                                         <td class="text-center"><?= strtoupper(date("M-d-y H:i", strtotime($news['date']))) ?></td>
-                                        <td class="text-center">
-                                            <?php if ($news['under_comp'] == 1) :  ?>
-                                                SWClient
-                                            <?php elseif ($news['under_comp'] == 2) : ?>
-                                                Elite
-                                            <?php endif ?>
 
-
-                                        </td>
                                         <td class="text-center">
                                             <div class="list-icons">
                                                 <div class="dropdown">
                                                     <a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu7"></i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                    
+                                                        <a href="#" data-toggle="modal" data-target="#modal_news-edit" data-id="<?= $news['id'] ?>" class="dropdown-item edit_news"><i class="icon-pencil text-warning"></i> Edit News</a>
                                                         <form action="<?= base_url("/delete-news/" . $news['id']) ?>" method="post">
                                                             <?= csrf_field() ?>
                                                             <input type="hidden" name="_method" value="DELETE">

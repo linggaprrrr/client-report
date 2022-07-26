@@ -25,24 +25,18 @@ class News extends BaseController
             return redirect()->to(base_url('/login'));
         }
         $user = $this->userModel->find($userId);
-        $underComp = 1;
-        if (str_contains(base_url(uri_string()), 'eliteapp')) {
-            $underComp = 2;
-        }
-        $news = $this->newsModel->getLastNews($underComp);
-        $allNews = $this->newsModel->getNews($underComp);
+        $news = $this->newsModel->getLastNews();
+        $allNews = $this->newsModel->getNews();
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
         $data = [
-            'tittle' => "Announcements | Report Management System",
-            'menu' => "Announcements",
+            'tittle' => "Announcement | Report Management System",
+            'menu' => "Announcement",
             'user' => $user,
             'news' => $news,
             'allNews' => $allNews,
             'companySetting' => $companysetting
         ];
-        $page = 'announcements';
-        $this->userModel->logActivity($userId, $page);
         return view('client/news', $data);
     }
 
@@ -53,11 +47,7 @@ class News extends BaseController
             return redirect()->to(base_url('/login'));
         }
         $user = $this->userModel->find($userId);
-        $underComp = 1;
-        if (str_contains(base_url(uri_string()), 'eliteapp')) {
-            $underComp = 2;
-        }
-        $news = $this->newsModel->getLastNews($underComp);
+        $news = $this->newsModel->getLastNews();
         $allNews = $this->newsModel->getNews();
         $notifications = $this->db->query("SELECT * FROM push_notifications ORDER BY date DESC");
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
@@ -79,7 +69,6 @@ class News extends BaseController
         $this->newsModel->save([
             "title" => $post['title'],
             "message" => $post['message'],
-            "under_comp" => $post['to']
         ]);
         return redirect()->back()->with('success', 'News Successfully Created!');
     }
@@ -124,19 +113,15 @@ class News extends BaseController
                 array_push($regists, $tokenApp['token']);
             }
         }
-        
-        
         $curl = curl_init();
         $authKey = "key=AAAAQ5YfKhs:APA91bH4aSGkr65YAi6DWa2hnzSBO_rdyJyNs48Mr0l5T9vs_4VXEdQQ2x4zvitmZtNzBguWJEMHhAIbODzvBX3lMZ-YbxVn5hjKMMBlc3ikOTAyxysdEJZ5g7T_apNzoaZO01NI2R_s";
         $registration_ids = json_encode($regists);
-        print_r($registration_ids);
-        
         curl_setopt_array($curl, array(
         CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 100,
-        CURLOPT_TIMEOUT => 3000,
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => '{
@@ -150,18 +135,16 @@ class News extends BaseController
             "Authorization: " . $authKey,
             "Content-Type: application/json",
             "cache-control: no-cache"
-            ),
+        ),
         ));
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
-        echo $response;
-        echo $err;
+
         curl_close($curl);
 
         return redirect()->back()->with('successPush', 'News Successfully Created!');
     }
-    
 
     public function sendDeviceToken() {
         $token = $this->request->getVar('token');

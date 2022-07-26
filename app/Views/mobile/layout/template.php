@@ -167,7 +167,14 @@
                                 <div class="mt-2 mx-3" id="example1">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            
+                                            <div class="d-flex justify-content-between align-items-center breaking-news bg-white">
+                                                <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center bg-danger py-2 text-white px-2 news">
+                                                    <span class="d-flex align-items-center news-text">&nbsp;NEWS!&nbsp;</span>
+                                                </div>
+                                                <marquee class="news-scroll martex" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                                                    <?= "[ $news->title ] " . strip_tags($news->message) ?>
+                                                </marquee>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

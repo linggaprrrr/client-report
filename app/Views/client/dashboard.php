@@ -193,7 +193,7 @@
                             </td>
                             <td class="text-center">$ <?= $row['retail_value'] ?></td>
                             <td class="text-center">$ <?= $row['original_value'] ?></td>
-                            <td class="text-center">$ <?= number_format($row['cost'], 2) ?></td>
+                            <td class="text-center">$ <?= $row['cost'] ?></td>
 
                         </tr>
                     <?php endforeach ?>
