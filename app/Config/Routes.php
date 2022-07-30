@@ -78,6 +78,7 @@ $routes->post('/upload-brand', 'Admin\Reports::uploadBrand');
 $routes->post('/upload-brand-per-store', 'Admin\Reports::uploadBrandPerStore');
 $routes->get('/admin/push-notification', 'News::getPushNotifications');
 $routes->post('create-notification', 'News::pushNotification');
+$routes->get('/admin/logs', 'Logs::index');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');

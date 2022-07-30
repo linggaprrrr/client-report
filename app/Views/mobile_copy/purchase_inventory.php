@@ -1,4 +1,4 @@
- <?= $this->extend('client/layout/template') ?>
+<?= $this->extend('mobile/layout/template') ?>
 
 <?= $this->section('content') ?>
 <style>
