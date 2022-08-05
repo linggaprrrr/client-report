@@ -32,12 +32,12 @@
             </div>
 
             <div class="sidebar-resize-hide mt-2">
-                <form action="<?= base_url('mobile/master/manifest') ?>" method="post">
+                <form action="<?= base_url('master/manifest') ?>" method="post">
                 
                     <h6 class="font-weight-semibold mb-0">
                     <select name="client" class="form-control select-search" id="select-client"  onchange="this.form.submit()" data-fouc>
                         <?php foreach ($clients->getResultArray() as $row) : ?>
-                            <option value="<?= $row['id'] ?>" <?= $row['id'] == $clientSelect ? 'selected' : '' ?> ><?= $row['fullname'] ?></option>
+                            <option value="<?= $row['id'] ?>" <?= $row['id'] == $clientSelect ? 'selected' : '' ?> ><?= $row['fullname'] ?> - <?= $row['company'] ?></option>
                         <?php endforeach ?>
                     </select>
                     </h6>

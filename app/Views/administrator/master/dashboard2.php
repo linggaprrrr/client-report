@@ -126,7 +126,9 @@
             </div>
         </div>
 
-        <table class="table datatable-basic" style="font-size: 12px;">
+        
+    </div>
+    <table class="table datatable-basic" style="font-size: 12px;">
             <thead>
                 <tr>
                     <th style="width: 5%">No</th>
@@ -142,7 +144,6 @@
 
             </tbody>
         </table>
-    </div>
     <!-- /blocks with chart -->
     <div class="row">
         <div class="col-xl-8">

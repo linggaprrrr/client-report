@@ -1,0 +1,121 @@
+ERROR - 2022-08-05 00:49:48 --> Error connecting to the database: Connection refused
+CRITICAL - 2022-08-05 00:49:48 --> Unable to connect to the database.
+Main connection [MySQLi]: Connection refused
+#0 /Applications/MAMP/htdocs/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/client-report/app/Controllers/Auth.php(23): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#2 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->login()
+#3 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#4 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+ERROR - 2022-08-05 01:03:18 --> Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.users.fullname' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+CRITICAL - 2022-08-05 01:03:18 --> Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.users.fullname' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+#0 /Applications/MAMP/htdocs/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT SUM(cost...', 0)
+#1 /Applications/MAMP/htdocs/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SUM(cost...')
+#2 /Applications/MAMP/htdocs/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(cost...')
+#3 /Applications/MAMP/htdocs/client-report/app/Models/ReportModel.php(168): CodeIgniter\Database\BaseConnection->query('SELECT SUM(cost...')
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Android.php(237): App\Models\ReportModel->getClientCostLeft('9')
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Android->getStarted()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Android))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+ERROR - 2022-08-05 01:03:21 --> Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.users.fullname' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+CRITICAL - 2022-08-05 01:03:21 --> Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.users.fullname' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+#0 /Applications/MAMP/htdocs/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT SUM(cost...', 0)
+#1 /Applications/MAMP/htdocs/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SUM(cost...')
+#2 /Applications/MAMP/htdocs/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(cost...')
+#3 /Applications/MAMP/htdocs/client-report/app/Models/ReportModel.php(168): CodeIgniter\Database\BaseConnection->query('SELECT SUM(cost...')
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Android.php(237): App\Models\ReportModel->getClientCostLeft('9')
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Android->getStarted()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Android))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-08-05 01:07:39 --> Undefined variable: clientSelect
+#0 /Applications/MAMP/htdocs/client-report/app/Views/mobile_copy/dashboard.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/client-report/system/Common.php(1097): CodeIgniter\View\View->render('/mobile_copy/da...', Array, true)
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Android.php(227): view('/mobile_copy/da...', Array)
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Android->dashboard()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Android))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-08-05 01:08:09 --> Undefined variable: clientSelect
+#0 /Applications/MAMP/htdocs/client-report/app/Views/mobile_copy/dashboard.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/client-report/system/Common.php(1097): CodeIgniter\View\View->render('/mobile_copy/da...', Array, true)
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Android.php(227): view('/mobile_copy/da...', Array)
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Android->dashboard()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Android))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-08-05 01:09:41 --> Undefined variable: clientSelect
+#0 /Applications/MAMP/htdocs/client-report/app/Views/mobile_copy/dashboard.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/client-report/system/Common.php(1097): CodeIgniter\View\View->render('/mobile_copy/da...', Array, true)
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Android.php(227): view('/mobile_copy/da...', Array)
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Android->dashboard()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Android))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-08-05 01:10:14 --> Undefined variable: clientSelect
+#0 /Applications/MAMP/htdocs/client-report/app/Views/mobile_copy/dashboard.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/client-report/system/Common.php(1097): CodeIgniter\View\View->render('/mobile_copy/da...', Array, true)
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Android.php(227): view('/mobile_copy/da...', Array)
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Android->dashboard()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Android))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-08-05 01:11:42 --> Undefined variable: clientSelect
+#0 /Applications/MAMP/htdocs/client-report/app/Views/mobile_copy/dashboard.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/client-report/system/Common.php(1097): CodeIgniter\View\View->render('/mobile_copy/da...', Array, true)
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Android.php(227): view('/mobile_copy/da...', Array)
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Android->dashboard()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Android))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-08-05 01:12:02 --> Undefined variable: clientSelect
+#0 /Applications/MAMP/htdocs/client-report/app/Views/mobile_copy/dashboard.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/client-report/system/Common.php(1097): CodeIgniter\View\View->render('/mobile_copy/da...', Array, true)
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Android.php(227): view('/mobile_copy/da...', Array)
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Android->dashboard()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Android))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-08-05 01:14:17 --> Undefined variable: clientSelect
+#0 /Applications/MAMP/htdocs/client-report/app/Views/mobile/dashboard.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/client-report/system/Common.php(1097): CodeIgniter\View\View->render('/mobile/dashboa...', Array, true)
+#4 /Applications/MAMP/htdocs/client-report/app/Controllers/Mobile.php(227): view('/mobile/dashboa...', Array)
+#5 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(824): App\Controllers\Mobile->dashboard()
+#6 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mobile))
+#7 /Applications/MAMP/htdocs/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

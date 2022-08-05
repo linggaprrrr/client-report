@@ -105,6 +105,14 @@
                         <li class="nav-item"><a href="<?= base_url('/admin/completed-investments') ?>" class="nav-link" id="ci">Completed Assignments</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a id="pl" href="<?= base_url('/admin/logs') ?>" class="nav-link">
+                        <i class="icon-list"></i>
+                        <span>
+                            Log Activities
+                        </span>
+                    </a>
+                </li>
                 <!-- /main -->
             </ul>
         </div>

@@ -44,6 +44,7 @@ class Users extends BaseController
             "address" => $post['address'],
             "username" => $post['username'],
             "role" => $post['role'],
+            "under_comp" => $post['under_comp'],
             "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
         ));
         return redirect()->back()->with('success', 'User Successfully Created!');
@@ -60,7 +61,7 @@ class Users extends BaseController
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => "Account Setting | Report Management System",
-            'menu' => $user['fullname'] . "'s Setting",
+            'menu' => "User Setting",
             'user' => $user,
             'profile' => $profile,
             'companySetting' => $companysetting

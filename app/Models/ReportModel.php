@@ -61,13 +61,13 @@ class ReportModel extends Model
 
     public function getAllReports()
     {
-        $query = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - IFNULL(cost_, 0) as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id ORDER BY investments.date DESC");
+        $query = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, link, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - IFNULL(cost_, 0) as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id ORDER BY investments.date DESC");
         return $query;
     }
 
     public function getAllReportClient($id = null)
     {
-        $query = $this->db->query("SELECT reports.*, log_files.link from reports JOIN log_files ON reports.client_id = log_files.client_id WHERE reports.investment_id = '$id' GROUP BY reports.id ORDER by ID ASC");
+        $query = $this->db->query("SELECT reports.*, log_files.link from reports LEFT JOIN log_files ON reports.investment_id = log_files.investment_id WHERE reports.investment_id = '$id' GROUP BY reports.id ORDER by ID ASC");
         return $query;
     }
 
@@ -117,13 +117,13 @@ class ReportModel extends Model
 
     public function savePLReport($chartTitle, $monthData, $type, $client)
     {
-        $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `last_year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$monthData[12]', '$type', '$client' ) ");
+        $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `last_year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `avg`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$monthData[12]', '$monthData[13]', '$type', '$client' ) ");
         return $query;
     }
 
     public function savePLReportExclude($chartTitle, $monthData, $type, $client)
     {
-        $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$type', '$client' ) ");
+        $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `avg`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$monthData[12]', '$type', '$client' ) ");
         return $query;
     }
 
@@ -164,8 +164,8 @@ class ReportModel extends Model
 
     public function getClientCostLeft($id)
     {
-        $totalCost = $this->db->query("SELECT SUM(reports.cost) as total_cost FROM reports JOIN investments ON investments.id = reports.investment_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.id DESC LIMIT 1 ")->getRow();
-        $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM (SELECT investments.id, fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.id DESC LIMIT 1 ) as t ")->getRow();
+        $totalCost = $this->db->query("SELECT SUM(reports.cost) as total_cost FROM reports JOIN investments ON investments.id = reports.investment_id WHERE investments.client_id = '$id' AND investments.date = (SELECT date FROM investments WHERE client_id = '$id' ORDER BY date DESC LIMIT 1)  GROUP BY investments.id ORDER BY investments.date DESC LIMIT 1 ")->getRow();
+        $totalInvest = $this->db->query("SELECT SUM(cost) as total_invest FROM (SELECT investments.id, fullname, cost FROM `investments` JOIN users ON users.id = investments.client_id WHERE investments.client_id = '$id' GROUP BY investments.id ORDER BY investments.date DESC LIMIT 1 ) as t ")->getRow();
         $totalCostLeft = $totalInvest->total_invest - $totalCost->total_cost;
         return $totalCostLeft;
     }

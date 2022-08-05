@@ -44,7 +44,7 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <!-- Main -->
                 <li class="nav-item">
-                    <a href="<?= base_url('/mobile/get-started/'. $user['id']) ?>" class="nav-link">
+                    <a href="<?= base_url('/android/get-started/'. $user['id']) ?>" class="nav-link">
                         <i class="icon-rocket"></i>
                         <span>
                             Get Started
@@ -52,7 +52,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/mobile/purchase-inventory') ?>" class="nav-link">
+                    <a href="<?= base_url('/android/purchase-inventory') ?>" class="nav-link">
                         <i class="icon-cart4"></i>
                         <span>
                             Purchase Inventory
@@ -60,7 +60,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/mobile/brand-approvals') ?>" class="nav-link">
+                    <a href="<?= base_url('/android/brand-approvals') ?>" class="nav-link">
                         <i class="fa fa-amazon" style="margin-top: 4px"></i>
                         <span style="margin-left: 2px;">
                             Brand Approvals
@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/mobile/dashboard') ?>" class="nav-link">
+                    <a href="<?= base_url('/android/dashboard') ?>" class="nav-link">
                         <i class="icon-home4"></i>
                         <span>
                             Manifests
@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/mobile/pl-report') ?>" class="nav-link">
+                    <a href="<?= base_url('/android/pl-report') ?>" class="nav-link">
                         <i class="icon-clipboard5"></i>
                         <span>
                             P&L Report
@@ -84,7 +84,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/mobile/news') ?>" class="nav-link">
+                    <a href="<?= base_url('/android/news') ?>" class="nav-link">
                         <i class="icon-megaphone"></i>
                         <span>
                             Announcements

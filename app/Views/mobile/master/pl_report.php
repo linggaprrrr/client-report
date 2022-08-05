@@ -46,21 +46,21 @@
                                          
                                             if ($row['type'] == 'percentage') {
                             
-                                                $total = round($avg, 2);
-                                                $lastYear = round($row['last_year'] * 100);
-                                                $avg = ($row['avg'] == 0) ? null : number_format($row['avg'] * 100, 0);
-                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan'] * 100, 0);
-                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb'] * 100, 0);
-                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar'] * 100, 0);
-                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr'] * 100, 0);
-                                                $may = ($row['may'] == 0) ? null : number_format($row['may'] * 100, 0);
-                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun'] * 100, 0);
-                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul'] * 100, 0);
-                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug'] * 100, 0);
-                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep'] * 100, 0);
-                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct'] * 100, 0);
-                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov'] * 100, 0);
-                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec'] * 100, 0);
+                                                $total = round($avg, 0);
+                                                $lastYear = round($row['last_year']);
+                                                $avg = ($row['avg'] == 0) ? null : round($row['avg'], 0);
+                                                $jan = ($row['jan'] == 0) ? null : round($row['jan'], 0);
+                                                $feb = ($row['feb'] == 0) ? null : round($row['feb'], 0);
+                                                $mar = ($row['mar'] == 0) ? null : round($row['mar'], 0);
+                                                $apr = ($row['apr'] == 0) ? null : round($row['apr'], 0);
+                                                $may = ($row['may'] == 0) ? null : round($row['may'], 0);
+                                                $jun = ($row['jun'] == 0) ? null : round($row['jun'], 0);
+                                                $jul = ($row['jul'] == 0) ? null : round($row['jul'], 0);
+                                                $aug = ($row['aug'] == 0) ? null : round($row['aug'], 0);
+                                                $sep = ($row['sep'] == 0) ? null : round($row['sep'], 0);
+                                                $oct = ($row['oct'] == 0) ? null : round($row['oct'], 0);
+                                                $nov = ($row['nov'] == 0) ? null : round($row['nov'], 0);
+                                                $dec = ($row['dec'] == 0) ? null : round($row['dec'], 0);
                                             } else {
                                                 $avg = ($row['avg'] == 0) ? null : round($row['avg']);  
                                                 $lastYear = round($row['last_year']);
@@ -137,33 +137,33 @@
                                                         <td class="text-center"><?= ($row['mar'] == 0) ? '-' : $fmt->formatCurrency($row['mar'], 'USD'); ?></td>
                                                         <td class="text-center"><?= ($row['apr'] == 0) ? '-' : $fmt->formatCurrency($row['apr'], 'USD'); ?></td>
                                                         <td class="text-center"><?= ($row['may'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : $fmt->formatCurrency($row['jun'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : $fmt->formatCurrency($row['jul'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : $fmt->formatCurrency($row['aug'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : $fmt->formatCurrency($row['sep'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : $fmt->formatCurrency($row['oct'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : $fmt->formatCurrency($row['nov'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : $fmt->formatCurrency($row['dec'], 'USD'); ?></td>
                                                         <td class="text-center"><?= $fmt->formatCurrency($avg, 'USD'); ?></td>
                                                         <td class="text-center"><?= $fmt->formatCurrency($total, 'USD'); ?></td>
                                                         
                                                     </tr>
                                                 <?php elseif ($row['type'] == 'percentage') : ?>
                                                     <tr>
-                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : number_format($row['last_year'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : number_format($row['jan'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : number_format($row['feb'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : number_format($row['mar'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : number_format($row['apr'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : number_format($row['may'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : number_format($row['jun'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : number_format($row['jul'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : number_format($row['aug'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : number_format($row['sep'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : number_format($row['oct'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : number_format($row['nov'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : number_format($row['dec'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= number_format($avg, 0) ?>%</td>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : round($row['last_year'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : round($row['jan'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : round($row['feb'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : round($row['mar'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : round($row['apr'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : round($row['may'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : round($row['jun'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : round($row['jul'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : round($row['aug'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : round($row['sep'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : round($row['oct'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : round($row['nov'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : round($row['dec'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= round($avg, 0) ?>%</td>
                                                         <td class="text-center">-</td>
                                                     </tr>
                                                 <?php else : ?>
@@ -318,20 +318,20 @@
                                             
                                                                                        
                                             if ($row['type'] == 'percentage') {
-                                                $total = round($avg, 2);
-                                                $avg = ($row['avg'] == 0) ? null : number_format($row['avg'] * 100, 0);
-                                                $jan = ($row['jan'] == 0) ? null : number_format($row['jan'] * 100, 0);
-                                                $feb = ($row['feb'] == 0) ? null : number_format($row['feb'] * 100, 0);
-                                                $mar = ($row['mar'] == 0) ? null : number_format($row['mar'] * 100, 0);
-                                                $apr = ($row['apr'] == 0) ? null : number_format($row['apr'] * 100, 0);
-                                                $may = ($row['may'] == 0) ? null : number_format($row['may'] * 100, 0);
-                                                $jun = ($row['jun'] == 0) ? null : number_format($row['jun'] * 100, 0);
-                                                $jul = ($row['jul'] == 0) ? null : number_format($row['jul'] * 100, 0);
-                                                $aug = ($row['aug'] == 0) ? null : number_format($row['aug'] * 100, 0);
-                                                $sep = ($row['sep'] == 0) ? null : number_format($row['sep'] * 100, 0);
-                                                $oct = ($row['oct'] == 0) ? null : number_format($row['oct'] * 100, 0);
-                                                $nov = ($row['nov'] == 0) ? null : number_format($row['nov'] * 100, 0);
-                                                $dec = ($row['dec'] == 0) ? null : number_format($row['dec'] * 100, 0);
+                                                $total = round($avg, 0);
+                                                $avg = ($row['avg'] == 0) ? null : round($row['avg'], 0);
+                                                $jan = ($row['jan'] == 0) ? null : round($row['jan'], 0);
+                                                $feb = ($row['feb'] == 0) ? null : round($row['feb'], 0);
+                                                $mar = ($row['mar'] == 0) ? null : round($row['mar'], 0);
+                                                $apr = ($row['apr'] == 0) ? null : round($row['apr'], 0);
+                                                $may = ($row['may'] == 0) ? null : round($row['may'], 0);
+                                                $jun = ($row['jun'] == 0) ? null : round($row['jun'], 0);
+                                                $jul = ($row['jul'] == 0) ? null : round($row['jul'], 0);
+                                                $aug = ($row['aug'] == 0) ? null : round($row['aug'], 0);
+                                                $sep = ($row['sep'] == 0) ? null : round($row['sep'], 0);
+                                                $oct = ($row['oct'] == 0) ? null : round($row['oct'], 0);
+                                                $nov = ($row['nov'] == 0) ? null : round($row['nov'], 0);
+                                                $dec = ($row['dec'] == 0) ? null : round($row['dec'], 0);
                                             } else {
                                                 $avg = ($row['avg'] == 0) ? null : round($row['avg']);
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan']);
@@ -408,13 +408,13 @@
                                                         <td class="text-center"><?= ($row['mar'] == 0) ? '-' : $fmt->formatCurrency($row['mar'], 'USD'); ?></td>
                                                         <td class="text-center"><?= ($row['apr'] == 0) ? '-' : $fmt->formatCurrency($row['apr'], 'USD'); ?></td>
                                                         <td class="text-center"><?= ($row['may'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
-                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : $fmt->formatCurrency($row['may'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : $fmt->formatCurrency($row['jun'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : $fmt->formatCurrency($row['jul'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : $fmt->formatCurrency($row['aug'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : $fmt->formatCurrency($row['sep'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : $fmt->formatCurrency($row['oct'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : $fmt->formatCurrency($row['nov'], 'USD'); ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : $fmt->formatCurrency($row['dec'], 'USD'); ?></td>
                                                         <td class="text-center"><?= $fmt->formatCurrency($avg, 'USD'); ?></td>
                                                         <td class="text-center"><?= $fmt->formatCurrency($total, 'USD'); ?></td>
                                                         
@@ -422,19 +422,19 @@
                                                 <?php elseif ($row['type'] == 'percentage') : ?>
                                                     <tr>
                                                         <td class="text-center">-</td>
-                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : number_format($row['jan'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : number_format($row['feb'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : number_format($row['mar'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : number_format($row['apr'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : number_format($row['may'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : number_format($row['jun'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : number_format($row['jul'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : number_format($row['aug'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : number_format($row['sep'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : number_format($row['oct'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : number_format($row['nov'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : number_format($row['dec'] * 100, 0). '%' ?></td>
-                                                        <td class="text-center"><?= number_format($avg, 0) ?>%</td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : round($row['jan'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : round($row['feb'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : round($row['mar'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : round($row['apr'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : round($row['may'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : round($row['jun'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : round($row['jul'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : round($row['aug'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : round($row['sep'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : round($row['oct'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : round($row['nov'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : round($row['dec'], 0). '%' ?></td>
+                                                        <td class="text-center"><?= round($avg, 0) ?>%</td>
                                                         <td class="text-center">-</td>
                                                     </tr>
                                                 <?php else : ?>
