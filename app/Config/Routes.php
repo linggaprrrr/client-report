@@ -79,6 +79,8 @@ $routes->post('/upload-brand-per-store', 'Admin\Reports::uploadBrandPerStore');
 $routes->get('/admin/push-notification', 'News::getPushNotifications');
 $routes->post('create-notification', 'News::pushNotification');
 $routes->get('/admin/logs', 'Logs::index');
+$routes->post('/admin/logs', 'Logs::index');
+
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -134,7 +136,19 @@ $routes->post('/add-brand', 'Admin\Reports::addBrand');
 $routes->post('/rollback-assignment', 'Admin\Reports::rollbackAssignment');
 $routes->get('/get-client-by-branddesc', 'Admin\Reports::getClientByDescBrand');
 $routes->get('/get-pl-graph', 'Admin\Reports::getPLGraph');
+$routes->get('/fb-click', 'Logs::fbClick');
+$routes->get('/ig-click', 'Logs::igClick');
+$routes->get('/yt-click', 'Logs::ytClick');
+$routes->get('/in-click', 'Logs::inClick');
+$routes->get('/chat-click', 'Logs::chatClick');
+$routes->get('/credit-click', 'Logs::creditClick');
 
+$routes->get('/export-log-login', 'Logs::exportLoginAct');
+$routes->get('/export-log-login/(:any)', 'Logs::exportLoginAct/$1');
+$routes->get('/export-log-page', 'Logs::exportPageAct');
+$routes->get('/export-log-page/(:any)', 'Logs::exportPageAct/$1');
+$routes->get('/export-log-social', 'Logs::exportSocialAct');
+$routes->get('/export-log-social/(:any)', 'Logs::exportSocialAct/$1');
 
 // mobile version
 $routes->get('/mobile', 'Mobile::index');
@@ -156,6 +170,7 @@ $routes->get('/mobile/news', 'Mobile::news');
 // API
 $routes->get('/mobile/client-cost-left/(:num)', 'Mobile::getClientCostLeft/$1');
 $routes->post('/api/send-device-token', 'News::sendDeviceToken');
+
 
 
 // master

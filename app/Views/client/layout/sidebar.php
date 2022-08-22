@@ -95,15 +95,15 @@
                 <!-- /main -->
                 <li class="nav-item" style="margin-top: 150px;">
                     <h3 class="text-center font-weight-bold">Our Official Channel</h3>
-                    <a href="https://www.youtube.com/watch?v=SbyUfvZDqoU&t" class="nav-link" target="_blank" style="justify-content: center;">
+                    <a href="https://www.youtube.com/watch?v=SbyUfvZDqoU&t" class="nav-link yt" target="_blank" style="justify-content: center;">
                         <img src="/assets/images/youtube-channel.png" style="width: 80%;">
                     </a>
                     <div class="effect aeneas" style="padding-top: 0px;">
                         <div class="buttons" style="bottom: 0; margin: 5px 35px 20px">
                             <a href="https://www.facebook.com/SmartFBA" target="_blank" class="fb" title="Find us on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="https://www.youtube.com/c/smartfba" target="_blank" class="pinterest" title="Find us on Youtube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
-                            <a href="https://www.instagram.com/smartfba/" target="_blank" class="insta" title="Find us on Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="https://www.linkedin.com/company/smartfba/" target="_blank" class="in" title="Find us on Linked In"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="https://www.youtube.com/c/smartfba" target="_blank" class="pinterest" title="Find us on Youtube"><i class="fa fa-youtube-play yt-click" aria-hidden="true"></i></a>
+                            <a href="https://www.instagram.com/smartfba/" target="_blank" class="insta" title="Find us on Instagram"><i class="fa fa-instagram ig-click" aria-hidden="true"></i></a>
+                            <a href="https://www.linkedin.com/company/smartfba/" target="_blank" class="in" title="Find us on Linked In"><i class="fa fa-linkedin li-click" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </li>
@@ -117,3 +117,37 @@
     <!-- /sidebar content -->
 
 </div>
+
+<script>
+    $(".fb").click(function() {   
+        $.get('/fb-click', function(data) {
+
+        });
+    });
+
+    $(".pinterest").click(function() {   
+        $.get('/yt-click', function(data) {
+
+        });
+    });
+
+    $(".yt").click(function() {   
+        $.get('/yt-click', function(data) {
+
+        });
+    });
+
+    $(".insta").click(function() {   
+        $.get('/ig-click', function(data) {
+
+        });
+    });
+
+    $(".in").click(function() {   
+        $.get('/in-click', function(data) {
+
+        });
+    });
+
+
+</script>

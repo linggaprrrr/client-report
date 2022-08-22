@@ -27,7 +27,7 @@ var DatatableBasic = function() {
         // Setting datatable defaults
         $.extend( $.fn.dataTable.defaults, {
             autoWidth: false,
-            pageLength : 25,
+            pageLength : 10,
             columnDefs: [{ 
                 orderable: true,
                 targets: [ 4 ]
