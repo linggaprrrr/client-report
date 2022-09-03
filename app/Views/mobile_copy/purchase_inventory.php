@@ -1,4 +1,4 @@
-<?= $this->extend('mobile/layout/template') ?>
+<?= $this->extend('mobile_copy/layout/template') ?>
 
 <?= $this->section('content') ?>
 <style>
@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-header">
             <h1>Click Below to Purchase Inventory with Credit Card</h1>
-            <p><a href="https://checkout.square.site/merchant/MLZMCABT6VC84/checkout/53ERSRX7XUBPWNWGNIGNDVEM" target="_blank" class="link-primary btn btn-secondary">Purchase Inventory</a></p>
+            <p><a href="https://checkout.square.site/merchant/MLZMCABT6VC84/checkout/53ERSRX7XUBPWNWGNIGNDVEM" target="_blank" class="link-primary btn btn-secondary credit">Purchase Inventory</a></p>
         </div>
         <div class="card-body">
             <h2>To Purchase Inventory Via Wire, here is the Banking info</h2>
@@ -35,5 +35,11 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
+<script>
+    $(".credit").click(function() {   
+        $.get('/credit-click', function(data) {
 
+        });
+    });
+</script>
 <?= $this->endSection() ?>

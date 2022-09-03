@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?= $this->include('mobile/layout/header'); ?>
+    <?= $this->include('mobile_copy/layout/header'); ?>
     <title><?= $tittle ?></title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
 </head>
@@ -148,14 +148,14 @@
 
 <body>
     <!-- Main navbar -->
-    <?= $this->include('mobile/layout/main-navbar') ?>
+    <?= $this->include('mobile_copy/layout/main-navbar') ?>
     <!-- /main navbar -->
 
 
     <!-- Page content -->
     <div class="page-content">
         <!-- Main sidebar -->
-        <?= $this->include('mobile/layout/sidebar') ?>
+        <?= $this->include('mobile_copy/layout/sidebar') ?>
         <div class="content-wrapper">
             <!-- Inner content -->
             <div class="content-inner">
@@ -192,10 +192,10 @@
                 <!-- content  -->
                 <?= $this->renderSection('content'); ?>
 
-                <?= $this->include('mobile/layout/footer') ?>
+                <?= $this->include('mobile_copy/layout/footer') ?>
             </div>
         </div>
-        <?= $this->include('mobile/layout/notif') ?>
+        <?= $this->include('mobile_copy/layout/notif') ?>
 </body>
 <?= $this->renderSection('js') ?>
 <!-- Your SDK code -->

@@ -1,4 +1,4 @@
-<?= $this->extend('mobile/layout/template') ?>
+<?= $this->extend('mobile_copy/layout/template') ?>
 
 <?= $this->section('content') ?>
 

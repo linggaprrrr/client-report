@@ -44,7 +44,7 @@
     <button type="button" id="pnotify-info-costleft" style="display: none;"></button>
     <button type="button" id="pnotify-info-month" style="display: none;"></button>
 
-   
+    <!-- /blocks with chart -->
 </div>
 
 <?= $this->endSection() ?>
@@ -56,12 +56,14 @@
     $(document).ready(function() {
 
         <?php if (!empty($costLeft) && !empty($monthdiff)) : ?>
-            <?php if ($costLeft < 100 || $monthDiff->monthdiff > 2) : ?>
-                $('#pnotify-info').click();
-            <?php elseif ($costLeft < 100) : ?>
-                $('#pnotify-info-costleft').click();
+            <?php if ($costLeft < 500 || $monthDiff->monthdiff > 2) : ?>
+                $('#pnotify-info').click();            
             <?php elseif ($$monthDiff->monthdiff > 2) : ?>
                 $('#pnotify-info-month').click();
+            <?php endif ?>
+        <?php else : ?>
+            <?php if ($costLeft < 500) : ?>
+                $('#pnotify-info-costleft').click();
             <?php endif ?>
         <?php endif ?>
     })

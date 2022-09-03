@@ -113,6 +113,14 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a id="pl-generate" href="<?= base_url('/admin/generate-p-l') ?>" class="nav-link">
+                        <i class="icon-clipboard2"></i>
+                        <span>
+                            Generate P&L
+                        </span>
+                    </a>
+                </li>
                 <!-- /main -->
             </ul>
         </div>

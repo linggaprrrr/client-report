@@ -117,3 +117,36 @@
     <!-- /sidebar content -->
 
 </div>
+<script>
+    $(".fb").click(function() {   
+        $.get('/fb-click', function(data) {
+
+        });
+    });
+
+    $(".pinterest").click(function() {   
+        $.get('/yt-click', function(data) {
+
+        });
+    });
+
+    $(".yt").click(function() {   
+        $.get('/yt-click', function(data) {
+
+        });
+    });
+
+    $(".insta").click(function() {   
+        $.get('/ig-click', function(data) {
+
+        });
+    });
+
+    $(".in").click(function() {   
+        $.get('/in-click', function(data) {
+
+        });
+    });
+
+
+</script>

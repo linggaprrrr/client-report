@@ -1,4 +1,4 @@
-<?= $this->extend('mobile/layout/template') ?>
+<?= $this->extend('mobile_copy/layout/template') ?>
 
 <?= $this->section('content') ?>
 
@@ -130,7 +130,7 @@
     $('#noty_created').on('click', function() {
         new Noty({
             text: 'You successfully update your pofile.',
-            type: 'success'
+            type: 'alert'
         }).show();
     });
     $('#noty_deleted').on('click', function() {

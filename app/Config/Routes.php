@@ -80,6 +80,8 @@ $routes->get('/admin/push-notification', 'News::getPushNotifications');
 $routes->post('create-notification', 'News::pushNotification');
 $routes->get('/admin/logs', 'Logs::index');
 $routes->post('/admin/logs', 'Logs::index');
+$routes->get('/admin/generate-p-l', 'Admin\Reports::getGeneratePL');
+$routes->post('admin/upload-generate-pl-report', 'Admin\Reports::uploadGeneratePL');
 
 
 // client side
@@ -183,6 +185,23 @@ $routes->get('/mobile/master/manifest', 'Mobile::master');
 $routes->get('/mobile/master/manifest/(:num)', 'Mobile::master/$1');
 $routes->post('/mobile/master/manifest', 'Mobile::master');
 $routes->get('/mobile/master/pl-report/(:num)', 'Mobile::masterPLReport/$1');
+
+
+// android
+$routes->get('/android', 'Android::index');
+$routes->post('/android-login-proccess', 'Android::loginProses');
+$routes->get('/android/logout', 'Android::logout');
+
+$routes->get('/android/dashboard', 'Android::dashboard');
+$routes->post('/android/dashboard', 'Android::dashboard');
+$routes->get('/android/account-setting', 'Android::accountSetting');
+$routes->post('/android/update-setting', 'Android::updateSetting');
+
+$routes->get('/android/get-started/(:num)', 'Android::getStarted');
+$routes->get('/android/brand-approvals', 'Android::brandApprovals');
+$routes->get('/android/purchase-inventory', 'Android::purchaseInventory');
+$routes->get('/android/pl-report', 'Android::plReport');
+$routes->get('/android/news', 'Android::news');
 
 /*
  * --------------------------------------------------------------------

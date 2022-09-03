@@ -425,6 +425,11 @@
                 "bAutoWidth": false
             });
 
+            $('.datatable-basic').DataTable({                
+                "bLengthChange": false,
+                "bAutoWidth": false
+            });
+
             // Alternative pagination
             $('.datatable-pagination').DataTable({
                 pagingType: "simple",

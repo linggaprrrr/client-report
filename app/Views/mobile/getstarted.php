@@ -53,15 +53,6 @@
 <script>
     $(document).ready(function() {
         
-        <?php if (!empty($costLeft) && !empty($monthdiff)) : ?>
-            <?php if ($costLeft < 100 || $monthDiff->monthdiff > 2) : ?>
-                $('#pnotify-info').click();
-            <?php elseif ($costLeft < 100) : ?>
-                $('#pnotify-info-costleft').click();
-            <?php elseif ($$monthDiff->monthdiff > 2) : ?>
-                $('#pnotify-info-month').click();
-            <?php endif ?>
-        <?php endif ?>
     })
 
     $('#pnotify-info').on('click', function() {
