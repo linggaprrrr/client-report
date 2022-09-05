@@ -109,17 +109,17 @@
                 </a>
                 <div class="ml-3">
                     <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Net Sold</span>
+                    <span class="text-muted">Qty Sold</span>
 
                 </div>
             </div>
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2">0</i>
+                    <i class="icon-table2"></i>
                 </a>
                 <div class="ml-3">
                     <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Rate Returned</span>
+                    <span class="text-muted">Qty Returned</span>
 
                 </div>
             </div>     
@@ -129,7 +129,7 @@
                 </a>
                 <div class="ml-3">
                     <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg Net Sales</span>
+                    <span class="text-muted">Sold</span>
 
                 </div>
             </div>       
@@ -139,7 +139,7 @@
                 </a>
                 <div class="ml-3">
                     <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg COGS</span>
+                    <span class="text-muted">Return</span>
 
                 </div>
             </div>        
@@ -149,7 +149,7 @@
                 </a>
                 <div class="ml-3">
                     <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg Gross Profit</span>
+                    <span class="text-muted">COGS</span>
 
                 </div>
             </div>    
@@ -159,7 +159,7 @@
                 </a>
                 <div class="ml-3">
                     <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Gross Provit Margin</span>
+                    <span class="text-muted">Gross Profit</span>
 
                 </div>
             </div>  
@@ -169,7 +169,7 @@
                 </a>
                 <div class="ml-3">
                     <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg Fees</span>
+                    <span class="text-muted">Gross Profit Margin</span>
 
                 </div>
             </div>     
@@ -179,11 +179,31 @@
                 </a>
                 <div class="ml-3">
                     <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg Net Profit</span>
+                    <span class="text-muted">Fees</span>
 
                 </div>
-            </div>                
-        </div>        
+            </div>        
+            <div class="d-flex align-items-center mb-3 mb-lg-0">
+                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                    <i class="icon-table2"></i>
+                </a>
+                <div class="ml-3">
+                    <h5 class="font-weight-semibold mb-0">0</h5>
+                    <span class="text-muted">Net Profit</span>
+
+                </div>
+            </div>   
+            <div class="d-flex align-items-center mb-3 mb-lg-0">
+                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                    <i class="icon-table2"></i>
+                </a>
+                <div class="ml-3">
+                    <h5 class="font-weight-semibold mb-0">0</h5>
+                    <span class="text-muted">Net Profit Margin</span>
+
+                </div>
+            </div>           
+        </div>           
         <table class="table datatable-basic" style="font-size: 12px;">
             <thead>
                 <tr>

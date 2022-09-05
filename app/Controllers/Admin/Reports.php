@@ -1761,57 +1761,111 @@ class Reports extends BaseController
         $id = $this->db->insertID();
         foreach ($data as $idx => $row) {
             if ($idx > 0) {
-                $orderData = array(
-                    'settlement-id' => $row[0],
-                    'settlement-start-date' => $row[1],
-                    'settlement-end-date' => $row[2],
-                    'deposit-date' => $row[3],
-                    'total-amount' => $row[4],
-                    'currency' => $row[5],
-                    'transaction-type' => $row[6],
-                    'order-id' => $row[7],
-                    'merchant-order-id' => $row[8],
-                    'adjustment-id' => $row[9],
-                    'shipment-id' => $row[10],
-                    'marketplace-name' => $row[11],
-                    'amount-type' => $row[12],
-                    'amount-description' => $row[13],
-                    'amount' => $row[14],
-                    'fulfillment-id' => $row[15],
-                    'posted-date' => date('Y-m-d', strtotime($row[16])),
-                    'posted-date-time' => $row[17],
-                    'order-item-code' => $row[18],
-                    'merchant-order-item-id' => $row[19],
-                    'merchant-adjustment-item-id' => $row[20],
-                    'sku' => $row[21],
-                    'quantity-purchased' => $row[22],
-                    'promotion-id' => $row[23],
-                    'transaction-master-id' => $id
-                );
-                $this->transactionModel->save($orderData);                
+                $newDate = date('Y-m-d', strtotime($row[16]));
+                if (($newDate >= $date1) && ($newDate <= $date2)) {
+                    $temp = array(
+                        'settlement-id' => $row[0],
+                        'settlement-start-date' => $row[1],
+                        'settlement-end-date' => $row[2],
+                        'deposit-date' => $row[3],
+                        'total-amount' => $row[4],
+                        'currency' => $row[5],
+                        'transaction-type' => $row[6],
+                        'order-id' => $row[7],
+                        'merchant-order-id' => $row[8],
+                        'adjustment-id' => $row[9],
+                        'shipment-id' => $row[10],
+                        'marketplace-name' => $row[11],
+                        'amount-type' => $row[12],
+                        'amount-description' => $row[13],
+                        'amount' => $row[14],
+                        'fulfillment-id' => $row[15],
+                        'posted-date' => $newDate,
+                        'posted-date-time' => $row[17],
+                        'order-item-code' => $row[18],
+                        'merchant-order-item-id' => $row[19],
+                        'merchant-adjustment-item-id' => $row[20],
+                        'sku' => $row[21],
+                        'quantity-purchased' => $row[22],
+                        'promotion-id' => $row[23],
+                        'transaction-master-id' => $id
+                    );
+                    array_push($orderData, $temp);
+                }            
             }           
         }      
+        $this->transactionModel->insertBatch($orderData);
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return view('login');
         }
         $user = $this->userModel->find($userId);
+
         $transaction = $this->transactionModel->getTransactionUploaded($id, $date1, $date2, $client);
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
-        $netSold = $this->db->query("SELECT SUM(`quantity-purchased`) as net_sold FROM `transactions` WHERE `transaction-type` = 'Order' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
-        $netSold = $netSold->getResultObject();
+        $qtySold = $this->db->query("SELECT SUM(`quantity-purchased`) as net_sold FROM `transactions` WHERE `transaction-type` = 'Order' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
+        $qtySold = $qtySold->getResultObject();
+        
+        $qtyReturned = $this->db->query("SELECT COUNT(`order-id`) as rate_returned FROM `transactions` WHERE `transaction-type` = 'Refund' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
+        $qtyReturned = $qtyReturned->getResultObject();
 
-        $rateReturned = $this->db->query("SELECT COUNT(`order-id`) as rate_returned FROM `transactions` WHERE `transaction-type` = 'Refund' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
-        $rateReturned = $rateReturned->getResultObject();
+        $sold = $this->db->query("SELECT SUM(`amount`) as sold FROM `transactions` WHERE `transaction-type` = 'Order' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2'");
+        $sold = $sold->getResultObject();
+
+        $returned = $this->db->query("SELECT SUM(`amount`) as returned FROM `transactions` WHERE `transaction-type` = 'Refund' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2'");
+        $returned = $returned->getResultObject();
+
+        // COGS
+        $getSkuOrder = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type` = 'Order' AND sku IS NOT NULL GROUP BY sku");
+        $getSkuRefund = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type` = 'Refund' AND sku IS NOT NULL GROUP BY sku");
+        $orderSkus = array();
+        foreach ($getSkuOrder->getResultObject() as $sku) {
+            array_push($orderSkus, $sku->sku);
+        }
+
+        $orderSkus = implode(',', $orderSkus);
+ 
+        $refundSkus = array();
+        foreach ($getSkuRefund->getResultObject() as $sku) {
+            array_push($refundSkus, $sku->sku);
+        }
+
+        $refundSkus = implode(',', $refundSkus);
+     
+        $getClientCostOrder = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost) as max_cost FROM `reports` WHERE (reports.qty = 1 OR reports.qty IS NULL) AND sku IN (".$orderSkus.") GROUP BY sku) as m ");
+        $getClientCostOrder = $getClientCostOrder->getResultObject();
+        $getClientCostRefund = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost) as max_cost FROM `reports` WHERE (reports.qty = 1 OR reports.qty IS NULL) AND sku IN (".$refundSkus.") GROUP BY sku) as m ");
+        $getClientCostRefund = $getClientCostRefund->getResultObject();
+
+        $cogs =  $getClientCostRefund[0]->cogs - $getClientCostOrder[0]->cogs;
+
+        // Gross Profit
+        $grossOrder = $this->db->query("SELECT SUM(net_sales) as gross_order FROM (SELECT (amount - max(cost)) as net_sales FROM `reports` JOIN transactions ON reports.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type`='Order' AND (reports.qty = 1 OR reports.qty IS NULL) GROUP BY transactions.sku) as n");
+        $grossOrder = $grossOrder->getResultObject();
+        $grossRefund = $this->db->query("SELECT SUM(net_sales) as gross_refund FROM (SELECT (amount - max(cost)) as net_sales FROM `reports` JOIN transactions ON reports.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type`='Refund' AND (reports.qty = 1 OR reports.qty IS NULL) GROUP BY transactions.sku) as n");
+        $grossRefund = $grossRefund->getResultObject();
+        $tax = $this->db->query("SELECT SUM(amount) as total_tax FROM transactions WHERE `amount-description` ='Tax' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
+        $tax = $tax->getResultObject();
+        $grossProfit = ($grossOrder[0]->gross_order + $grossRefund[0]->gross_refund) + $tax[0]->total_tax;
+        
+        $fees = $this->db->query("SELECT SUM(amount) as fees FROM transactions WHERE `amount-description` NOT IN ('Principal', 'Tax', 'Shipping') AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
+        $fees = $fees->getResultObject();
+
+
         $data = [
             'tittle' => 'Generate P&L Report | Report Management System',
             'menu' => 'Generate P&L Report',         
             'user' => $user,
             'transactions' => $transaction,
             'companySetting' => $companysetting,
-            'netSold' => $netSold[0]->net_sold,
-            'rateReturned' => $rateReturned[0]->rate_returned,
+            'qtySold' => $qtySold[0]->net_sold,
+            'qtyReturned' => $qtyReturned[0]->rate_returned,
+            'sold' => $sold[0]->sold,
+            'returned' => $returned[0]->returned,
+            'cogs' => $cogs,
+            'grossProfit' => $grossProfit,
+            'fees' => $fees[0]->fees
         ];
         return view('administrator/transaction_detail', $data);
     }

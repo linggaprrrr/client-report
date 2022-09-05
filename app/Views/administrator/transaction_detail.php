@@ -11,84 +11,104 @@
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2"></i>
+                    <i class="icon-cube"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0"><?= $netSold ?></h5>
-                    <span class="text-muted">Net Sold</span>
+                    <h6 class="font-weight-semibold mb-0"><?= $qtySold ?></h6>
+                    <span class="text-muted">Qty Sold</span>
 
                 </div>
             </div>
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2"><?= $rateReturned ?></i>
+                    <i class="icon-cube"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Rate Returned</span>
+                    <h6 class="font-weight-semibold mb-0 text-danger"><?= $qtyReturned ?></h6>
+                    <span class="text-muted">Qty Returned</span>
 
                 </div>
             </div>     
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2"></i>
+                    <i class="icon-cash"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg Net Sales</span>
+                    <h6 class="font-weight-semibold mb-0">$<?= number_format($sold, 2) ?></h6>
+                    <span class="text-muted">Sold</span>
 
                 </div>
             </div>       
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2"></i>
+                    <i class="icon-cash"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg COGS</span>
+                    <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($returned, 2) ?></h6>
+                    <span class="text-muted">Returned</span>
 
                 </div>
             </div>        
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2"></i>
+                    <i class="icon-coins"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg Gross Profit</span>
+                    <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($cogs, 2) ?></h6>
+                    <span class="text-muted">COGS</span>
 
                 </div>
             </div>    
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2"></i>
+                    <i class="icon-cash3"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Gross Provit Margin</span>
+                    <h6 class="font-weight-semibold mb-0">$<?= number_format($grossProfit, 2) ?></h6>
+                    <span class="text-muted">Gross Profit</span>
 
                 </div>
             </div>  
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2"></i>
+                    <i class="icon-percent"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg Fees</span>
+                    <h6 class="font-weight-semibold mb-0"><?= number_format(($grossProfit/$sold), 2) ?>%</h6>
+                    <span class="text-muted">Gross Profit Margin</span>
 
                 </div>
             </div>     
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-table2"></i>
+                    <i class="icon-piggy-bank"></i>
                 </a>
                 <div class="ml-3">
-                    <h5 class="font-weight-semibold mb-0">0</h5>
-                    <span class="text-muted">Avg Net Profit</span>
+                    <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($fees, 2) ?></h6>
+                    <span class="text-muted">Fees</span>
 
                 </div>
-            </div>                
+            </div>        
+            <div class="d-flex align-items-center mb-3 mb-lg-0">
+                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                    <i class="icon-cash3"></i>
+                </a>
+                <div class="ml-3">
+                    <h6 class="font-weight-semibold mb-0">$<?= number_format($fees+$grossProfit, 2) ?></h6>
+                    <span class="text-muted">Net Profit</span>
+
+                </div>
+            </div>   
+            <div class="d-flex align-items-center mb-3 mb-lg-0">
+                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                    <i class="icon-percent"></i>
+                </a>
+                <div class="ml-3">
+                    <h6 class="font-weight-semibold mb-0"><?= number_format(($fees+$grossProfit)/$grossProfit, 2) ?>%</h6>
+                    <span class="text-muted">Net Profit Margin</span>
+
+                </div>
+            </div>           
         </div>        
         <table class="table datatable-basic" style="font-size: 12px;">
             <thead>
