@@ -1741,29 +1741,29 @@ class Reports extends BaseController
 
     public function uploadGeneratePL() {
         $client = $this->request->getVar('client');
-        $chart = $this->request->getFile('chart');
+        $chart = $this->request->getFileMultiple('chart');
         $daterange = $this->request->getVar('date');
         $daterange = explode('-', $daterange);
         $date1 = date('Y-m-d', strtotime(trim($daterange[0])));
         $date2 = date('Y-m-d', strtotime(trim($daterange[1])));
-        $ext = $chart->getClientExtension();
-        if ($ext == 'xls') {
-            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-        } else {
-            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        }
         
-       
-        $spreadsheet = $render->load($chart);
-        $data = $spreadsheet->getActiveSheet()->toArray();
-        $orderData = array();
         $this->db->query("INSERT INTO transactions_master(user_id) VALUES ('$client') ");
         $id = $this->db->insertID();
-        foreach ($data as $idx => $row) {
-            if ($idx > 0) {
-                $newDate = date('Y-m-d', strtotime($row[16]));
-                if (($newDate >= $date1) && ($newDate <= $date2)) {
-                    $temp = array(
+        for ($k=0; $k < count($chart); $k++) {
+            $ext = $chart[$k]->getClientExtension();
+            if ($ext == 'xls') {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+            } else {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            }
+            ini_set('max_execution_time', '300');
+        
+            $spreadsheet = $render->load($chart[$k]);
+            $data = $spreadsheet->getActiveSheet()->toArray();
+            $orderData = array();           
+            foreach ($data as $idx => $row) {
+                if ($idx > 0) {
+                    $orderData = array(
                         'settlement-id' => $row[0],
                         'settlement-start-date' => $row[1],
                         'settlement-end-date' => $row[2],
@@ -1780,7 +1780,7 @@ class Reports extends BaseController
                         'amount-description' => $row[13],
                         'amount' => $row[14],
                         'fulfillment-id' => $row[15],
-                        'posted-date' => $newDate,
+                        'posted-date' => date('Y-m-d', strtotime($row[16])),
                         'posted-date-time' => $row[17],
                         'order-item-code' => $row[18],
                         'merchant-order-item-id' => $row[19],
@@ -1790,11 +1790,13 @@ class Reports extends BaseController
                         'promotion-id' => $row[23],
                         'transaction-master-id' => $id
                     );
-                    array_push($orderData, $temp);
-                }            
-            }           
-        }      
-        $this->transactionModel->insertBatch($orderData);
+                    $this->transactionModel->save($orderData);                
+                }    
+                $this->transactionModel->save($orderData);       
+            } 
+            
+        }
+        
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return view('login');
@@ -1817,29 +1819,29 @@ class Reports extends BaseController
         $returned = $returned->getResultObject();
 
         // COGS
-        $getSkuOrder = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type` = 'Order' AND sku IS NOT NULL GROUP BY sku");
-        $getSkuRefund = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type` = 'Refund' AND sku IS NOT NULL GROUP BY sku");
+        $getSkuOrder = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type` = 'Order' AND sku IS NOT NULL GROUP BY `order-id`");
+        $getSkuRefund = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type` = 'Refund' AND sku IS NOT NULL GROUP BY `order-id`");
         $orderSkus = array();
         foreach ($getSkuOrder->getResultObject() as $sku) {
-            array_push($orderSkus, $sku->sku);
+            array_push($orderSkus, '^'.$sku->sku);
         }
-
-        $orderSkus = implode(',', $orderSkus);
- 
+        
+        $orderSkus = "'" . implode("|", $orderSkus) . "'";
+        
         $refundSkus = array();
         foreach ($getSkuRefund->getResultObject() as $sku) {
-            array_push($refundSkus, $sku->sku);
+            array_push($refundSkus, '^'.$sku->sku);
         }
 
-        $refundSkus = implode(',', $refundSkus);
-     
-        $getClientCostOrder = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost) as max_cost FROM `reports` WHERE (reports.qty = 1 OR reports.qty IS NULL) AND sku IN (".$orderSkus.") GROUP BY sku) as m ");
+        $refundSkus = "'" . implode("|", $refundSkus) . "'";
+        
+        $getClientCostOrder = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost/qty) as max_cost FROM `reports` WHERE client_id='$client' AND sku REGEXP (".$orderSkus.") GROUP BY sku) as m ");
         $getClientCostOrder = $getClientCostOrder->getResultObject();
-        $getClientCostRefund = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost) as max_cost FROM `reports` WHERE (reports.qty = 1 OR reports.qty IS NULL) AND sku IN (".$refundSkus.") GROUP BY sku) as m ");
+
+        $getClientCostRefund = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost/qty) as max_cost FROM `reports` WHERE client_id='$client' AND sku REGEXP (".$refundSkus.") GROUP BY sku) as m ");
         $getClientCostRefund = $getClientCostRefund->getResultObject();
-
-        $cogs =  $getClientCostRefund[0]->cogs - $getClientCostOrder[0]->cogs;
-
+        
+        $cogs =  $getClientCostRefund[0]->cogs - $getClientCostOrder[0]->cogs; 
         // Gross Profit
         $grossOrder = $this->db->query("SELECT SUM(net_sales) as gross_order FROM (SELECT (amount - max(cost)) as net_sales FROM `reports` JOIN transactions ON reports.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type`='Order' AND (reports.qty = 1 OR reports.qty IS NULL) GROUP BY transactions.sku) as n");
         $grossOrder = $grossOrder->getResultObject();
@@ -1852,13 +1854,56 @@ class Reports extends BaseController
         $fees = $this->db->query("SELECT SUM(amount) as fees FROM transactions WHERE `amount-description` NOT IN ('Principal', 'Tax', 'Shipping') AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
         $fees = $fees->getResultObject();
 
-
+        $getClient = $this->userModel->find($client);
+        $getMonth = date('m', strtotime($date1));
+        switch($getMonth) {
+            case '01' :
+                $month = 'jan';
+                break;
+            case '02' :
+                $month = 'feb';
+                break;
+            case '03' :
+                $month = 'mar';
+                break;
+            case '04' :
+                $month = 'apr';
+                break;
+            case '05' :
+                $month = 'may';
+                break;
+            case '06' :
+                $month = 'jun';
+                break;
+            case '07' :
+                $month = 'jul';
+                break;
+            case '08' :
+                $month = 'aug';
+                break;
+            case '09' :
+                $month = 'sep';
+                break;
+            case '10' :
+                $month = 'oct';
+                break;
+            case '11' :
+                $month = 'nov';
+                break;
+            case '12' :
+                $month = 'dec';
+                break;
+        }
+        
         $data = [
             'tittle' => 'Generate P&L Report | Report Management System',
             'menu' => 'Generate P&L Report',         
             'user' => $user,
             'transactions' => $transaction,
             'companySetting' => $companysetting,
+            'client' => $getClient,
+            'daterange' => $this->request->getVar('date'),
+            'month' => $month,
             'qtySold' => $qtySold[0]->net_sold,
             'qtyReturned' => $qtyReturned[0]->rate_returned,
             'sold' => $sold[0]->sold,
@@ -1868,6 +1913,48 @@ class Reports extends BaseController
             'fees' => $fees[0]->fees
         ];
         return view('administrator/transaction_detail', $data);
+    }
+
+    public function saveChart() {
+        $post = $this->request->getVar();
+        $client = $post['client'];
+        $month = $post['month'];
+        $qtySold = $post['qty_sold'];
+        $qtyReturned = $post['qty_returned'];
+        $sold = $post['sold'];
+        $returned = $post['returned'];
+        $cogs = $post['cogs'];
+        $grossProfit = $post['gross_profit'];
+        $grossProfitMargin = $post['gross_profit_margin'];
+        $fees = $post['fees'];
+        $netProfit = $post['net_profit'];
+        $netProfitMargin = $post['net_profit_margin'];
+        
+        $clientExist = $this->db->query("SELECT * FROM chart_pl WHERE client_id = '$client' GROUP BY client_id ");
+        if ($clientExist->getNumRows() > 0) {
+            $this->db->query("UPDATE chart_pl SET $month='$qtySold' WHERE chart='Sold' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month='$qtyReturned' WHERE chart='Return' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month='$sold' WHERE  chart='Net Sales' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month='$cogs' WHERE  chart='COGS' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month='$grossProfit' WHERE  chart='Gross Profit' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month='$grossProfitMargin' WHERE  chart='Gross Profit Margin' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month='$fees' WHERE  chart='Fees and Subtractions' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month=".($netProfit/$grossProfit)." WHERE  chart='Fees and Subtractions Rate' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month='$netProfit' WHERE  chart='Net Profit' AND client_id='$client' ");
+            $this->db->query("UPDATE chart_pl SET $month='$netProfitMargin' WHERE  chart='Net Profit Margin' AND client_id='$client' ");
+        } else {
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Sold', '$month', '$client', 'num' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Return', '$month', '$client', 'num' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Sales', '$month', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('COGS', '$month', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Gross Profit', '$month', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Gross Profit Margin', '$month', '$client', 'percentage' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Fees and Subtractions', '$month', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Fees and Subtractions Rate', '$month', '$client', 'percentage' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Profit', '$month', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Profit Margin', '$month', '$client', 'percentage' ");
+        } 
+        return redirect()->to('/admin/generate-p-l'); 
     }
 
     public function test()

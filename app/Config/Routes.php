@@ -82,7 +82,7 @@ $routes->get('/admin/logs', 'Logs::index');
 $routes->post('/admin/logs', 'Logs::index');
 $routes->get('/admin/generate-p-l', 'Admin\Reports::getGeneratePL');
 $routes->post('admin/upload-generate-pl-report', 'Admin\Reports::uploadGeneratePL');
-
+$routes->post('admin/save-chart', 'Admin\Reports::saveChart');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');

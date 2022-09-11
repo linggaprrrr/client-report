@@ -7,147 +7,161 @@
     }
 </style>
 <div class="content">
-    <div class="card">        
-        <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-cube"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0"><?= $qtySold ?></h6>
-                    <span class="text-muted">Qty Sold</span>
-
-                </div>
-            </div>
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-cube"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0 text-danger"><?= $qtyReturned ?></h6>
-                    <span class="text-muted">Qty Returned</span>
-
-                </div>
-            </div>     
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-cash"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0">$<?= number_format($sold, 2) ?></h6>
-                    <span class="text-muted">Sold</span>
-
-                </div>
-            </div>       
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-cash"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($returned, 2) ?></h6>
-                    <span class="text-muted">Returned</span>
-
-                </div>
-            </div>        
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-coins"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($cogs, 2) ?></h6>
-                    <span class="text-muted">COGS</span>
-
-                </div>
-            </div>    
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-cash3"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0">$<?= number_format($grossProfit, 2) ?></h6>
-                    <span class="text-muted">Gross Profit</span>
-
-                </div>
-            </div>  
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-percent"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0"><?= number_format(($grossProfit/$sold), 2) ?>%</h6>
-                    <span class="text-muted">Gross Profit Margin</span>
-
-                </div>
-            </div>     
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-piggy-bank"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($fees, 2) ?></h6>
-                    <span class="text-muted">Fees</span>
-
-                </div>
-            </div>        
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-cash3"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0">$<?= number_format($fees+$grossProfit, 2) ?></h6>
-                    <span class="text-muted">Net Profit</span>
-
-                </div>
-            </div>   
-            <div class="d-flex align-items-center mb-3 mb-lg-0">
-                <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
-                    <i class="icon-percent"></i>
-                </a>
-                <div class="ml-3">
-                    <h6 class="font-weight-semibold mb-0"><?= number_format(($fees+$grossProfit)/$grossProfit, 2) ?>%</h6>
-                    <span class="text-muted">Net Profit Margin</span>
-
-                </div>
-            </div>           
-        </div>        
-        <table class="table datatable-basic" style="font-size: 12px;">
-            <thead>
-                <tr>
-                    <th style="width: 5%">No</th>
-                    <th>settlement-id</th>
-                    <th>sku</th>
-                    <th>transaction-type</th>
-                    <th>order-id</th>
-                    <th>amount-type</th>
-                    <th>amount-description</th>
-                    <th>amount</th>
-                    <th>posted-date</th>
-                    <th>quantity-purchased</th>                    
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($transactions->getNumRows() > 0) : ?>
-                    <?php $no = 1; ?>
-                    <?php foreach ($transactions->getResultArray() as $row) : ?>
-                        <tr>
-                            <td class="text-center"><?= $no++ ?></td>                            
-                            <td><?= $row['settlement-id'] ?></td>
-                            <td><?= $row['sku'] ?></td>
-                            <td><?= $row['transaction-type'] ?></td>
-                            <td><?= $row['order-id'] ?></td>
-                            <td><?= $row['amount-type'] ?></td>
-                            <td><?= $row['amount-description'] ?></td>
-                            <td><?= $row['amount'] ?></td>
-                            <td><?= $row['posted-date'] ?></td>
-                            <td><?= $row['quantity-purchased'] ?></td>                           
-                        </tr>
-                    <?php endforeach ?>
-                <?php endif ?>
-            </tbody>
-        </table>  
-        <div class="card-body">
-            <button type="submit" class="btn btn-secondary"><i class="icon-checkmark3"></i> Save</button>
+    <div class="card">   
+        <div class="card-header">
+            <h5>Client Name: <b><?= $client['fullname'] ?> (<?= $client['company'] ?>)</b></h5>
+            <h5>Date: <b><?= $daterange ?></b></h5>
         </div>
+        <form method="POST" action="<?= base_url('admin/save-chart') ?>">
+        <?php csrf_field() ?>
+        <input type="hidden" name="client" value="<?= $client['id'] ?>">
+        <input type="hidden" name="month" value="<?= $month ?>">
+            <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">                
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-cube"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0"><?= $qtySold ?></h6>
+                        <span class="text-muted">Qty Sold</span>
+                        <input type="hidden" name="qty_sold" value="<?= $qtySold ?>">
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-cube"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0 text-danger"><?= $qtyReturned ?></h6>
+                        <span class="text-muted">Qty Returned</span>
+                        <input type="hidden" name="qty_returned" value="<?= $qtyReturned ?>">
+                    </div>
+                </div>     
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-cash"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0">$<?= ($sold == 0) ? 0 : number_format($sold, 2) ?></h6>
+                        <span class="text-muted">Sold</span>
+                        <input type="hidden" name="sold" value="<?= $sold ?>"> 
+                    </div>
+                </div>       
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-cash"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($returned, 2) ?></h6>
+                        <span class="text-muted">Returned</span>
+                        <input type="hidden" name="returned" value="<?= $returned ?>">
+                    </div>
+                </div>        
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-coins"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($cogs, 2) ?></h6>
+                        <span class="text-muted">COGS</span>
+                        <input type="hidden" name="cogs" value="<?= $cogs ?>">
+
+                    </div>
+                </div>    
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-cash3"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0">$<?= number_format($grossProfit, 2) ?></h6>
+                        <span class="text-muted">Gross Profit</span>
+                        <input type="hidden" name="gross_profit" value="<?= $grossProfit ?>">
+                    </div>
+                </div>  
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-percent"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0"><?= ($sold == 0) ? 0 : number_format(($grossProfit/$sold), 2) ?>%</h6>
+                        <span class="text-muted">Gross Profit Margin</span>
+                        <input type="hidden" name="gross_profit_margin" value="<?= ($sold == 0) ? 0  : $grossProfit/$sold ?>">
+
+                    </div>
+                </div>     
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-piggy-bank"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($fees, 2) ?></h6>
+                        <span class="text-muted">Fees</span>
+                        <input type="hidden" name="fees" value="<?= $fees ?>">
+
+                    </div>
+                </div>        
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-cash3"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0">$<?= number_format($fees+$grossProfit, 2) ?></h6>
+                        <span class="text-muted">Net Profit</span>
+                        <input type="hidden" name="net_profit" value="<?= $fees+$grossProfit ?>">
+
+                    </div>
+                </div>   
+                <div class="d-flex align-items-center mb-3 mb-lg-0">
+                    <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                        <i class="icon-percent"></i>
+                    </a>
+                    <div class="ml-3">
+                        <h6 class="font-weight-semibold mb-0"><?= number_format(($fees+$grossProfit)/$grossProfit, 2) ?>%</h6>
+                        <span class="text-muted">Net Profit Margin</span>
+                        <input type="hidden" name="net_profit_margin" value="<?= (($fees+$grossProfit)/$grossProfit) ?>">
+
+                    </div>
+                </div>           
+            </div>        
+            <table class="table datatable-basic" style="font-size: 12px;">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">No</th>
+                        <th>settlement-id</th>
+                        <th>sku</th>
+                        <th>transaction-type</th>
+                        <th>order-id</th>
+                        <th>amount-type</th>
+                        <th>amount-description</th>
+                        <th>amount</th>
+                        <th>posted-date</th>
+                        <th>quantity-purchased</th>                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ($transactions->getNumRows() > 0) : ?>
+                        <?php $no = 1; ?>
+                        <?php foreach ($transactions->getResultArray() as $row) : ?>
+                            <tr>
+                                <td class="text-center"><?= $no++ ?></td>                            
+                                <td><?= $row['settlement-id'] ?></td>
+                                <td><?= $row['sku'] ?></td>
+                                <td><?= $row['transaction-type'] ?></td>
+                                <td><?= $row['order-id'] ?></td>
+                                <td><?= $row['amount-type'] ?></td>
+                                <td><?= $row['amount-description'] ?></td>
+                                <td><?= $row['amount'] ?></td>
+                                <td><?= $row['posted-date'] ?></td>
+                                <td><?= $row['quantity-purchased'] ?></td>                           
+                            </tr>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                </tbody>
+            </table>  
+            <div class="card-body">
+                <button type="submit" class="btn btn-secondary"><i class="icon-checkmark3"></i> Save</button>
+            </div>
+        </form>     
     </div>
     
     <!-- /blocks with chart -->

@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <label>Chart File:</label>
                                         <label class="custom-file">
-                                            <input type="file" name="chart" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                            <input type="file" name="chart[]" class="custom-file-input" id="file-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple>
                                             <span class="custom-file-label" id="file-upload-filename">Choose file</span>
                                         </label>
                                         <span class="form-text text-muted">Accepted formats: xls. Max file size 100Mb</span>
