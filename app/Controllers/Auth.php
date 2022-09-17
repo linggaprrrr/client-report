@@ -90,4 +90,37 @@ class Auth extends BaseController
         session()->destroy();
         return redirect()->to(base_url('/login'));
     }
+
+    public function findUsername() {
+        $post = $this->request->getVar();
+        $user = $this->userModel->getWhere(['username' => $post['username'], 'under_comp !=' => '2'])->getRow();
+        if ($user) {
+            $data = [
+                'username' => $post['username']
+            ];
+            return view('reset-password', $data);
+        } else {
+            return redirect()->back()->with('error', 'Username Not Found!');
+        }
+        
+    }
+
+    public function forgotPassword() {
+        return view('forgot-password');
+    }
+
+    public function forgotPasswordProcess() {
+        $password = $this->request->getVar('password');
+        $re_password = $this->request->getVar('confirm-password');
+        $username = $this->request->getVar('username');
+        if ($password == $re_password) {
+            $newPassword = password_hash($password, PASSWORD_BCRYPT);
+            $this->db->query("UPDATE users SET password='$newPassword' WHERE username = '$username' ");
+            return redirect()->route('login');
+        } else {
+            return redirect()->back()->with('error', 'Password doesn\'t Match!');
+        }
+        
+    }
+
 }

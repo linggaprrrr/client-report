@@ -35,6 +35,9 @@ $routes->get('/', 'Auth::login');
 $routes->get('/login', 'Auth::login');
 $routes->post('/login-proccess', 'Auth::loginProses');
 $routes->get('/logout', 'Auth::logout');
+$routes->post('/find-username', 'Auth::findUsername');
+$routes->get('/forgot-password', 'Auth::forgotPassword');
+$routes->post('/forgot-password', 'Auth::forgotPasswordProcess');
 
 // Admin Side
 $routes->get('/admin/dashboard', 'Admin\Reports::index');
@@ -172,6 +175,7 @@ $routes->get('/mobile/news', 'Mobile::news');
 // API
 $routes->get('/mobile/client-cost-left/(:num)', 'Mobile::getClientCostLeft/$1');
 $routes->post('/api/send-device-token', 'News::sendDeviceToken');
+$routes->get('/get-summary-pl', 'Admin\Reports::getSummaryPL');
 
 
 

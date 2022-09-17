@@ -1,0 +1,44 @@
+ERROR - 2022-09-17 04:35:22 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-09-17 04:35:22 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Auth.php(23): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Auth->login()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+ERROR - 2022-09-17 04:35:30 --> MySQL server has gone away
+CRITICAL - 2022-09-17 04:35:30 --> MySQL server has gone away
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT logo FRO...', 0)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT logo FRO...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT logo FRO...')
+#3 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Auth.php(23): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Auth->login()
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-09-17 04:35:41 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-09-17 04:35:41 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Auth.php(23): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Auth->login()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-09-17 04:36:59 --> insertBatch() called with no data
+#0 C:\xampp\htdocs\smartwholesale\client-report\system\Model.php(272): CodeIgniter\Database\BaseBuilder->insertBatch(Array, NULL, 100)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\BaseModel.php(814): CodeIgniter\Model->doInsertBatch(Array, NULL, 100, false)
+#2 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(1804): CodeIgniter\BaseModel->insertBatch(Array)
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadGeneratePL()
+#4 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}

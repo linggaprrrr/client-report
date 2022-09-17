@@ -441,7 +441,7 @@ class Reports extends BaseController
         }
         $spreadsheet = $render->load($chart);
         $data = $spreadsheet->getActiveSheet()->toArray();
-        
+        d($data);
         if ($types == 'yes') {    
             $chartTitle = array();
             $monthData = array();
@@ -449,6 +449,7 @@ class Reports extends BaseController
             foreach ($data as $idx => $row) {
                 if (!empty($row[0])) {
                     array_push($chartTitle, $row[0]);
+                    
                 } else {
                     if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]) )) {
                         $month = array();
@@ -460,9 +461,9 @@ class Reports extends BaseController
                                     if (strpos($temp, '(') !== false) {
                                         $temp = str_replace('(', '', $temp);
                                         $temp = str_replace(')', '', $temp);
-                                        $temp = -1 * abs($temp);
+                                        $temp = -1 * abs(trim($temp));
                                     }
-                                    array_push($month, $temp);
+                                    array_push($month, trim($temp));
                                 }
                             }
 
@@ -475,9 +476,9 @@ class Reports extends BaseController
                                     if (strpos($temp, '(') !== false) {
                                         $temp = str_replace('(', '', $temp);
                                         $temp = str_replace(')', '', $temp);
-                                        $temp = -1 * abs($temp);
+                                        $temp = -1 * abs(trim($temp));
                                     }
-                                    array_push($month, $temp);
+                                    array_push($month, trim($temp));
                                 }
                             }
 
@@ -489,13 +490,13 @@ class Reports extends BaseController
                                     if (strpos($temp, '(') !== false) {
                                         $temp = str_replace('(', '', $temp);
                                         $temp = str_replace(')', '', $temp);
-                                        $temp = -1 * abs($temp);
+                                        $temp = -1 * abs(trim($temp));
                                     }
 
                                     if (strpos($temp, ',') !== false) {
                                         $temp = str_replace(',', '', $temp);                                      
                                     }
-                                    array_push($month, $temp);
+                                    array_push($month, trim($temp));
                                 }
                             }
                             array_push($type, 'num');
@@ -504,6 +505,7 @@ class Reports extends BaseController
                     }
                     
                 }
+        
             }
             
             for ($i = 0; $i < count($chartTitle); $i++) {
@@ -526,9 +528,9 @@ class Reports extends BaseController
                                 if (strpos($temp, '(') !== false) {
                                     $temp = str_replace('(', '', $temp);
                                     $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
+                                    $temp = -1 * abs(trim($temp));
                                 }
-                                array_push($month, $temp);
+                                array_push($month, trim($temp));
                             }
 
                             array_push($type, 'percentage');
@@ -539,9 +541,9 @@ class Reports extends BaseController
                                 if (strpos($temp, '(') !== false) {
                                     $temp = str_replace('(', '', $temp);
                                     $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
+                                    $temp = -1 * abs(trim($temp));
                                 }
-                                array_push($month, $temp);
+                                array_push($month, trim($temp));
                             }
 
                             array_push($type, 'currency');
@@ -551,12 +553,12 @@ class Reports extends BaseController
                                 if (strpos($temp, '(') !== false) {
                                     $temp = str_replace('(', '', $temp);
                                     $temp = str_replace(')', '', $temp);
-                                    $temp = -1 * abs($temp);
+                                    $temp = -1 * abs(trim($temp));
                                 }
                                 if (strpos($temp, ',') !== false) {
                                     $temp = str_replace(',', '', $temp);                                      
                                 }
-                                array_push($month, $temp);
+                                array_push($month, trim($temp));
                             }
                             array_push($type, 'num');
                         }
@@ -1749,6 +1751,8 @@ class Reports extends BaseController
         
         $this->db->query("INSERT INTO transactions_master(user_id) VALUES ('$client') ");
         $id = $this->db->insertID();
+
+
         for ($k=0; $k < count($chart); $k++) {
             $ext = $chart[$k]->getClientExtension();
             if ($ext == 'xls') {
@@ -1763,40 +1767,45 @@ class Reports extends BaseController
             $orderData = array();           
             foreach ($data as $idx => $row) {
                 if ($idx > 0) {
-                    $orderData = array(
-                        'settlement-id' => $row[0],
-                        'settlement-start-date' => $row[1],
-                        'settlement-end-date' => $row[2],
-                        'deposit-date' => $row[3],
-                        'total-amount' => $row[4],
-                        'currency' => $row[5],
-                        'transaction-type' => $row[6],
-                        'order-id' => $row[7],
-                        'merchant-order-id' => $row[8],
-                        'adjustment-id' => $row[9],
-                        'shipment-id' => $row[10],
-                        'marketplace-name' => $row[11],
-                        'amount-type' => $row[12],
-                        'amount-description' => $row[13],
-                        'amount' => $row[14],
-                        'fulfillment-id' => $row[15],
-                        'posted-date' => date('Y-m-d', strtotime($row[16])),
-                        'posted-date-time' => $row[17],
-                        'order-item-code' => $row[18],
-                        'merchant-order-item-id' => $row[19],
-                        'merchant-adjustment-item-id' => $row[20],
-                        'sku' => $row[21],
-                        'quantity-purchased' => $row[22],
-                        'promotion-id' => $row[23],
-                        'transaction-master-id' => $id
-                    );
-                    $this->transactionModel->save($orderData);                
-                }    
-                $this->transactionModel->save($orderData);       
+                    $newDate = date('Y-m-d', strtotime($row[16]));
+                    if (($newDate >= $date1) && ($newDate <= $date2)) {
+                        $temp = array(
+                            'settlement-id' => $row[0],
+                            'settlement-start-date' => $row[1],
+                            'settlement-end-date' => $row[2],
+                            'deposit-date' => $row[3],
+                            'total-amount' => $row[4],
+                            'currency' => $row[5],
+                            'transaction-type' => $row[6],
+                            'order-id' => $row[7],
+                            'merchant-order-id' => $row[8],
+                            'adjustment-id' => $row[9],
+                            'shipment-id' => $row[10],
+                            'marketplace-name' => $row[11],
+                            'amount-type' => $row[12],
+                            'amount-description' => $row[13],
+                            'amount' => $row[14],
+                            'fulfillment-id' => $row[15],
+                            'posted-date' => $newDate,
+                            'posted-date-time' => $row[17],
+                            'order-item-code' => $row[18],
+                            'merchant-order-item-id' => $row[19],
+                            'merchant-adjustment-item-id' => $row[20],
+                            'sku' => $row[21],
+                            'quantity-purchased' => $row[22],
+                            'promotion-id' => $row[23],
+                            'transaction-master-id' => $id
+                        );
+                        array_push($orderData, $temp);    
+                    }            
+                }        
             } 
+
+            if (count($orderData)  > 0) {
+                $this->transactionModel->insertBatch($orderData);
+            }
             
         }
-        
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return view('login');
@@ -1806,54 +1815,8 @@ class Reports extends BaseController
         $transaction = $this->transactionModel->getTransactionUploaded($id, $date1, $date2, $client);
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
 
-        $qtySold = $this->db->query("SELECT SUM(`quantity-purchased`) as net_sold FROM `transactions` WHERE `transaction-type` = 'Order' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
-        $qtySold = $qtySold->getResultObject();
-        
-        $qtyReturned = $this->db->query("SELECT COUNT(`order-id`) as rate_returned FROM `transactions` WHERE `transaction-type` = 'Refund' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
-        $qtyReturned = $qtyReturned->getResultObject();
-
-        $sold = $this->db->query("SELECT SUM(`amount`) as sold FROM `transactions` WHERE `transaction-type` = 'Order' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2'");
-        $sold = $sold->getResultObject();
-
-        $returned = $this->db->query("SELECT SUM(`amount`) as returned FROM `transactions` WHERE `transaction-type` = 'Refund' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2'");
-        $returned = $returned->getResultObject();
-
-        // COGS
-        $getSkuOrder = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type` = 'Order' AND sku IS NOT NULL GROUP BY `order-id`");
-        $getSkuRefund = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type` = 'Refund' AND sku IS NOT NULL GROUP BY `order-id`");
-        $orderSkus = array();
-        foreach ($getSkuOrder->getResultObject() as $sku) {
-            array_push($orderSkus, '^'.$sku->sku);
-        }
-        
-        $orderSkus = "'" . implode("|", $orderSkus) . "'";
-        
-        $refundSkus = array();
-        foreach ($getSkuRefund->getResultObject() as $sku) {
-            array_push($refundSkus, '^'.$sku->sku);
-        }
-
-        $refundSkus = "'" . implode("|", $refundSkus) . "'";
-        
-        $getClientCostOrder = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost/qty) as max_cost FROM `reports` WHERE client_id='$client' AND sku REGEXP (".$orderSkus.") GROUP BY sku) as m ");
-        $getClientCostOrder = $getClientCostOrder->getResultObject();
-
-        $getClientCostRefund = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost/qty) as max_cost FROM `reports` WHERE client_id='$client' AND sku REGEXP (".$refundSkus.") GROUP BY sku) as m ");
-        $getClientCostRefund = $getClientCostRefund->getResultObject();
-        
-        $cogs =  $getClientCostRefund[0]->cogs - $getClientCostOrder[0]->cogs; 
-        // Gross Profit
-        $grossOrder = $this->db->query("SELECT SUM(net_sales) as gross_order FROM (SELECT (amount - max(cost)) as net_sales FROM `reports` JOIN transactions ON reports.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type`='Order' AND (reports.qty = 1 OR reports.qty IS NULL) GROUP BY transactions.sku) as n");
-        $grossOrder = $grossOrder->getResultObject();
-        $grossRefund = $this->db->query("SELECT SUM(net_sales) as gross_refund FROM (SELECT (amount - max(cost)) as net_sales FROM `reports` JOIN transactions ON reports.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type`='Refund' AND (reports.qty = 1 OR reports.qty IS NULL) GROUP BY transactions.sku) as n");
-        $grossRefund = $grossRefund->getResultObject();
-        $tax = $this->db->query("SELECT SUM(amount) as total_tax FROM transactions WHERE `amount-description` ='Tax' AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
-        $tax = $tax->getResultObject();
-        $grossProfit = ($grossOrder[0]->gross_order + $grossRefund[0]->gross_refund) + $tax[0]->total_tax;
-        
-        $fees = $this->db->query("SELECT SUM(amount) as fees FROM transactions WHERE `amount-description` NOT IN ('Principal', 'Tax', 'Shipping') AND `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' ");
-        $fees = $fees->getResultObject();
-
+        $skuNotFound = $this->db->query("SELECT transactions.sku, repo FROM transactions LEFT JOIN (SELECT reports.sku as repo FROM reports WHERE client_id = '$client') as r ON transactions.sku = r.repo WHERE `transaction-master-id` = '$id' AND transactions.sku IS NOT NULL AND repo IS NULL GROUP BY transactions.sku");
+    
         $getClient = $this->userModel->find($client);
         $getMonth = date('m', strtotime($date1));
         switch($getMonth) {
@@ -1904,16 +1867,108 @@ class Reports extends BaseController
             'client' => $getClient,
             'daterange' => $this->request->getVar('date'),
             'month' => $month,
+            'date1' => $date1,
+            'date2' => $date2,
+            'skuNotFound' => $skuNotFound,
+            'id' => $id
+        ];
+        return view('administrator/transaction_detail', $data);
+    }
+
+    public function getSummaryPL() {
+        $id = $this->request->getVar('id');
+        $client = $this->request->getVar('client');
+        $qtySold = $this->db->query("SELECT SUM(`quantity-purchased`) as net_sold FROM `transactions` WHERE `transaction-type` = 'Order' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id'  ");
+        $qtySold = $qtySold->getResultObject();
+        
+        $qtyReturned = $this->db->query("SELECT COUNT(`order-id`) as rate_returned FROM `transactions` WHERE `transaction-type` = 'Refund' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' ");
+        $qtyReturned = $qtyReturned->getResultObject();
+
+        $sold = $this->db->query("SELECT SUM(`amount`) as sold FROM `transactions` WHERE `transaction-type` = 'Order' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' ");
+        $sold = $sold->getResultObject();
+
+        $returned = $this->db->query("SELECT SUM(`amount`) as returned FROM `transactions` WHERE `transaction-type` = 'Refund' AND `amount-description` = 'Principal' AND `transaction-master-id` = '$id' ");
+        $returned = $returned->getResultObject();
+
+        // Net Sales
+        $netSales = $this->db->query("SELECT SUM(amount) as net_sale FROM transactions WHERE `transaction-master-id` = '$id' AND (`amount-description` = 'Principal' OR `amount-description` = 'Tax') ");
+        $netSales = $netSales->getResultObject();
+        // COGS
+        $getSkuOrder = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `transaction-type` = 'Order' AND sku IS NOT NULL GROUP BY transactions.sku ");
+        $getSkuRefund = $this->db->query("SELECT sku FROM `transactions` WHERE `transaction-master-id` = '$id' AND `transaction-type` = 'Refund' AND sku IS NOT NULL GROUP BY transactions.sku ");
+        $orderSkus = array();
+        foreach ($getSkuOrder->getResultObject() as $sku) {
+            array_push($orderSkus, $sku->sku);
+        }
+        
+        $orderSkus = "'" . implode("|", $orderSkus) . "'";
+        
+        $refundSkus = array();
+        foreach ($getSkuRefund->getResultObject() as $sku) {
+            array_push($refundSkus, $sku->sku);
+        }
+
+        $refundSkus = "'" . implode("|", $refundSkus) . "'";
+        
+        $getClientCostOrder = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost/qty) as max_cost FROM `reports` WHERE client_id='$client' AND sku REGEXP (".$orderSkus.") GROUP BY sku) as m ");
+        $getClientCostOrder = $getClientCostOrder->getResultObject();
+
+        $getClientCostRefund = $this->db->query("SELECT SUM(max_cost) cogs FROM (SELECT max(cost/qty) as max_cost FROM `reports` WHERE client_id='$client' AND sku REGEXP (".$refundSkus.") GROUP BY sku) as m ");
+        $getClientCostRefund = $getClientCostRefund->getResultObject();
+        
+        $cogs =  $getClientCostRefund[0]->cogs - $getClientCostOrder[0]->cogs; 
+        // Gross Profit
+        $grossOrder = $this->db->query("SELECT SUM(net_sales) as gross_order FROM (SELECT (amount - max(cost)) as net_sales FROM `reports` JOIN transactions ON reports.sku = transactions.sku WHERE client_id='$client' AND `transaction-master-id` = '$id' AND (reports.qty < 2 OR reports.qty IS NULL) GROUP BY `order-id`) as n");
+        $grossOrder = $grossOrder->getResultObject();
+        // $grossRefund = $this->db->query("SELECT SUM(net_sales) as gross_refund FROM (SELECT (amount - max(cost)) as net_sales FROM `reports` JOIN transactions ON reports.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `posted-date` BETWEEN '$date1' AND '$date2' AND `transaction-type`='Refund' AND (reports.qty = 1 OR reports.qty IS NULL) GROUP BY transactions.sku) as n");
+        // $grossRefund = $grossRefund->getResultObject();
+        $tax = $this->db->query("SELECT SUM(amount) as total_tax FROM transactions WHERE `amount-description` ='Tax' AND `transaction-master-id` = '$id' ");
+        $tax = $tax->getResultObject();
+        $grossProfit = $grossOrder[0]->gross_order + $tax[0]->total_tax;
+        $grossProfitMargin = ($grossProfit/$netSales[0]->net_sale) * 100;
+        $fees = $this->db->query("SELECT SUM(amount) as fees FROM transactions WHERE `amount-description` NOT IN ('Principal', 'Tax', 'Shipping') AND `transaction-master-id` = '$id'  ");
+        $fees = $fees->getResultObject();
+        $netProfit = $fees[0]->fees + $grossProfit;
+        $netProfitMargin = ($netProfit / $grossProfit) * 100;
+        $skuNotFound = $this->db->query("SELECT transactions.sku, repo FROM transactions LEFT JOIN (SELECT reports.sku as repo FROM reports WHERE client_id = '$client') as r ON transactions.sku = r.repo WHERE `transaction-master-id` = '$id' AND transactions.sku IS NOT NULL AND repo IS NULL GROUP BY transactions.sku"); 
+        $numOfSku = $skuNotFound->getNumRows();
+        $missingSku = array();
+        if ($numOfSku > 0) {
+            foreach ($skuNotFound->getResultObject() as $sku) {
+                array_push($missingSku, $sku->sku);
+            }
+        }
+
+          // storage fee
+        $storageFee = $this->db->query("SELECT SUM(amount) as storage FROM `transactions` WHERE `transaction-master-id` = '$id' AND (`amount-description` = 'Storage Fee' OR `amount-description` = 'StorageRenewalBilling') ");
+        $storageFee = $storageFee->getResultObject();
+        
+        // inbound transport fee
+        $transportFee = $this->db->query("SELECT SUM(amount) as transport FROM `transactions` WHERE `transaction-master-id` = '$id' AND `amount-description` = 'FBAInboundTransportationFee'");
+        $transportFee = $transportFee->getResultObject();
+
+        $data = [
             'qtySold' => $qtySold[0]->net_sold,
             'qtyReturned' => $qtyReturned[0]->rate_returned,
             'sold' => $sold[0]->sold,
             'returned' => $returned[0]->returned,
             'cogs' => $cogs,
             'grossProfit' => $grossProfit,
-            'fees' => $fees[0]->fees
+            'grossProfitMargin' => $grossProfitMargin,
+            'netSales' => $netSales[0]->net_sale,
+            'fees' => $fees[0]->fees,
+            'netProfit' => $netProfit,
+            'netProfitMargin' => $netProfitMargin,
+            'numOfSku' => $numOfSku,
+            'missingSku' => $missingSku,
+            'storageFee' => $storageFee[0]->storage,
+            'transportFee' => $transportFee[0]->transport
+            
         ];
-        return view('administrator/transaction_detail', $data);
+
+        echo json_encode($data);
     }
+
 
     public function saveChart() {
         $post = $this->request->getVar();
@@ -1929,9 +1984,11 @@ class Reports extends BaseController
         $fees = $post['fees'];
         $netProfit = $post['net_profit'];
         $netProfitMargin = $post['net_profit_margin'];
+        $activeSku = $post['active-sku'];
         
         $clientExist = $this->db->query("SELECT * FROM chart_pl WHERE client_id = '$client' GROUP BY client_id ");
         if ($clientExist->getNumRows() > 0) {
+            $this->db->query("UPDATE chart_pl SET $month='$activeSku' WHERE chart='Active SKUs' AND client_id='$client' ");
             $this->db->query("UPDATE chart_pl SET $month='$qtySold' WHERE chart='Sold' AND client_id='$client' ");
             $this->db->query("UPDATE chart_pl SET $month='$qtyReturned' WHERE chart='Return' AND client_id='$client' ");
             $this->db->query("UPDATE chart_pl SET $month='$sold' WHERE  chart='Net Sales' AND client_id='$client' ");
@@ -1943,16 +2000,17 @@ class Reports extends BaseController
             $this->db->query("UPDATE chart_pl SET $month='$netProfit' WHERE  chart='Net Profit' AND client_id='$client' ");
             $this->db->query("UPDATE chart_pl SET $month='$netProfitMargin' WHERE  chart='Net Profit Margin' AND client_id='$client' ");
         } else {
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Sold', '$month', '$client', 'num' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Return', '$month', '$client', 'num' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Sales', '$month', '$client', 'currency' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('COGS', '$month', '$client', 'currency' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Gross Profit', '$month', '$client', 'currency' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Gross Profit Margin', '$month', '$client', 'percentage' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Fees and Subtractions', '$month', '$client', 'currency' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Fees and Subtractions Rate', '$month', '$client', 'percentage' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Profit', '$month', '$client', 'currency' ");
-            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Profit Margin', '$month', '$client', 'percentage' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Active SKUs', '$activeSku', '$client', 'num' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Sold', '$qtySold', '$client', 'num' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Return', '$qtyReturned', '$client', 'num' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Sales', '$sold', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('COGS', '$cogs', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Gross Profit', '$grossProfit', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Gross Profit Margin', '$grossProfitMargin', '$client', 'percentage' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Fees and Subtractions', '$fees', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Fees and Subtractions Rate', '".($netProfit/$grossProfit)."', '$client', 'percentage' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Profit', '$netProfit', '$client', 'currency' ");
+            $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Profit Margin', '$netProfitMargin', '$client', 'percentage' ");
         } 
         return redirect()->to('/admin/generate-p-l'); 
     }

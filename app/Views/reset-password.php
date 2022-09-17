@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Report Management System | Login Page</title>
+    <title>Report Managmenet System | Login Page</title>
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
 
     <!-- Global stylesheets -->
@@ -87,7 +87,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="login-logo">
-                        <img src="/assets/images/<?= $logo ?>" alt="Image" class="img-fluid">
+                        <img src="/assets/images/fba-logo.png" alt="Image" class="img-fluid">
                     </div>
                     <div class="login-background">
                         <img src="/assets/login/images/login-min.png" alt="Image" class="img-fluid">
@@ -97,48 +97,32 @@
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="mb-4">
-                                <h3>Sign In</h3>
+                                <h3>Reset Password</h3>
                             </div>
-                            <form class="login-form" method="POST" action="<?= base_url('/login-proccess') ?>">
-
-
+                            <form class="login-form" method="POST" action="<?= base_url('/forgot-password') ?>">
                                 <?php if (session()->getFlashdata('error')) : ?>
                                     <div class="alert alert-danger alert-dismissible show fade">
                                         <div class="alert-body">
-
                                             <b>Error !</b>
                                             <?= session()->getFlashdata('error') ?>
                                         </div>
                                     </div>
                                 <?php endif ?>
-                                <div class="form-group first mb-2">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" name="username" id="username">
-
-                                </div>
                                 <div class="form-group last mb-4">
-                                    <label for="password">Password</label>
+                                    <input type="hidden" name="username" value="<?= $username ?>">
+                                    <label for="password">New Password</label>
                                     <input type="password" class="form-control" name="password" id="password">
 
-                                </div>
-
-
-                                <div class="d-flex mb-3 align-items-center">
-                                    <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                                        <input type="checkbox" checked="checked" />
-                                        <div class="control__indicator"></div>
-                                    </label>
-                                    <span class="ml-auto"><a href="<?= base_url('/forgot-password') ?>" class="forgot-pass">Forgot Password</a></span>
-                                </div>
+                                </div>    
+                                <div class="form-group last mb-4">
+                                    <label for="password">Confirm Password</label>
+                                    <input type="password" class="form-control" name="confirm-password" id="confirm_password">
+                                </div>      
+                                <div class="message" style="text-align: center;">
+                                    <span id='message'></span>
+                                </div>                                                    
                                 <input type="hidden" name="current" id="" value="<?= base_url(uri_string()) ?>">
-                                <input type="submit" value="Log In" class="btn btn-block btn-primary">
-                                <div style="text-align: center; padding-top: 10px;padding-left: 5px;">
-                                    <a href="https://apps.apple.com/id/app/smart-fba-client-portal/id1618568127" target="_blink"><img src="/assets/images/appstore.png" style="max-width: 160px;"></a>
-                                    <div class="popup" onclick="myFunction()">
-                                        <img src="/assets/images/googleplay-soon.png" style="max-width: 180px;">
-                                        <span class="popuptext" id="myPopup">Soon!</span>
-                                    </div>
-                                </div>
+                                <input type="submit" value="Reset Password" class="btn btn-block btn-primary">                                
                             </form>
 
                         </div>
@@ -156,6 +140,15 @@
             var popup = document.getElementById("myPopup");
             popup.classList.toggle("show");
         }
+
+        $('#password, #confirm_password').on('keyup', function() {
+            if ($('#password').val() == $('#confirm_password').val()) {
+                $('#message').html('Password Matching').css('color', 'green');
+
+            } else
+                $('#message').html('Password not matching!').css('color', 'red');
+
+        });
     </script>
 </body>
 

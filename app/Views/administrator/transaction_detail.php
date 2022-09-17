@@ -22,9 +22,9 @@
                         <i class="icon-cube"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0"><?= $qtySold ?></h6>
+                        <h6 class="font-weight-semibold mb-0 qty-sold-label">...</h6>
                         <span class="text-muted">Qty Sold</span>
-                        <input type="hidden" name="qty_sold" value="<?= $qtySold ?>">
+                        <input type="hidden" name="qty_sold" class="qty_sold" value="">
                     </div>
                 </div>
                 <div class="d-flex align-items-center mb-3 mb-lg-0">
@@ -32,9 +32,9 @@
                         <i class="icon-cube"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0 text-danger"><?= $qtyReturned ?></h6>
+                        <h6 class="font-weight-semibold mb-0 text-danger qty-returned-label">...</h6>
                         <span class="text-muted">Qty Returned</span>
-                        <input type="hidden" name="qty_returned" value="<?= $qtyReturned ?>">
+                        <input type="hidden" name="qty_returned" class="qty_returned" value="">
                     </div>
                 </div>     
                 <div class="d-flex align-items-center mb-3 mb-lg-0">
@@ -42,9 +42,9 @@
                         <i class="icon-cash"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0">$<?= ($sold == 0) ? 0 : number_format($sold, 2) ?></h6>
+                        <h6 class="font-weight-semibold mb-0 sold-label">$ ...</h6>
                         <span class="text-muted">Sold</span>
-                        <input type="hidden" name="sold" value="<?= $sold ?>"> 
+                        <input type="hidden" name="sold" class="sold" value=""> 
                     </div>
                 </div>       
                 <div class="d-flex align-items-center mb-3 mb-lg-0">
@@ -52,9 +52,9 @@
                         <i class="icon-cash"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($returned, 2) ?></h6>
+                        <h6 class="font-weight-semibold mb-0 text-danger returned-label">$ ...</h6>
                         <span class="text-muted">Returned</span>
-                        <input type="hidden" name="returned" value="<?= $returned ?>">
+                        <input type="hidden" name="returned" class="returned" value="">
                     </div>
                 </div>        
                 <div class="d-flex align-items-center mb-3 mb-lg-0">
@@ -62,9 +62,9 @@
                         <i class="icon-coins"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($cogs, 2) ?></h6>
+                        <h6 class="font-weight-semibold mb-0 text-danger cogs-label">$ ...</h6>
                         <span class="text-muted">COGS</span>
-                        <input type="hidden" name="cogs" value="<?= $cogs ?>">
+                        <input type="hidden" name="cogs" class="cogs" value="">
 
                     </div>
                 </div>    
@@ -73,9 +73,9 @@
                         <i class="icon-cash3"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0">$<?= number_format($grossProfit, 2) ?></h6>
+                        <h6 class="font-weight-semibold mb-0 gross-profit-label">$ ...</h6>
                         <span class="text-muted">Gross Profit</span>
-                        <input type="hidden" name="gross_profit" value="<?= $grossProfit ?>">
+                        <input type="hidden" name="gross_profit" class="gross-profit" value="">
                     </div>
                 </div>  
                 <div class="d-flex align-items-center mb-3 mb-lg-0">
@@ -83,9 +83,9 @@
                         <i class="icon-percent"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0"><?= ($sold == 0) ? 0 : number_format(($grossProfit/$sold), 2) ?>%</h6>
+                        <h6 class="font-weight-semibold mb-0 gross-profit-margin-label">... %</h6>
                         <span class="text-muted">Gross Profit Margin</span>
-                        <input type="hidden" name="gross_profit_margin" value="<?= ($sold == 0) ? 0  : $grossProfit/$sold ?>">
+                        <input type="hidden" name="gross_profit_margin"  class="gross-profit-margin" value="">
 
                     </div>
                 </div>     
@@ -94,9 +94,9 @@
                         <i class="icon-piggy-bank"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0 text-danger">$<?= number_format($fees, 2) ?></h6>
+                        <h6 class="font-weight-semibold mb-0 text-danger fees-label">$ ...</h6>
                         <span class="text-muted">Fees</span>
-                        <input type="hidden" name="fees" value="<?= $fees ?>">
+                        <input type="hidden" name="fees" class="fees" value="">
 
                     </div>
                 </div>        
@@ -105,9 +105,9 @@
                         <i class="icon-cash3"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0">$<?= number_format($fees+$grossProfit, 2) ?></h6>
+                        <h6 class="font-weight-semibold mb-0 net-profit-label">$ ...</h6>
                         <span class="text-muted">Net Profit</span>
-                        <input type="hidden" name="net_profit" value="<?= $fees+$grossProfit ?>">
+                        <input type="hidden" name="net_profit" class="net-profit" value="">
 
                     </div>
                 </div>   
@@ -116,13 +116,32 @@
                         <i class="icon-percent"></i>
                     </a>
                     <div class="ml-3">
-                        <h6 class="font-weight-semibold mb-0"><?= number_format(($fees+$grossProfit)/$grossProfit, 2) ?>%</h6>
+                        <h6 class="font-weight-semibold mb-0 net-profit-margin-label">... %</h6>
                         <span class="text-muted">Net Profit Margin</span>
-                        <input type="hidden" name="net_profit_margin" value="<?= (($fees+$grossProfit)/$grossProfit) ?>">
+                        <input type="hidden" name="net_profit_margin" class="net-profit-margin" value="">
 
                     </div>
                 </div>           
-            </div>        
+            </div>      
+            <?php if ($skuNotFound->getNumRows() > 0) : ?>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <a class="navbar-nav-link navbar-nav-link-toggler refresh-pl float-right alert-warning p-0" >
+                            <i class="icon-sync"></i>
+                        </a>
+                        <h5 class="alert-heading">Woops there's a problem!</h5>
+                        <p><a href="#" class="alert-link"><span class="num-upc"><?= $skuNotFound->getNumRows() ?></span> UPC are missing</a>, please check the manifest!</p>
+                        <hr>
+                        <p class="mb-0"> Missing UPCs as follow: 
+                            <span class="upc-list font-weight-bold">
+                            <?php foreach($skuNotFound->getResultObject() as $sku) : ?>
+                                <b><?= $sku->sku.', ' ?></b>
+                            <?php endforeach ?>
+                            </span>                            
+                        </p>
+                    </div>
+                </div>
+            <?php endif ?> 
             <table class="table datatable-basic" style="font-size: 12px;">
                 <thead>
                     <tr>
@@ -159,7 +178,104 @@
                 </tbody>
             </table>  
             <div class="card-body">
-                <button type="submit" class="btn btn-secondary"><i class="icon-checkmark3"></i> Save</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                    Preview</button>
+                
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">P&L Preview</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Month: <small id="month" class="font-weight-bold"><?= strtoupper($month) ?></small></h5>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Chart Title</th>
+                                        <th scope="col">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Active SKU</td>
+                                        <td id="active-sku"><input type="text" class="form-control" name="active-sku"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Gross Sales</td>
+                                        <td id="gross-sales">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Net Sales</td>
+                                        <td id="net-sales">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>COGS</td>
+                                        <td id="cogs">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Gross Profit</td>
+                                        <td id="gross-profit">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Gross Profit Margin</td>
+                                        <td id="gross-profit-margin">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Fees and Subtractions</td>
+                                        <td id="fees">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Fees and Subtractions Rate</td>
+                                        <td id="fees-rate">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>Refunds</td>
+                                        <td id="refunds">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>Inbound Transport Fees</td>
+                                        <td id="inbound-fees">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>Storage Fees</td>
+                                        <td id="storage-fees">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>Net Profit</td>
+                                        <td id="net-profit">...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>13</td>
+                                        <td>Net Profit Margin</td>
+                                        <td id="net-profit-margin">...</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                        <div class="modal-footer">
+                           
+                            <button type="submit" class="btn btn-secondary"><i class="icon-checkmark3"></i> Save</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>     
     </div>
@@ -183,6 +299,57 @@
 
 <script>
     $(document).ready(function() {
+        const client = <?= $client['id'] ?>;
+        const id = <?= $id ?>;
+
+        $.get( "<?= base_url('/get-summary-pl') ?>", { id: id, client: client }, function(data) {
+            const summary = JSON.parse(data);            
+            $('.qty-sold-label').html(summary['qtySold']);
+            $('.qty_sold').val(summary['qtySold']);
+
+            $('.qty-returned-label').html(summary['qtyReturned']);
+            $('.qty_returned').val(summary['qtyReturned']);
+            
+            $('.sold-label').html('$ '+ parseFloat(summary['sold']).toFixed(2) );
+            $('.sold').val(parseFloat(summary['sold']).toFixed(2));
+
+            $('.returned-label').html('$ '+ parseFloat(summary['returned']).toFixed(2));
+            $('.returned').val(parseFloat(summary['returned']).toFixed(2));       
+
+            $('.cogs-label').html('$ '+ parseFloat(summary['cogs']).toFixed(2));
+            $('.cogs').val(summary['cogs'].toFixed(2));   
+
+            $('.gross-profit-label').html('$ '+ parseFloat(summary['grossProfit']).toFixed(2));
+            $('.gross-profit').val(parseFloat(summary['grossProfit']).toFixed(2));   
+
+            $('.gross-profit-margin-label').html(parseFloat(summary['grossProfitMargin']).toFixed(2) +'%');
+            $('.gross-profit-margin').val(parseFloat(summary['grossProfitMargin']).toFixed(2));   
+
+            $('.fees-label').html('$ '+ parseFloat(summary['fees']).toFixed(2));
+            $('.fees').val(parseFloat(parseFloat(summary['fees'])).toFixed(2));   
+
+            $('.net-profit-label').html('$ '+ parseFloat(summary['netProfit']).toFixed(2));
+            $('.net-profit').val(parseFloat(summary['netProfit']).toFixed(2));   
+
+            $('.net-profit-margin-label').html(parseFloat(summary['netProfitMargin']).toFixed(2) +'%');
+            $('.net-profit-margin').val(parseFloat(summary['netProfitMargin']).toFixed(2));   
+
+
+            $('#gross-sales').html('$ '+ parseFloat(summary['sold']).toFixed(0));
+            $('#net-sales').html('$ '+ parseFloat(summary['netSales']).toFixed(0));
+            $('#cogs').html('$ '+ parseFloat(summary['cogs']).toFixed(0));
+            $('#gross-profit').html('$ '+ parseFloat(summary['grossProfit']).toFixed(0));
+            $('#gross-profit-margin').html(parseFloat(summary['grossProfitMargin']).toFixed(2) + '%');
+            $('#fees').html('$ '+ parseFloat(summary['fees']).toFixed(0));
+            $('#fees-rate').html( (parseFloat(summary['netProfit'])/parseFloat(summary['grossProfit']) * 100).toFixed(2) + '%');
+            $('#refunds').html('$ '+ parseFloat(summary['returned']).toFixed(0));
+            $('#net-profit').html('$ '+ parseFloat(summary['netProfit']).toFixed(0));
+            $('#net-profit-margin').html(parseFloat(summary['netProfitMargin']).toFixed(2) + '%');
+            $('#inbound-fees').html('$ '+ parseFloat(summary['storageFee']).toFixed(0));
+            $('#storage-fees').html('$ '+ parseFloat(summary['transportFee']).toFixed(0));
+
+        });
+
         <?php if (session()->getFlashdata('success')) : ?>
             $('#noty_created').click();
         <?php endif ?>
@@ -212,63 +379,76 @@
         }).show();
     });
 
-    var input = document.getElementById('file-upload');
-    var infoArea = document.getElementById('file-upload-filename');
-    var input2 = document.getElementById('file-upload2');
-    var infoArea2 = document.getElementById('file-upload-filename2');
-    var input3 = document.getElementById('file-upload3');
-    var infoArea3 = document.getElementById('file-upload-filename3');
+    $('.refresh-pl').click(function() {
+        const client = <?= $client['id'] ?>;
+        const id = <?= $id ?>;
 
-    input.addEventListener('change', showFileName);
-    input2.addEventListener('change', showFileName2);
-    input3.addEventListener('change', showFileName3);
+        $('.qty-sold-label').html('...');
+        $('.qty-returned-label').html('...');
+        $('.sold-label').html('$ ...');
+        $('.returned-label').html('$ ...');
+        $('.cogs-label').html('$ ...');
+        $('.gross-profit-label').html('$ ...');
+        $('.gross-profit-margin-label').html('...%');
+        $('.fees-label').html('$ ...');
+        $('.net-profit-label').html('$ ...');
+        $('.net-profit-margin-label').html('...%');
+        $('.num-upc').html('...');
+        $('.upc-list').html('');
+           
+        $.get( "<?= base_url('/get-summary-pl') ?>", { id: id, client: client }, function(data) {
+            const summary = JSON.parse(data);            
+            $('.qty-sold-label').html(summary['qtySold']);
+            $('.qty_sold').val(summary['qtySold']);
 
-    function showFileName(event) {
-        // the change event gives us the input it occurred in 
-        var input = event.srcElement;
-        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-        var fileName = input.files[0].name;
-        // use fileName however fits your app best, i.e. add it into a div
-        infoArea.textContent = '' + fileName;
-    }
+            $('.qty-returned-label').html(summary['qtyReturned']);
+            $('.qty_returned').val(summary['qtyReturned']);
+            
+            $('.sold-label').html('$ '+ parseFloat(summary['sold']).toFixed(2) );
+            $('.sold').val(parseFloat(summary['sold']).toFixed(2));
+
+            $('.returned-label').html('$ '+ parseFloat(summary['returned']).toFixed(2));
+            $('.returned').val(parseFloat(summary['returned']).toFixed(2));       
+
+            $('.cogs-label').html('$ '+ parseFloat(summary['cogs']).toFixed(2));
+            $('.cogs').val(summary['cogs'].toFixed(2));   
+
+            $('.gross-profit-label').html('$ '+ parseFloat(summary['grossProfit']).toFixed(2));
+            $('.gross-profit').val(parseFloat(summary['grossProfit']).toFixed(2));   
+
+            $('.gross-profit-margin-label').html(parseFloat(summary['grossProfitMargin']).toFixed(2) +'%');
+            $('.gross-profit-margin').val(parseFloat(summary['grossProfitMargin']).toFixed(2));   
+
+            $('.fees-label').html('$ '+ parseFloat(summary['fees']).toFixed(2));
+            $('.fees').val(parseFloat(parseFloat(summary['fees'])).toFixed(2));   
+
+            $('.net-profit-label').html('$ '+ parseFloat(summary['netProfit']).toFixed(2));
+            $('.net-profit').val(parseFloat(summary['netProfit']).toFixed(2));   
+
+            $('.net-profit-margin-label').html(parseFloat(summary['netProfitMargin']).toFixed(2) +'%');
+            $('.net-profit-margin').val(parseFloat(summary['netProfitMargin']).toFixed(2));   
 
 
-    function showFileName2(event) {
-        // the change event gives us the input it occurred in 
-        var input = event.srcElement;
-        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-        var fileName = input2.files[0].name;
-        // use fileName however fits your app best, i.e. add it into a div
-        infoArea2.textContent = '' + fileName;
-    }
+            $('#gross-sales').html('$ '+ parseFloat(summary['sold']).toFixed(0));
+            $('#net-sales').html('$ '+ parseFloat(summary['netSales']).toFixed(0));
+            $('#cogs').html('$ '+ parseFloat(summary['cogs']).toFixed(0));
+            $('#gross-profit').html('$ '+ parseFloat(summary['grossProfit']).toFixed(0));
+            $('#gross-profit-margin').html(parseFloat(summary['grossProfitMargin']).toFixed(2) + '%');
+            $('#fees').html('$ '+ parseFloat(summary['fees']).toFixed(0));
+            $('#fees-rate').html( (parseFloat(summary['netProfit'])/parseFloat(summary['grossProfit'])).toFixed(2) + '%');
+            $('#refunds').html('$ '+ parseFloat(summary['returned']).toFixed(0));
+            $('#net-profit').html('$ '+ parseFloat(summary['netProfit']).toFixed(0));
+            $('#net-profit-margin').html(parseFloat(summary['netProfitMargin']).toFixed(2) + '%');
+            $('#inbound-fees').html('$ '+ parseFloat(summary['storageFee']).toFixed(0));
+            $('#storage-fees').html('$ '+ parseFloat(summary['transportFee']).toFixed(0));
 
-    function showFileName3(event) {
-        // the change event gives us the input it occurred in 
-        var input = event.srcElement;
-        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-        var fileName = input3.files[0].name;
-        // use fileName however fits your app best, i.e. add it into a div
-        infoArea3.textContent = '' + fileName;
-    }
-
-    $('.editpl').click(function() {
-        var id = $(this).data('id');
-        $('#client').val("");
-        $('#client_id').val("");
-        $('#link').val("");
-        $('#chart').html("");
-        $('#log_id').val("");
-        $.get('/get-plclient', {
-            log_id: id
-        }, function(data) {
-            var pl = JSON.parse(data);
-            $('#client').val(pl['fullname']);
-            $('#client_id').val(pl['user_id']);
-            $('#link').val(pl['link']);
-            $('#chart').html(pl['file']);
-            $('#log_id').val(pl['log_id']);
+            $('.num-upc').html(summary['numOfSku']);
+            for (var i = 0; i < parseInt(summary['numOfSku']); i++) {
+                $('.upc-list').append(summary['missingSku'][i] + ', ');
+            }
         });
     });
+
 
 </script>
 

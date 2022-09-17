@@ -1,0 +1,24 @@
+CRITICAL - 2022-09-13 01:37:18 --> Undefined variable $logo
+#0 C:\xampp\htdocs\smartwholesale\client-report\app\Views\login.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 90)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Common.php(1097): CodeIgniter\View\View->render('login', Array, true)
+#4 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(1718): view('login')
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->getGeneratePL()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-09-13 05:05:53 --> Undefined variable $logo
+#0 C:\xampp\htdocs\smartwholesale\client-report\app\Views\login.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 90)
+#1 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\smartwholesale\client-report\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\smartwholesale\client-report\system\Common.php(1097): CodeIgniter\View\View->render('login', Array, true)
+#4 C:\xampp\htdocs\smartwholesale\client-report\app\Controllers\Admin\Reports.php(1807): view('login')
+#5 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadGeneratePL()
+#6 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 C:\xampp\htdocs\smartwholesale\client-report\system\CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\smartwholesale\client-report\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\smartwholesale\client-report\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
