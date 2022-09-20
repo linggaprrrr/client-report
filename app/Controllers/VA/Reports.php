@@ -647,7 +647,73 @@ class Reports extends BaseController
         return redirect()->back()->with('link', 'Link Successfully updated!');
     }
 
+    public function scanLog() {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        
+        $data = [
+            'tittle' => 'Scan Log | Report Management System',
+            'menu' => 'Scan Log',
+            'user' => $user,
+        ];
+        return view('va/scan_log', $data);
+    }
+
+    public function createNewBox() {
+        $box = $this->request->getVar('box');
+        $this->db->query("INSERT INTO boxes(box_name) VALUES('$box') ");
+        echo json_encode([
+            'box_name' => $box,
+        ]);
+    }
+        
+    
+
     public function test()
     {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $test = $this->db->query("SELECT * FROM reports LIMIT 100");
+        $test =  
+        $data = [
+            'tittle' => 'Scan Log | Report Management System',
+            'menu' => 'Scan Log',
+            'user' => $user,
+            'test' => $test
+        ];
+        ini_set('memory_limit', '-1');
+        return view('va/test', $data);
     }
+
+    public function test_data() {
+        $params['draw'] = $_REQUEST['draw'];
+        $start = $_REQUEST['start'];
+        $length = $_REQUEST['length'];
+        $search_value = $_REQUEST['search']['value'];
+        ini_set('memory_limit', '-1');
+        if(!empty($search_value)){
+            $total_count = $this->db->query("SELECT * from reports WHERE sku like '%".$search_value."%' OR item_description like '%".$search_value."%' ")->getResult();
+ 
+            $data = $this->db->query("SELECT * from reports WHERE sku like '%".$search_value."%' OR item_description like '%".$search_value."%' limit $start, $length")->getResult();
+        }else{
+            $total_count = $this->db->query("SELECT * from reports")->getResult();
+            $data = $this->db->query("SELECT * from reports limit $start, $length")->getResult();
+        }
+        $json_data = array(
+            "draw" => intval($params['draw']),
+            "recordsTotal" => count($total_count),
+            "recordsFiltered" => count($total_count),
+            "data" => $data   // total data array
+        );
+
+        echo json_encode($json_data);
+    }
+
+   
 }

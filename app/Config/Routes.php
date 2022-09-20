@@ -86,6 +86,8 @@ $routes->post('/admin/logs', 'Logs::index');
 $routes->get('/admin/generate-p-l', 'Admin\Reports::getGeneratePL');
 $routes->post('admin/upload-generate-pl-report', 'Admin\Reports::uploadGeneratePL');
 $routes->post('admin/save-chart', 'Admin\Reports::saveChart');
+$routes->get('/admin/upc', 'UPC::index');
+$routes->get('upload-upc', 'UPC::uploadUPC');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -111,11 +113,13 @@ $routes->post('bulk-upload-pl-report', 'Admin\Reports::bulkUpload');
 
 //va 
 $routes->get('va/dashboard', 'VA\Reports::index');
+$routes->get('va/scan_log', 'VA\Reports::scanLog');
 $routes->get('/va/assignment-report', 'VA\Reports::assignmentReport');
 $routes->get('/va/assignment-process', 'VA\Reports::assignmentReportProcess');
 $routes->get('/va/assignment-completed', 'VA\Reports::assignmentCompleted');
 $routes->get('/va/assignment-history', 'VA\Reports::assignmentHistory');
 $routes->get('/reset-second-phase', 'VA\Reports::resetSecondPhase');
+$routes->post('/create-box', 'VA\Reports::createNewBox');
 
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');

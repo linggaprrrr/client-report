@@ -121,6 +121,14 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a id="pl-generate" href="<?= base_url('/admin/upc') ?>" class="nav-link">
+                        <i class="icon-barcode2"></i>
+                        <span>
+                            UPC Database
+                        </span>
+                    </a>
+                </li>
                 <!-- /main -->
             </ul>
         </div>
