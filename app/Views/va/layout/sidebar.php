@@ -50,19 +50,22 @@
                         </span>
                     </a>
                 </li> -->
-                <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                    <a href="<?= base_url('/va/scan-log') ?>" class="nav-link">
                         <i class="icon-copy"></i>
                         <span>
-                            Assignment Reports
+                            Scan Log
                         </span>
                     </a>
-                    <ul class="nav nav-group-sub" data-submenu-title="Assignment Report">
-                        <li class="nav-item"><a href="<?= base_url('/va/assignment-process') ?>" class="nav-link">Assignment Report</a></li>
-                        <li class="nav-item"><a href="<?= base_url('/va/assignment-history') ?>" class="nav-link">Assignment History</a></li>
-                    </ul>
                 </li>
-
+                <li class="nav-item">
+                    <a href="<?= base_url('/va/history-box') ?>" class="nav-link">
+                        <i class="icon-clipboard3"></i>
+                        <span>
+                            History Box
+                        </span>
+                    </a>
+                </li>
                 <!-- /main -->
 
 

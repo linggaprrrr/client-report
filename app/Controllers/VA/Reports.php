@@ -9,7 +9,9 @@ use App\Models\InvestmentModel;
 use App\Models\NewsModel;
 use App\Models\ReportModel;
 use App\Models\UserModel;
+use App\Models\UPCModel;
 use CodeIgniter\Database\BaseBuilder;
+
 
 
 class Reports extends BaseController
@@ -20,6 +22,7 @@ class Reports extends BaseController
     protected $userModel = "";
     protected $newsModel = "";
     protected $assignReportModel = "";
+    protected $upcModel = "";
     protected $spreadsheetReader;
     protected $db;
 
@@ -30,6 +33,7 @@ class Reports extends BaseController
         $this->investmentModel = new InvestmentModel();
         $this->categoryModel = new CategoryModel();
         $this->userModel = new UserModel();
+        $this->upcModel = new UPCModel();
         $this->newsModel = new NewsModel();
         $this->assignReportModel = new AssignReportModel();
         $this->db = \Config\Database::connect();
@@ -670,6 +674,21 @@ class Reports extends BaseController
         ]);
     }
         
+    public function historyBox() {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        $boxes = $this->upcModel->historyBox();
+        $data = [
+            'tittle' => 'History Box | Report Management System',
+            'menu' => 'History Box',
+            'user' => $user,
+            'boxes' => $boxes
+        ];
+        return view('va/history_box', $data);
+    }
     
 
     public function test()
@@ -691,29 +710,7 @@ class Reports extends BaseController
         return view('va/test', $data);
     }
 
-    public function test_data() {
-        $params['draw'] = $_REQUEST['draw'];
-        $start = $_REQUEST['start'];
-        $length = $_REQUEST['length'];
-        $search_value = $_REQUEST['search']['value'];
-        ini_set('memory_limit', '-1');
-        if(!empty($search_value)){
-            $total_count = $this->db->query("SELECT * from reports WHERE sku like '%".$search_value."%' OR item_description like '%".$search_value."%' ")->getResult();
- 
-            $data = $this->db->query("SELECT * from reports WHERE sku like '%".$search_value."%' OR item_description like '%".$search_value."%' limit $start, $length")->getResult();
-        }else{
-            $total_count = $this->db->query("SELECT * from reports")->getResult();
-            $data = $this->db->query("SELECT * from reports limit $start, $length")->getResult();
-        }
-        $json_data = array(
-            "draw" => intval($params['draw']),
-            "recordsTotal" => count($total_count),
-            "recordsFiltered" => count($total_count),
-            "data" => $data   // total data array
-        );
-
-        echo json_encode($json_data);
-    }
+    
 
    
 }

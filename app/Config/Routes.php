@@ -87,7 +87,9 @@ $routes->get('/admin/generate-p-l', 'Admin\Reports::getGeneratePL');
 $routes->post('admin/upload-generate-pl-report', 'Admin\Reports::uploadGeneratePL');
 $routes->post('admin/save-chart', 'Admin\Reports::saveChart');
 $routes->get('/admin/upc', 'UPC::index');
-$routes->get('upload-upc', 'UPC::uploadUPC');
+$routes->post('upload-upc', 'UPC::uploadUPC');
+$routes->post('load-upc', 'UPC::loadUPC');
+
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -113,7 +115,8 @@ $routes->post('bulk-upload-pl-report', 'Admin\Reports::bulkUpload');
 
 //va 
 $routes->get('va/dashboard', 'VA\Reports::index');
-$routes->get('va/scan_log', 'VA\Reports::scanLog');
+$routes->get('va/scan-log', 'VA\Reports::scanLog');
+$routes->get('va/history-box', 'VA\Reports::historyBox');
 $routes->get('/va/assignment-report', 'VA\Reports::assignmentReport');
 $routes->get('/va/assignment-process', 'VA\Reports::assignmentReportProcess');
 $routes->get('/va/assignment-completed', 'VA\Reports::assignmentCompleted');
@@ -151,6 +154,8 @@ $routes->get('/yt-click', 'Logs::ytClick');
 $routes->get('/in-click', 'Logs::inClick');
 $routes->get('/chat-click', 'Logs::chatClick');
 $routes->get('/credit-click', 'Logs::creditClick');
+$routes->get('/search-upc', 'UPC::findUPC');
+$routes->post('save-log', 'UPC::saveLog');
 
 $routes->get('/export-log-login', 'Logs::exportLoginAct');
 $routes->get('/export-log-login/(:any)', 'Logs::exportLoginAct/$1');
