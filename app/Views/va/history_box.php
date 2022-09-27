@@ -14,10 +14,11 @@
                 <thead>
                     <tr>
                         <th class="text-center" style="width: 5%">No</th>
-                        <th class="text-center">Box Name</th>
+                        <th class="text-center">Box Description</th>                        
+                        <th class="text-center" style="width: 10%">Total Item</th>
+                        <th class="text-center" style="width: 10%">Unknown UPC</th>
                         <th class="text-center" style="width: 10%">Date</th>
-                        <th class="text-center" style="width: 10%">Admin</th>
-                        <th style="width: 2%"></th>
+                        <th class="text-center" style="width: 15%">Admin</th>                        
                     </tr>
                 </thead>
                 <tbody id="assign-body">
@@ -43,13 +44,33 @@
                                         <?php endif ?>
                                     </p>
                                 </td>
+                                <?php if ($row['total_item'] > 0) : ?>
+                                    <td class="text-center">
+                                        <?= $row['total_item'] ?>
+                                    </td>
+                                <?php else : ?>
+                                    <td class="text-center">
+                                        -
+                                    </td>
+                                <?php endif ?>
+                                <?php if ($row['unknown_upc'] > 0) : ?>
+                                    <td class="text-center text-danger">
+                                        <?= $row['unknown_upc'] ?>
+                                    </td>
+                                <?php else : ?>
+                                    <td class="text-center">
+                                        -
+                                    </td>
+                                <?php endif ?>
                                 <td class="text-center">
                                     <?= date('m/d/Y', strtotime($row['date'])) ?>
                                 </td>
                                 <td class="text-center">
                                     <?= $row['fullname'] ?>
                                 </td>
-                                <td></td>
+                                <!-- <td class="text-center"> -->
+                                    <!-- <a href="" data-toggle="modal"><i class="icon-pencil7"></i></a> -->
+                                <!-- </td> -->
                             </tr>
                         <?php endforeach ?>
                     <?php endif ?>
@@ -161,9 +182,17 @@
                 var cost = 0;
                 for (var i = 0; i < item.length; i++) {
                     if (i % 2 == 0) {
-                        $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left">' + item[i]['item_description'] + '</td><td class="text-center">' + item[i]['cond'] + '</td><td class="text-center">' + item[i]['qty'] + '</td><td class="text-center">$'+item[i]['retail']+'</td><td class="text-center">$'+item[i]['original']+'</td><td class="text-center">$'+item[i]['cost']+'</td><td class="text-left">' + item[i]['vendor'] + '</td></tr>');
+                        if (item[i]['item_description'] == "ITEM NOT FOUND") {
+                            $('#item-table tbody').append('<tr><td class="text-danger"><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left text-danger">' + item[i]['item_description'] + '</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-left">-</td></tr>');
+                        } else {
+                            $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left">' + item[i]['item_description'] + '</td><td class="text-center">' + item[i]['cond'] + '</td><td class="text-center">' + item[i]['qty'] + '</td><td class="text-center">$'+item[i]['retail']+'</td><td class="text-center">$'+item[i]['original']+'</td><td class="text-center">$'+parseFloat(item[i]['cost']).toFixed(2)+'</td><td class="text-left">' + item[i]['vendor'] + '</td></tr>');
+                        }
                     } else {
-                        $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left">' + item[i]['item_description'] + '</td><td class="text-center">' + item[i]['cond'] + '</td><td class="text-center">' + item[i]['qty'] + '</td><td class="text-center">$'+item[i]['retail']+'</td><td class="text-center">$'+item[i]['original']+'</td><td class="text-center">$'+item[i]['cost']+'</td><td class="text-left">' + item[i]['vendor'] + '</td></tr>');
+                        if (item[i]['item_description'] == "ITEM NOT FOUND") {
+                            $('#item-table tbody').append('<tr class="table-secondary"><td class="text-danger"><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left text-danger">' + item[i]['item_description'] + '</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-left">-</td></tr>');
+                        } else {
+                            $('#item-table tbody').append('<tr class="table-secondary"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left">' + item[i]['item_description'] + '</td><td class="text-center">' + item[i]['cond'] + '</td><td class="text-center">' + item[i]['qty'] + '</td><td class="text-center">$'+item[i]['retail']+'</td><td class="text-center">$'+item[i]['original']+'</td><td class="text-center">$'+parseFloat(item[i]['cost']).toFixed(2)+'</td><td class="text-left">' + item[i]['vendor'] + '</td></tr>');
+                        }                        
                     }
                 }                
             }
@@ -210,7 +239,9 @@
         }).show();
     });
 
-   
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 </script>
 
 <?= $this->endSection() ?>

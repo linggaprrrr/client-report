@@ -680,7 +680,7 @@ class Reports extends BaseController
             return view('login');
         }
         $user = $this->userModel->find($userId);
-        $boxes = $this->upcModel->historyBox();
+        $boxes = $this->upcModel->historyBox();        
         $data = [
             'tittle' => 'History Box | Report Management System',
             'menu' => 'History Box',

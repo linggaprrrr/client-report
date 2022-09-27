@@ -103,6 +103,7 @@
                         <li class="nav-item"><a href="<?= base_url('/admin/assignment-report') ?>" class="nav-link" id="ar">Assignment Report</a></li>
                         <li class="nav-item"><a href="<?= base_url('/admin/assignment-history') ?>" class="nav-link" id="ah">Assignment History</a></li>
                         <li class="nav-item"><a href="<?= base_url('/admin/completed-investments') ?>" class="nav-link" id="ci">Completed Assignments</a></li>
+                        <li class="nav-item"><a href="<?= base_url('/admin/need-to-upload') ?>" class="nav-link" id="nu">Need To Upload</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

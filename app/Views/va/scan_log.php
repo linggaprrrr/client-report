@@ -130,13 +130,19 @@
         } else {
             desc = "CLOTHES";
         }
+        $.post('<?= base_url('save-box') ?>', {            
+            category: desc,
+            box: $('.box-name').val(),
+        }, function(data) {
+                  
+        });
         $('#box_name').html('BOX #'+boxName+'-'+desc);
         $('.box').val(boxName);
         $('.cat').val(cat);
         $('#modal_box').modal('hide');
         $('.upc').prop("disabled", false);            
-        $('.btn-save').prop("disabled", false);            
-        event.preventDefault();
+        event.preventDefault();        
+        
     });
 
     $('.btn-save').click(function() {
@@ -217,8 +223,21 @@
     
     $('.box-button').click(function() {
         if (cat != '') {
-            location.reload();
+            $('.upc-row').html("");
+            $('#box_name').html("");
+            $('#modal_box').modal('show');
+            $('.box-name').val("");
+            $('.category').val("");
+            $('.upc-row').append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc" ></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');                  
+        } else {
+            $('.upc-row').html("");
+            $('#box_name').html("");
+            $('#modal_box').modal('show');
+            $('.box-name').val("");
+            $('.category').val("");
+            $('.upc-row').append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc" ></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');
         }
+        
     });
 </script>
 <?= $this->endSection() ?>

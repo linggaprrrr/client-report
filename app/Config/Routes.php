@@ -90,6 +90,9 @@ $routes->get('/admin/upc', 'UPC::index');
 $routes->post('upload-upc', 'UPC::uploadUPC');
 $routes->post('load-upc', 'UPC::loadUPC');
 
+$routes->get('/admin/need-to-upload', 'UPC::needToUpload');
+$routes->post('/create-need-to-upload', 'UPC::createNeedToUpload');
+$routes->get('/resubmit-upc', 'UPC::refreshUnknownUPC');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -156,6 +159,7 @@ $routes->get('/chat-click', 'Logs::chatClick');
 $routes->get('/credit-click', 'Logs::creditClick');
 $routes->get('/search-upc', 'UPC::findUPC');
 $routes->post('save-log', 'UPC::saveLog');
+$routes->post('save-box', 'UPC::saveBox');
 
 $routes->get('/export-log-login', 'Logs::exportLoginAct');
 $routes->get('/export-log-login/(:any)', 'Logs::exportLoginAct/$1');

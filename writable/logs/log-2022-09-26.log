@@ -1,0 +1,346 @@
+ERROR - 2022-09-26 00:26:26 --> Column 'id' in where clause is ambiguous
+CRITICAL - 2022-09-26 00:26:26 --> Column 'id' in where clause is ambiguous
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT `assign_...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `assign_...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `assign_...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseBuilder.php(1443): CodeIgniter\Database\BaseConnection->query('SELECT `assign_...', Array, false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Models/UPCModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(176): App\Models\UPCModel->findBox('4')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2022-09-26 00:46:08 --> Function name must be a string
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(178): App\Models\UPCModel->findBox('4')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 00:52:22 --> fopen(file/Need to Upload - 09/26/2022.xlsx): failed to open stream: No such file or directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(file/Need...', '/Applications/M...', 123, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php(123): fopen('file/Need to Up...', 'wb+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php(506): PhpOffice\PhpSpreadsheet\Writer\BaseWriter->openFileHandle('file/Need to Up...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(208): PhpOffice\PhpSpreadsheet\Writer\Xlsx->save('file/Need to Up...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-09-26 00:53:43 --> fopen(files/Need to Upload - 09/26/2022.xlsx): failed to open stream: No such file or directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(files/Nee...', '/Applications/M...', 123, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php(123): fopen('files/Need to U...', 'wb+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php(506): PhpOffice\PhpSpreadsheet\Writer\BaseWriter->openFileHandle('files/Need to U...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(208): PhpOffice\PhpSpreadsheet\Writer\Xlsx->save('files/Need to U...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-09-26 00:54:41 --> fopen(files/Need to Upload - 09/26/2022.xlsx): failed to open stream: No such file or directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(files/Nee...', '/Applications/M...', 123, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php(123): fopen('files/Need to U...', 'wb+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php(506): PhpOffice\PhpSpreadsheet\Writer\BaseWriter->openFileHandle('files/Need to U...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(208): PhpOffice\PhpSpreadsheet\Writer\Xlsx->save('files/Need to U...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-09-26 00:57:06 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(192): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 192, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 01:04:11 --> Call to undefined method PhpOffice\PhpSpreadsheet\Style\Border::setCellValue()
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2022-09-26 01:12:49 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(210): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 210, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 01:51:46 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(218): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 218, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 01:51:55 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(218): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 218, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 01:52:00 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(218): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 218, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 02:02:26 --> Argument 1 passed to CodeIgniter\Database\BaseResult::getFirstRow() must be of the type string, null given, called in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php on line 210
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php(210): CodeIgniter\Database\BaseResult->getFirstRow(NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/BaseModel.php(622): CodeIgniter\Model->doFirst()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(256): CodeIgniter\BaseModel->first()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2022-09-26 02:02:27 --> Argument 1 passed to CodeIgniter\Database\BaseResult::getFirstRow() must be of the type string, null given, called in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php on line 210
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php(210): CodeIgniter\Database\BaseResult->getFirstRow(NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/BaseModel.php(622): CodeIgniter\Model->doFirst()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(256): CodeIgniter\BaseModel->first()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2022-09-26 02:02:41 --> Argument 1 passed to CodeIgniter\Database\BaseResult::getFirstRow() must be of the type string, null given, called in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php on line 210
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php(210): CodeIgniter\Database\BaseResult->getFirstRow(NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/BaseModel.php(622): CodeIgniter\Model->doFirst()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(256): CodeIgniter\BaseModel->first()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2022-09-26 02:02:42 --> Argument 1 passed to CodeIgniter\Database\BaseResult::getFirstRow() must be of the type string, null given, called in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php on line 210
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php(210): CodeIgniter\Database\BaseResult->getFirstRow(NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/BaseModel.php(622): CodeIgniter\Model->doFirst()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(256): CodeIgniter\BaseModel->first()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2022-09-26 02:04:41 --> Argument 1 passed to CodeIgniter\Database\BaseResult::getFirstRow() must be of the type string, null given, called in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php on line 210
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php(210): CodeIgniter\Database\BaseResult->getFirstRow(NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/BaseModel.php(622): CodeIgniter\Model->doFirst()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(256): CodeIgniter\BaseModel->first()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2022-09-26 02:05:37 --> Argument 1 passed to CodeIgniter\Database\BaseResult::getFirstRow() must be of the type string, null given, called in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php on line 210
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Model.php(210): CodeIgniter\Database\BaseResult->getFirstRow(NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/BaseModel.php(622): CodeIgniter\Model->doFirst()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(257): CodeIgniter\BaseModel->first()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2022-09-26 02:06:10 --> Call to undefined method App\Models\UPCModel::getFirstRow
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(257): CodeIgniter\Model->__call('getFirstRow', Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 02:09:37 --> Call to undefined method App\Models\UPCModel::row
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(257): CodeIgniter\Model->__call('row', Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 02:09:45 --> Call to undefined method App\Models\UPCModel::getRow
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(257): CodeIgniter\Model->__call('getRow', Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 02:10:01 --> Call to undefined method CodeIgniter\Database\MySQLi\Result::row()
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->refreshUnknownUPC()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+ERROR - 2022-09-26 16:16:23 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+CRITICAL - 2022-09-26 16:16:23 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT date_for...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT date_for...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT date_for...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Models/ReportModel.php(186): CodeIgniter\Database\BaseConnection->query('SELECT date_for...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(55): App\Models\ReportModel->finSummary('spend')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-09-26 16:25:26 --> A non-numeric value encountered
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(267): CodeIgniter\Debug\Exceptions->errorHandler(2, 'A non-numeric v...', '/Applications/M...', 267, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 16:33:11 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 4096 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-09-26 16:33:16 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 4096 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+ERROR - 2022-09-26 18:18:43 --> Table 'rms.upcs' doesn't exist
+CRITICAL - 2022-09-26 18:18:43 --> Table 'rms.upcs' doesn't exist
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT upc, asi...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT upc, asi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT upc, asi...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(85): CodeIgniter\Database\BaseConnection->query('SELECT upc, asi...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->loadUPC()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-09-26 18:19:40 --> Table 'rms.upcs' doesn't exist
+CRITICAL - 2022-09-26 18:19:40 --> Table 'rms.upcs' doesn't exist
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT upc, asi...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT upc, asi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT upc, asi...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(85): CodeIgniter\Database\BaseConnection->query('SELECT upc, asi...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->loadUPC()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-09-26 20:33:27 --> Undefined variable: logo
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Views/login.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Common.php(1097): CodeIgniter\View\View->render('login', Array, true)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(161): view('login')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->needToUpload()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-09-26 20:33:29 --> Undefined variable: logo
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Views/login.php(90): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 90, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Common.php(1097): CodeIgniter\View\View->render('login', Array, true)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(47): view('login')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-09-26 20:33:57 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 4096 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-09-26 20:37:47 --> Undefined offset: 5
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(296): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', '/Applications/M...', 296, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 20:45:35 --> fopen(files/Need to Upload - 09/26/2022.xlsx): failed to open stream: No such file or directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(files/Nee...', '/Applications/M...', 123, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php(123): fopen('files/Need to U...', 'wb+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php(506): PhpOffice\PhpSpreadsheet\Writer\BaseWriter->openFileHandle('files/Need to U...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(309): PhpOffice\PhpSpreadsheet\Writer\Xlsx->save('files/Need to U...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-09-26 20:48:50 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(180): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 180, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 20:49:13 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(180): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 180, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 20:49:47 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(180): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 180, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 20:50:18 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(180): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 180, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 20:50:28 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(184): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 184, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 20:51:08 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(236): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 236, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-09-26 20:51:35 --> Undefined index: box_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/UPC.php(236): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 236, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\UPC->createNeedToUpload()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UPC))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}

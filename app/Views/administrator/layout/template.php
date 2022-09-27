@@ -291,6 +291,10 @@
                 $('#assignment-menu').addClass('nav-item-expanded nav-item-open"');
                 $('#ci').addClass('active');
                 break;
+            case "admin/need-to-upload":
+                $('#assignment-menu').addClass('nav-item-expanded nav-item-open"');
+                $('#nu').addClass('active');
+                break;
             default:
                 // code block
         }
