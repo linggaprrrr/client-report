@@ -9,13 +9,72 @@
 </style>
 <div class="content">
     <div class="card">
-        <form action="<?= base_url('/create-need-to-upload') ?>" method="POST">
-            <div class="card-header">
-                <button type="submit" class="btn btn-secondary create-report"><i class="icon-file-excel mr-2"></i>Create Report</button>
-                <button type="button" class="btn btn-warning resubmit-upc"><i class="icon-barcode2 mr-2"></i>Resubmit Unknown UPC</button>
+            <div class="card-header pb-0">
+                <div class="form-group float-right" style="margin: 0;">
+                    <label>
+                        <form action="<?= base_url('/admin/need-to-upload') ?>" class="filter" method="get">
+                            <span>Daterange:</span>                              
+                            <?php if (!empty($date1)) : ?>                                
+                                <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y', strtotime($date1)) ?> - <?= date('m/d/Y', strtotime($date2)) ?>" style="    width: 220px; text-align: center;" readonly />
+                            <?php else : ?>
+                                <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y') ?> - <?= date('m/d/Y') ?>" style="    width: 220px; text-align: center;" readonly />
+                            <?php endif ?>
+                            <input type="hidden" name="start">
+                            <input type="hidden" name="end">
+                        </form>
+                    </label>
+                </div>
+        <form action="<?= base_url('/create-need-to-upload') ?>" method="POST">        
+        <a href="<?= base_url('admin/extract-unlisted-upc') ?>" class="btn btn-danger mr-2 float-left"><i class="icon-barcode2 mr-2"></i>Extract Unlisted UPC</a>
+                <button type="submit" class="btn btn-secondary float-letf ml-2 create-report"><i class="icon-file-excel mr-2"></i>Create Report</button>
+                <button type="button" class="btn btn-warning float-left resubmit-upc"><i class="icon-barcode2 mr-2"></i>Resubmit Unlisted UPC</button>
+                
             </div>
-            <div class="card-body">
+            <div class="card-body">  
+                <hr>
+                <div class="d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
+                    <div class="d-flex align-items-center mb-3 mb-lg-0">
+                        <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                            <i class="icon-cube"></i>
+                        </a>
+                        <div class="ml-3">
+                            <h5 class="font-weight-semibold mb-0 total-box"><?= (is_null($totalBox) ? '0' : $totalBox ) ?></h5>
+                            <span class="text-muted">Total Box</span>
+                        </div>
+                    </div>  
+                    <div class="d-flex align-items-center mb-3 mb-lg-0">
+                        <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                            <i class="icon-clipboard3"></i>
+                        </a>
+                        <div class="ml-3">
+                            <h5 class="font-weight-semibold mb-0 total-qty"><?= (is_null($totalQty)) ? '0' : $totalQty ?></h5>
+                            <span class="text-muted">Grand Total Qty</span>
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3 mb-lg-0">
+                        <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                            <i class="icon-cash"></i>
+                        </a>
+                        <div class="ml-3">
+                            <h5 class="font-weight-semibold mb-0 total-original">$<?= number_format($totalOriginal, 2) ?></h5>
+                            <span class="text-muted">Grand Total Original</span>
+
+                        </div>
+                    </div>    
+                    <div class="d-flex align-items-center mb-3 mb-lg-0">
+                        <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
+                            <i class="icon-wallet"></i>
+                        </a>
+                        <div class="ml-3">
+                            <h5 class="font-weight-semibold mb-0 total-client-cost">$<?= number_format($totalCost, 2) ?></h5>
+                            <span class="text-muted">Grand Total Client Cost</span>
+                        </div>
+                    </div>  
+                </div>   
+                
                 <table class="table datatable-basic" id="myTable" style="font-size: 11px;">
+                    
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 5%"><input type="checkbox" class="checkall"> </th>
@@ -139,19 +198,42 @@
 
 <?= $this->section('js') ?>
 <script src="/assets/js/plugins/ui/moment/moment.min.js"></script>
-<script src="/assets/js/demo_pages/picker_date.js"></script>
 <script src="/assets/js/plugins/pickers/daterangepicker.js"></script>
 <script src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <script src="/assets/js/demo_pages/datatables_basic.js"></script>
 <script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
 <script src="/assets/js/plugins/notifications/noty.min.js"></script>
-<script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
-<script src="/assets/js/demo_pages/form_select2.js"></script>
 <script src="/assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
-<script src="/assets/js/plugins/forms/selects/select2.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/assets/js/demo_pages/components_popups.js"></script>
 <script>   
+
+    $(document).ready(function() {
+        <?php if (session()->getFlashdata('success')) : ?>
+            $('#noty_success').click();
+        <?php endif ?>
+        <?php if (session()->getFlashdata('link')) : ?>
+            $('#noty_created').click();
+        <?php endif ?>
+        <?php if (session()->getFlashdata('error')) : ?>
+            $('#noty_error').click();
+        <?php endif ?>
+        
+        $('input[name="datefilter"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $('input[name="start"]').val(start.format('YYYY-MM-DD'));
+            $('input[name="end"]').val(end.format('YYYY-MM-DD'));
+        });
+        $('input[name="datefilter"]').change(function() {
+            $('.filter').submit();
+            
+        });
+    });
+
+
+    
+
     var i = 1;
     var tempTotal = 0;
     var total = 0;
@@ -212,9 +294,12 @@
         });
     });
 
-    $('.resubmit-upc').click(function() {
+    $('.resubmit-upc').click(function() {        
         $.get('/resubmit-upc', function(data) {
-            // location.reload();
+            $('#noty_created').click();    
+            setTimeout(function() {      
+                location.reload();      
+            }, 1000);            
         })
     })
 
@@ -229,24 +314,16 @@
 
     $('#noty_created').on('click', function() {
         new Noty({
-            text: 'You successfully upload the report.',
-            type: 'success'
+            text: 'Unknown UPC successfully updated.',
+            type: 'alert'
         }).show();
 
 
     });
 
-    $('#noty_save').on('click', function() {
+    $('#noty_success').on('click', function() {
         new Noty({
-            text: 'You successfully save first phase.',
-            type: 'success'
-        }).show();
-    });
-    
-
-    $('#noty_deleted').on('click', function() {
-        new Noty({
-            text: 'You successfully delete the report.',
+            text: 'Unknown UPC successfully updated.',
             type: 'alert'
         }).show();
     });
@@ -254,6 +331,9 @@
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+    
+
 </script>
 
 <?= $this->endSection() ?>

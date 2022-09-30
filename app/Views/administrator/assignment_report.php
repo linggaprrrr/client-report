@@ -67,11 +67,9 @@
                     <div class="chart" style="height: 50px"></div>
                 </div>
             </div>
-        </div>
-
+        </div>        
     </div>
     <div class="card">
-
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div>
                 <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-file-upload mr-2"></i>Upload Report</button>
@@ -107,7 +105,7 @@
                 </div>
             </div>
             <div>
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal_assignbrand"><i class="icon-bold2 mr-2"></i>Assign Brand</button>
+                <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal_assignbrand"><i class="icon-bold2 mr-2"></i>Assign Brand</button> -->
                 <div id="modal_assignbrand" class="modal fade">
                     <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
@@ -305,7 +303,7 @@
                         <th class="text-center" style="width: 15%">VA User</th>
                         <th class="text-center" style="width: 15%">Client</th>
                         <th class="text-center" style="width: 10%">Company</th>
-                        <th class="text-center" style="width: 5%">Brand Approval</th>
+                        
                         <th class="text-center" style="width: 5%">Investment Date</th>
                         <th class="text-center" style="width: 15%">Current</th>
                         <th class="text-center" style="width: 15%">Total</th>
@@ -354,23 +352,15 @@
                                         </select>
                                     </td>
                                     <td class="text-center">
-                                        <select class="form-control clientSelect" name="client[]" id="box_<?= $no ?> ">
+                                        <select class="form-control" name="client[]" id="box_<?= $no ?> ">
                                             <option value="0">...</option>
                                             <?php foreach ($getAllClient->getResultArray() as $client) : ?>
-                                                <?php if ($client['id'] == $row['userid']) : ?>
-                                                    <option value="<?= $client['id'] ?>" selected><b><?= $client['fullname'] ?></b></option>
-                                                <?php else : ?>
-                                                    <option value="<?= $client['id'] ?>"><b><?= $client['fullname'] ?></b></option>
-                                                <?php endif ?>
+                                                <option value="<?= $client['id'] ?>" <?= ($client['id'] == $row['userid']) ? 'selected' : '' ?>><b><?= $client['fullname'] ?></b></option>
                                             <?php endforeach ?>
                                         </select>
                                     </td>
                                     <td class="text-center company_box_<?= $no ?>"><?= $row['company'] ?></td>
-                                    <td class="text-center">
-                                        <a href="#" style="color: #232F3E" class="popoverbrand_box_<?= $no ?>" data-popup="popover-custom" title="Brand Approval" data-trigger="focus" data-content="<?= $row['brand_approval'] ?>">
-                                            <i class="fab fa-amazon mr-3 fa"></i>
-                                        </a>
-                                    </td>
+                                    
                                     <td class="text-center date_box_<?= $no ?>">
                                         <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
                                         <select class="select_date_box_<?= $no ?>">
@@ -424,16 +414,15 @@
 
                                     <td class="text-center">
                                         <select class="form-control clientSelect client_box_<?= $no ?>" name="client[]" id="box_<?= $no ?> ">
-                                            <option value="0">...</option>
+                                           <option value="0">...</option>
+                                            <?php foreach ($getAllClient->getResultArray() as $client) : ?>
+                                                <option value="<?= $client['id'] ?>" ><b><?= $client['fullname'] ?></b></option>
+                                            <?php endforeach ?>
 
                                         </select>
                                     </td>
                                     <td class="text-center company_box_<?= $no ?>">...</td>
-                                    <td class="text-center">
-                                        <a href="#" style="color: #232F3E" class="popoverbrand_box_<?= $no ?>" data-popup="popover-custom" title="Brand Approval" data-trigger="focus" data-content="Loading...">
-                                            <i class="fab fa-amazon mr-3 fa"></i>
-                                        </a>
-                                    </td>
+                                    
                                     </td>
                                     <td class="text-center date_box_<?= $no ?>">
                                         <select class="select_date_box_<?= $no ?>">
@@ -1303,32 +1292,32 @@
         });
     });
 
-    $('.clientSelect').on('focus', function() {
-        var boxId = $(this).attr('id');
-        var boxNameId = "name_" + $(this).attr('id');
-        var boxName = $('.' + boxNameId).html().trim();
-        var descId = "desc_" + $(this).attr('id');
-        var desc = $('.' + descId).html().trim();
-        var clientId = "client_" + $(this).attr('id');
-        var client = $('.' + clientId).html().trim();
-        $("." + clientId)
-            .empty()
-            .append('<option value="0">...</option>');
-        const myarr = desc.split("-").join(', ').split('/').join(', ').split(', ');
-        const newDesc = myarr[0];
-        console.log(newDesc);
-        $.get('/get-client-by-branddesc', {
-            description: newDesc
-        }, function(data) {
-            const myData = JSON.parse(data);
-            for (var i = 0; i < myData.length; i++) {
-                $("." + clientId).append($('<option>', {
-                    value: myData[i]['id'],
-                    text: myData[i]['fullname']
-                }));
-            }
-        });
-    });
+    // $('.clientSelect').on('focus', function() {
+    //     var boxId = $(this).attr('id');
+    //     var boxNameId = "name_" + $(this).attr('id');
+    //     var boxName = $('.' + boxNameId).html().trim();
+    //     var descId = "desc_" + $(this).attr('id');
+    //     var desc = $('.' + descId).html().trim();
+    //     var clientId = "client_" + $(this).attr('id');
+    //     var client = $('.' + clientId).html().trim();
+    //     $("." + clientId)
+    //         .empty()
+    //         .append('<option value="0">...</option>');
+    //     const myarr = desc.split("-").join(', ').split('/').join(', ').split(', ');
+    //     const newDesc = myarr[0];
+    //     console.log(newDesc);
+    //     $.get('/get-client-by-branddesc', {
+    //         description: newDesc
+    //     }, function(data) {
+    //         const myData = JSON.parse(data);
+    //         for (var i = 0; i < myData.length; i++) {
+    //             $("." + clientId).append($('<option>', {
+    //                 value: myData[i]['id'],
+    //                 text: myData[i]['fullname']
+    //             }));
+    //         }
+    //     });
+    // });
     
     $('.clientSelect').on('change', function() {
         var optionSelected = $("option:selected", this);
@@ -1360,8 +1349,7 @@
                 var popoverbrand = $('.popoverbrand_' + boxId).attr('data-content', company['brands']);
             }
             var unrest = "Unrestricted";
-            if (company['brands'].includes(desc.split('-')[0]) == true || company['brands'].includes(desc.split('/')[0]) == true || desc.split('-')[0].toUpperCase() === unrest.toUpperCase()) {
-                $.post('/get-investment-client', {
+            $.post('/get-investment-client', {
                     id: clientId
                 }, function(data) {
                     var investdate = JSON.parse(data);
@@ -1425,9 +1413,6 @@
                     }
 
                 });
-            } else {
-                swal("Oops...", "This brand is not allowed on this client", "warning");
-            } 
 
 
         });

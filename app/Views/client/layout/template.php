@@ -195,57 +195,5 @@
 </body>
 <?= $this->renderSection('js') ?>
 <!-- Your SDK code -->
-<script>
-    window.fbAsyncInit = function() {
-        FB.init({
-            xfbml: true,
-            version: 'v12.0'
-        });
-    };
 
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    const sw = document.getElementById('switch');
-    const h1 = document.getElementById("title");
-    const card = document.getElementsByClassName("card");
-    const lbl = document.getElementById('label');
-
-    if (localStorage.getItem('theme') == 'dark') {
-        document.body.classList.toggle('dark');
-        h1.classList.toggle('dark');
-        $(".card").addClass("carddark");
-        $("table").addClass("tabledark");
-        $('#switch').prop('checked', true);
-    } else {
-        localStorage.setItem('theme', 'nondark');
-        $(".card").removeClass("carddark");
-        $("table").removeClass("tabledark");
-        $('#switch').prop('checked', false);
-    }
-
-    sw.addEventListener("change", () => { 
-        if ($('#switch').is(':checked')) {
-            document.body.classList.toggle('dark');
-            h1.classList.toggle('dark');
-            $(".card").addClass("carddark");
-            $("table").addClass("tabledark");
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.body.classList.toggle('dark');
-            h1.classList.toggle('dark');
-            $(".card").removeClass("carddark");
-            $("table").removeClass("tabledark");
-            localStorage.setItem('theme', 'nondark');
-        }
-        
-        
-    });
-</script>
 </html>

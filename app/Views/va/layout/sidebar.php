@@ -42,30 +42,16 @@
         <div class="sidebar-section">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <!-- Main -->
-                <!-- <li class="nav-item">
-                    <a href="<?= base_url('/va/dashboard') ?>" class="nav-link">
-                        <i class="icon-home4"></i>
-                        <span>
-                            Dashboard
-                        </span>
-                    </a>
-                </li> -->
+               
                 <li class="nav-item">
-                    <a href="<?= base_url('/va/scan-log') ?>" class="nav-link">
+                    <a href="<?= base_url('/va/assignment-process') ?>" class="nav-link">
                         <i class="icon-copy"></i>
                         <span>
-                            Scan Log
+                            Assignment Process
                         </span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('/va/history-box') ?>" class="nav-link">
-                        <i class="icon-clipboard3"></i>
-                        <span>
-                            History Box
-                        </span>
-                    </a>
-                </li>
+                
                 <!-- /main -->
 
 

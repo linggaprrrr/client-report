@@ -93,6 +93,8 @@ $routes->post('load-upc', 'UPC::loadUPC');
 $routes->get('/admin/need-to-upload', 'UPC::needToUpload');
 $routes->post('/create-need-to-upload', 'UPC::createNeedToUpload');
 $routes->get('/resubmit-upc', 'UPC::refreshUnknownUPC');
+$routes->get('/admin/extract-unlisted-upc', 'UPC::extractUnkownUPC');
+
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -118,14 +120,16 @@ $routes->post('bulk-upload-pl-report', 'Admin\Reports::bulkUpload');
 
 //va 
 $routes->get('va/dashboard', 'VA\Reports::index');
-$routes->get('va/scan-log', 'VA\Reports::scanLog');
-$routes->get('va/history-box', 'VA\Reports::historyBox');
 $routes->get('/va/assignment-report', 'VA\Reports::assignmentReport');
 $routes->get('/va/assignment-process', 'VA\Reports::assignmentReportProcess');
 $routes->get('/va/assignment-completed', 'VA\Reports::assignmentCompleted');
 $routes->get('/va/assignment-history', 'VA\Reports::assignmentHistory');
 $routes->get('/reset-second-phase', 'VA\Reports::resetSecondPhase');
 $routes->post('/create-box', 'VA\Reports::createNewBox');
+
+// warehouse
+$routes->get('/warehouse/scan-log', 'Warehouse\Reports::index');
+$routes->get('/warehouse/history-box', 'Warehouse\Reports::historyBox');
 
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');

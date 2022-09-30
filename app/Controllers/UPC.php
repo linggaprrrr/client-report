@@ -161,13 +161,45 @@ class UPC extends BaseController
             return view('login');
         }
         $user = $this->userModel->find($userId);
-        $boxes = $this->upcModel->historyBox();
-        $data = [
-            'tittle' => 'Need To Upload | Report Management System',
-            'menu' => 'Need To Upload',            
-            'user' => $user,
-            'boxes' => $boxes
-        ];
+        $post = $this->request->getVar();
+        
+        if (!empty($post)) {
+            $date1 = date('Y-m-d 00:00:00', strtotime($post['start']));             
+            $date2 = date('Y-m-d 00:00:00', strtotime($post['end'] . "+1 day"));
+            $boxes = $this->upcModel->historyBox($date1, $date2);
+            $totalBox = $boxes->getNumRows();
+            $total = $this->upcModel->totalQty($date1, $date2);
+            
+            $total = 
+            $data = [
+                'tittle' => 'Need To Upload | Report Management System',
+                'menu' => 'Need To Upload',            
+                'user' => $user,
+                'date1' => $post['start'],
+                'date2' => $post['end'],
+                'boxes' => $boxes,
+                'totalBox' => $totalBox,
+                'totalQty' => $total->qty,
+                'totalOriginal' => $total->original,
+                'totalCost' => $total->cost
+                
+            ];
+        } else {
+            $boxes = $this->upcModel->historyBox();
+            $totalBox = $boxes->getNumRows();
+            $total = $this->upcModel->totalQty();
+            $data = [
+                'tittle' => 'Need To Upload | Report Management System',
+                'menu' => 'Need To Upload',            
+                'user' => $user,
+                'boxes' => $boxes,
+                'totalBox' => $totalBox,
+                'totalQty' => $total->qty,
+                'totalOriginal' => $total->original,
+                'totalCost' => $total->cost
+            ];
+        }
+        
 
         return view('administrator/need_to_upload', $data);
     }   
@@ -319,25 +351,75 @@ class UPC extends BaseController
 		exit;
     }
 
+    public function extractUnkownUPC() {
+        $time = time();        
+        $fileName = "Unlisted UPC {$time} .xlsx";  
+        $getUPC = $this->upcModel->getUnkownUPC();
+        $spreadsheet = new Spreadsheet();
+         // Styling
+         $spreadsheet->getActiveSheet()->getStyle('A:A')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+         $spreadsheet->getActiveSheet()->getStyle('A1:E1')
+             ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+         $spreadsheet->getActiveSheet()->getStyle('A1:E1')
+             ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+         $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFont()->setBold(true);
+         
+ 
+		$sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'UPC/SKU');
+		$sheet->setCellValue('B1', 'ASIN');
+		$sheet->setCellValue('C1', 'ITEM DESCRIPTION');
+		$sheet->setCellValue('D1', 'RETAIL VALUE');
+		$sheet->setCellValue('E1', 'VENDOR');
+        $no = 2;
+        if ($getUPC->getNumRows() > 0) {
+            foreach ($getUPC->getResultObject() as $row) {
+                $sheet->setCellValue('A' . $no, $row->sku);
+                $no++;
+            }
+        }
+
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName);
+      
+        header("Content-Type: application/vnd.ms-excel");
+
+		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length:' . filesize("files/". $fileName));
+		flush();
+		readfile("files/". $fileName);
+		exit;
+        
+    }
+
     public function refreshUnknownUPC() {
         $getAllUPC = $this->upcModel->getUnkownUPC();
+        $x = 0;
         if ($getAllUPC->getNumRows() > 0) {
             foreach($getAllUPC->getResultObject() as $row) {   
-                $getItem = $this->upcModel->where('upc', $row->sku)->get();
+                $getItem = $this->upcModel->where('upc', $row->sku)->get();                
                 $item = $getItem->getFirstRow();
+                
                 if (!is_null($item)) {
-                    // replace desc
-                    $cost = 0;
-                    if ($getItem['category'] == 'SHOES') {
-                        $cost = $getItem['retail_value'] / 3;
+                    // replace desc                                   
+                    $cost = 0;                    
+                    if ($row->category == 'SHOES') {
+                        $cost = $item->retail_value / 3;
                     } else {
-                        $cost = $getItem['retail_value'] / 4;
+                        $cost = $item->retail_value / 4;
                     }
-                    $this->upcModel->updateUPCDesc($getItem['upc'], $getItem['item_description'], $getItem['retail_value'], $cost, $getItem['vendor_name']);
+                    $x++;
+                    $this->upcModel->updateUPCDesc($item->upc, $item->item_description, $item->retail_value, $cost, $item->vendor_name);
                 }
             }
         }
-        
+        echo json_encode($x);
     }
 
 }
