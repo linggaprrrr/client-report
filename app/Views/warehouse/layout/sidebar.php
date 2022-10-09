@@ -59,6 +59,14 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/warehouse/input-item') ?>" class="nav-link">
+                        <i class="icon-clipboard3"></i>
+                        <span>
+                            Input Item
+                        </span>
+                    </a>
+                </li>
                 <!-- /main -->
 
 

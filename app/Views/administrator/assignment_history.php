@@ -110,7 +110,10 @@
             <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header pb-3">
-                        <h5><b>BOX #<span class="modal-title">#title</span></b></h5>
+                        <h5><b><span class="modal-title">#title</span></b></h5>
+                        <div class="float-right">
+                            <a href="" data-toggle="modal" class="copy-clipboard" data-clipboard-target="#resultsTable" title="Copy To Clipboard"><i class="icon-clipboard6"></i></a>
+                        </div>
                     </div>
                     <div class="modal-body py-0">
                         <form id="box-details">
@@ -134,11 +137,10 @@
 
                                         </tr>
                                     </thead>
-                                    <tbody id="item-tbody">
+                                    <tbody class="item-tbody">
 
                                     </tbody>
-                                </table>
-
+                                </table>                                
                             </div>
                             <div class="table-responsive mt-2" id="item-table-removed" style="display: none;">
                                 <div class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
@@ -168,6 +170,8 @@
 
                             <div class="form-group">
                                 <label for=""><b>Note:</b></label>
+                                <textarea id="resultsTable" style="display:none;">
+                                </textarea>
                                 <div class="input-group">
                                     <textarea name="box_note" disabled class="form-control" id="box_note" rows="3" placeholder="-"></textarea>
                                 </div>
@@ -206,8 +210,11 @@
 <script src="/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
 <script src="/assets//js/plugins/forms/selects/select2.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js" integrity="sha512-iJh0F10blr9SC3d0Ow1ZKHi9kt12NYa+ISlmCdlCdNZzFwjH1JppRTeAnypvUez01HroZhAmP4ro4AvZ/rG0UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function() {
+        $('#copy-clipboard').tooltip();
+
         <?php if (session()->getFlashdata('success')) : ?>
             $('#noty_created').click();
         <?php endif ?>
@@ -218,6 +225,7 @@
             width: '150px'
         });
 
+       
         $.fn.inputFilter = function(inputFilter) {
             return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
                 if (inputFilter(this.value)) {
@@ -243,7 +251,8 @@
             $.get('/get-box-summary', {
                 box_name: boxName
             }, function(data) {
-                $('.modal-title').html("<b>" + boxName + "</b>");
+                var item = JSON.parse(data);
+                $('.modal-title').html("<b>" + item[0]['description'] + "</b>");
                 $('#box_name').val(boxName);
                 $('#item-table-removed').css("display", "none");
                 $('.modal_scrollable_box').modal({
@@ -258,9 +267,9 @@
                     for (var i = 0; i < item.length; i++) {
                         if (item[i]['item_status'] == 1) {
                             if (i % 2 == 0) {
-                                $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td><td>$ ' + numberWithCommas(item[i]['cost']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                                $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(parseFloat(parseFloat(item[i]['retail']))) + '</td> <td>$ ' + numberWithCommas(parseFloat(item[i]['original'])) + '</td><td>$ ' + numberWithCommas(parseFloat(item[i]['cost'])) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
                             } else {
-                                $('#item-table tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td> <td>$ ' + numberWithCommas(item[i]['cost']) + '</td><td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                                $('#item-table tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(parseFloat(item[i]['retail'])) + '</td> <td>$ ' + numberWithCommas(parseFloat(item[i]['original'])) + '</td> <td>$ ' + numberWithCommas(parseFloat(item[i]['cost'])) + '</td><td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
                             }
                         } else {
                             $('#item-table-removed').css("display", "block");
@@ -300,13 +309,13 @@
         $(this).find(".item_status").val("1")
         var removeRow = $(this).parents('tr').clone(true);
         $(this).parents('tr').remove();
-        $('#item-tbody').append(removeRow);
+        $('item-tbody').append(removeRow);
         var rowCount = $('#table-removed tr').length;
         if (rowCount == 1) {
             $('#item-table-removed').css("display", "none");
         }
     });
-
+    
     $('#noty_created').on('click', function() {
         new Noty({
             text: 'You successfully upload the report.',
@@ -323,6 +332,23 @@
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+    var clipboard = new Clipboard('.copy-clipboard');
+    clipboard.on('success', function(e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+
+    
+
 </script>
 
 <?= $this->endSection() ?>
+

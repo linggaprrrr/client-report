@@ -107,6 +107,14 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a id="pc" href="<?= base_url('/admin/promocode') ?>" class="nav-link">
+                        <i class="icon-ticket"></i>
+                        <span>
+                            Promo Code
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a id="pl" href="<?= base_url('/admin/logs') ?>" class="nav-link">
                         <i class="icon-list"></i>
                         <span>

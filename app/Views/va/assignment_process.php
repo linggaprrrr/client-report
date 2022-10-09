@@ -42,7 +42,7 @@
                     <?php if ($getAllAssignReportProcess->getNumRows() > 0) : ?>
                         <?php $no = 1 ?>
                         <?php foreach ($getAllAssignReportProcess->getResultArray() as $row) : ?>
-                            <?php if (!empty($row['userid'])) : ?>
+                            <?php if (!empty($row['client_id'])) : ?>
                                 <?php if ($row['status'] == 'reassign') : ?>
                                     <tr class="table-active">
                                     <?php elseif ($row['status'] == 'rejected') : ?>
@@ -52,7 +52,7 @@
                                     <?php endif ?>
                                     <td><?= $no++ ?></td>
                                     <td class="text-center">
-                                        <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
+                                        <a href="" data-toggle="modal" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
                                             <b><?= $row['box_name'] ?></b>
                                         </a>
                                         <br>
@@ -68,7 +68,7 @@
                                         <b><?= $newDate ?></b>
                                     </td>
                                     <td>
-                                        <input type="hidden" name="client[]" value="<?= $row['userid'] ?>">
+                                        <input type="hidden" name="client[]" value="<?= $row['client_id'] ?>">
                                         <b><?= $row['fullname'] ?></b>
                                     </td>
                                     <td class="company_box_<?= $no ?>">
@@ -138,27 +138,7 @@
                         <h5><b>BOX #<span class="modal-title">#title</span></b></h5>
                     </div>
                     <div class="modal-body py-0">
-                        <form id="box-details">
-                            <div class="table-responseive">
-                                <table class="table text-center" id="sum" style="font-weight:bold; font-size:12px">
-                                    <thead>
-                                        <tr class="bg-primary text-white">
-                                            <th style="width: 10%;">SKU</th>
-                                            <th style="width: 20%;">Item Description</th>
-                                            <th style="width: 5%;">Condition</th>
-                                            <th style="width: 10%;">Total Qty</th>
-                                            <th style="width: 10%;">Retail</th>
-                                            <th style="width: 10%;">Total Retail</th>
-                                            <th style="width: 10%;">Total Cost</th>
-                                            <th style="width: 15%;">Vendor</th>
-                                            <th style="width: 15%;">Note</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
+                        <form id="box-details">                            
                             <div class="table-responsive" id="item-table">
                                 <!-- <form action="<?= base_url('/save-box-details') ?>" method="post"> -->
 
@@ -167,6 +147,7 @@
                                 <table class="table" style="font-weight:bold; font-size:12px">
                                     <thead>
                                         <tr class="bg-secondary text-white">
+                                            <th>FNSKU</th>
                                             <th>SKU</th>
                                             <th>Item Description</th>
                                             <th>Condition</th>
@@ -193,6 +174,7 @@
                                 <table class="table" style="font-weight:bold; font-size:12px" id="table-removed">
                                     <thead>
                                         <tr class="bg-danger text-white">
+                                            <th>FNSKU</th>
                                             <th>SKU</th>
                                             <th>Item Description</th>
                                             <th>Condition</th>
@@ -254,12 +236,11 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $(document).ready(function() {
+        
+
         <?php if (session()->getFlashdata('required')) : ?>
             swal("Warning!", "<?= session()->getFlashdata('required') ?>", "warning");
         <?php endif ?>
-
-
-
         <?php if (session()->getFlashdata('success')) : ?>
             $('#noty_created').click();
         <?php endif ?>
@@ -309,23 +290,25 @@
                 var qty = 0;
                 var retail = 0;
                 var total = 0;
-                var cost = 0;
+                var cost = 0;                
                 if (item.length > 0) {
                     $('#box_note').html(item[0]['box_note']);
                     var no = 1;
                     for (var i = 0; i < item.length; i++) {
                         if (item[i]['item_status'] == '1') {
-                            if (item[i]['item_check'] == '1') {
-                                $('#item-table tbody').append('<tr class="table-secondary"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td><input type="text" class="item-desc" name="item_description[]" value="' + item[i]['item_description'] + '" ></td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$ ' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$ ' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$ ' + numberWithCommas(item[i]['cost']) + '"</td> <td><input type="text" name="vendor[]" value="' + item[i]['vendor'] + '"></td> <td><input type="text" name="note[]" class="form-control" placeholder="Add Note" value="' + $.trim(item[i]['item_note']) + '"></td> <td><a href="#" class="remove" id="' + item[i]['item_status'] + '"><i class="icon-minus-circle2"></i><input type="hidden" class="item_status" name="item_status[]" value="' + item[i]['item_status'] + '"> </a> <a style="color:green" href="#" class="check" id="' + item[i]['item_check'] + '"><i class="icon-checkmark-circle"></i><input type="hidden" class="item_check" name="item_check[]" value="' + item[i]['item_check'] + '"> </a></td> </tr>');
-                            } else {
-                                $('#item-table tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td><input type="text" class="item-desc" name="item_description[]" value="' + item[i]['item_description'] + '" ></td>  <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$ ' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$ ' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$ ' + numberWithCommas(item[i]['cost']) + '"</td> <td><input type="text" name="vendor[]" value="' + item[i]['vendor'] + '"></td> <td><input type="text" name="note[]" class="form-control" placeholder="Add Note" value="' + $.trim(item[i]['item_note']) + '"></td> <td><a href="#" class="remove" id="' + item[i]['item_status'] + '"><i class="icon-minus-circle2"></i><input type="hidden" class="item_status" name="item_status[]" value="' + item[i]['item_status'] + '"> </a> <a style="color:green" href="#" class="check" id="' + item[i]['item_check'] + '"><i class="icon-checkmark-circle"></i><input type="hidden" class="item_check" name="item_check[]" value="' + item[i]['item_check'] + '"> </a></td> </tr>');
+                            if (item[i]['retail'] != null) {
+                                if (item[i]['item_check'] == '1') {
+                                    $('#item-table tbody').append('<tr class="table-secondary"><td><input type="text" class="form-control text-center" style="width: 150px; font-size: 10px" name="fnsku[]" value="'+ item[i]['fnsku'] +'"></td><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '"><input type="hidden" name="sku[]" value="' + item[i]['sku'] + '">' + item[i]['sku'] + '</td><td><input type="text" class="form-control text-center item-desc" style="width: 300px; font-size: 10px" name="item_description[]" value="' + item[i]['item_description'] + '"></td><td>' + item[i]['cond'] + '</td><td>' + item[i]['qty'] + '</td><td>$' + numberWithCommas(item[i]['retail']) + '</td><td>$' + numberWithCommas(item[i]['original']) + '</td><td>$' + numberWithCommas(item[i]['cost']) + '</td><td>' + item[i]['vendor'] + '</td><td><input type="text" name="note[]" class="form-control" placeholder="Add Note" value="' + $.trim(item[i]['item_note']) + '"></td><td><a href="#" class="remove" id="' + item[i]['item_status'] + '"><i class="icon-minus-circle2"></i><input type="hidden" class="item_status" name="item_status[]" value="' + item[i]['item_status'] + '"></a><a style="color:green" href="#" class="check" id="' + item[i]['item_check'] + '"><i class="icon-checkmark-circle"></i><input type="hidden" class="item_check" name="item_check[]" value="' + item[i]['item_check'] + '"></a></td></tr>');
+                                } else {
+                                    $('#item-table tbody').append('<tr class="table-active"><td><input type="text" class="form-control text-center" style="width: 150px; font-size: 10px" name="fnsku[]" value="'+ item[i]['fnsku'] +'"></td><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '"><input type="hidden" name="sku[]" value="' + item[i]['sku'] + '">' + item[i]['sku'] + '</td><td><input type="text" class="form-control text-center item-desc" style="width: 300px; font-size: 10px" name="item_description[]" value="' + item[i]['item_description'] + '"></td><td>' + item[i]['cond'] + '</td><td>' + item[i]['qty'] + '</td><td>$' + numberWithCommas(item[i]['retail']) + '</td><td>$' + numberWithCommas(item[i]['original']) + '</td><td>$' + numberWithCommas(item[i]['cost']) + '</td><td>' + item[i]['vendor'] + '</td><td><input type="text" name="note[]" class="form-control" placeholder="Add Note" value="' + $.trim(item[i]['item_note']) + '"></td><td><a href="#" class="remove" id="' + item[i]['item_status'] + '"><i class="icon-minus-circle2"></i><input type="hidden" class="item_status" name="item_status[]" value="' + item[i]['item_status'] + '"></a><a style="color:green" href="#" class="check" id="' + item[i]['item_check'] + '"><i class="icon-checkmark-circle"></i><input type="hidden" class="item_check" name="item_check[]" value="' + item[i]['item_check'] + '"></a></td></tr>');
+                                }
                             }
                         } else {
                             $('#item-table-removed').css("display", "block");
                             if (i % 2 == 0) {
-                                $('#item-table-removed tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td><input type="text" class="item-desc" name="item_description[]" value="' + item[i]['item_description'] + '" ></td>  <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$ ' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$ ' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$ ' + numberWithCommas(item[i]['cost']) + '"</td> <td><input type="text" name="vendor[]" value="' + item[i]['vendor'] + '"></td> <td><input type="text" name="note[]" class="form-control" placeholder="Add Note" value="' + $.trim(item[i]['item_note']) + '"></td><td><a href="#" class="remove" id="' + item[i]['item_status'] + '"><i class="icon-minus-circle2"></i><input type="hidden" class="item_status" name="item_status[]" value="' + item[i]['item_status'] + '"> </a> <a style="color:green" href="#" class="check" id="' + item[i]['item_check'] + '"><i class="icon-checkmark-circle"></i><input type="hidden" class="item_check" name="item_check[]" value="' + item[i]['item_check'] + '"> </a></td> </tr>');
+                                $('#item-table-removed tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td><input type="text" class="item-desc" name="item_description[]" value="' + item[i]['item_description'] + '" ></td>  <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$' + numberWithCommas(item[i]['cost']) + '"</td> <td><input type="text" name="vendor[]" value="' + item[i]['vendor'] + '"></td> <td><input type="text" name="note[]" class="form-control" placeholder="Add Note" value="' + $.trim(item[i]['item_note']) + '"></td><td><a href="#" class="remove" id="' + item[i]['item_status'] + '"><i class="icon-minus-circle2"></i><input type="hidden" class="item_status" name="item_status[]" value="' + item[i]['item_status'] + '"> </a> <a style="color:green" href="#" class="check" id="' + item[i]['item_check'] + '"><i class="icon-checkmark-circle"></i><input type="hidden" class="item_check" name="item_check[]" value="' + item[i]['item_check'] + '"> </a></td> </tr>');
                             } else {
-                                $('#item-table-removed tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td><input type="text" class="item-desc" name="item_description[]" value="' + item[i]['item_description'] + '" ></td>  <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$ ' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$ ' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$ ' + numberWithCommas(item[i]['cost']) + '"</td> <td><input type="text" name="vendor[]" value="' + item[i]['vendor'] + '"></td> <td><input type="text" name="note[]" class="form-control" placeholder="Add Note" value="' + $.trim(item[i]['item_note']) + '"></td><td><a href="#" class="remove" id="' + item[i]['item_status'] + '"><i class="icon-minus-circle2"></i><input type="hidden" class="item_status" name="item_status[]" value="' + item[i]['item_status'] + '"> </a> <a style="color:green" href="#" class="check" id="' + item[i]['item_check'] + '"><i class="icon-checkmark-circle"></i><input type="hidden" class="item_check" name="item_check[]" value="' + item[i]['item_check'] + '"> </a></td> </tr>');
+                                $('#item-table-removed tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td><input type="text" class="item-desc" name="item_description[]" value="' + item[i]['item_description'] + '" ></td>  <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><input type="text" name="retail[]" class="retail_edit" value="$' + numberWithCommas(item[i]['retail']) + '"</td> <td><input type="text" name="original[]" value="$' + numberWithCommas(item[i]['original']) + '"</td><td><input type="text" name="cost[]" value="$' + numberWithCommas(item[i]['cost']) + '"</td> <td><input type="text" name="vendor[]" value="' + item[i]['vendor'] + '"></td> <td><input type="text" name="note[]" class="form-control" placeholder="Add Note" value="' + $.trim(item[i]['item_note']) + '"></td><td><a href="#" class="remove" id="' + item[i]['item_status'] + '"><i class="icon-minus-circle2"></i><input type="hidden" class="item_status" name="item_status[]" value="' + item[i]['item_status'] + '"> </a> <a style="color:green" href="#" class="check" id="' + item[i]['item_check'] + '"><i class="icon-checkmark-circle"></i><input type="hidden" class="item_check" name="item_check[]" value="' + item[i]['item_check'] + '"> </a></td> </tr>');
                             }
                         }
                         qty = qty + parseInt(item[i]['qty']);
@@ -333,7 +316,7 @@
                         total = total + parseFloat(item[i]['original']);
                         cost = cost + parseFloat(item[i]['cost']);
                     }
-                    $('#sum tbody').append('<tr><td>-</td> <td>-</td>  <td>-</td><td>' + qty + '</td> <td>$ ' + numberWithCommas(retail.toFixed(2)) + '</td> <td>$ ' + numberWithCommas(total.toFixed(2)) + '</td><td>$ ' + numberWithCommas(cost.toFixed(2)) + '</td> <td>-</td> <td>-</td></tr>');
+                    $('#sum tbody').append('<tr><td>-</td> <td>-</td>  <td>-</td><td>' + qty + '</td> <td>$' + numberWithCommas(retail.toFixed(2)) + '</td> <td>$' + numberWithCommas(total.toFixed(2)) + '</td><td>$' + numberWithCommas(cost.toFixed(2)) + '</td> <td>-</td> <td>-</td></tr>');
                 }
 
                 $('.modal_scrollable_box').modal('show');
@@ -344,7 +327,7 @@
 
         $("form#box-details").on("submit", function(e) {
             e.preventDefault();
-            $.post('<?= base_url('/save-box-details') ?>', $(this).serialize(), function(data) {
+            $.post('<?= base_url('/va/save-box-details') ?>', $(this).serialize(), function(data) {
                 new Noty({
                     text: 'The box has been saved.',
                     type: 'alert'
@@ -355,10 +338,10 @@
         
     });
 
-    $('.item-desc').on('click', function() {
-        $(this).focus();
+    $(document).on('click', '.item-desc', function() {
         $(this).select();
     });
+
 
     $('#item-table').on('click', '.remove', function() {
         $(this).find(".item_status").val("0")

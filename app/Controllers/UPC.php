@@ -206,6 +206,7 @@ class UPC extends BaseController
     
     public function createNeedToUpload() {
         $post = $this->request->getVar();
+        
         $date = date('m-d-Y');
         $fileName = "Need to Upload - {$date}.xlsx";  
         $spreadsheet = new Spreadsheet();
@@ -213,7 +214,6 @@ class UPC extends BaseController
         if (empty($post['box_id'])) {
             return redirect()->back()->with('error', 'There is no box');
         }
-        
         // Styling
         $spreadsheet->getActiveSheet()->getStyle('A:A')
         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -420,6 +420,14 @@ class UPC extends BaseController
             }
         }
         echo json_encode($x);
+    }
+
+    public function changeBoxCategory() {
+        $box = $this->request->getVar('box');
+        $category = $this->request->getVar('category');
+        $desc = "BOX #". $box ."-". $category;
+        $this->db->query("UPDATE assign_report_box SET category='$category', description='$desc' WHERE box_name='$box' ");
+        
     }
 
 }

@@ -543,6 +543,7 @@ class Reports extends BaseController
         $user = $this->userModel->find($userId);
         $getAllClient = $this->assignReportModel->getAllClient();
         $getAllAssignReportProcess = $this->assignReportModel->getAllAssignReportProcess($userId, $user['role']);
+        
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'APPROVAL BOX ASSIGNMENT',
@@ -570,10 +571,15 @@ class Reports extends BaseController
     {
         $post = $this->request->getVar();
         for ($i = 0; $i < count($post['item']); $i++) {
+            $fnsku = $post['fnsku'][$i];
+            $sku = $post['sku'][$i];
+            $description = $post['item_description'][$i];
             $stat = $post['item_status'][$i];
             $note = $post['note'][$i];
             $id = $post['item'][$i];
-            $this->db->query("UPDATE assign_report_details SET item_status='$stat', item_note=" . $this->db->escape($note) . " WHERE id='$id' ");
+            $check = $post['item_check'][$i];
+            $this->db->query("UPDATE upc SET item_description = ".$this->db->escape($description)." WHERE upc ='$sku' ");
+            $this->db->query("UPDATE assign_report_details SET fnsku='$fnsku', item_description=" . $this->db->escape($description) . ", item_status='$stat', item_check='$check', item_note=" . $this->db->escape($note) . " WHERE id='$id' ");
         }
         $box_note = $post['box_note'];
         $box_name = $post['box_name'];
@@ -587,7 +593,7 @@ class Reports extends BaseController
             return view('login');
         }
         $user = $this->userModel->find($userId);
-        $assignCompleted = $this->assignReportModel->getAllAssignReportCompleted();
+        $assignCompleted = $this->assignReportModel->getAllAssignReportCompleted($userId);
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'APPROVAL BOX ASSIGNMENT',

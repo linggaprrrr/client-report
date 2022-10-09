@@ -9,29 +9,32 @@
 </style>
 <div class="content">
     <div class="card">
-            <div class="card-header pb-0">
-                <div class="form-group float-right" style="margin: 0;">
-                    <label>
-                        <form action="<?= base_url('/admin/need-to-upload') ?>" class="filter" method="get">
-                            <span>Daterange:</span>                              
-                            <?php if (!empty($date1)) : ?>                                
-                                <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y', strtotime($date1)) ?> - <?= date('m/d/Y', strtotime($date2)) ?>" style="    width: 220px; text-align: center;" readonly />
-                            <?php else : ?>
-                                <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y') ?> - <?= date('m/d/Y') ?>" style="    width: 220px; text-align: center;" readonly />
-                            <?php endif ?>
-                            <input type="hidden" name="start">
-                            <input type="hidden" name="end">
-                        </form>
-                    </label>
-                </div>
-        <form action="<?= base_url('/create-need-to-upload') ?>" method="POST">        
-        <a href="<?= base_url('admin/extract-unlisted-upc') ?>" class="btn btn-danger mr-2 float-left"><i class="icon-barcode2 mr-2"></i>Extract Unlisted UPC</a>
-                <button type="submit" class="btn btn-secondary float-letf ml-2 create-report"><i class="icon-file-excel mr-2"></i>Create Report</button>
+        <div class="form-group m-2">
+            <label>
+                <form action="<?= base_url('/admin/need-to-upload') ?>" class="filter" method="get">
+                    <span>Daterange:</span>                              
+                    <?php if (!empty($date1)) : ?>                                
+                        <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y', strtotime($date1)) ?> - <?= date('m/d/Y', strtotime($date2)) ?>" style="    width: 220px; text-align: center;" readonly />
+                    <?php else : ?>
+                        <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y') ?> - <?= date('m/d/Y') ?>" style="    width: 220px; text-align: center;" readonly />
+                    <?php endif ?>
+                    <input type="hidden" name="start">
+                    <input type="hidden" name="end">
+                </form>
+            </label>
+        </div>
+        <form action="<?= base_url('/create-need-to-upload') ?>" method="POST">
+            <div class="card-header">
+                <?= csrf_field() ?>      
+                <a href="<?= base_url('admin/extract-unlisted-upc') ?>" class="btn btn-danger mr-2 float-left"><i class="icon-barcode2 mr-2"></i>Extract Unlisted UPC</a>
                 <button type="button" class="btn btn-warning float-left resubmit-upc"><i class="icon-barcode2 mr-2"></i>Resubmit Unlisted UPC</button>
-                
-            </div>
-            <div class="card-body">  
+                <button type="submit" class="btn btn-secondary float-left ml-2 create-report"><i class="icon-file-excel mr-2"></i>Create Report</button>
+                <br><br>
                 <hr>
+            </div>
+            
+            <div class="card-body">  
+                
                 <div class="d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
                     <div class="d-flex align-items-center mb-3 mb-lg-0">
                         <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
@@ -71,10 +74,8 @@
                             <span class="text-muted">Grand Total Client Cost</span>
                         </div>
                     </div>  
-                </div>   
-                
+                </div>                   
                 <table class="table datatable-basic" id="myTable" style="font-size: 11px;">
-                    
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 5%"><input type="checkbox" class="checkall"> </th>
@@ -85,26 +86,22 @@
                             <th class="text-center" style="width: 15%">Admin</th>                        
                         </tr>
                     </thead>
+                    
                     <tbody id="assign-body">
                         <?php if ($boxes->getNumRows() > 0) : ?>
                             <?php $no = 1 ?>
                             <?php foreach ($boxes->getResultArray() as $row) : ?>
                                 <tr class="box-list">
                                     <td class="text-center">                                    
-                                        <input type="checkbox" name="box_id[]" class="checklist" value="<?= $row['id'] ?>" data-id="<?= $row['id'] ?>">
+                                        <input type="checkbox" name="box_id[]" class="checklist" value="<?= $row['id'] ?>" data-id="<?= $row['id'] ?>">                                        
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="font-weight-bold box_name h6 name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
+                                        <a href="" data-toggle="modal" class="font-weight-bold box_name h6 name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
                                             <?= $row['box_name'] ?>
                                         </a>
                                         <br>
                                         <p class="desc_box_<?= $no ?>">
-                                            <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
-                                                <?php $desc = substr($row['description'], $pos + 1);     ?>
-                                                <?= $desc  ?>
-                                            <?php else : ?>
-                                                None
-                                            <?php endif ?>
+                                            <?= $row['category'] ?>
                                         </p>
                                     </td>
                                     <?php if ($row['total_item'] > 0) : ?>
@@ -140,15 +137,23 @@
                     </tbody>
 
                 </table>
-            </div>
-        </form>
+            </div>                                        
+        
     </div>
+    </form>
     
     <div class="modal fade modal_scrollable_box" tabindex="-1">
         <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header pb-3">
                     <h5><b><span class="modal-title">#title</span></b> </h5>
+                    <div class="form-group float-right" style="display: flex;">
+                        <label for="" class="mt-1 mr-2">Category: </label>
+                        <select class="form-control" id="box-category" style="font-size: 12px">
+                            <option value="CLOTHES" data-id="">CLOTHES</option>
+                            <option value="SHOES" data-id="">SHOES</option>                            
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-body py-0">
                     <form id="box-details">
@@ -179,14 +184,13 @@
                         </div>                        
                 </div>
                 <div class="modal-footer pt-3">
-                    <a class="btn btn-light" data-dismiss="modal">Close</a>                    
+                    <a class="btn btn-light close-btn" data-dismiss="modal">Close</a>                    
                 </div>
                
                 </form>
             </div>
         </div>
     </div>
-
     
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>
@@ -203,9 +207,14 @@
 <script src="/assets/js/demo_pages/datatables_basic.js"></script>
 <script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
 <script src="/assets/js/plugins/notifications/noty.min.js"></script>
-<script src="/assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+<script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
+    <script src="/assets/js/demo_pages/form_select2.js"></script>
+    <script src="/assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+    <script src="/assets/js/plugins/forms/selects/select2.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/assets/js/demo_pages/components_popups.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>   
 
     $(document).ready(function() {
@@ -229,10 +238,23 @@
             $('.filter').submit();
             
         });
+
+        $('.create-report').click(function() {
+            var data = table.$('input, select').serialize();
+           
+            return false;
+        });
+
+        $('#box-category').change(function() {
+            const cat = $(this).val();
+            const boxName = $(this).data('id');            
+
+            $.post('/change-box-category', {box: boxName, category: cat}, function(data) {
+                location.reload();
+            });
+        });
+
     });
-
-
-    
 
     var i = 1;
     var tempTotal = 0;
@@ -252,9 +274,10 @@
             $('.modal_scrollable_box').modal({
                 backdrop: 'static',
                 keyboard: false
-            })
+            })            
             $('#item-tbody-removed').html("");
-
+            $('#box-category').val(item[0]['category']);
+            $('#box-category').data('id', boxName); 
             if (item.length > 0) {
                 $('#box_note').html(item[0]['box_note']);
                 var no = 1;
@@ -281,6 +304,7 @@
 
             $('.modal_scrollable_box').modal('show');
         });
+
     });
 
     $("form#box-details").on("submit", function(e) {
@@ -293,6 +317,8 @@
             $('.modal_scrollable_box').modal('hide');
         });
     });
+
+    
 
     $('.resubmit-upc').click(function() {        
         $.get('/resubmit-upc', function(data) {

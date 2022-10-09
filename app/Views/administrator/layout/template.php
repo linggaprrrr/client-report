@@ -268,14 +268,15 @@
             case "admin/assignment-report":
                 $('#assignment-menu').addClass('nav-item-expanded nav-item-open"');
                 $('#ar').addClass('active');
-                $.get('/get-summary-box', function(data) {
-                    var sum = JSON.parse(data);
-                    $('.total_box').html(sum['total_box']);
-                    $('.total_unit').html(sum['total_unit']);
-                    $('.total_box_onprocess').html(sum['onprocess']);
-                    $('.total_box_completed').html(sum['complete']);
-                    $('.total_client_cost').html(sum['client_cost']);
-                });
+                // $.get('/get-summary-box', function(data) {
+                //     var sum = JSON.parse(data);
+                //     $('.total_box').html(sum['total_box']);
+                //     $('.total_unit').html(sum['total_unit']);
+                //     $('.total_box_onprocess').html(sum['onprocess']);
+                //     $('.total_box_completed').html(sum['complete']);
+                //     $('.total_client_cost').html(sum['client_cost']);
+                //     $('.total_retail').html(sum['total_retail']);
+                // });
 
                 break;
 

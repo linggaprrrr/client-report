@@ -65,7 +65,7 @@ $routes->post('/save-assignment-process', 'Admin\Reports::saveAssignmentProcess'
 $routes->get('/reset-assignment', 'Admin\Reports::resetAssignment');
 $routes->post('/update-price-item', 'Admin\Reports::updatePriceBox');
 $routes->post('/save-box-details', 'Admin\Reports::saveBoxDetails');
-
+$routes->post('/va/save-box-details', 'VA\Reports::saveBoxDetails');
 $routes->get('/admin/assignment-completed', 'Admin\Reports::assignmentCompleted');
 $routes->get('/admin/assignment-history', 'Admin\Reports::assignmentHistory');
 $routes->post('/reset-password', 'Admin\Users::resetPassword');
@@ -81,6 +81,7 @@ $routes->post('/upload-brand', 'Admin\Reports::uploadBrand');
 $routes->post('/upload-brand-per-store', 'Admin\Reports::uploadBrandPerStore');
 $routes->get('/admin/push-notification', 'News::getPushNotifications');
 $routes->post('create-notification', 'News::pushNotification');
+$routes->get('/admin/promocode', 'Admin\PromoCode::index');
 $routes->get('/admin/logs', 'Logs::index');
 $routes->post('/admin/logs', 'Logs::index');
 $routes->get('/admin/generate-p-l', 'Admin\Reports::getGeneratePL');
@@ -89,12 +90,13 @@ $routes->post('admin/save-chart', 'Admin\Reports::saveChart');
 $routes->get('/admin/upc', 'UPC::index');
 $routes->post('upload-upc', 'UPC::uploadUPC');
 $routes->post('load-upc', 'UPC::loadUPC');
+$routes->post('/add-promo','Admin\PromoCode::addPromo');
 
 $routes->get('/admin/need-to-upload', 'UPC::needToUpload');
 $routes->post('/create-need-to-upload', 'UPC::createNeedToUpload');
 $routes->get('/resubmit-upc', 'UPC::refreshUnknownUPC');
 $routes->get('/admin/extract-unlisted-upc', 'UPC::extractUnkownUPC');
-
+$routes->post('/change-box-category', 'UPC::changeBoxCategory');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -130,11 +132,15 @@ $routes->post('/create-box', 'VA\Reports::createNewBox');
 // warehouse
 $routes->get('/warehouse/scan-log', 'Warehouse\Reports::index');
 $routes->get('/warehouse/history-box', 'Warehouse\Reports::historyBox');
+$routes->get('/warehouse/input-item', 'Warehouse\Reports::inputItem');
+$routes->post('/warehouse/input-manual', 'Warehouse\Reports::saveItem');
+$routes->get('/warehouse/export-manual-input/(:any)/(:any)', 'Warehouse\Reports::exportDataInput/$1/$2');
 
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');
 $routes->post('/update-link-spreadhsheet', 'Admin\Reports::updateLink');
 $routes->post('/get-investment-client', 'Admin\Reports::getInvestmentClient');
+$routes->post('/get-investment-client-all', 'Admin\Reports::getInvestmentClientAll');
 $routes->post('/assign-box', 'Admin\Reports::assignBox');
 $routes->get('get-box-summary', 'Admin\Reports::getBoxSummary');
 $routes->post('save-fba-number', 'VA\Reports::saveFBANumber');
@@ -188,13 +194,10 @@ $routes->get('/mobile/purchase-inventory', 'Mobile::purchaseInventory');
 $routes->get('/mobile/pl-report', 'Mobile::plReport');
 $routes->get('/mobile/news', 'Mobile::news');
 
-
 // API
 $routes->get('/mobile/client-cost-left/(:num)', 'Mobile::getClientCostLeft/$1');
 $routes->post('/api/send-device-token', 'News::sendDeviceToken');
 $routes->get('/get-summary-pl', 'Admin\Reports::getSummaryPL');
-
-
 
 // master
 $routes->get('/master/manifest', 'Admin\Reports::master');

@@ -75,7 +75,7 @@
                                 <th class="text-center" style="width: 7%">CONDITION</th>
                                 <th class="text-center" style="width: 8%">ORIGINAL QTY</th>
                                 <th class="text-center" style="width: 8%">RETAIL VALUE</th>
-                                <th class="text-center" style="width: 8%">TOTAL ORIGINAL RETAIL</th>
+                                <th class="text-center" style="width: 8%">TOTAL ORIGINAL VALUE</th>
                                 <th class="text-center" style="width: 8%">TOTAL CLIENT COST</th>
                                 <th class="text-center" style="width: 25%">VENDOR NAME</th>
                             </tr>

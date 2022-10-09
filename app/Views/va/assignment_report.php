@@ -304,8 +304,6 @@
     var tempTotal = 0;
     var total = 0;
 
-
-
     $('.box_name2').on('click', function() {
         var boxName = $(this).data('box');
         $('#item-table2 tbody').html("");

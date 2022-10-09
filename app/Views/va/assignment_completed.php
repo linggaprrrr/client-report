@@ -24,15 +24,15 @@
             <table class="table datatable-basic" id="myTable" style="font-size: 12px;">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 5%">No</th>
-                        <th class="text-center" style="width: 5%">Box Name</th>
-                        <th class="text-center" style="width: 5%">Status</th>
-                        <th class="text-center" style="width: 10%">Box Value</th>
-                        <th class="text-center" style="width: 15%">VA</th>
-                        <th class="text-center" style="width: 10%">FBA Number</th>
-                        <th class="text-center" style="width: 10%">Shipment Number</th>
+                        <th class="text-center" style="width: 3%">No</th>
+                        <th class="text-center" style="">Box Name</th>
+                        <th class="text-center" style="">Status</th>
+                        <th class="text-center" style="">Box Value</th>
+                        <th class="text-center" style="">VA</th>
+                        <th class="text-center" style="">FBA Number</th>
+                        <th class="text-center" style="">Shipment Number</th>
 
-                        <th class="text-center" style="width: 5%">Order</th>
+                        <th class="text-center" style="width: 5%">Order Date</th>
                         <th class="text-center">Client</th>
                         <th class="text-center">AMZ Store</th>
                         <th class="text-center">Investment Date</th>
@@ -42,7 +42,7 @@
                     <?php if ($assignCompleted->getNumRows() > 0) : ?>
                         <?php $no = 1 ?>
                         <?php foreach ($assignCompleted->getResultArray() as $row) : ?>
-                            <?php if (!empty($row['userid'])) : ?>
+                            <?php if (!empty($row['client_id'])) : ?>
                                 <?php if ($row['status'] == 'reassign') : ?>
                                     <tr class="table-active">
                                     <?php elseif ($row['status'] == 'rejected') : ?>
@@ -50,64 +50,64 @@
                                     <?php else : ?>
                                     <tr class="table-success">
                                     <?php endif ?>
-                                    <td class="text-center">
-                                        <?= $no++ ?>
-                                        <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
-                                            <b><?= $row['box_name'] ?></b>
-                                        </a>
-                                        <br>
-                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
-                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
-                                            <?= $desc  ?>
-                                        <?php else : ?>
-                                            None
-                                        <?php endif ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <?php if ($row['status'] == 'reassign') : ?>
-                                            <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
-                                        <?php elseif ($row['status'] == 'remanifest') : ?>
-                                            <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
-                                        <?php else : ?>
-                                            <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
-                                        <?php endif ?>
-                                    </td>
-                                    <td class="value_box_<?= $no ?>">
-                                        <?php if ($row['box_value'] == $row['new_box_value']) : ?>
-                                            <b>$ <?= number_format($row['box_value'], 2) ?></b>
-                                        <?php else : ?>
-                                            <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= number_format($row['new_box_value'], 2) ?></mark></b>
-                                        <?php endif ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <b><?= $row['va'] ?></b>
-                                    </td>
-                                    <td class="text-center">
-                                        <b><?= $row['fba_number'] ?></b>
-                                    </td>
-                                    <td class="text-center">
-                                        <b><?= $row['shipment_number'] ?> </b>
-                                    </td>
+                                        <td class="text-center">
+                                            <?= $no++ ?>
+                                            <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="#" class="h6 box_name" data-box="<?= $row['box_name'] ?>">
+                                                <b><?= $row['box_name'] ?></b>
+                                            </a>
+                                            <br>
+                                            <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                                <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                                <?= $desc  ?>
+                                            <?php else : ?>
+                                                None
+                                            <?php endif ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?php if ($row['status'] == 'reassign') : ?>
+                                                <span class="badge badge-secondary"><b><?= strtoupper($row['status']) ?></b></span>
+                                            <?php elseif ($row['status'] == 'remanifest') : ?>
+                                                <span class="badge badge-danger"><b><?= strtoupper($row['status']) ?></b></span>
+                                            <?php else : ?>
+                                                <span class="badge badge-success"><b><?= strtoupper($row['status']) ?></b></span>
+                                            <?php endif ?>
+                                        </td>
+                                        <td class="text-center value_box_<?= $no ?>">
+                                            <?php if ($row['box_value'] == $row['new_box_value']) : ?>
+                                                <b>$<?= number_format($row['box_value'], 2) ?></b>
+                                            <?php else : ?>
+                                                <del>$<?= $row['box_value'] ?></del> <b><mark>$<?= number_format($row['new_box_value'], 2) ?></mark></b>
+                                            <?php endif ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <b><?= $row['va'] ?></b>
+                                        </td>
+                                        <td class="text-center">
+                                            <b><?= $row['fba_number'] ?></b>
+                                        </td>
+                                        <td class="text-center">
+                                            <b><?= $row['shipment_number'] ?> </b>
+                                        </td>
 
-                                    <td>
-                                        <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
-                                        <input disabled type="text" class="daterange-single order_box_<?= $no ?>" name="date[]" value="<?= $newDate ?>" style="width: 90px; text-align:center">
-                                    </td>
-                                    <td>
-                                        <b><?= $row['fullname'] ?></b>
-                                    </td>
-                                    <td>
-                                        <b><?= $row['company'] ?> </b>
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
-                                            <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
-                                        </select>
-                                    </td>
+                                        <td class="text-center">
+                                            <?= date('m/d/Y', strtotime($row['order_date'])) ?>
+                                            
+                                        </td>
+                                        <td class="text-center">
+                                            <b><?= $row['fullname'] ?></b>
+                                        </td>
+                                        <td class="text-center">
+                                            <b><?= $row['company'] ?> </b>
+                                        </td>
+                                        <td>
+                                            <select>
+                                                <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
+                                                <option value="investment_id" selected><b><?= strtoupper($newDateInvest) ?></b></option>
+                                            </select>
+                                        </td>
 
                                     </tr>
                                 <?php endif ?>
@@ -137,29 +137,7 @@
                     </div>
                     <div class="modal-body py-0">
                         <form id="box-details">
-                            <?php csrf_field() ?>
-                            <div class="table-responseive">
-                                <table class="table text-center" id="sum2" style="font-weight:bold; font-size:12px">
-                                    <thead>
-                                        <tr class="bg-primary text-white">
-                                            <th style="width: 10%;">SKU</th>
-                                            <th style="width: 20%;">Item Description</th>
-                                            <th style="width: 5%;">Condition</th>
-                                            <th style="width: 10%;">Total Qty</th>
-                                            <th style="width: 10%;">Retail</th>
-                                            <th style="width: 10%;">Total Retail</th>
-                                            <th style="width: 10%;">Total Cost</th>
-                                            <th style="width: 15%;">Vendor</th>
-                                            <th style="width: 15%;">Note</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input type="text" value="1" readonly contenteditable="true"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <?php csrf_field() ?>                            
                             <div class="table-responsive" id="item-table2">
                                 <!-- <form action="<?= base_url('/save-box-details') ?>" method="post"> -->
 
@@ -310,18 +288,19 @@
                     var cost = 0;
                     for (var i = 0; i < item.length; i++) {
                         if (item[i]['item_status'] == 1) {
-
-                            if (i % 2 == 0) {
-                                $('#item-table2 tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
-                            } else {
-                                $('#item-table2 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                            if (item[i]['retail'] != null) {
+                                if (i % 2 == 0) {
+                                    $('#item-table2 tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><b>$' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                                } else {
+                                    $('#item-table2 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td><b>$' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                                }
                             }
                         } else {
                             $('#item-table-removed2').css("display", "block");
                             if (i % 2 == 0) {
-                                $('#item-table-removed2 tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td>  <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
+                                $('#item-table-removed2 tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td>  <td><b>$' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$' + numberWithCommas(item[i]['cost']) + '</b></td> <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
                             } else {
-                                $('#item-table-removed2 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td>  <td><b>$ ' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$ ' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$ ' + numberWithCommas(item[i]['cost']) + '</b></td>  <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
+                                $('#item-table-removed2 tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td class="text-left">' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td>  <td><b>$' + numberWithCommas(item[i]['retail']) + '</b></td> <td><b>$' + numberWithCommas(item[i]['original']) + '</b></td><td><b>$' + numberWithCommas(item[i]['cost']) + '</b></td>  <td class="text-left">' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control text-left" readonly value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
                             }
                             qty = qty - parseInt(item[i]['qty']);
                             retail = retail - parseFloat(item[i]['retail']);
@@ -333,7 +312,7 @@
                         total = total + parseFloat(item[i]['original']);
                         cost = cost + parseFloat(item[i]['cost']);
                     }
-                    $('#sum2 tbody').append('<tr><td>-</td> <td>-</td>  <td>-</td><td>' + qty + '</td> <td>$ ' + numberWithCommas(retail.toFixed(2)) + '</td> <td>$ ' + numberWithCommas(total.toFixed(2)) + '</td><td>$ ' + numberWithCommas(cost.toFixed(2)) + '</td> <td>-</td> <td>-</td></tr>');
+                    $('#sum2 tbody').append('<tr><td>-</td> <td>-</td>  <td>-</td><td>' + qty + '</td> <td>$' + numberWithCommas(retail.toFixed(2)) + '</td> <td>$' + numberWithCommas(total.toFixed(2)) + '</td><td>$' + numberWithCommas(cost.toFixed(2)) + '</td> <td>-</td> <td>-</td></tr>');
                 }
 
                 $('.modal_scrollable_box2').modal('show');
