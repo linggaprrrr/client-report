@@ -10,6 +10,8 @@ use App\Models\NewsModel;
 use App\Models\ReportModel;
 use App\Models\TransactionModel;
 use App\Models\UserModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use CodeIgniter\Database\BaseBuilder;
 
 
@@ -629,8 +631,8 @@ class Reports extends BaseController
         $getUsers = $this->userModel->where('role', 'client')->orderBy('fullname', 'ASC')->get();
         $getBrands = $this->categoryModel->getBrands();
         
+        $getAllInvestment = $this->investmentModel->getAllInvestmentSearch();
         
-       
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
             'menu' => 'BOX ASSIGNMENT FOR CLIENT FULFILLMENT',
@@ -650,9 +652,84 @@ class Reports extends BaseController
             'onprocess' => (!is_null($onprocess) ? $onprocess->status : 0),
             'complete' => (!is_null($complete) ? $complete->status : 0),  
             'date1' => $date1,
-            'date2' => $date2,        
+            'date2' => $date2,  
+            'getAllInvestment' => $getAllInvestment,
+            
         ];
         return view('administrator/assignment_report', $data);
+    }
+
+    public function searchBrandPage() {        
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $user = $this->userModel->find($userId);
+        
+        $data = [
+            'tittle' => 'Assignment Reports: Checklist Report | Report Management System',
+            'menu' => 'Brand History',
+            'user' => $user,
+            
+        ];
+        return view('administrator/search_brand', $data);
+    }
+
+    public function searchBrand() {
+        $params['draw'] = $_REQUEST['draw'];
+        $start = $_REQUEST['start'];
+        $length = $_REQUEST['length'];
+        $search_value = $_REQUEST['search']['value'];    
+        ini_set('memory_limit', '-1');    
+        if(!empty($search_value)){
+            $total_count = $this->db->query("SELECT users.fullname, users.company, DATE_FORMAT(investments.date, '%m/%d/%Y') as date, log_files.link, reports.item_description FROM `reports` JOIN investments ON reports.investment_id = investments.id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id WHERE reports.item_description LIKE '%".$search_value."%' OR reports.vendor LIKE '%".$search_value."%' OR users.fullname LIKE '%".$search_value."%'")->getResult(); 
+            $data = $this->db->query("SELECT users.fullname, users.company, DATE_FORMAT(investments.date, '%m/%d/%Y') as date, log_files.link, reports.item_description FROM `reports` JOIN investments ON reports.investment_id = investments.id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id WHERE reports.item_description like '%".$search_value."%' OR reports.vendor LIKE '%".$search_value."%' OR users.fullname LIKE '%".$search_value."%' limit $start, $length")->getResult();
+        }else{
+            $total_count = $this->db->query("SELECT users.fullname, users.company, DATE_FORMAT(investments.date, '%m/%d/%Y') as date, log_files.link, reports.item_description FROM `reports` JOIN investments ON reports.investment_id = investments.id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id")->getResult();
+            $data = $this->db->query("SELECT users.fullname, users.company, DATE_FORMAT(investments.date, '%m/%d/%Y') as date, log_files.link, reports.item_description FROM `reports` JOIN investments ON reports.investment_id = investments.id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id limit $start, $length")->getResult();
+        }
+        $json_data = array(
+            "draw" => intval($params['draw']),
+            "recordsTotal" => count($total_count),
+            "recordsFiltered" => count($total_count),
+            "data" => $data   // total data array
+        );
+
+        echo json_encode($json_data);
+    }
+
+    public function brandHistory() {
+        $post = $this->request->getVar();
+        $query = $this->db->query("SELECT users.fullname, users.company, DATE_FORMAT(investments.date, '%m/%d/%Y') as date, log_files.link, reports.item_description, IF((investments.cost-IFNULL(cost_left, 0)) > 0, '1', '0') as available_order FROM `reports` JOIN investments ON reports.investment_id = investments.id LEFT JOIN (SELECT investment_id, SUM(reports.cost) as cost_left FROM reports GROUP BY investment_id) as r ON r.investment_id = investments.id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id  WHERE item_description LIKE '%".$post['brand']."%'");
+        $data = array();
+        foreach ($query->getResultObject() as $item) {
+            array_push($data, $item);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function searchBrand2() {
+        $params['draw'] = $_REQUEST['draw'];
+        $start = $_REQUEST['start'];
+        $length = $_REQUEST['length'];
+        $search_value = $_REQUEST['search']['value'];    
+        ini_set('memory_limit', '-1');    
+        if(!empty($search_value)){
+            $total_count = $this->db->query("SELECT users.fullname, users.company, log_files.link, reports.item_description FROM `reports` JOIN users ON users.id = reports.client_id JOIN log_files ON log_files.investment_id = reports.investment_id WHERE reports.item_description LIKE '%".$search_value."%' OR reports.vendor LIKE '%".$search_value."%' OR users.fullname LIKE '%".$search_value."%'")->getResult(); 
+            $data = $this->db->query("SELECT users.fullname, users.company, log_files.link, reports.item_description FROM `reports` JOIN users ON users.id = reports.client_id JOIN log_files ON log_files.investment_id = reports.investment_id WHERE reports.item_description like '%".$search_value."%' OR reports.vendor LIKE '%".$search_value."%' OR users.fullname LIKE '%".$search_value."%' limit $start, $length")->getResult();
+        }else{
+            $total_count = $this->db->query("SELECT users.fullname, users.company, log_files.link, reports.item_description FROM `reports` JOIN users ON users.id = reports.client_id JOIN log_files ON log_files.investment_id = reports.investment_id")->getResult();
+            $data = $this->db->query("SELECT users.fullname, users.company, log_files.link, reports.item_description FROM `reports`JOIN users ON users.id = reports.client_id JOIN log_files ON log_files.investment_id = reports.investment_id limit $start, $length")->getResult();
+        }
+        $json_data = array(
+            "draw" => intval($params['draw']),
+            "recordsTotal" => count($total_count),
+            "recordsFiltered" => count($total_count),
+            "data" => $data   // total data array
+        );
+
+        echo json_encode($json_data);
     }
 
     public function getSummaryBox()
@@ -1022,6 +1099,19 @@ class Reports extends BaseController
         echo json_encode($item);
     }
 
+    public function getBoxSummaryHistory()
+    {
+        $boxName = $this->request->getVar('box_name');
+        $getBoxSum = $this->assignReportModel->getBoxSummaryHistory($boxName);
+        $item = array();
+        if ($getBoxSum->getNumRows() > 0) {
+            foreach ($getBoxSum->getResultArray() as $row) {
+                array_push($item, $row);
+            }
+        }
+        echo json_encode($item);
+    }
+
     public function saveBoxDetails()
     {
         $post = $this->request->getVar();
@@ -1077,6 +1167,7 @@ class Reports extends BaseController
         $user = $this->userModel->find($userId);
         $assignCompleted = $this->assignReportModel->getAllAssignReportCompleted();
         $getAllVA = $this->assignReportModel->getAllVA();
+        $getPromolist = $this->db->query("SELECT * FROM promocode ORDER BY id DESC");
         $companysetting = $this->db->query("SELECT * FROM company")->getRow();
         $data = [
             'tittle' => 'Assignment Reports | Report Management System',
@@ -1084,9 +1175,192 @@ class Reports extends BaseController
             'user' => $user,
             'getAllVA' => $getAllVA,
             'assignCompleted' => $assignCompleted,
-            'companySetting' => $companysetting
+            'companySetting' => $companysetting,
+            'promocode' => $getPromolist
         ];
         return view('administrator/assignment_history', $data);
+    }
+
+    public function boxHistorySave() {
+        $post = $this->request->getVar();
+        
+        $box = $post['box_name'];
+        $promocode = $post['promocode'];
+        $promo = 1;
+        $getBox = $this->db->query("SELECT * FROM assign_report_box WHERE box_name='$box' ")->getRow();        
+        if (empty($promocode)) {
+            if ($getBox->category == 'CLOTHES') {
+                $promo = 4;
+            } else {
+                $promo = 3;
+            }       
+            $this->db->query("UPDATE assign_report_box SET promocode_id=null WHERE box_name='$box' ");             
+        } else {
+            $getPromo = $this->db->query("SELECT * FROM promocode WHERE id = '$promocode'")->getRow();            
+            if ($getBox->category == 'CLOTHES') {
+                $promo = $getPromo->clothes;
+            } else {
+                $promo = $getPromo->shoes;
+            }
+            $this->db->query("UPDATE assign_report_box SET promocode_id='$getPromo->id' WHERE box_name='$box' ");        
+        }                
+        
+        if (count($post['item']) > 0) {
+            foreach($post['item'] as $item) {
+                $getItem = $this->db->query("SELECT * FROM reports WHERE sku = '$item' ")->getRow();
+                $costLeft = $getItem->retail_value / $promo;                
+                $this->db->query("UPDATE reports SET cost = '$costLeft' WHERE sku='$item' ");                                        
+                $getItem = $this->db->query("SELECT * FROM assign_report_details WHERE sku = '$item' ")->getRow();                
+                $costLeft = $getItem->retail / $promo;     
+                $this->db->query("UPDATE assign_report_details SET cost = '$costLeft' WHERE sku='$item' ");
+            }
+        }
+        return redirect()->back()->with('link', 'Link Successfully updated!'); 
+    }
+
+    public function exportBox($boxName) {
+        $date = date('m-d-Y');
+        
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet->getActiveSheet()->getStyle('A:A')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('B:B')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('C:C')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('D:D')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('E:E')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('F:F')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('G:G')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('H:H')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('I:I')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        
+        $spreadsheet->getActiveSheet()->getStyle('A1:I1')
+            ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A1:I1')
+            ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A1:I1')
+            ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A1:I1')
+            ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        
+        $spreadsheet->getActiveSheet()->getStyle('A1:I1')
+            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $spreadsheet->getActiveSheet()->getStyle('A1:I1')
+            ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+        $spreadsheet->getActiveSheet()->getStyle('A1:I1')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('B:B')->getNumberFormat()
+            ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+        $spreadsheet->getActiveSheet()->getStyle('F:F')->getNumberFormat()
+            ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $spreadsheet->getActiveSheet()->getStyle('G:G')->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $spreadsheet->getActiveSheet()->getStyle('H:H')->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+
+
+		$sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'FNSKU');
+		$sheet->setCellValue('B1', 'UPC/SKU');
+		$sheet->setCellValue('C1', 'ITEM DESCRIPTION');
+		$sheet->setCellValue('D1', 'CONDITION');
+		$sheet->setCellValue('E1', 'ORIGINAL QTY');
+        $sheet->setCellValue('F1', 'RETAIL VALUE');
+        $sheet->setCellValue('G1', 'ORIGINAL RETAIL');
+        $sheet->setCellValue('H1', 'CLIENT COST');
+        $sheet->setCellValue('I1', 'VENDOR');
+        $no = 2;
+		
+        $items = $this->db->query("SELECT assign_report_box.date, assign_report_box.description, assign_report_box.box_name, assign_report_details.fnsku, assign_report_details.sku, assign_report_details.cond, assign_report_details.retail, assign_report_details.original, assign_report_details.cost, assign_report_details.item_description, assign_report_details.vendor, assign_report_details.qty FROM assign_report_details JOIN assign_report_box ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.box_name = '$boxName'");
+        foreach($items->getResultObject() as $row) { 
+            if ($row->item_description == 'ITEM NOT FOUND') {
+                continue;
+            }
+            $sheet->setCellValue('A' . $no, $row->fnsku);               
+            $sheet->setCellValue('B' . $no, $row->sku);
+            $sheet->setCellValue('C' . $no, $row->item_description);                
+            $sheet->setCellValue('D' . $no, $row->cond);
+            $sheet->setCellValue('E' . $no, $row->qty);
+            $sheet->setCellValue('F' . $no, $row->retail);
+            $sheet->setCellValue('G' . $no, $row->original);
+            $sheet->setCellValue('H' . $no, $row->cost);
+            $sheet->setCellValue('I' . $no, $row->vendor);
+            
+
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);                
+            $no++;
+        }
+        $sheet->setCellValue('B' . $no, $row->description);                
+        $sheet->setCellValue('C' . $no, $row->box_name);
+        $sheet->setCellValue('I' . $no, date('m/d/Y', strtotime($row->date)));                            
+        // styling
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+        ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+        $no++;
+
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+        ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+        $no++;
+
+        $col = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+        for ($j = 0; $j < count($col); $j++) {
+            $spreadsheet->getActiveSheet()->getStyle($col[$j].'3:'.$col[$j].''.$no)
+                ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle($col[$j].'3:'.$col[$j].''.$no)
+                ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle($col[$j].'3:'.$col[$j].''.$no)
+                ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle($col[$j].'3:'.$col[$j].''.$no)
+                ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        }
+        $fileName = "Box {$row->description} - {$date}.xlsx";  
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName);
+      
+        header("Content-Type: application/vnd.ms-excel");
+
+		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length:' . filesize("files/". $fileName));
+		flush();
+		readfile("files/". $fileName);
+		exit;
     }
 
     public function updateLink()

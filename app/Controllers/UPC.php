@@ -24,11 +24,13 @@ class UPC extends BaseController
         if (is_null($userId)) {
             return view('login');
         }
+        $totalUPC = $this->db->query("SELECT COUNT(*) as total FROM upc")->getRow();
         $user = $this->userModel->find($userId);
         $data = [
             'tittle' => 'UPC Databaset | Report Management System',
             'menu' => 'UPC Databaset',            
             'user' => $user,
+            'totalUPC' => $totalUPC->total
         ];
 
         return view('administrator/upc', $data);
@@ -426,6 +428,23 @@ class UPC extends BaseController
         $box = $this->request->getVar('box');
         $category = $this->request->getVar('category');
         $desc = "BOX #". $box ."-". $category;
+        $divider = 1;
+        if ($category == 'CLOTHES') {
+            $divider = 4;
+        } else {
+            $divider = 3;
+        }        
+        $getItem = $this->db->query("SELECT assign_report_details.* FROM assign_report_box JOIN assign_report_details ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.box_name='$box'");
+        $totalCostLeft = 0;
+        if ($getItem->getNumRows() > 0) {
+            foreach($getItem->getResultObject() as $item) {
+                if ($item->item_description != 'ITEM NOT FOUND') {
+                    $costLeft = $item->retail / $divider;     
+                    $this->db->query("UPDATE assign_report_details SET cost = '$costLeft' WHERE sku='$item->sku' ");
+                    $totalCostLeft = $totalCostLeft + $costLeft;
+                }
+            }
+        }        
         $this->db->query("UPDATE assign_report_box SET category='$category', description='$desc' WHERE box_name='$box' ");
         
     }

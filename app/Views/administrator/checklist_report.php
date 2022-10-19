@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <form method="POST" action="checklist-report-save">
+        <form method="POST" action="<?= base_url('/admin/checklist-report-save') ?>">
             <?php csrf_field() ?>
             <table class="table datatable-basic">
                 <thead>

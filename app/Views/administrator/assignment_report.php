@@ -87,7 +87,139 @@
     <div class="card">
         <div class="card-header">
             <div>
-                <button type="button" class="btn btn-teal float-left" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-file-upload mr-2"></i>Upload Report</button>
+                <button type="button" class="btn btn-teal float-left mr-2" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-file-upload mr-2"></i>Upload Report</button>
+                <button type="button" class="btn btn-secondary float-left mr-2" data-toggle="modal" data-target="#modal_search_client"><i class="icon-users4 mr-2"></i>Search Client</button>
+                <button type="button" class="btn btn-light float-left" data-toggle="modal" data-target="#modal_search_brand"><i class="icon-folder-search mr-2"></i>Search Brand</button>
+                <div id="modal_search_brand" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header bg-secondary text-white">
+                                <h5 class="modal-title">Search Brand</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>                            
+                            <div class="modal-body">
+                                <div>
+                                    <form id="search-brand">
+                                        <div class="form-group">
+                                            <label for="Brand">Brand: </label>
+                                            <input type="text" class="form-control" name="brand" placeholder="search brand history...">
+                                            <button type="submit" class="btn btn-danger float-right mt-2 mb-4" id="search-brand-button"><i class="icon-folder-search mr-2"></i>Search</button>
+                                        </div>
+                                    </form>
+                                    
+                                </div>
+                                <div class="table-responsive">
+                                <hr>
+                                    <table class="table table-striped table-bordered table-hover brands" width="100%" style="font-size: 10px;" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="">Client</th>
+                                                <th class="text-center" style="">AMZ Store</th>
+                                                <th class="text-center" style="">Manifest</th>
+                                                <th class="text-center" style="">Brands History</th>
+                                                <th class="text-center" style="">Investment Date</th>     
+                                                <th class="text-center" style="">Available Order</th>                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody-brand-history">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="modal_search_client" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header bg-secondary text-white">
+                                <h5 class="modal-title">Search Client</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <form action="<?= base_url('/admin/checklist-report-save') ?>" method="POST" enctype="multipart/form-data">
+                                <?php csrf_field() ?>
+                                <div class="modal-body">
+                                <table class="table datatable-basic">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">No</th>
+                                            <th class="text-center">Client Name</th>
+                                            <th class="text-center">Company Name</th>
+                                            <th class="text-center">Investment Date</th>
+                                            <th class="text-center">Investment Cost</th>
+                                            <th class="text-center">Cost Left</th>
+                                            <th class="text-center" style="width: 15%;">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $tempAmount = 0;
+                                            $tempCostLeft = 0;
+                                        ?>
+                                        <?php if ($getAllInvestment->getNumRows() > 0) : ?>
+                                            <?php $no = 1; ?>
+                                            <?php foreach ($getAllInvestment->getResultArray() as $row) : ?>
+                                                <?php
+                                                $newDate = date("M-d-Y", strtotime($row['date']));
+                                                ?>
+                                                <?php if ($row['cost_left'] > 0) : ?>
+                                                    <tr class="table-active">
+                                                    <?php else : ?>
+                                                    <tr class="table-warning">
+                                                    <?php endif ?>
+                                                    <td class="text-center"><?= $no++ ?></td>
+                                                    <td class="font-weight-bold"><?= $row['fullname'] ?></td>
+                                                    <td><?= $row['company'] ?></td>
+                                                    <td class="text-center font-weight-bold"><?= strtoupper($newDate) ?></td>
+                                                    <td class="font-weight-bold">$<?= number_format($row['cost'], 2) ?></td>
+                                                    <td class="font-weight-bold"><?= number_format($row['cost_left'], 2) ?></td>
+                                                    <td class="text-center font-weight-bold">
+                                                        <select name="status[]" class="status_change" style="text-align:center; font-weight:800">
+                                                            <?php if ($row['status'] == 'complete') : ?>
+                                                                <option value="incomplete">...</option>
+                                                                <option value="complete" selected>COMPLETE</option>
+                                                                <option value="assign" data-foo='<?= $row['cost_left'] ?>'>READY TO ASSIGN</option>
+                                                            <?php elseif ($row['status'] == 'assign') : ?>
+                                                                <option value="incomplete">...</option>
+                                                                <option value="complete" data-foo='<?= $row['cost_left'] ?>'>COMPLETE</option>
+                                                                <option value="assign" data-foo='<?= $row['cost_left'] ?>' selected>READY TO ASSIGN</option>
+                                                            <?php else : ?>
+                                                                <option value="incomplete" selected>...</option>
+                                                                <option value="complete" data-foo='<?= $row['cost_left'] ?>'>COMPLETE</option>
+                                                                <option value="assign" data-foo='<?= $row['cost_left'] ?>'>READY TO ASSIGN</option>
+                                                            <?php endif ?>
+                                                        </select>
+                                                        <input type="hidden" name="investment_id[]" value="<?= $row['id'] ?>">
+                                                    </td>
+                                                    </tr>
+                                                    <?php
+
+                                                    $tempAmount =  $tempAmount + $row['cost'];
+                                                    $tempCostLeft =  $tempCostLeft + $row['cost_left'];
+
+                                                    ?>
+                                                <?php endforeach ?>
+                                            <?php endif ?>
+                                    </tbody>
+                                </table>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-secondary">Save <i class="icon-paperplane ml-2"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <form action="<?= base_url('/admin/assignment-report') ?>" class="float-right filter" method="get">
                     <span>Daterange:</span>                              
                     <?php if (!empty($date1)) : ?>                                
@@ -874,6 +1006,29 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
     $(document).ready(function() {
+        
+        var t = $('.brands').DataTable();        
+    
+        // $('#search-brand-button').on('click', function () {
+        //     $.post('/');
+        //     t.row.add([counter + '.1', counter + '.1', counter + '.2', counter + '.3', counter + '.4', counter + '.5']).draw(false);
+    
+        //     counter++;
+        // });
+    
+        
+
+        $('form#search-brand').on('submit', function (e) {
+            e.preventDefault();
+            t.clear().draw();
+            $.post('/search-brand-history', $('form#search-brand').serialize(), function(data) {
+                const brand = JSON.parse(data);                
+                for (var i = 0; i < brand.length; i++) {                    
+                    t.row.add([brand[i]['fullname'], brand[i]['company'], '<a class="text-center" href="'+brand[i]['link']+'"><i class="icon-file-excel"></i></a>', brand[i]['item_description'], brand[i]['date'], '<p class="text-center">'+brand[i]['available_order']+'</p>']).draw(false);
+                }
+            });
+        });
+
         $('.user-select').change(function() {
             const id = $(this).val();
             $.get('/get-brands-client', {
@@ -1053,33 +1208,6 @@
             
         });
     });
-
-    // $('.clientSelect').on('focus', function() {
-    //     var boxId = $(this).attr('id');
-    //     var boxNameId = "name_" + $(this).attr('id');
-    //     var boxName = $('.' + boxNameId).html().trim();
-    //     var descId = "desc_" + $(this).attr('id');
-    //     var desc = $('.' + descId).html().trim();
-    //     var clientId = "client_" + $(this).attr('id');
-    //     var client = $('.' + clientId).html().trim();
-    //     $("." + clientId)
-    //         .empty()
-    //         .append('<option value="0">...</option>');
-    //     const myarr = desc.split("-").join(', ').split('/').join(', ').split(', ');
-    //     const newDesc = myarr[0];
-    //     console.log(newDesc);
-    //     $.get('/get-client-by-branddesc', {
-    //         description: newDesc
-    //     }, function(data) {
-    //         const myData = JSON.parse(data);
-    //         for (var i = 0; i < myData.length; i++) {
-    //             $("." + clientId).append($('<option>', {
-    //                 value: myData[i]['id'],
-    //                 text: myData[i]['fullname']
-    //             }));
-    //         }
-    //     });
-    // });
     
     $('.clientSelect').on('change', function() {
         var optionSelected = $("option:selected", this);

@@ -78,15 +78,23 @@ class InvestmentModel extends Model
     public function getAllInvestment($status = null)
     {
         if ($status == null || $status == 'incomplete') {
-            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, total_cost, (investments.cost - total_cost) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFT JOIN (SELECT investment_id, IFNULL(SUM(reports.cost), 0) as total_cost FROM reports GROUP BY reports.investment_id) as t ON t.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'incomplete' GROUP BY investments.id ORDER BY status DESC, cost_left ASC");
+            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, total_cost, (investments.cost - IFNULL(total_cost, 0)) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFT JOIN (SELECT investment_id, IFNULL(SUM(reports.cost), 0) as total_cost FROM reports GROUP BY reports.investment_id) as t ON t.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'incomplete' GROUP BY investments.id ORDER BY status DESC, cost_left ASC");
         } elseif ($status == 'assign') {
-            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, total_cost, (investments.cost - total_cost) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFT JOIN (SELECT investment_id, IFNULL(SUM(reports.cost), 0) as total_cost FROM reports GROUP BY reports.investment_id) as t ON t.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'assign' GROUP BY investments.id ORDER BY `cost_left`  DESC;");
+            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, total_cost, (investments.cost - IFNULL(total_cost, 0)) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFT JOIN (SELECT investment_id, IFNULL(SUM(reports.cost), 0) as total_cost FROM reports GROUP BY reports.investment_id) as t ON t.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'assign' GROUP BY investments.id ORDER BY `cost_left`  DESC;");
         } else {
-            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, total_cost, (investments.cost - total_cost) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFT JOIN (SELECT investment_id, IFNULL(SUM(reports.cost), 0) as total_cost FROM reports GROUP BY reports.investment_id) as t ON t.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'complete' GROUP BY investments.id ORDER BY status DESC, cost_left ASC");
+            $query = $this->db->query("SELECT investments.*, users.fullname, users.company, total_cost, (investments.cost - IFNULL(total_cost, 0)) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFT JOIN (SELECT investment_id, IFNULL(SUM(reports.cost), 0) as total_cost FROM reports GROUP BY reports.investment_id) as t ON t.investment_id = investments.id WHERE users.role = 'client' AND investments.status = 'complete' GROUP BY investments.id ORDER BY status DESC, cost_left ASC");
         }
         return $query;
     }
 
+    public function getAllInvestmentSearch() {
+        $query = $this->db->query("SELECT investments.*, users.fullname, users.company, total_cost, (investments.cost - IFNULL(total_cost, 0)) as cost_left FROM investments JOIN users on investments.client_id = users.id LEFT JOIN (SELECT investment_id, IFNULL(SUM(reports.cost), 0) as total_cost FROM reports GROUP BY reports.investment_id) as t ON t.investment_id = investments.id WHERE users.role = 'client' GROUP BY investments.id ORDER BY status DESC, cost_left ASC");
+        return $query;
+    }
+
+    public function getAllBrand() {
+        $query = $this->db->query("SELECT users.fullname, users.company, investments.date, reports.item_description, reports.vendor FROM reports JOIN investments ON investments.id = reports.investment_id JOIN users ON users.id = investments.client_id ORDER BY reports.id DESC");
+    }    
 
     public function getInvestcmentClient($id)
     {

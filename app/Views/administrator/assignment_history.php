@@ -25,6 +25,7 @@
                         <th class="text-center" style="width: 10%">Client</th>
                         <th class="text-center" style="width: 10%">AMZ Store</th>
                         <th class="text-center" style="width: 10%">Investment Date</th>
+                        <th class="text-center" style="width: 10%">Google Sheet</th>
                         <th class="text-center" style="width: 10%">Cost Left</th>
                         <th class="text-center" style="width: 10%">VA</th>
                         <th class="text-center" style="width: 20%">FBA Number</th>
@@ -52,15 +53,16 @@
                                     </td>
                                     <td class="text-center value_box_<?= $no ?>">
                                         <?php if ($row['box_value'] == $row['new_box_value']) : ?>
-                                            <b>$ <?= $row['box_value'] ?></b>
+                                            <b>$<?= $row['box_value'] ?></b>
                                         <?php else : ?>
-                                            <del>$ <?= $row['box_value'] ?></del> <b><mark>$ <?= $row['new_box_value'] ?></mark></b>
+                                            <del>$<?= $row['box_value'] ?></del> <b><mark>$<?= $row['new_box_value'] ?></mark></b>
                                         <?php endif ?>
                                     </td>
                                     <td>
                                         <?php $newDate = date('m/d/Y', strtotime($row['order_date'])); ?>
                                         <b><?= $newDate ?></b>
                                     </td>
+                                    
                                     <td>
                                         <b><?= $row['fullname'] ?></b>
                                     </td>
@@ -70,6 +72,9 @@
                                     <td class="investment_box_<?= $no ?>">
                                         <?php $newDateInvest = date("M-d-Y", strtotime($row['investdate'])); ?>
                                         <b><?= strtoupper($newDateInvest) ?></b>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="<?= $row['link'] ?>" target="_blank"><i class="icon-file-excel"></i></a>
                                     </td>
                                     <td class="company_box_<?= $no ?>">
                                         <b>$ <?= number_format($row['cost_left'], 2) ?> </b>
@@ -110,16 +115,11 @@
             <div class="modal-dialog modal-full modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header pb-3">
-                        <h5><b><span class="modal-title">#title</span></b></h5>
-                        <div class="float-right">
-                            <a href="" data-toggle="modal" class="copy-clipboard" data-clipboard-target="#resultsTable" title="Copy To Clipboard"><i class="icon-clipboard6"></i></a>
-                        </div>
+                        <h5><b><span class="modal-title">#title</span></b></h5>                        
                     </div>
-                    <div class="modal-body py-0">
-                        <form id="box-details">
-                            <div class="table-responsive" id="item-table">
-                                <!-- <form action="<?= base_url('/save-box-details') ?>" method="post"> -->
-
+                    <div class="modal-body py-0">                        
+                        <form method="post" action="<?= base_url('box-history-save') ?>">
+                            <div class="table-responsive" id="item-table">                                                                    
                                 <?php csrf_field() ?>
                                 <input type="hidden" name="box_name" id="box_name" value="">
                                 <table class="table" style="font-weight:bold; font-size:12px">
@@ -175,14 +175,26 @@
                                 <div class="input-group">
                                     <textarea name="box_note" disabled class="form-control" id="box_note" rows="3" placeholder="-"></textarea>
                                 </div>
-
                             </div>
+                            <div class="form-group">
+                                <label for=""><b>Promocode:</b></label>
+                                <select name="promocode" class="form-control font-weight-bold promocode">
+                                    <option value="">-</option>
+                                    <?php if ($promocode->getNumRows() > 0) : ?>
+                                        <?php foreach($promocode->getResultObject() as $promo) : ?>
+                                            <option value="<?= $promo->id ?>">#<?= $promo->promo ?></option>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
+                                </select>                                
+                                
+                            </div>
+                        </div>
 
-                    </div>
-
-                    <div class="modal-footer pt-3">
-                        <a class="btn btn-light" data-dismiss="modal">Close</a>
-                    </div>
+                        <div class="modal-footer pt-3">
+                            <button type="submit" class="btn btn-secondary"><i class="icon-floppy-disk mr-2"></i>Save</button>
+                            <a href="" class="btn btn-success export-box" ><i class="icon-file-excel mr-2"></i> Export</a>                            
+                            <a class="btn btn-light" data-dismiss="modal">Close</a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -248,12 +260,15 @@
         $('.box_name').on('click', function() {
             var boxName = $(this).attr('data-box');
             $('#item-table tbody').html("");
+            $('.export-box').attr("href", "<?= base_url('export-box') ?>/"+boxName+"");
+            $('.promocode').val();
             $.get('/get-box-summary', {
                 box_name: boxName
             }, function(data) {
                 var item = JSON.parse(data);
                 $('.modal-title').html("<b>" + item[0]['description'] + "</b>");
                 $('#box_name').val(boxName);
+                $('.promocode').val(item[0]['promocode_id']);
                 $('#item-table-removed').css("display", "none");
                 $('.modal_scrollable_box').modal({
                     backdrop: 'static',
@@ -266,17 +281,19 @@
                     var no = 1;
                     for (var i = 0; i < item.length; i++) {
                         if (item[i]['item_status'] == 1) {
-                            if (i % 2 == 0) {
-                                $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(parseFloat(parseFloat(item[i]['retail']))) + '</td> <td>$ ' + numberWithCommas(parseFloat(item[i]['original'])) + '</td><td>$ ' + numberWithCommas(parseFloat(item[i]['cost'])) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
-                            } else {
-                                $('#item-table tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(parseFloat(item[i]['retail'])) + '</td> <td>$ ' + numberWithCommas(parseFloat(item[i]['original'])) + '</td> <td>$ ' + numberWithCommas(parseFloat(item[i]['cost'])) + '</td><td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                            if (item[i]['item_description'] != 'ITEM NOT FOUND') {
+                                if (i % 2 == 0) {
+                                    $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['sku'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$' + parseFloat(item[i]['retail']).toFixed(2) + '</td> <td>$' + parseFloat(item[i]['original']).toFixed(2) + '</td><td>$' + parseFloat(item[i]['cost']).toFixed(2) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                                } else {
+                                    $('#item-table tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['sku'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$' + parseFloat(item[i]['retail']).toFixed(2) + '</td> <td>$' + parseFloat(item[i]['original']).toFixed(2) + '</td> <td>$' + parseFloat(item[i]['cost']).toFixed(2) + '</td><td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td> </tr>');
+                                }
                             }
                         } else {
                             $('#item-table-removed').css("display", "block");
                             if (i % 2 == 0) {
-                                $('#item-table-removed tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td><td>$ ' + numberWithCommas(item[i]['cost']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
+                                $('#item-table-removed tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['sku'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + parseFloat(item[i]['retail']).toFixed(2) + '</td> <td>$ ' + parseFloat(item[i]['original']).toFixed(2) + '</td><td>$ ' + parseFloat(item[i]['cost']).toFixed(2) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
                             } else {
-                                $('#item-table-removed tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + numberWithCommas(item[i]['retail']) + '</td> <td>$ ' + numberWithCommas(item[i]['original']) + '</td><td>$ ' + numberWithCommas(item[i]['cost']) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
+                                $('#item-table-removed tbody').append('<tr class="table-active"><td><input type="hidden" name="item[]" value="' + item[i]['sku'] + '">' + item[i]['sku'] + '</td> <td>' + item[i]['item_description'] + '</td> <td>' + item[i]['cond'] + '</td> <td>' + item[i]['qty'] + '</td> <td>$ ' + parseFloat(item[i]['retail']).toFixed(2) + '</td> <td>$ ' + parseFloat(item[i]['original']).toFixed(2) + '</td><td>$ ' + parseFloat(item[i]['cost']).toFixed(2) + '</td> <td>' + item[i]['vendor'] + '</td> <td><input type="text" name="note[]" class="form-control" disabled value="' + $.trim(item[i]['item_note']) + '"></td></tr>');
                             }
                         }
                     }
@@ -329,22 +346,7 @@
         }).show();
     });
 
-    function numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-
-    var clipboard = new Clipboard('.copy-clipboard');
-    clipboard.on('success', function(e) {
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
-        e.clearSelection();
-    });
-
-    clipboard.on('error', function(e) {
-        console.error('Action:', e.action);
-        console.error('Trigger:', e.trigger);
-    });
+    
 
     
 

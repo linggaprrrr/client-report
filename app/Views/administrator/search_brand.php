@@ -6,9 +6,6 @@
 
     <div class="card">
         <div class="card-header">
-            <div class="float-left">
-                <h5>Total UPC: <b><?= $totalUPC ?></b></h5>
-            </div>
             <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_box"><i class="icon-file-excel mr-2"></i>Upload UPC</button>
             <div id="modal_box" class="modal fade" tabindex="-1">
                 <div class="modal-dialog modal-lg">
@@ -46,14 +43,14 @@
         <div class="card-body">
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover" width="100%" style="font-size: 10px;" cellspacing="0">
+                    <table class="table table-striped table-bordered table-hover brands" width="100%" style="font-size: 10px;" cellspacing="0">
                         <thead>
                             <tr>
-                                <th class="text-center" style="width: 15%">UPC</th>
-                                <th class="text-center" style="width: 15%">ASIN</th>
-                                <th class="text-center" style="width: 25%">ITEM DESCRIPTION</th>
-                                <th class="text-center" style="width: 10%">RETAIL VALUE</th>
-                                <th class="text-center" style="width: 20%">VENDOR NAME</th>
+                                <th class="text-center" style="">Client</th>
+                                <th class="text-center" style="">AMZ Store</th>
+                                <th class="text-center" style="">Manifest</th>
+                                <th class="text-center" style="">Brands History</th>
+                                <!-- <th class="text-center" style="">Investment Date</th>                                                 -->
                             </tr>
                         </thead>
                         
@@ -84,24 +81,27 @@
 
 <script>
     $(document).ready(function() {
-        $('.table').DataTable({
+        $('.brands').DataTable({
             "processing": true,
             "serverSide": true,
             "ajax":{
-                    "url": "<?= base_url('load-upc') ?>",
+                    "url": "<?= base_url('search-brand2') ?>",
                     "dataType": "json",
                     "type": "POST"
                 },
             "columns": [
-                
-                { "data": "upc" },
-                { "data": "asin" },
+                { "data": "fullname" },
+                { "data": "company" },
+                { "data": "link" ,
+                    "render": function(data, type, row){
+                         return "<a href='"+ row.link + "' target='_blank'><i class='icon-file-excel'></i></a>";
+                     }
+                },
                 { "data": "item_description" },
-                { "data": "retail_value" },
-                { "data": "vendor_name" },
+                // { "data": "date" },
             ],
-            
         });
+
 
         var input = document.getElementById('file-upload');
         var infoArea = document.getElementById('file-upload-filename');

@@ -90,6 +90,8 @@ $routes->post('admin/save-chart', 'Admin\Reports::saveChart');
 $routes->get('/admin/upc', 'UPC::index');
 $routes->post('upload-upc', 'UPC::uploadUPC');
 $routes->post('load-upc', 'UPC::loadUPC');
+$routes->post('search-brand', 'Admin\Reports::searchBrand');
+$routes->post('search-brand2', 'Admin\Reports::searchBrand2');
 $routes->post('/add-promo','Admin\PromoCode::addPromo');
 
 $routes->get('/admin/need-to-upload', 'UPC::needToUpload');
@@ -97,6 +99,10 @@ $routes->post('/create-need-to-upload', 'UPC::createNeedToUpload');
 $routes->get('/resubmit-upc', 'UPC::refreshUnknownUPC');
 $routes->get('/admin/extract-unlisted-upc', 'UPC::extractUnkownUPC');
 $routes->post('/change-box-category', 'UPC::changeBoxCategory');
+$routes->post('/box-history-save', 'Admin\Reports::boxHistorySave');
+$routes->get('/export-box/(:any)', 'Admin\Reports::exportBox/$1');
+$routes->get('admin/search-brand', 'Admin\Reports::searchBrandPage');
+$routes->post('/search-brand-history', 'Admin\Reports::brandHistory');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -143,6 +149,7 @@ $routes->post('/get-investment-client', 'Admin\Reports::getInvestmentClient');
 $routes->post('/get-investment-client-all', 'Admin\Reports::getInvestmentClientAll');
 $routes->post('/assign-box', 'Admin\Reports::assignBox');
 $routes->get('get-box-summary', 'Admin\Reports::getBoxSummary');
+$routes->get('get-box-summary-history', 'Admin\Reports::getBoxSummaryHistory');
 $routes->post('save-fba-number', 'VA\Reports::saveFBANumber');
 $routes->post('save-shipment-number', 'VA\Reports::saveShipmentNumber');
 $routes->get('/get-category', 'Admin\Reports::getCategory');
