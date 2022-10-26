@@ -702,8 +702,12 @@ class Reports extends BaseController
         $post = $this->request->getVar();
         $query = $this->db->query("SELECT users.fullname, users.company, DATE_FORMAT(investments.date, '%m/%d/%Y') as date, log_files.link, reports.item_description, IF((investments.cost-IFNULL(cost_left, 0)) > 0, '1', '0') as available_order FROM `reports` JOIN investments ON reports.investment_id = investments.id LEFT JOIN (SELECT investment_id, SUM(reports.cost) as cost_left FROM reports GROUP BY investment_id) as r ON r.investment_id = investments.id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id  WHERE item_description LIKE '%".$post['brand']."%'");
         $data = array();
+        $count = 0;
         foreach ($query->getResultObject() as $item) {
             array_push($data, $item);
+            if ($item->available_order == '1') {
+                $count++;
+            }
         }
 
         echo json_encode($data);
@@ -1278,10 +1282,13 @@ class Reports extends BaseController
         $sheet->setCellValue('I1', 'VENDOR');
         $no = 2;
 		
-        $items = $this->db->query("SELECT assign_report_box.date, assign_report_box.description, assign_report_box.box_name, assign_report_details.fnsku, assign_report_details.sku, assign_report_details.cond, assign_report_details.retail, assign_report_details.original, assign_report_details.cost, assign_report_details.item_description, assign_report_details.vendor, assign_report_details.qty FROM assign_report_details JOIN assign_report_box ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.box_name = '$boxName'");
+        $items = $this->db->query("SELECT assign_report_box.date, assign_report_box.description, assign_report_box.box_name, assign_report_details.fnsku, assign_report_details.sku, assign_report_details.cond, assign_report_details.retail, assign_report_details.original, assign_report_details.item_status, assign_report_details.cost, assign_report_details.item_description, assign_report_details.vendor, assign_report_details.qty FROM assign_report_details JOIN assign_report_box ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.box_name = '$boxName'");
         foreach($items->getResultObject() as $row) { 
-            if ($row->item_description == 'ITEM NOT FOUND') {
+            if ($row->item_description == 'ITEM NOT FOUND' || $row->item_status == '0') {
                 continue;
+            }
+            if ($row->fnsku == null || $row->fnsku == 'null') {
+                $row->fnsku = "";
             }
             $sheet->setCellValue('A' . $no, $row->fnsku);               
             $sheet->setCellValue('B' . $no, $row->sku);
@@ -2155,6 +2162,12 @@ class Reports extends BaseController
                 break;
         }
         
+        //sales by brand
+        $getInvestment = $this->db->query("SELECT investments.*, MONTH(investments.date) FROM `investments` WHERE client_id = '$client' AND MONTH(investments.date) = '$getMonth' ");
+        $getInvestment = $getInvestment->getFirstRow();
+        $investment = $getInvestment->id;
+        $salesByBrand = $this->db->query("SELECT ord.brand, ordered, IFNULL(refund, '-') as refund, (ordered - IFNULL(refund, 0)) as sales  FROM transactions_master JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as ordered FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports WHERE reports.investment_id = '$investment' GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Order' GROUP BY rep.vendor) ord ON `ord`.`transaction-master-id` = transactions_master.id LEFT JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as refund FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports WHERE reports.investment_id = '$investment' GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Refund' GROUP BY rep.vendor) ref ON `ord`.`brand` = `ref`.`brand` GROUP BY ord.brand ORDER BY `sales`  DESC");
+        $profitByBrand = $this->db->query("SELECT ord.brand, ordered, IFNULL(refund, '-') as refund, (ordered - IFNULL(refund, 0)) as sales, totalamount, cost, (((ordered - IFNULL(refund, 0)) * totalamount) - cost) as profit FROM transactions_master JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as ordered, SUM(transactions.amount) as totalamount, SUM(cost) as cost FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor, cost FROM reports WHERE reports.investment_id = '$investment' GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Order' GROUP BY rep.vendor) ord ON `ord`.`transaction-master-id` = transactions_master.id LEFT JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as refund FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports WHERE reports.investment_id = '$investment' GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Refund' GROUP BY rep.vendor) ref ON `ord`.`brand` = `ref`.`brand` GROUP BY ord.brand ORDER BY `sales` DESC");
         $data = [
             'tittle' => 'Generate P&L Report | Report Management System',
             'menu' => 'Generate P&L Report',         
@@ -2167,7 +2180,9 @@ class Reports extends BaseController
             'date1' => $date1,
             'date2' => $date2,
             'skuNotFound' => $skuNotFound,
-            'id' => $id
+            'id' => $id,
+            'salesByBrand' => $salesByBrand,
+            'profitByBrand' => $profitByBrand
         ];
         return view('administrator/transaction_detail', $data);
     }
@@ -2264,6 +2279,10 @@ class Reports extends BaseController
         ];
 
         echo json_encode($data);
+    }
+
+    public function getSalesByBrand($id) {
+        
     }
 
 

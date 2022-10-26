@@ -1,0 +1,8 @@
+CRITICAL - 2022-10-19 23:59:28 --> Trying to get property 'under_comp' of non-object
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Auth.php(44): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Applications/M...', 44, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->loginProses()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}

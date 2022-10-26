@@ -1,0 +1,12 @@
+CRITICAL - 2022-10-21 06:25:32 --> Undefined property: CodeIgniter\Database\MySQLi\Result::$getResultObject
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Views/administrator/transaction_detail.php(324): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Applications/M...', 324, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Common.php(1097): CodeIgniter\View\View->render('administrator/t...', Array, true)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(2182): view('administrator/t...', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadGeneratePL()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

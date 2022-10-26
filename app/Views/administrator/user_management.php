@@ -3,8 +3,6 @@
 <?= $this->section('content') ?>
 
 <div class="content">
-
-
     <div class="card">
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div class="d-flex align-items-center mb-3 mb-lg-0">

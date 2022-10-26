@@ -154,7 +154,7 @@
                                                 <span class="input-group-text"><i class="icon-lock2"></i></span>
                                             </span>
                                             <input type="hidden" name="id" readonly value="<?= $profile['id'] ?>">
-                                            <input type="password" name="new_password" class="form-control" autocomplete="false" id="password" value="" required>
+                                            <input type="password" name="reset-password" class="form-control" autocomplete="false" value="" required>
                                         </div>
                                     </div>
 
@@ -162,7 +162,7 @@
 
                                 <div class="modal-footer">
                                     <div class="text-right">
-                                        <button type="submit" class="btn btn-secondary disabled" id="btnAdd">Save <i class="icon-paperplane ml-2"></i></button>
+                                        <button type="submit" class="btn btn-secondary" id="btnAdd">Save <i class="icon-paperplane ml-2"></i></button>
                                     </div>
 
                                 </div>

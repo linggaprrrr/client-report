@@ -1,0 +1,55 @@
+CRITICAL - 2022-10-25 07:37:13 --> Undefined offset: 23
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(2097): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', '/Applications/M...', 2097, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadGeneratePL()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2022-10-25 07:37:13 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 91230208 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-10-25 07:39:14 --> Undefined property: stdClass::$totalamount
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Views/administrator/transaction_detail.php(365): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Applications/M...', 365, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Common.php(1097): CodeIgniter\View\View->render('administrator/t...', Array, true)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(2184): view('administrator/t...', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadGeneratePL()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2022-10-25 22:06:55 --> Undefined property: stdClass::$item_status
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(1287): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Applications/M...', 1287, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->exportBox('ABCDE')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+ERROR - 2022-10-25 23:04:29 --> Unknown column '$2y$10$Ov3m3tamRlkj6uty9pngM.B8stjIB5qsMNszn5.eh30Gd18JVvSBi' in 'field list'
+CRITICAL - 2022-10-25 23:04:29 --> Unknown column '$2y$10$Ov3m3tamRlkj6uty9pngM.B8stjIB5qsMNszn5.eh30Gd18JVvSBi' in 'field list'
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('UPDATE users SE...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE users SE...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE users SE...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Users.php(171): CodeIgniter\Database\BaseConnection->query('UPDATE users SE...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Users->resetPassword()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-10-25 23:08:24 --> Unknown column '$2y$10$YnrjANQV09Xi2x' in 'field list'
+CRITICAL - 2022-10-25 23:08:24 --> Unknown column '$2y$10$YnrjANQV09Xi2x' in 'field list'
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('UPDATE users SE...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE users SE...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE users SE...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Users.php(171): CodeIgniter\Database\BaseConnection->query('UPDATE users SE...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Users->resetPassword()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Users))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}

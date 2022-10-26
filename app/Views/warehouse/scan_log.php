@@ -121,6 +121,7 @@
 
 <script>
     var cat = "";
+    var audio = new Audio('/assets/beep.mp3');
     $('form#newBox').submit(function(event) {
         const boxName = $('.box-name').val();
         cat = $('.category').val();        
@@ -217,6 +218,7 @@
             $(".vendor-name").removeClass('vendor-name');
     
             $(".upc-row").append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc"></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');
+            audio.play();
             $(".upc").focus();
         });        
     });        

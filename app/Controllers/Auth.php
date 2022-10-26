@@ -41,12 +41,14 @@ class Auth extends BaseController
     {
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
-        if ($user->under_comp == '2') {
-            return redirect()->back()->with('error', 'Username Not Found!');
-        }
+        
+        
 
         $currentPage = $post['current'];
         if ($user) {
+            if ($user->under_comp == '2') {
+                return redirect()->back()->with('error', 'Username Not Found!');
+            }
             if (password_verify($post['password'], $user->password)) {
                 $params = [
                     'user_id' => $user->id,

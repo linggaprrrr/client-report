@@ -101,15 +101,21 @@
                                 <div>
                                     <form id="search-brand">
                                         <div class="form-group">
+                                            
                                             <label for="Brand">Brand: </label>
                                             <input type="text" class="form-control" name="brand" placeholder="search brand history...">
                                             <button type="submit" class="btn btn-danger float-right mt-2 mb-4" id="search-brand-button"><i class="icon-folder-search mr-2"></i>Search</button>
+                                            <h6 class="m-1">Total Found : <mark id="total-found"></mark></h6>
                                         </div>
                                     </form>
-                                    
+                                    <div class="d-flex justify-content-center">
+                                        <div class="spinner-border text-primary spinner" role="status" style="display: none;">
+                                            <span class="visually-hidden"></span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="table-responsive">
-                                <hr>
+                                <hr>                                    
                                     <table class="table table-striped table-bordered table-hover brands" width="100%" style="font-size: 10px;" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -1020,12 +1026,19 @@
 
         $('form#search-brand').on('submit', function (e) {
             e.preventDefault();
-            t.clear().draw();
+            t.clear().draw();            
+            $('.spinner').show();
             $.post('/search-brand-history', $('form#search-brand').serialize(), function(data) {
                 const brand = JSON.parse(data);                
-                for (var i = 0; i < brand.length; i++) {                    
-                    t.row.add([brand[i]['fullname'], brand[i]['company'], '<a class="text-center" href="'+brand[i]['link']+'"><i class="icon-file-excel"></i></a>', brand[i]['item_description'], brand[i]['date'], '<p class="text-center">'+brand[i]['available_order']+'</p>']).draw(false);
+                var total = 0;
+                for (var i = 0; i < brand.length; i++) {        
+                    if (brand[i]['available_order'] == '1') {
+                        total += 1;
+                    }        
+                    t.row.add([brand[i]['fullname'], brand[i]['company'], '<a class="text-center" target="_blank" href="'+brand[i]['link']+'"><i class="icon-file-excel"></i></a>', brand[i]['item_description'], brand[i]['date'], '<p class="text-center">'+brand[i]['available_order']+'</p>']).draw(false);
                 }
+                $('#total-found').html(total);
+                $('.spinner').hide();
             });
         });
 
