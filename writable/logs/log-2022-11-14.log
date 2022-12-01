@@ -1,0 +1,13 @@
+ERROR - 2022-11-14 01:29:13 --> Table 'rms.assgin_report_box' doesn't exist
+CRITICAL - 2022-11-14 01:29:13 --> Table 'rms.assgin_report_box' doesn't exist
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT * FROM i...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT * FROM i...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM i...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Models/AssignReportModel.php(150): CodeIgniter\Database\BaseConnection->query('SELECT * FROM i...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Clients.php(47): App\Models\AssignReportModel->getStatusManifest('3906')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Clients->index()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

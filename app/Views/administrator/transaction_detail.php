@@ -153,14 +153,15 @@
                                     <i class="icon-sync"></i>
                                 </a>
                                 <h5 class="alert-heading">Woops there's a problem!</h5>
-                                <p><a href="#" class="alert-link"><span class="num-upc"><?= $skuNotFound->getNumRows() ?></span> UPC are missing</a>, please check the manifest!</p>
+                                <p><a href="#" class="alert-link"><span class="num-upc"><?= $skuNotFound->getNumRows() ?></span> UPC are missing</a>, please check the manifest!</p>                            
                                 <hr>
                                 <p class="mb-0"> Missing UPCs as follow: 
                                     <span class="upc-list font-weight-bold">
                                     <?php foreach($skuNotFound->getResultObject() as $sku) : ?>
                                         <b><?= $sku->sku.', ' ?></b>
                                     <?php endforeach ?>
-                                    </span>                            
+                                    </span>    
+                                    <a href="<?= base_url('admin/extract-missing-upc/') ?>/<?= $link ?>" class="float-right"><i class="icon-barcode2 mr-2"></i>Extract Missing UPC</a>                        
                                 </p>
                             </div>
                         </div>
@@ -357,16 +358,14 @@
                             </thead>
                             <tbody class="sales-by-brand">
                                 <?php $no = 1; ?>
-                                <?php foreach($salesByBrand->getResultObject() as $brand) : ?>
-                                    <?php if (!is_null($brand->brand) || !empty($brand->brand)) : ?>
-                                        <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $brand->brand ?></td>
-                                            <td><?= $brand->sales?></td>
-                                            <td><?= $brand->cost ?></td>
-                                            <td><?= $brand->profit ?></td>
-                                        </tr>
-                                    <?php endif ?>
+                                <?php foreach($profitByBrand->getResultObject() as $brand) : ?>
+                                    <tr>
+                                        <td><?= $no++ ?></td>
+                                        <td><?= $brand->brand ?></td>
+                                        <td><?= $brand->sales?></td>
+                                        <td><?= $brand->cost ?></td>
+                                        <td><?= $brand->profit ?></td>
+                                    </tr>
                                 <?php endforeach ?>
                             </tbody>
                         </table>

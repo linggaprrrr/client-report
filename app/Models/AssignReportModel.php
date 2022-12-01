@@ -140,4 +140,14 @@ class AssignReportModel extends Model
         $query = $this->db->query("SELECT order_date, cost, status FROM (SELECT order_date, SUM(box_value) as cost, 'shipped' as status FROM assign_report_box JOIN box_sum ON assign_report_box.box_name = box_sum.box_name WHERE assign_report_box.status = 'approved' AND order_date > DATE_ADD(NOW(), INTERVAL -14 DAY) GROUP BY box_sum.order_date) as s UNION SELECT order_date, cost, status FROM (SELECT order_date, SUM(box_value) as cost, 'remanifested' as status FROM assign_report_box JOIN box_sum ON assign_report_box.box_name = box_sum.box_name WHERE assign_report_box.status = 'remanifested' AND order_date > DATE_ADD(NOW(), INTERVAL -14 DAY) GROUP BY box_sum.order_date) as m UNION SELECT order_date, cost, status FROM (SELECT order_date, SUM(box_value) as cost, 'reassigned' as status FROM assign_report_box JOIN box_sum ON assign_report_box.box_name = box_sum.box_name WHERE assign_report_box.status = 'reassigned' AND order_date > DATE_ADD(NOW(), INTERVAL -14 DAY) GROUP BY box_sum.order_date) as r ORDER BY order_date DESC");
         return $query;
     }
+
+    public function getDetailBox($id) {
+        $query = $this->db->query("SELECT assign_report_box.date, assign_report_box.fba_number, assign_report_box.shipment_number, assign_report_details.* FROM assign_report_box JOIN assign_report_details ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.id = '$id' AND item_status = 1");
+        return $query;
+    }
+    
+    public function getStatusManifest($id) {
+        $query = $this->db->query("SELECT assign_report_box.* FROM investments JOIN assign_report_box ON assign_report_box.client_id = investments.client_id WHERE investments.id = '$id' ");
+        return $query;
+    }
 }

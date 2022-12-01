@@ -106,8 +106,11 @@
                         </div>
                     </div>
                     <?php if (!empty($temp['link'])) : ?>
-                        <div class="form-group row ml-4">
+                        <div class="form-group row ml-4" style="margin-bottom: 0;">
                             <a href="<?= $temp['link'] ?>" class="btn btn-secondary" target="_blank"><i class="icon-google-drive mr-2"></i> Google Sheet</a>
+                        </div>
+                        <div class="form-group row ml-4">
+                            <a href="<?= base_url('receipts').'/'.$file ?>" class="btn btn-danger" target="_blank"><i class="icon-file-text3 mr-2"></i>Receipt</a>
                         </div>
                     <?php endif ?>
 

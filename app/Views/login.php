@@ -133,11 +133,8 @@
                                 <input type="hidden" name="current" id="" value="<?= base_url(uri_string()) ?>">
                                 <input type="submit" value="Log In" class="btn btn-block btn-primary">
                                 <div style="text-align: center; padding-top: 10px;padding-left: 5px;">
-                                    <a href="https://apps.apple.com/id/app/smart-fba-client-portal/id1618568127" target="_blink"><img src="/assets/images/appstore.png" style="max-width: 160px;"></a>
-                                    <div class="popup" onclick="myFunction()">
-                                        <img src="/assets/images/googleplay-soon.png" style="max-width: 180px;">
-                                        <span class="popuptext" id="myPopup">Soon!</span>
-                                    </div>
+                                    <a href="https://apps.apple.com/id/app/smart-fba-client-portal/id1618568127" target="_blink"><img src="/assets/images/appstore.png" style="max-width: 160px; max-height: 53px"></a>
+                                    <a href="https://play.google.com/store/apps/details?id=smartfba.app.smartfbaclientportal" target="_blink"><img src="/assets/images/available-google-play.png" style="max-width: 172px; max-height: 53px"></a>                                    
                                 </div>
                             </form>
 

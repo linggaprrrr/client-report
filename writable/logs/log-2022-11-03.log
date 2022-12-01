@@ -1,0 +1,94 @@
+CRITICAL - 2022-11-03 00:53:17 --> You must provide at least one recipient email address.
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1496): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Email.php(30): PHPMailer\PHPMailer\PHPMailer->send()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Email->sendMail()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Email))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-11-03 00:54:11 --> SMTP Error: Could not authenticate.
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(2003): PHPMailer\PHPMailer\PHPMailer->smtpConnect(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1662): PHPMailer\PHPMailer\PHPMailer->smtpSend('Date: Thu, 3 No...', 'This is a multi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1500): PHPMailer\PHPMailer\PHPMailer->postSend()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Email.php(40): PHPMailer\PHPMailer\PHPMailer->send()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Email->sendMail()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Email))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-11-03 00:54:27 --> SMTP Error: Could not authenticate.
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(2003): PHPMailer\PHPMailer\PHPMailer->smtpConnect(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1662): PHPMailer\PHPMailer\PHPMailer->smtpSend('Date: Thu, 3 No...', 'This is a multi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1500): PHPMailer\PHPMailer\PHPMailer->postSend()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Email.php(40): PHPMailer\PHPMailer\PHPMailer->send()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Email->sendMail()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Email))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-11-03 01:07:18 --> SMTP Error: Could not connect to SMTP host.
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(2003): PHPMailer\PHPMailer\PHPMailer->smtpConnect(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1662): PHPMailer\PHPMailer\PHPMailer->smtpSend('Date: Thu, 3 No...', 'This is a multi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1500): PHPMailer\PHPMailer\PHPMailer->postSend()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Email.php(39): PHPMailer\PHPMailer\PHPMailer->send()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Email->sendMail()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Email))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-11-03 01:07:48 --> SMTP Error: Could not connect to SMTP host. Failed to connect to server
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(2003): PHPMailer\PHPMailer\PHPMailer->smtpConnect(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1662): PHPMailer\PHPMailer\PHPMailer->smtpSend('Date: Thu, 3 No...', 'This is a multi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1500): PHPMailer\PHPMailer\PHPMailer->postSend()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Email.php(39): PHPMailer\PHPMailer\PHPMailer->send()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Email->sendMail()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Email))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-11-03 01:08:22 --> SMTP Error: Could not connect to SMTP host. Failed to connect to server
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(2003): PHPMailer\PHPMailer\PHPMailer->smtpConnect(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1662): PHPMailer\PHPMailer\PHPMailer->smtpSend('Date: Thu, 3 No...', 'This is a multi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1500): PHPMailer\PHPMailer\PHPMailer->postSend()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Email.php(39): PHPMailer\PHPMailer\PHPMailer->send()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Email->sendMail()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Email))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-11-03 01:10:11 --> SMTP Error: Could not connect to SMTP host. Failed to connect to server
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(2003): PHPMailer\PHPMailer\PHPMailer->smtpConnect(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1662): PHPMailer\PHPMailer\PHPMailer->smtpSend('Date: Thu, 3 No...', 'This is a multi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1500): PHPMailer\PHPMailer\PHPMailer->postSend()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Email.php(39): PHPMailer\PHPMailer\PHPMailer->send()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Email->sendMail()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Email))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-11-03 01:11:34 --> SMTP Error: Could not connect to SMTP host. Failed to connect to server
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(2003): PHPMailer\PHPMailer\PHPMailer->smtpConnect(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1662): PHPMailer\PHPMailer\PHPMailer->smtpSend('Date: Thu, 3 No...', 'This is a multi...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpmailer/phpmailer/src/PHPMailer.php(1500): PHPMailer\PHPMailer\PHPMailer->postSend()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Email.php(39): PHPMailer\PHPMailer\PHPMailer->send()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Email->sendMail()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Email))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-11-03 01:13:01 --> Email: sendWithSmtp throwed fsockopen(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+ERROR - 2022-11-03 01:14:23 --> Email: sendWithSmtp throwed fsockopen(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+ERROR - 2022-11-03 01:14:53 --> Email: sendWithSmtp throwed fsockopen(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+ERROR - 2022-11-03 01:15:32 --> Email: sendWithSmtp throwed fsockopen(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+ERROR - 2022-11-03 01:17:27 --> Email: sendWithSmtp throwed fsockopen(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+ERROR - 2022-11-03 01:19:39 --> Email: sendWithSmtp throwed fsockopen(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+ERROR - 2022-11-03 01:26:41 --> Email: sendWithSmtp throwed fsockopen(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+ERROR - 2022-11-03 01:27:24 --> Email: sendWithSmtp throwed fsockopen(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known

@@ -65,6 +65,11 @@ class ReportModel extends Model
         return $query;
     }
 
+    public function exportAllReport() {
+        $query = $this->db->query("SELECT investments.client_id, users.fullname, users.company, link, investments.status, investments.date as investment_date, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - IFNULL(cost_, 0) as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id ORDER BY investments.date DESC");
+        return $query;
+    }
+    
     public function getAllReportClient($id = null)
     {
         $query = $this->db->query("SELECT reports.*, log_files.link from reports LEFT JOIN log_files ON reports.investment_id = log_files.investment_id WHERE reports.investment_id = '$id' GROUP BY reports.id ORDER by ID ASC");
@@ -187,6 +192,11 @@ class ReportModel extends Model
         } else {
             $query = $this->db->query("SELECT date_format(date, '%b %Y') as month, SUM(reports.cost) as fulfill FROM reports JOIN investments ON investments.id = reports.investment_id GROUP BY year(date),month(date) ORDER BY date DESC LIMIT 15");
         }
+        return $query;
+    }
+
+    public function getLinkManifest($id) {
+        $query = $this->db->query("SELECT * FROM log_files JOIN investments ON investments.id = log_files.investment_id WHERE investments.id = '$id' ");
         return $query;
     }
 }

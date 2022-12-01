@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\AssignReportModel;
 use App\Models\CategoryModel;
 use App\Models\InvestmentModel;
 use App\Models\ReportModel;
@@ -15,6 +16,7 @@ class Clients extends BaseController
     protected $investmentModel = "";
     protected $categoryModel = "";
     protected $newsModel = "";
+    protected $assignReportModel = "";
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class Clients extends BaseController
         $this->investmentModel = new InvestmentModel();
         $this->categoryModel = new CategoryModel();
         $this->newsModel = new NewsModel();
+        $this->assignReportModel = new AssignReportModel();
     }
 
     public function index()
@@ -41,6 +44,7 @@ class Clients extends BaseController
             $underComp = 2;
         }
         $news = $this->newsModel->getLastNews($underComp);
+                
         if ($dateId == null) {
             if ($user['role'] == 'client' and $investId == null) {
                 $data = [
@@ -63,6 +67,8 @@ class Clients extends BaseController
             $getAllReportClient = $this->reportModel->getAllReportClient($investId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($investId);
+            $getStatusManifest = $this->assignReportModel->getStatusManifest($investId);
+            
         } else {
             $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
             $category = $this->categoryModel->getCategory($dateId);
@@ -74,6 +80,8 @@ class Clients extends BaseController
             $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($dateId);
+            $getStatusManifest = $this->assignReportModel->getStatusManifest($dateId);
+            
         }
 
         $data = [
@@ -89,9 +97,11 @@ class Clients extends BaseController
             'investDate' => $investmentDate,
             'lastInvestment' => $lastInvestment,
             'getVendorName' => $getVendorName,
-            'news' => $news
+            'statusManifest' => $getStatusManifest,
+            'news' => $news,            
         ];
         $page = 'manifest';
+        ini_set('memory_limit', '-1');
         $this->userModel->logActivity($userId, $page);
         return view('client/dashboard', $data);
     }
@@ -278,5 +288,44 @@ class Clients extends BaseController
         $page = 'brand-approval';
         $this->userModel->logActivity($userId, $page);
         return view('client/brand_approvals', $data);
+    }
+    
+    public function exportReceipt($dateId) {
+        $investment = $this->investmentModel->getReceiptClient($dateId);
+        $receiptData = $this->investmentModel->getReceiptData($dateId);
+        $purchaseTotal = $this->investmentModel->totalClientInvestment($dateId);
+        $totalUnit = $this->reportModel->totalUnit($dateId);
+        $totalRetail = $this->reportModel->totalRetail($dateId);
+        $totalCostLeft = $this->reportModel->totalCostLeft($dateId);
+        $totalClientCost = $this->reportModel->totalFulfilled($dateId);
+        $avgUnitRetail = $totalRetail->total_retail / $totalUnit->total_unit;
+        $avgUnitClientCost = $totalClientCost->total_fulfilled / $totalUnit->total_unit;
+        $link = $this->reportModel->getLinkManifest($dateId);
+        $path = FCPATH."/assets/images/fba-logo.png";
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $data = [
+            'manifestDesc' => $investment->getResultObject(),
+            'manifestData' => $receiptData->getResultObject(),
+            'totalUnit' => $totalUnit->total_unit,
+            'totalRetail' => $totalRetail->total_retail,
+            'totalCostLeft' => $totalCostLeft,
+            'totalClientCost' => $totalClientCost->total_fulfilled,
+            'avgUnitRetail' => $avgUnitRetail,
+            'avgUnitClientCost' => $avgUnitClientCost,
+            'img' => $base64,
+            'link' => $link->getResultObject()
+        ];
+        $client = $investment->getResultObject();
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf->loadHtml(view('ex-pdf', $data));
+        $dompdf->setPaper('legal');
+        $dompdf->render();        
+        $dompdf->stream("Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." .pdf");
+//        $fileName = "Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." ".time().".pdf";
+//        $output = $dompdf->output();
+//        file_put_contents('receipts/'.$fileName , $output);
+        return $fileName;
     }
 }

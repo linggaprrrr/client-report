@@ -186,7 +186,7 @@ class Mobile extends BaseController
             }
 
             $lastInvestment = $this->investmentModel->getLastDateOfInvestment($userId);
-            $category = $this->categoryModel->getCategory($investId);
+            
             $totalInvest = $this->investmentModel->totalClientInvestment($investId);
             $totalUnit = $this->reportModel->totalUnit($investId);
             $totalRetail = $this->reportModel->totalRetail($investId);
@@ -195,9 +195,10 @@ class Mobile extends BaseController
             $getAllReportClient = $this->reportModel->getAllReportClient($investId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($investId);
+            $file = $this->exportReceipt($investId);
         } else {
             $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
-            $category = $this->categoryModel->getCategory($dateId);
+            
             $totalInvest = $this->investmentModel->totalClientInvestment($dateId);
             $totalUnit = $this->reportModel->totalUnit($dateId);
             $totalRetail = $this->reportModel->totalRetail($dateId);
@@ -206,8 +207,9 @@ class Mobile extends BaseController
             $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($dateId);
+            $file = $this->exportReceipt($dateId);
         }
-
+        
         $data = [
             'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',
@@ -218,11 +220,12 @@ class Mobile extends BaseController
             'totalCostLeft' => $totalCostLeft,
             'totalFulfilled' => $totalFulfilled,
             'getAllReports' => $getAllReportClient,
-            'category' => $category->category_name,
+            
             'investDate' => $investmentDate,
             'lastInvestment' => $lastInvestment,
             'getVendorName' => $getVendorName,
-            'news' => $news
+            'news' => $news,
+            'file' => $file
         ];
         return view('/mobile/dashboard', $data);
     }
@@ -392,7 +395,7 @@ class Mobile extends BaseController
             }
 
             $lastInvestment = $this->investmentModel->getLastDateOfInvestment($userId);
-            $category = $this->categoryModel->getCategory($investId);
+            
             $totalInvest = $this->investmentModel->totalClientInvestment($investId);
             $totalUnit = $this->reportModel->totalUnit($investId);
             $totalRetail = $this->reportModel->totalRetail($investId);
@@ -403,7 +406,7 @@ class Mobile extends BaseController
             $getVendorName = $this->reportModel->getVendorName($investId);
         } else {
             $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
-            $category = $this->categoryModel->getCategory($dateId);
+            
             $totalInvest = $this->investmentModel->totalClientInvestment($dateId);
             $totalUnit = $this->reportModel->totalUnit($dateId);
             $totalRetail = $this->reportModel->totalRetail($dateId);
@@ -459,6 +462,45 @@ class Mobile extends BaseController
         $page = 'p&l';
         $this->userModel->logActivity($userId, $page);
         return view('mobile/master/pl_report', $data);
+    }
+
+    public function exportReceipt($dateId) {
+        $investment = $this->investmentModel->getReceiptClient($dateId);
+        $receiptData = $this->investmentModel->getReceiptData($dateId);
+        $purchaseTotal = $this->investmentModel->totalClientInvestment($dateId);
+        $totalUnit = $this->reportModel->totalUnit($dateId);
+        $totalRetail = $this->reportModel->totalRetail($dateId);
+        $totalCostLeft = $this->reportModel->totalCostLeft($dateId);
+        $totalClientCost = $this->reportModel->totalFulfilled($dateId);
+        $avgUnitRetail = $totalRetail->total_retail / ($totalUnit->total_unit == 0 ? 1 : 1);
+        $avgUnitClientCost = $totalClientCost->total_fulfilled / ($totalUnit->total_unit == 0 ? 1 : 1);
+        $link = $this->reportModel->getLinkManifest($dateId);
+        $path = FCPATH."/assets/images/fba-logo.png";
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $data = [
+            'manifestDesc' => $investment->getResultObject(),
+            'manifestData' => $receiptData->getResultObject(),
+            'totalUnit' => $totalUnit->total_unit,
+            'totalRetail' => $totalRetail->total_retail,
+            'totalCostLeft' => $totalCostLeft,
+            'totalClientCost' => $totalClientCost->total_fulfilled,
+            'avgUnitRetail' => $avgUnitRetail,
+            'avgUnitClientCost' => $avgUnitClientCost,
+            'img' => $base64,
+            'link' => $link->getResultObject()
+        ];
+        $client = $investment->getResultObject();
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf->loadHtml(view('ex-pdf', $data));
+        $dompdf->setPaper('legal');
+        $dompdf->render();        
+        // $dompdf->stream("Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." .pdf");
+        $fileName = "Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." ".time().".pdf";
+        $output = $dompdf->output();
+        file_put_contents('receipts/'.$fileName , $output);
+        return $fileName;
     }
 
 }

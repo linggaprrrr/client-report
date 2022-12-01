@@ -12,6 +12,7 @@ use App\Models\TransactionModel;
 use App\Models\UserModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PHPMailer\PHPMailer\PHPMailer;
 use CodeIgniter\Database\BaseBuilder;
 
 
@@ -157,6 +158,59 @@ class Reports extends BaseController
             'companySetting' => $companysetting
         ];
         return view('administrator/dashboard', $data);
+    }
+
+    public function exportAllReport() {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'No');
+		$sheet->setCellValue('B1', 'Name');
+		$sheet->setCellValue('C1', 'Company');
+		$sheet->setCellValue('D1', 'Link');
+		$sheet->setCellValue('E1', 'Status');
+        $sheet->setCellValue('F1', 'Investment Date');
+        $sheet->setCellValue('G1', 'Total Client Cost');
+        $sheet->setCellValue('H1', 'Total Retail');
+        $sheet->setCellValue('I1', 'Qty');
+        $sheet->setCellValue('J1', 'Total Fulfilled');
+        $sheet->setCellValue('K1', 'Total Cost Left');
+        $no = 2;
+        $i = 1;
+        $reports = $this->reportModel->exportAllReport();
+        foreach($reports->getResultObject() as $row) {             
+            $sheet->setCellValue('A' . $no, $i++);               
+            $sheet->setCellValue('B' . $no, $row->fullname);
+            $sheet->setCellValue('C' . $no, $row->company);                
+            $sheet->setCellValue('D' . $no, $row->link);
+            if ($row->status == 'complete') {
+                $sheet->setCellValue('E' . $no, 'COMPLETE');
+            } else {
+                $sheet->setCellValue('E' . $no, 'WORKING');
+            }
+            
+            $sheet->setCellValue('F' . $no, $row->investment_date);
+            $sheet->setCellValue('G' . $no, $row->client_cost);
+            $sheet->setCellValue('H' . $no, $row->total_retail);
+            $sheet->setCellValue('I' . $no, $row->total_unit);
+            $sheet->setCellValue('J' . $no, $row->total_fulfilled);
+            $sheet->setCellValue('K' . $no, $row->cost_left);
+            $no++;
+        }
+        $fileName = "Reports Summary.xlsx";  
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName);
+      
+        header("Content-Type: application/vnd.ms-excel");
+
+		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length:' . filesize("files/". $fileName));
+		flush();
+		readfile("files/". $fileName);
+		exit;
     }
 
     public function date_sort($a, $b) {
@@ -860,7 +914,7 @@ class Reports extends BaseController
         $boxValue = $post['box_value'];
         $total = 0;
         $totalBox = $this->db->query("SELECT SUM(box_value) as total_box, MIN(client_cost_left) as cost_left FROM assign_report_box WHERE client_id='$clientId' ")->getRow();
-        dd($totalBox);
+        
         if (!is_null($totalBox->total_box)) {
             $currentCost = $totalBox->total_box;
         } else {
@@ -935,6 +989,7 @@ class Reports extends BaseController
         if (empty($post['status'])) {
             return redirect()->back()->with('reset', 'Assignment Successfully reseted!');
         }
+        $boxArr = array();
         for ($i = 0; $i < count($post['status']); $i++) {
             $status = $post['status'][$i];
             if ($status != "0") {
@@ -947,14 +1002,141 @@ class Reports extends BaseController
                     return redirect()->back()->with('required', 'FBA/Shipment Number Required!');
                 } else {
                     if ($status == 'approved') {
+                        
+                        $boxArr = array_merge_recursive($boxArr, array($client.'-' => $box_id));                                                
                         $this->db->query("INSERT INTO reports(fnsku, sku, item_description, cond, qty, retail_value, original_value, cost, vendor, client_id, investment_id) SELECT fnsku, sku, item_description, cond, qty, retail, original, cost, vendor, '$client', '$investment_id' FROM assign_report_details JOIN assign_report_box ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.id ='$box_id' AND assign_report_details.item_status='1' ");
                     }
                     $this->db->query("UPDATE assign_report_box SET confirmed='1', fba_number='$fba_number', shipment_number='$shipment_number', status='$status' WHERE id='$box_id' ");
                 }
             }
         }
+
+        // send email
+        
+        $keys = array_keys($boxArr);
+        
+        for ($i = 0; $i < count($keys); $i++) {
+            $client = trim($keys[$i], "-");            
+            $this->sendMail($boxArr[$keys[$i]], $client);                        
+        }
         return redirect()->back()->with('reset', 'Assignment Successfully reseted!');
     }
+
+    function sendMail($box, $client) {
+        $user = $this->userModel->find($client);         
+        if (is_array($box) == 1) {
+            // body
+            $message  = "<p>Hi ".$user['fullname'].",</p>";
+            $message .= "<p>We want to inform you that we have finished packing your manifest, which will be sent to your Amazon Store immediately. Please find below the box details.</p>";
+            $message .= "<html><body>";
+            $message .= '<div style="margin: 0 100px 0 100px">';
+            $message .= '<table style="font-family:arial,sans-serif;border-collapse:collapse;width:100%">';
+            $message .= '<thead><tr><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">SKU/UPC</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">ITEM DESCRIPTION</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">CONDITION</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">ORIGINAL QTY</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">RETAIL VALUE</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">TOTAL ORIGINAL RETAIL</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">TOTAL CLIENT COST</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">VENDOR NAME</th></tr></thead>';
+            $message .= '<tbody>';
+            for ($i = 0; $i < count($box); $i++) {
+                $details = $this->assignReportModel->getDetailBox($box);    
+                                
+                foreach($details->getResultObject() as $det) {
+                    $message .= '<tr><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->sku.'</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->item_description.'</td><td style="border:1px solid #000;text-align:center;padding:3px">NEW</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->qty.'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->retail, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->original, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->cost, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->vendor.'</td></tr>';
+                }
+                $message .= '<tr><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.$det->fba_number.'/'.$det->shipment_number.'</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.$det->box_name.'</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.date('m/d/Y', strtotime($det->date)).'</th></tr>';                
+                
+            }
+            $message .= '</tbody>';
+            $message .= '</table>';
+            $message .= '</div>';
+            $message .= "</body></html>";
+            // end body            
+        } else {
+            $details = $this->assignReportModel->getDetailBox($box);              
+            // body
+            if($user['under_comp'] == '2') {
+                $message  = "<p>Hi ".$user['fullname'].",</p>";
+                $message .= "<p>We want to inform you that we have finished packing your manifest, which will be sent to your Amazon Store immediately. Please find below the box details.</p>";
+                $message .= "<html><body>";
+                $message .= '<div style="margin: 0 100px 0 100px">';
+                $message .= '<table style="font-family:arial,sans-serif;border-collapse:collapse;width:100%">';
+                $message .= '<thead><tr><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">SKU/UPC</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">ITEM DESCRIPTION</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">CONDITION</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">ORIGINAL QTY</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">RETAIL VALUE</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">TOTAL ORIGINAL RETAIL</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">TOTAL CLIENT COST</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">VENDOR NAME</th></tr></thead>';
+                $message .= '<tbody>';
+                foreach($details->getResultObject() as $det) {
+                    $message .= '<tr><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->sku.'</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->item_description.'</td><td style="border:1px solid #000;text-align:center;padding:3px">NEW</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->qty.'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->retail, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->original, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->cost, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->vendor.'</td></tr>';
+                }
+                $message .= '<tr><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.$det->fba_number.'/'.$det->shipment_number.'</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.$det->box_name.'</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.date('m/d/Y', strtotime($det->date)).'</th></tr>';
+                $message .= '</tbody>';
+                $message .= '</table>';
+                $message .= '</div>';
+                $message .= '<div style="text-align: -webkit-center; margin-top: 10px">';
+                $message .= '<table style="style="text-align: center; margin-top:20px">';
+                $message .= '<tr>';
+                $message .= '<th>';
+                $message .= '<div style="text-align: center; ">';
+                $message .= '<img src="https://swclient.site/assets/images/elite-banner.jpeg" style="max-width: 600px;" />';
+                $message .= '</div>';
+                $message .= '</th>';
+                $message .= '<th style="padding-left: 50px;">';
+                $message .= '<div style="text-align: center; padding-top: 10px;padding-left: 5px;"> <h1>Access Your manifest Online</h1><a href="https://apps.apple.com/id/app/smart-fba-client-portal/id1618568127" target="_blink"><img src="https://swclient.site/assets/images/appstore.png" style="max-width: 160px;"></a> <a href="https://play.google.com/store/apps/details?id=smartfba.app.smartfbaclientportal" target="_blink"><img src="https://swclient.site/assets/images/available-google-play.png" style="max-width: 172px; max-height: 53px"></a> </div>';
+                $message .= '</th>';
+                $message .= '</tr>';        
+                $message .= '</table>';
+                $message .= '</div>';
+                $message .= "</body></html>";
+            } else {
+                $message  = "<p>Hi ".$user['fullname'].",</p>";
+                $message .= "<p>We want to inform you that we have finished packing your manifest, which will be sent to your Amazon Store immediately. Please find below the box details.</p>";
+                $message .= "<html><body>";
+                $message .= '<div style="margin: 0 100px 0 100px">';
+                $message .= '<table style="font-family:arial,sans-serif;border-collapse:collapse;width:100%">';
+                $message .= '<thead><tr><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">SKU/UPC</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">ITEM DESCRIPTION</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">CONDITION</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">ORIGINAL QTY</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">RETAIL VALUE</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">TOTAL ORIGINAL RETAIL</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">TOTAL CLIENT COST</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">VENDOR NAME</th></tr></thead>';
+                $message .= '<tbody>';
+                foreach($details->getResultObject() as $det) {
+                    $message .= '<tr><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->sku.'</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->item_description.'</td><td style="border:1px solid #000;text-align:center;padding:3px">NEW</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->qty.'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->retail, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->original, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->cost, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->vendor.'</td></tr>';
+                }
+                $message .= '<tr><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.$det->fba_number.'/'.$det->shipment_number.'</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.$det->box_name.'</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0"></th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">'.date('m/d/Y', strtotime($det->date)).'</th></tr>';
+                $message .= '</tbody>';
+                $message .= '</table>';
+                $message .= '</div>';
+                $message .= '<div style="text-align: -webkit-center; margin-top: 10px">';
+                $message .= '<table style="style="text-align: center; margin-top:20px">';
+                $message .= '<tr>';
+                $message .= '<th>';
+                $message .= '<div style="text-align: center; ">';
+                $message .= '<img src="https://swclient.site/assets/images/banner.jpeg" style="max-width: 600px;" />';
+                $message .= '</div>';
+                $message .= '</th>';
+                $message .= '<th style="padding-left: 50px;">';
+                $message .= '<div style="text-align: center; padding-top: 10px;padding-left: 5px;"> <h1>Access Your manifest Online</h1><a href="https://apps.apple.com/id/app/smart-fba-client-portal/id1618568127" target="_blink"><img src="https://swclient.site/assets/images/appstore.png" style="max-width: 160px;"></a> <a href="https://play.google.com/store/apps/details?id=smartfba.app.smartfbaclientportal" target="_blink"><img src="https://swclient.site/assets/images/available-google-play.png" style="max-width: 172px; max-height: 53px"></a> </div>';
+                $message .= '</th>';
+                $message .= '</tr>';        
+                $message .= '</table>';
+                $message .= '</div>';
+                $message .= "</body></html>";
+            }
+            // end body            
+        }
+        $mail = new PHPMailer;
+        $mail->isSMTP();
+        $mail->IsHTML(true);
+        $mail->Host = 'smtp.titan.email';
+        $mail->Port = 587;
+        $mail->SMTPAuth = true;
+        
+        if ($user['under_comp'] == '2') {
+            $mail->Username = 'noreply.info@eliteapp.site';
+            $mail->Password = 'eliteappinfo1';
+            $mail->setFrom('noreply.info@eliteapp.site', 'Elite Automation');
+        } else {
+            $mail->Username = 'noreply.info@swclient.site';
+            $mail->Password = 'swclientinfo1';
+            $mail->setFrom('noreply.info@swclient.site', 'Smart FBA Inc');
+        }
+        $mail->addAddress($user['email'], $user['fullname'] .' - '.$user['company'].'');
+        $mail->Subject = 'Box Details';
+        $mail->Body = $message;
+        if (empty($user['email']) || is_null(empty($user['email']))) {
+            $mail->send();
+        }
+    }
+
     // status ready to assign
     public function getInvestmentClient()
     {
@@ -2166,8 +2348,9 @@ class Reports extends BaseController
         $getInvestment = $this->db->query("SELECT investments.*, MONTH(investments.date) FROM `investments` WHERE client_id = '$client' AND MONTH(investments.date) = '$getMonth' ");
         $getInvestment = $getInvestment->getFirstRow();
         $investment = $getInvestment->id;
-        $salesByBrand = $this->db->query("SELECT ord.brand, ordered, IFNULL(refund, '-') as refund, (ordered - IFNULL(refund, 0)) as sales  FROM transactions_master JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as ordered FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports WHERE reports.investment_id = '$investment' GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Order' GROUP BY rep.vendor) ord ON `ord`.`transaction-master-id` = transactions_master.id LEFT JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as refund FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports WHERE reports.investment_id = '$investment' GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Refund' GROUP BY rep.vendor) ref ON `ord`.`brand` = `ref`.`brand` GROUP BY ord.brand ORDER BY `sales`  DESC");
-        $profitByBrand = $this->db->query("SELECT ord.brand, ordered, IFNULL(refund, '-') as refund, (ordered - IFNULL(refund, 0)) as sales, totalamount, cost, (((ordered - IFNULL(refund, 0)) * totalamount) - cost) as profit FROM transactions_master JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as ordered, SUM(transactions.amount) as totalamount, SUM(cost) as cost FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor, cost FROM reports WHERE reports.investment_id = '$investment' GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Order' GROUP BY rep.vendor) ord ON `ord`.`transaction-master-id` = transactions_master.id LEFT JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as refund FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports WHERE reports.investment_id = '$investment' GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Refund' GROUP BY rep.vendor) ref ON `ord`.`brand` = `ref`.`brand` GROUP BY ord.brand ORDER BY `sales` DESC");
+        $salesByBrand = $this->db->query("SELECT ord.brand, ordered, IFNULL(refund, '-') as refund, (ordered - IFNULL(refund, 0)) as sales  FROM transactions_master JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as ordered FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Order' GROUP BY rep.vendor) ord ON `ord`.`transaction-master-id` = transactions_master.id LEFT JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as refund FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Refund' GROUP BY rep.vendor) ref ON `ord`.`brand` = `ref`.`brand` GROUP BY ord.brand ORDER BY `sales`  DESC");
+        $profitByBrand = $this->db->query("SELECT ord.brand, ordered, IFNULL(refund, '-') as refund, (ordered - IFNULL(refund, 0)) as sales, totalamount, cost, (((ordered - IFNULL(refund, 0)) * totalamount) - cost) as profit FROM transactions_master JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as ordered, SUM(transactions.amount) as totalamount, SUM(cost) as cost FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor, cost FROM reports GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Order' GROUP BY rep.vendor) ord ON `ord`.`transaction-master-id` = transactions_master.id LEFT JOIN (SELECT `transaction-master-id`, TRIM(rep.vendor) as brand, COUNT(rep.vendor) as refund FROM `transactions` JOIN transactions_master ON transactions_master.id = `transaction-master-id` JOIN (SELECT reports.sku, TRIM(reports.vendor) as vendor FROM reports GROUP BY reports.sku) as rep ON rep.sku = transactions.sku WHERE `transaction-master-id` = '$id' AND `transaction-type`='Refund' GROUP BY rep.vendor) ref ON `ord`.`brand` = `ref`.`brand` GROUP BY ord.brand ORDER BY `sales` DESC");
+        
         $data = [
             'tittle' => 'Generate P&L Report | Report Management System',
             'menu' => 'Generate P&L Report',         
@@ -2182,7 +2365,8 @@ class Reports extends BaseController
             'skuNotFound' => $skuNotFound,
             'id' => $id,
             'salesByBrand' => $salesByBrand,
-            'profitByBrand' => $profitByBrand
+            'profitByBrand' => $profitByBrand,
+            'link' => $id."/".$client
         ];
         return view('administrator/transaction_detail', $data);
     }
@@ -2251,7 +2435,7 @@ class Reports extends BaseController
             }
         }
 
-          // storage fee
+        // storage fee
         $storageFee = $this->db->query("SELECT SUM(amount) as storage FROM `transactions` WHERE `transaction-master-id` = '$id' AND (`amount-description` = 'Storage Fee' OR `amount-description` = 'StorageRenewalBilling') ");
         $storageFee = $storageFee->getResultObject();
         

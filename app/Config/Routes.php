@@ -98,11 +98,14 @@ $routes->get('/admin/need-to-upload', 'UPC::needToUpload');
 $routes->post('/create-need-to-upload', 'UPC::createNeedToUpload');
 $routes->get('/resubmit-upc', 'UPC::refreshUnknownUPC');
 $routes->get('/admin/extract-unlisted-upc', 'UPC::extractUnkownUPC');
+$routes->get('/admin/extract-missing-upc/(:any)/(:any)', 'UPC::extractMissingUPC/$1/$2');
 $routes->post('/change-box-category', 'UPC::changeBoxCategory');
 $routes->post('/box-history-save', 'Admin\Reports::boxHistorySave');
 $routes->get('/export-box/(:any)', 'Admin\Reports::exportBox/$1');
 $routes->get('admin/search-brand', 'Admin\Reports::searchBrandPage');
 $routes->post('/search-brand-history', 'Admin\Reports::brandHistory');
+$routes->get('/send-email', 'Admin\Email::sendMail');
+$routes->get('/export-all-report', 'Admin\Reports::exportAllReport');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -111,6 +114,9 @@ $routes->get('/dashboard', 'Clients::index');
 $routes->post('/dashboard', 'Clients::index');
 $routes->get('/account-setting', 'Clients::accountSetting');
 $routes->post('/update-setting', 'Clients::updateSetting');
+$routes->get('download-receipt/(:any)', 'Clients::exportReceipt/$1');
+$routes->get('download-receipt-elite/(:any)', 'Clients::exportReceiptElite/$1');
+
 
 $routes->get('/news', 'News::index');
 $routes->get('/admin/news', 'News::news');
@@ -140,7 +146,8 @@ $routes->get('/warehouse/scan-log', 'Warehouse\Reports::index');
 $routes->get('/warehouse/history-box', 'Warehouse\Reports::historyBox');
 $routes->get('/warehouse/input-item', 'Warehouse\Reports::inputItem');
 $routes->post('/warehouse/input-manual', 'Warehouse\Reports::saveItem');
-$routes->get('/warehouse/export-manual-input/(:any)/(:any)', 'Warehouse\Reports::exportDataInput/$1/$2');
+$routes->get('/warehouse/export-manual-input/(:any)/
+(:any)', 'Warehouse\Reports::exportDataInput/$1/$2');
 
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');

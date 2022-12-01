@@ -1,0 +1,21 @@
+CRITICAL - 2022-11-15 05:05:38 --> Trying to access array offset on value of type null
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(1056): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', '/Applications/M...', 1056, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(1017): App\Controllers\Admin\Reports->sendMail('18', '0')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->saveAssignmentProcess()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2022-11-15 05:06:10 --> Trying to get property 'status' of non-object
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Views/client/dashboard.php(276): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', '/Applications/M...', 276, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(214): include('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/View/View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Common.php(1097): CodeIgniter\View\View->render('client/dashboar...', Array, true)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Clients.php(104): view('client/dashboar...', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Clients->index()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

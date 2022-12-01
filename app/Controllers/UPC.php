@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\TransactionModel;
 use App\Models\UserModel;
 use App\Models\UPCModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -13,10 +14,12 @@ class UPC extends BaseController
 {
     protected $upcModel = "";
     protected $userModel = "";
+    protected $transactionModel = "";
 
     public function __construct() {
         $this->upcModel = new UPCModel();
         $this->userModel = new UserModel();
+        $this->transactionModel = new TransactionModel();
     }   
 
     public function index() {
@@ -357,6 +360,53 @@ class UPC extends BaseController
         $time = time();        
         $fileName = "Unlisted UPC {$time} .xlsx";  
         $getUPC = $this->upcModel->getUnkownUPC();
+        $spreadsheet = new Spreadsheet();
+         // Styling
+         $spreadsheet->getActiveSheet()->getStyle('A:A')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+         $spreadsheet->getActiveSheet()->getStyle('A1:E1')
+             ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+         $spreadsheet->getActiveSheet()->getStyle('A1:E1')
+             ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+         $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFont()->setBold(true);
+         
+ 
+		$sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'UPC/SKU');
+		$sheet->setCellValue('B1', 'ASIN');
+		$sheet->setCellValue('C1', 'ITEM DESCRIPTION');
+		$sheet->setCellValue('D1', 'RETAIL VALUE');
+		$sheet->setCellValue('E1', 'VENDOR');
+        $no = 2;
+        if ($getUPC->getNumRows() > 0) {
+            foreach ($getUPC->getResultObject() as $row) {
+                $sheet->setCellValue('A' . $no, $row->sku);
+                $no++;
+            }
+        }
+
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName);
+      
+        header("Content-Type: application/vnd.ms-excel");
+
+		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length:' . filesize("files/". $fileName));
+		flush();
+		readfile("files/". $fileName);
+		exit;
+        
+    }
+
+    public function extractMissingUPC($id, $client) {
+        $time = time();        
+        $fileName = "Missing UPC {$time}.xlsx";  
+        $getUPC = $this->db->query("SELECT transactions.sku, repo FROM transactions LEFT JOIN (SELECT reports.sku as repo FROM reports WHERE client_id = '$client') as r ON transactions.sku = r.repo WHERE `transaction-master-id` = '$id' AND transactions.sku IS NOT NULL AND repo IS NULL GROUP BY transactions.sku");
         $spreadsheet = new Spreadsheet();
          // Styling
          $spreadsheet->getActiveSheet()->getStyle('A:A')

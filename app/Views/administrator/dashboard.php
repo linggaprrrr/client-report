@@ -201,6 +201,9 @@
         </div>
     </div>
     <div class="card">
+        <div class="mt-3 ml-3">
+            <a href="<?= base_url('/export-all-report') ?>" class="btn btn-success" target="_blank"><i class="icon-file-excel mr-2"></i>Export</a>            
+        </div>
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
@@ -753,11 +756,11 @@
                                     type: 'pie',
                                     radius: '70%',
                                     data: [{
-                                            value: <?= number_format($totalFulfilled->total_fulfilled, 2, '.', '') ?>,
+                                            value: <?= round($totalFulfilled->total_fulfilled, 2) ?>,
                                             name: 'Fulfilled <?= number_format($fulfilledPercent, 1) ?>%'
                                         },
                                         {
-                                            value: <?= number_format(($totalInvest->total_client_cost), 2, '.', '') ?>,
+                                            value: <?= round($totalInvest->total_client_cost, 2) ?>,
                                             name: 'Remaining <?= number_format($clientCostPercent, 1) ?>%'
                                         }
 
