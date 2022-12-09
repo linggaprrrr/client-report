@@ -43,7 +43,7 @@
                                             <span class="input-group-prepend">
                                                 <span class="input-group-text"><i class="icon-bag"></i></span>
                                             </span>
-                                            <input type="text" class="form-control" name="clothes" maxlength="1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="" >                                            
+                                            <input type="text" class="form-control" name="clothes" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="" >                                            
                                         </div>
                                     </div>      
                                     <div class="form-group">
@@ -52,7 +52,7 @@
                                             <span class="input-group-prepend">
                                                 <span class="input-group-text"><i class="icon-bag"></i></span>
                                             </span>
-                                            <input type="text" class="form-control" name="shoes" maxlength="1"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="" >
+                                            <input type="text" class="form-control" name="shoes" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="" >
                                             
                                         </div>
                                     </div>                              
@@ -80,6 +80,7 @@
                     <th class="text-center">Clothes</th>
                     <th class="text-center">Shoes</th>
                     <th class="text-center">Created At</th>
+                    <th class="text-center"><i class="icon-arrow-down12"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -93,15 +94,77 @@
                             <td class=""><?= $promo->clothes ?></td>
                             <td class=""><?= $promo->shoes ?></td>
                             <td class="text-center"><?= date('m/d/Y', strtotime($promo->date)) ?></td>
+                            <td><a href="" data-toggle="modal" data-id="<?= $promo->id ?>" class="editpromo"><i class="icon-pencil5"></i></a></td>
                         </tr>
                     <?php endforeach ?>
                 <?php endif ?>
             </tbody>
         </table>
+        <div id="modal_form_edit" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary text-white">
+                        <h5 class="modal-title">Edit Promocode</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form id="update_promo">
+                        <?php csrf_field() ?>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Promo Code</label>
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-ticket"></i></span>
+                                    </span>
+                                    <input type="hidden" name="id" class="id" value="">
+                                    <input type="text" class="form-control promocode" name="promocode" value="" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Promo Description</label>
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-paragraph-center3"></i></span>
+                                    </span>
+                                    <input type="text" class="form-control desc" name="promo-description" placeholder="-" value="" >
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label>Clothes <small>(Divider for shoes category)</small></label>
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-bag"></i></span>
+                                    </span>
+                                    <input type="text" class="form-control clothes" name="clothes" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="" >                                            
+                                </div>
+                            </div>      
+                            <div class="form-group">
+                                <label>Shoes <small>(Divider for shoes category)</small></label>
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-bag"></i></span>
+                                    </span>
+                                    <input type="text" class="form-control shoes" name="shoes" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="" >
+                                    
+                                </div>
+                            </div>                              
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-secondary" id="btnAdd">Add <i class="icon-paperplane ml-2"></i></button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>
     <button type="button" id="noty_deleted" style="display: none;"></button>
+    <button type="button" id="noty_update" style="display: none;"></button>
 </div>
 
 <?= $this->endSection() ?>
@@ -130,11 +193,33 @@
         <?php if (session()->getFlashdata('delete')) : ?>
             $('#noty_deleted').click();
         <?php endif ?>
+
+        $('.editpromo').click(function(e) {
+            const id = $(this).data('id');            
+            $.get('/get-promocode', {id: id}, function(data) {
+                const res = JSON.parse(data);
+                $('.id').val(res['id']);
+                $('.promocode').val(res['promo']);
+                $('.desc').val(res['description']);
+                $('.clothes').val(res['clothes']);
+                $('.shoes').val(res['shoes']);
+                $('#modal_form_edit').modal('show');
+            })
+        });
+
+        $('form#update_promo').on('submit', function (e) {
+            e.preventDefault();
+            $.post('/update-promocode', $('form#update_promo').serialize(), function(data) {
+                setTimeout(location.reload.bind(location), 500);
+                $('#modal_form_edit').modal('hide');
+                $('#noty_update').click();
+            });
+        });
     });
 
     $('#noty_created').on('click', function() {
         new Noty({
-            text: 'You successfully upload the report.',
+            text: 'You successfully create the promo.',
             type: 'alert'
         }).show();
     });
@@ -144,6 +229,13 @@
             type: 'alert'
         }).show();
     });
+    $('#noty_update').on('click', function() {
+        new Noty({
+            text: 'You successfully update the promo.',
+            type: 'alert'
+        }).show();
+    });
+    
 </script>
 
 

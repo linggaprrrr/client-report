@@ -106,6 +106,8 @@ $routes->get('admin/search-brand', 'Admin\Reports::searchBrandPage');
 $routes->post('/search-brand-history', 'Admin\Reports::brandHistory');
 $routes->get('/send-email', 'Admin\Email::sendMail');
 $routes->get('/export-all-report', 'Admin\Reports::exportAllReport');
+$routes->get('/get-promocode', 'Admin\PromoCode::getPromocode');
+$routes->post('/update-promocode', 'Admin\PromoCode::updatePromocode');
 
 // client side
 $routes->get('/get-started', 'Clients::getStarted');
@@ -240,6 +242,8 @@ $routes->get('/android/brand-approvals', 'Android::brandApprovals');
 $routes->get('/android/purchase-inventory', 'Android::purchaseInventory');
 $routes->get('/android/pl-report', 'Android::plReport');
 $routes->get('/android/news', 'Android::news');
+
+$routes->get('/test-mail', 'Admin\Reports::sendMailPhase1');
 
 /*
  * --------------------------------------------------------------------

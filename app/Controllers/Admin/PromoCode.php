@@ -36,6 +36,25 @@ class PromoCode extends BaseController
         $this->db->query("INSERT INTO promocode(promo, description, clothes, shoes) VALUES('$promocode', ". $this->db->escape($description) .", '$clothes', '$shoes' ) ");
         return redirect()->back()->with('success', 'Promo Successfully Uploaded!');
     }
+
+    public function getPromocode() {
+        $id = $this->request->getVar('id');
+        $promo = $this->db->query("SELECT * FROM promocode WHERE id='$id' ");
+        $res = $promo->getResultObject();
+        echo json_encode($res[0]);
+    }
+
+    public function updatePromocode() {
+        $post = $this->request->getVar();
+        $id = $post['id'];
+        $promo = $post['promocode'];
+        $desc = $post['promo-description'];
+        $clothes = $post['clothes'];
+        $shoes = $post['shoes'];
+
+        $this->db->query("UPDATE promocode SET promo = '$promo', `description` = '$desc', clothes='$clothes', shoes = '$shoes' WHERE id = '$id' ");
+        echo json_encode($post);
+    }
 }
 
 ?>

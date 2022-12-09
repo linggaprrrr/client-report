@@ -964,15 +964,17 @@ class Reports extends BaseController
     {
         $post = $this->request->getVar();
         $check = 0;
+        $clients = [];
         foreach ($post['client'] as $idx => $data) {
             if ($data != '0') {                
                 $clientId = $post['client'][$idx];
+                array_push($clients, $clientId);
                 $boxId = $post['box_id'][$idx];
                 $vaId = $post['va'][$idx];
                 if ($clientId == 0 || $vaId == 0) {
                     $check = 1;        
                 } else {
-                    $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', va_id='$vaId' WHERE id='$boxId' ");
+                    $this->db->query("UPDATE assign_report_box SET confirmed='1', client_id='$clientId', va_id='$vaId', date_assigned=NOW() WHERE id='$boxId' ");
                 }
             } 
         }
@@ -980,7 +982,41 @@ class Reports extends BaseController
         if ($check == 1) {
             return redirect()->back()->with('error', 'VA or Client cant be empty!');
         }
+        $clients = array_unique($clients);
+        for ($i = 0; $i < count($clients); $i++) {
+            $this->sendMailPhase1($clients[$i]);
+        }
         return redirect()->back()->with('save', 'Phase 1 Successfully saved!');
+    }
+
+    function sendMailPhase1($client = null) {        
+        date_default_timezone_set('America/Los_Angeles');
+        $user = $this->userModel->find($client);    
+        $date = date("m/d/y");
+        $message  = "<p>Hi Mr ".$user['fullname'].",</p>";
+        $message .= "<p style='text-align: justify;'>We’ve started on your order placed on ". $date .". This is also a reminder of the importance of consistency in your orders. Please place another order for the same amount or more in a month from now. <br>Thank you for your business</p>";                    
+        $mail = new PHPMailer;
+        $mail->isSMTP();        
+        $mail->IsHTML(true);
+        $mail->Host = 'smtp.titan.email';
+        $mail->Port = 587;
+        $mail->SMTPAuth = true;
+        
+        if ($user['under_comp'] == '2') {
+            $mail->Username = 'noreply.info@eliteapp.site';
+            $mail->Password = 'eliteappinfo1';
+            $mail->setFrom('noreply.info@eliteapp.site', 'Elite Automation');
+        } else {
+            $mail->Username = 'noreply.info@swclient.site';
+            $mail->Password = 'swclientinfo1';
+            $mail->setFrom('noreply.info@swclient.site', 'Smart FBA Inc');
+        }
+        $mail->addAddress($user['email'], $user['fullname'] .' - '.$user['company'].'');
+        $mail->Subject = 'Yout Manifest Order';
+        $mail->Body = $message;
+        if (!empty($user['email']) || !is_null(empty($user['email']))) {
+            $mail->send();
+        }
     }
 
     public function saveAssignmentProcess()
@@ -1013,15 +1049,14 @@ class Reports extends BaseController
 
         // send email
         
-        $keys = array_keys($boxArr);
-        
-        for ($i = 0; $i < count($keys); $i++) {
-            $client = trim($keys[$i], "-");            
-            $this->sendMail($boxArr[$keys[$i]], $client);                        
-        }
+        $keys = array_keys($boxArr);        
+        // for ($i = 0; $i < count($keys); $i++) {
+        //     $client = trim($keys[$i], "-");            
+        //     $this->sendMail($boxArr[$keys[$i]], $client);                        
+        // }
         return redirect()->back()->with('reset', 'Assignment Successfully reseted!');
     }
-
+    
     function sendMail($box, $client) {
         $user = $this->userModel->find($client);         
         if (is_array($box) == 1) {
@@ -1034,8 +1069,7 @@ class Reports extends BaseController
             $message .= '<thead><tr><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">SKU/UPC</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">ITEM DESCRIPTION</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">CONDITION</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">ORIGINAL QTY</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">RETAIL VALUE</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">TOTAL ORIGINAL RETAIL</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">TOTAL CLIENT COST</th><th style="border:1px solid #000;text-align:center;padding:5px;background-color:#ff0">VENDOR NAME</th></tr></thead>';
             $message .= '<tbody>';
             for ($i = 0; $i < count($box); $i++) {
-                $details = $this->assignReportModel->getDetailBox($box);    
-                                
+                $details = $this->assignReportModel->getDetailBox($box);                                    
                 foreach($details->getResultObject() as $det) {
                     $message .= '<tr><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->sku.'</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->item_description.'</td><td style="border:1px solid #000;text-align:center;padding:3px">NEW</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->qty.'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->retail, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->original, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">$'.number_format($det->cost, 2).'</td><td style="border:1px solid #000;text-align:center;padding:3px">'.$det->vendor.'</td></tr>';
                 }
