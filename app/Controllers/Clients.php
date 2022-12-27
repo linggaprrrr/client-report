@@ -336,7 +336,7 @@ class Clients extends BaseController
         $date = $this->request->getVar('date');
         $continuity = $this->request->getVar('continuity');
         $date = date('Y-m-d', strtotime($date));
-        if (is_null($id)) {
+        if (is_null($id) || empty($id)) {
             $this->db->query("INSERT INTO reminder(`desc`, `date`, `continuity`, `client_id`) VALUES('$desc', '$date', '$continuity', ". session()->get('user_id'). ") ");
         } else {
             $this->db->query("UPDATE reminder SET `desc` = '$desc', `date` = '$date', `continuity` = '$continuity' WHERE `id` = '$id' ");

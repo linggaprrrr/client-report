@@ -2597,8 +2597,13 @@ class Reports extends BaseController
     public function getReminder() {
         $user = $this->request->getVar('id');
         $reminder = $this->db->query("SELECT * FROM reminder WHERE client_id = '$user' ");
-        $reminder = $reminder->getResultObject();
-        echo json_encode($reminder[0]);
+        $reminder = $reminder->getFirstRow();
+        echo json_encode($reminder);
+    }
+
+    public function clearReminder() {
+        $id = $this->request->getVar('id');
+        $this->db->query("DELETE FROM reminder WHERE id = '$id' ");
     }
 
     public function test()

@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-danger">Clear Reminder</button>                    
+                    <button type="reset" class="btn btn-danger clear-reminder">Clear Reminder</button>                    
                     <button type="submit" class="btn btn-primary">Save changes</button>                    
                 </div>
             </div>
