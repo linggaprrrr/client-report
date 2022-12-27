@@ -1,0 +1,44 @@
+ERROR - 2022-12-13 05:48:12 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc, date, continuity, client_id) VALUES(123, 2022-12-13, once, 9)' at line 1
+CRITICAL - 2022-12-13 05:48:12 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc, date, continuity, client_id) VALUES(123, 2022-12-13, once, 9)' at line 1
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO rem...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO rem...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO rem...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Clients.php(337): CodeIgniter\Database\BaseConnection->query('INSERT INTO rem...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Clients->setReminder()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2022-12-13 05:49:00 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc, date, continuity, client_id) VALUES('123', '2022-12-13', 'once', 9)' at line 1
+CRITICAL - 2022-12-13 05:49:00 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc, date, continuity, client_id) VALUES('123', '2022-12-13', 'once', 9)' at line 1
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO rem...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO rem...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO rem...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Clients.php(337): CodeIgniter\Database\BaseConnection->query('INSERT INTO rem...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Clients->setReminder()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2022-12-13 06:13:37 --> Undefined variable: eoutes
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Config/Routes.php(248): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 248, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(705): require('/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(359): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+ERROR - 2022-12-13 06:17:06 --> Unknown column 'users.email' in 'field list'
+CRITICAL - 2022-12-13 06:17:06 --> Unknown column 'users.email' in 'field list'
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT reminder...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT reminder...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT reminder...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(2554): CodeIgniter\Database\BaseConnection->query('SELECT reminder...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->pushReminder()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}

@@ -117,3 +117,125 @@
     <!-- /sidebar content -->
 
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form action="/set-reminder" method="post">
+            <?php csrf_field() ?>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reminder</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Reminder Description:</label>
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <span class="input-group-text"><i class="icon-info22"></i></span>
+                            </span>
+                            <input type="hidden" name="id" class="id-reminder">
+                            <input type="text" class="form-control desc-reminder" name="desc" placeholder="Description ...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Date:</label>
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <span class="input-group-text"><i class="icon-calendar22"></i></span>
+                            </span>
+                            <input type="text" class="form-control date-reminder daterange-single" name="date" value="<?= date("m/d/Y") ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Continuity:</label>
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <span class="input-group-text"><i class="icon-calendar52"></i></span>
+                            </span>
+                            <select name="continuity" class="form-control cont-reminder" id="">
+                                <option value="once">Just Once</option>
+                                <option value="repeatedly">Rrepeatedly</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-danger">Clear Reminder</button>                    
+                    <button type="submit" class="btn btn-primary">Save changes</button>                    
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<button type="button" id="noty_created" style="display: none;"></button>
+<script src="/assets/js/plugins/notifications/jgrowl.min.js"></script>
+<script src="/assets/js/plugins/notifications/noty.min.js"></script>
+<script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
+<script src="/assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="/assets/js/demo_pages/picker_date.js"></script>
+<script src="/assets/js/plugins/pickers/daterangepicker.js"></script>
+<script>    
+    $(document).ready(function() {
+        <?php if (session()->getFlashdata('success')) : ?>
+            $('#noty_created').click();
+        <?php endif ?>
+    });
+    
+    $('.reminder').click(function() {
+        $.get('/get-reminder', {id: <?= session()->get('user_id') ?> }, function(data) {
+            const resp = JSON.parse(data);
+            $('.id-reminder').val(resp['id']);
+            $('.desc-reminder').val(resp['desc']);
+            $('.date-reminder').val(resp['date']);
+            $('.cont-reminder').val(resp['continuity']);
+        });
+    });
+
+    $('.clear-reminder').click(function() {
+        const id = $('.id-reminder').val();
+        $.post('/clear-reminder', {id: id}, function(data) {
+            new Noty({
+                text: 'Reminder has been cleared successfully',
+                type: 'alert'
+            }).show();
+        }); 
+    });
+
+    $('#noty_created').on('click', function() {
+        new Noty({
+            text: 'Reminder has been added successfully',
+            type: 'alert'
+        }).show();
+    });
+    $(".fb").click(function() {   
+        $.get('/fb-click', function(data) {
+
+        });
+    });
+
+    $(".pinterest").click(function() {   
+        $.get('/yt-click', function(data) {
+
+        });
+    });
+
+    $(".yt").click(function() {   
+        $.get('/yt-click', function(data) {
+
+        });
+    });
+
+    $(".insta").click(function() {   
+        $.get('/ig-click', function(data) {
+
+        });
+    });
+
+    $(".in").click(function() {   
+        $.get('/in-click', function(data) {
+
+        });
+    });
+</script>

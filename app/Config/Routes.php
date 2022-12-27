@@ -244,6 +244,10 @@ $routes->get('/android/pl-report', 'Android::plReport');
 $routes->get('/android/news', 'Android::news');
 
 $routes->get('/test-mail', 'Admin\Reports::sendMailPhase1');
+$routes->post('/set-reminder', 'Clients::setReminder');
+$routes->get('/push-reminder', 'Admin\Reports::pushReminder');
+$routes->get('/get-reminder', 'Admin\Reports::getReminder');
+$routes->post('/clear-reminder', 'Admin\Reports::clearReminder');
 
 /*
  * --------------------------------------------------------------------

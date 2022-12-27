@@ -323,9 +323,24 @@ class Clients extends BaseController
         $dompdf->setPaper('legal');
         $dompdf->render();        
         $dompdf->stream("Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." .pdf");
-//        $fileName = "Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." ".time().".pdf";
+        $fileName = "Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." ".time().".pdf";
 //        $output = $dompdf->output();
 //        file_put_contents('receipts/'.$fileName , $output);
         return $fileName;
+    }
+
+    public function setReminder() {
+        $id = $this->request->getVar('id');
+       
+        $desc = $this->request->getVar('desc');
+        $date = $this->request->getVar('date');
+        $continuity = $this->request->getVar('continuity');
+        $date = date('Y-m-d', strtotime($date));
+        if (is_null($id)) {
+            $this->db->query("INSERT INTO reminder(`desc`, `date`, `continuity`, `client_id`) VALUES('$desc', '$date', '$continuity', ". session()->get('user_id'). ") ");
+        } else {
+            $this->db->query("UPDATE reminder SET `desc` = '$desc', `date` = '$date', `continuity` = '$continuity' WHERE `id` = '$id' ");
+        }
+        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 }

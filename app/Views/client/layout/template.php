@@ -86,7 +86,24 @@
         position: absolute;
     }
 
+    .switch2 {
+        opacity: 0;
+        position: absolute;
+    }
+
     .label {
+        background: #359DE6;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 3px;
+        border-radius: 50px;
+        position: relative;
+        width: 55px;
+        height: 26px;
+    }
+
+    .label2 {
         background: #359DE6;
         display: flex;
         align-items: center;
@@ -103,6 +120,10 @@
     }
 
     .label.dark {
+        background: #111;
+    }
+
+    .label2.dark {
         background: #111;
     }
 
@@ -129,7 +150,22 @@
         height: 22px;
         transition: transform 0.3s linear;
     }
+
+    .ball2 {
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        transition: transform 0.3s linear;
+    }
     .switch:checked + .label .ball {
+        transform: translateX(29px);
+    }
+
+    .switch2:checked + .label2 .ball2 {
         transform: translateX(29px);
     }
 

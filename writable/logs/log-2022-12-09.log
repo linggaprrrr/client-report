@@ -6,3 +6,27 @@ CRITICAL - 2022-12-09 03:50:59 --> Undefined index: id
 #4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
 #5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
 #6 {main}
+ERROR - 2022-12-09 06:07:53 --> Error connecting to the database: Connection refused
+CRITICAL - 2022-12-09 06:07:53 --> Unable to connect to the database.
+Main connection [MySQLi]: Connection refused
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Auth.php(23): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->login()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+ERROR - 2022-12-09 06:11:18 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+CRITICAL - 2022-12-09 06:11:18 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT date_for...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT date_for...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT date_for...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Models/ReportModel.php(191): CodeIgniter\Database\BaseConnection->query('SELECT date_for...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(58): App\Models\ReportModel->finSummary('spend')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

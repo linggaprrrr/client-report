@@ -483,8 +483,7 @@ class Reports extends BaseController
         return view('administrator/pl_reports', $data);
     }
 
-    public function uploadPLReport()
-    {
+    public function uploadPLReport() {
         $client = $this->request->getVar('client');
         $link = $this->request->getVar('link');
         $chart = $this->request->getFile('chart');
@@ -498,20 +497,19 @@ class Reports extends BaseController
         }
         $spreadsheet = $render->load($chart);
         $data = $spreadsheet->getActiveSheet()->toArray();
-     
+        
         if ($types == 'yes') {    
             $chartTitle = array();
             $monthData = array();
             $type = array();
             foreach ($data as $idx => $row) {
                 if (!empty($row[0])) {
-                    array_push($chartTitle, $row[0]);
-                    
+                    array_push($chartTitle, $row[0]);                    
                 } else {
                     if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]) )) {
                         $month = array();
-                        if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
-                            for ($i = 2; $i < 17; $i++) {
+                        if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false ) {
+                            for ($i = 2; $i < 19; $i++) {
                                 if ($i != 3) {
                                     $temp = str_replace('%', '', trim($row[$i]));
                                     $temp = str_replace(',', '', $temp);
@@ -526,7 +524,7 @@ class Reports extends BaseController
 
                             array_push($type, 'percentage');
                         } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
-                            for ($i = 2; $i < 17; $i++) {
+                            for ($i = 2; $i < 19; $i++) {
                                 if ($i != 3) {
                                     $temp = str_replace('$', '', trim($row[$i]));
                                     $temp = str_replace(',', '', $temp);
@@ -541,7 +539,7 @@ class Reports extends BaseController
 
                             array_push($type, 'currency');
                         } else {
-                            for ($i = 2; $i < 17; $i++) {
+                            for ($i = 2; $i < 19; $i++) {
                                 if ($i != 3) {
                                     $temp = trim($row[$i]);
                                     if (strpos($temp, '(') !== false) {
@@ -558,17 +556,20 @@ class Reports extends BaseController
                             }
                             array_push($type, 'num');
                         }
-                        array_push($monthData, $month);                  
+                        array_push($monthData, $month);   
+                              
                     }
                     
                 }
+               
         
-            }
-            
+            }             
+                
             for ($i = 0; $i < count($chartTitle); $i++) {
                 $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
             }    
         } else {
+
             $chartTitle = array();
             $monthData = array();
             $type = array();
@@ -579,7 +580,7 @@ class Reports extends BaseController
                     if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
                         $month = array();
                         if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false) {
-                            for ($i = 4; $i < 17; $i++) {
+                            for ($i = 4; $i < 19; $i++) {
                                 $temp = str_replace('%', '', trim($row[$i]));
                                 $temp = str_replace(',', '', $temp);
                                 if (strpos($temp, '(') !== false) {
@@ -592,7 +593,7 @@ class Reports extends BaseController
 
                             array_push($type, 'percentage');
                         } elseif (strpos($row[2], '$') !== false || strpos($row[3], '$') !== false || strpos($row[4], '$') !== false || strpos($row[5], '$') !== false || strpos($row[6], '$') !== false || strpos($row[7], '$') !== false || strpos($row[8], '$') !== false || strpos($row[9], '$') !== false || strpos($row[10], '$') !== false || strpos($row[11], '$') !== false || strpos($row[12], '$') !== false || strpos($row[13], '$') !== false) {
-                            for ($i = 4; $i < 17; $i++) {
+                            for ($i = 4; $i < 19; $i++) {
                                 $temp = str_replace('$', '', trim($row[$i]));
                                 $temp = str_replace(',', '', $temp);
                                 if (strpos($temp, '(') !== false) {
@@ -605,7 +606,7 @@ class Reports extends BaseController
 
                             array_push($type, 'currency');
                         } else {
-                            for ($i = 4; $i < 17; $i++) {
+                            for ($i = 4; $i < 19; $i++) {
                                 $temp = trim($row[$i]);
                                 if (strpos($temp, '(') !== false) {
                                     $temp = str_replace('(', '', $temp);
@@ -624,6 +625,7 @@ class Reports extends BaseController
                     }
                 }
             }
+              
             for ($i = 0; $i < count($chartTitle); $i++) {
                 $this->reportModel->savePLReportExclude($chartTitle[$i], $monthData[$i], $type[$i], $client);
             }
@@ -984,7 +986,7 @@ class Reports extends BaseController
         }
         $clients = array_unique($clients);
         for ($i = 0; $i < count($clients); $i++) {
-            $this->sendMailPhase1($clients[$i]);
+            // $this->sendMailPhase1($clients[$i]);
         }
         return redirect()->back()->with('save', 'Phase 1 Successfully saved!');
     }
@@ -2547,6 +2549,56 @@ class Reports extends BaseController
             $this->db->query("INSERT INTO chart_pl(chart,$month,client_id, type) VALUES('Net Profit Margin', '$netProfitMargin', '$client', 'percentage' ");
         } 
         return redirect()->to('/admin/generate-p-l'); 
+    }
+
+    public function pushReminder() {
+        $getReminder = $this->db->query("SELECT reminder.*, users.email FROM reminder JOIN users ON users.id = reminder.client_id WHERE status = 0 GROUP BY client_id");
+        $now = date('Y-m-d');
+        
+        if ($getReminder->getNumRows() > 0) {
+            foreach($getReminder->getResultObject() as $reminder) {
+                if ($now == $reminder->date) {
+                    $this->sendReminderMail($reminder->email);
+                    if ($reminder->continuity == 'once') {
+                        $this->db->query("UPDATE reminder SET status = 1 WHERE id ='$reminder->id' ");
+                    }
+                }
+            }
+        }
+    }
+
+    public function sendReminderMail($mail) {
+        $message  = "<p>Hi,</p>";
+        $message .= "<p>We want to inform you .</p>"; 
+        $message .= "</body></html>";
+        // end body
+
+        $mail = new PHPMailer;
+        $mail->isSMTP();
+        $mail->IsHTML(true);
+        $mail->SMTPDebug = 3;
+        $mail->Host = 'smtp.titan.email';
+        $mail->Port = 587;
+        $mail->SMTPAuth = true;
+        
+        $mail->Username = 'noreply.info@swclient.site';
+        $mail->Password = 'swclientinfo1';
+        $mail->setFrom('noreply.info@swclient.site', 'Smart FBA Inc');
+        $mail->addAddress('lingga@buysmartwholesale.com',' lingga');
+        $mail->Subject = 'Smart FBA Manifest Reminder';
+        $mail->Body = $message;
+        if ($mail->send()) {
+            echo 'The email message was sent.';
+        } else {
+            echo 'The email message wasnt sent.';
+        }
+    }
+
+    public function getReminder() {
+        $user = $this->request->getVar('id');
+        $reminder = $this->db->query("SELECT * FROM reminder WHERE client_id = '$user' ");
+        $reminder = $reminder->getResultObject();
+        echo json_encode($reminder[0]);
     }
 
     public function test()

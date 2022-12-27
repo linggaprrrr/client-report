@@ -126,7 +126,7 @@
     <?php if (session()->getFlashdata('success')) : ?>
         <div class="alert bg-success text-white alert-styled-left alert-dismissible">
             <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-            <span class="font-weight-semibold">Well done!</span> Ticket Successfully Created! <a href="#" class="alert-link"></a>
+            <span class="font-weight-semibold">Well done!</span> Reminder Successfully Created! <a href="#" class="alert-link"></a>
         </div>
     <?php endif ?>
     <div class="row">
