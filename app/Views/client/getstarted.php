@@ -10,8 +10,12 @@
         <div class="card-body">
             <span>
                 <p class="text-justify">
-                    <img src="/assets/images/fba-logo.png" class="d-none d-sm-block" alt="FBA Logo" style="margin-bottom: 20px;">Hello and Welcome to the Smart FBA family! We are happy and grateful that you made the decision to work with us and our dedicated team. We have over 40 team members working hard to make sure your experience is a great one.
+                    <img src="/assets/images/fba-logo.png" class="d-none d-sm-block" alt="FBA Logo">
+                    <iframe src="https://drive.google.com/file/d/1e5tCpUCZBHxFty5Rrz3U8yD9HJ-tnwVH/preview" width="683" height="360" allow="autoplay"></iframe>
+                    <br>
+                    Hello and Welcome to the Smart FBA family! We are happy and grateful that you made the decision to work with us and our dedicated team. We have over 40 team members working hard to make sure your experience is a great one.
                 </p>
+                
                 <p>Below is a list of a few of the things we need you to do to get the process started.</p>
                 <p class="text-justify">Before you do any purchase of inventory or brand approvals we <b>HIGHLY</b> recommend watching this video about the process and expectations for this business. We are <b>NOT</b> a get rich quick scheme nor are we here to promise the unrealistic. You will experience good profitable months and other months may not be. This is the nature of business especially with Amazon. Building an Amazon FBA store takes time and patience. </p>
                 <br>

@@ -77,6 +77,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url('/how-amazon-payments-work') ?>" class="nav-link">
+                        <i class="icon-reading"></i>
+                        <span>
+                            How Amazon Payments Work
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url('/pl-report') ?>" class="nav-link">
                         <i class="icon-clipboard5"></i>
                         <span>

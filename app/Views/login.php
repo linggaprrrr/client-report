@@ -112,20 +112,29 @@
                                     </div>
                                 <?php endif ?>
                                 <div class="form-group first mb-2">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" name="username" id="username">
+                                    
+                                    <?php if (isset($_COOKIE["sw-username"])) : ?>
+                                        <input type="text" class="form-control" name="username" value="<?= $_COOKIE["sw-username"] ?>" id="username">
+                                    <?php else :  ?>
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" name="username" value="" id="username">
+                                    <?php endif ?>
 
                                 </div>
                                 <div class="form-group last mb-4">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password">
+                                    <?php if (isset($_COOKIE["sw-pw"])) : ?>                                        
+                                        <input type="password" class="form-control" name="password" value="<?= $_COOKIE["sw-pw"] ?>" id="password">
+                                    <?php else :  ?>
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" name="password" id="password">
+                                    <?php endif ?>
 
                                 </div>
 
 
                                 <div class="d-flex mb-3 align-items-center">
                                     <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                                        <input type="checkbox" checked="checked" />
+                                        <input type="checkbox" name="rememberme" checked="checked" />
                                         <div class="control__indicator"></div>
                                     </label>
                                     <span class="ml-auto"><a href="<?= base_url('/forgot-password') ?>" class="forgot-pass">Forgot Password</a></span>

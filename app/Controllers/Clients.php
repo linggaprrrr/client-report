@@ -343,4 +343,21 @@ class Clients extends BaseController
         }
         return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
+
+    public function AmazonPayment() {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        }        
+        $user = $this->userModel->find($userId);
+        
+        $data = [
+            'tittle' => "How Amazon Payments Work | Report Management System",
+            'menu' => "How Amazon Payments Work",
+            'user' => $user,
+        ];
+        $page = 'how-amazon-payments-work';        
+        return view('client/amazon_payments', $data);
+    }
+
 }

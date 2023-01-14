@@ -31,7 +31,8 @@ class Android extends BaseController
         $this->userModel = new UserModel();
         $this->newsModel = new NewsModel();
         $this->assignReportModel = new AssignReportModel();
-        $this->db = \Config\Database::connect();     
+        $this->db = \Config\Database::connect();  
+        helper('cookie');   
     }
 
     public function index() {
@@ -47,6 +48,14 @@ class Android extends BaseController
     {
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
+        $username = $post['username'];
+        $password = $post['password'];
+        
+        if (isset($post['rememberme'])) {            
+            setcookie("sw-username", $username, time()+ (10 * 365 * 24 * 60 * 60));            
+            setcookie("sw-pw", $password, time()+ (10 * 365 * 24 * 60 * 60));            
+        }
+        
         if ($user->under_comp == '2') {
             return redirect()->back()->with('error', 'Username Not Found!');
         }
@@ -67,7 +76,7 @@ class Android extends BaseController
                     $ip = getenv('HTTP_CLIENT_IP')?: getenv('HTTP_X_FORWARDED_FOR')?: getenv('HTTP_X_FORWARDED')?: getenv('HTTP_FORWARDED_FOR')?: getenv('HTTP_FORWARDED')?: getenv('REMOTE_ADDR');
                     $page = 'get-started';
                     $this->userModel->logActivityAndroid($user->id, $page, $ip);
-                    if ($currentPage == base_url() || $currentPage == base_url() . '/login') {
+                    if ($currentPage == base_url() || $currentPage == base_url() . '/android') {
                         return redirect()->to(base_url('mobile_copy/get-started'))->with('message', 'Login Successful!');
                     } else {
                         return redirect()->to($currentPage)->with('message', 'Login Successful!');
@@ -160,9 +169,9 @@ class Android extends BaseController
     }
 
     public function dashboard() {
-      $userId = session()->get('user_id');
+        $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/android'));
+            return redirect()->to(base_url('/mobile_copy'));
         }
         $user = $this->userModel->find($userId);
         $investId = $this->investmentModel->getInvestmentId($userId);
@@ -186,7 +195,7 @@ class Android extends BaseController
             }
 
             $lastInvestment = $this->investmentModel->getLastDateOfInvestment($userId);
-            $category = $this->categoryModel->getCategory($investId);
+            
             $totalInvest = $this->investmentModel->totalClientInvestment($investId);
             $totalUnit = $this->reportModel->totalUnit($investId);
             $totalRetail = $this->reportModel->totalRetail($investId);
@@ -195,9 +204,11 @@ class Android extends BaseController
             $getAllReportClient = $this->reportModel->getAllReportClient($investId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($investId);
+            $file = $this->exportReceipt($investId);
+            $getStatusManifest = $this->assignReportModel->getStatusManifest($investId);
         } else {
             $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
-            $category = $this->categoryModel->getCategory($dateId);
+            
             $totalInvest = $this->investmentModel->totalClientInvestment($dateId);
             $totalUnit = $this->reportModel->totalUnit($dateId);
             $totalRetail = $this->reportModel->totalRetail($dateId);
@@ -206,8 +217,10 @@ class Android extends BaseController
             $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($dateId);
+            $file = $this->exportReceipt($dateId);
+            $getStatusManifest = $this->assignReportModel->getStatusManifest($dateId);
         }
-
+        
         $data = [
             'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',
@@ -218,11 +231,12 @@ class Android extends BaseController
             'totalCostLeft' => $totalCostLeft,
             'totalFulfilled' => $totalFulfilled,
             'getAllReports' => $getAllReportClient,
-            'category' => $category->category_name,
+            'statusManifest' => $getStatusManifest,
             'investDate' => $investmentDate,
             'lastInvestment' => $lastInvestment,
             'getVendorName' => $getVendorName,
-            'news' => $news
+            'news' => $news,
+            'file' => $file
         ];
         return view('/mobile_copy/dashboard', $data);
     }
@@ -292,7 +306,7 @@ class Android extends BaseController
     {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/android'));
         }
         $user = $this->userModel->find($userId);
         $data = [
@@ -308,7 +322,7 @@ class Android extends BaseController
     {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/android'));
         }
         $user = $this->userModel->find($userId);
         $plReport = $this->reportModel->showPLReport($userId);
@@ -326,7 +340,7 @@ class Android extends BaseController
     public function news() {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/android'));
         }
         $user = $this->userModel->find($userId);
         $underComp = 1;
@@ -362,7 +376,7 @@ class Android extends BaseController
         $client = $this->request->getVar('client');
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/android'));
         }
         $userId = 9;
         
@@ -401,7 +415,9 @@ class Android extends BaseController
             $getAllReportClient = $this->reportModel->getAllReportClient($investId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($investId);
+            $file = $this->exportReceipt($investId);
         } else {
+            
             $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
             $category = $this->categoryModel->getCategory($dateId);
             $totalInvest = $this->investmentModel->totalClientInvestment($dateId);
@@ -412,10 +428,11 @@ class Android extends BaseController
             $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($dateId);
+            $file = $this->exportReceipt($dateId);
         }   
 
         
-        
+    
         $data = [
             'tittle' => 'Dashboard | Report Management System',
             'menu' => 'Dashboard',
@@ -430,7 +447,8 @@ class Android extends BaseController
             'lastInvestment' => $lastInvestment,
             'getVendorName' => $getVendorName,
             'clients' => $getAllClient,
-            'clientSelect' => $userId
+            'clientSelect' => $userId,
+            'file' => $file
     
         ];
         $page = 'manifest';
@@ -441,7 +459,7 @@ class Android extends BaseController
     {
         $userId = $id;
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/android'));
         }
         $user = $this->userModel->find($userId);
         $plReport = $this->reportModel->showPLReport($userId);
@@ -460,5 +478,58 @@ class Android extends BaseController
         $this->userModel->logActivity($userId, $page);
         return view('mobile_copy/master/pl_report', $data);
     }
+    public function exportReceipt($dateId) {
+        $investment = $this->investmentModel->getReceiptClient($dateId);
+        $receiptData = $this->investmentModel->getReceiptData($dateId);
+        $purchaseTotal = $this->investmentModel->totalClientInvestment($dateId);
+        $totalUnit = $this->reportModel->totalUnit($dateId);
+        $totalRetail = $this->reportModel->totalRetail($dateId);
+        $totalCostLeft = $this->reportModel->totalCostLeft($dateId);
+        $totalClientCost = $this->reportModel->totalFulfilled($dateId);
+        $avgUnitRetail = $totalRetail->total_retail / ($totalUnit->total_unit == 0 ? 1 : 1);
+        $avgUnitClientCost = $totalClientCost->total_fulfilled / ($totalUnit->total_unit == 0 ? 1 : 1);
+        $link = $this->reportModel->getLinkManifest($dateId);
+        $path = FCPATH."/assets/images/fba-logo.png";
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $data = [
+            'manifestDesc' => $investment->getResultObject(),
+            'manifestData' => $receiptData->getResultObject(),
+            'totalUnit' => $totalUnit->total_unit,
+            'totalRetail' => $totalRetail->total_retail,
+            'totalCostLeft' => $totalCostLeft,
+            'totalClientCost' => $totalClientCost->total_fulfilled,
+            'avgUnitRetail' => $avgUnitRetail,
+            'avgUnitClientCost' => $avgUnitClientCost,
+            'img' => $base64,
+            'link' => $link->getResultObject()
+        ];
+        $client = $investment->getResultObject();
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf->loadHtml(view('ex-pdf', $data));
+        $dompdf->setPaper('legal');
+        $dompdf->render();        
+        // $dompdf->stream("Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." .pdf");
+        $fileName = "Receipt Smart FBA - ". $client[0]->fullname ." - ". $client[0]->company ." ".time().".pdf";
+        $output = $dompdf->output();
+        file_put_contents('receipts/'.$fileName , $output);
+        return $fileName;
+    }
 
+    public function AmazonPayment() {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/android'));
+        }        
+        $user = $this->userModel->find($userId);
+        
+        $data = [
+            'tittle' => "How Amazon Payments Work | Report Management System",
+            'menu' => "How Amazon Payments Work",
+            'user' => $user,
+        ];
+        $page = 'how-amazon-payments-work';        
+        return view('mobile_copy/amazon_payments', $data);
+    }
 }

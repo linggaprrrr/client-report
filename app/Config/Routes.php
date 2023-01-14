@@ -249,6 +249,10 @@ $routes->get('/push-reminder', 'Admin\Reports::pushReminder');
 $routes->get('/get-reminder', 'Admin\Reports::getReminder');
 $routes->post('/clear-reminder', 'Admin\Reports::clearReminder');
 
+$routes->get('/how-amazon-payments-work', 'Clients::AmazonPayment');
+$routes->get('/mobile/how-amazon-payments-work', 'Mobile::AmazonPayment');
+$routes->get('/android/how-amazon-payments-work', 'Android::AmazonPayment');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

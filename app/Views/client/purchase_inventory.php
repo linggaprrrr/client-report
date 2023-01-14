@@ -12,6 +12,7 @@
 <div class="content">
     <div class="card">
         <div class="card-header">
+            <iframe src="https://drive.google.com/file/d/189mC7ZgItsib1_7wyg5m5JrJPfpcTCi9/preview" width="683" height="360" allow="autoplay"></iframe>
             <h1>Click Below to Purchase Inventory with Credit Card</h1>
             <p><a href="https://checkout.square.site/merchant/MLZMCABT6VC84/checkout/53ERSRX7XUBPWNWGNIGNDVEM" target="_blank" class="link-primary btn btn-secondary credit">Purchase Inventory</a></p>
         </div>

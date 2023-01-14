@@ -1,21 +1,32 @@
 <?= $this->extend('mobile/layout/template') ?>
 <?= $this->section('content') ?>
 <style>
-
+.h_iframe iframe {
+    width:100%;
+    height:100%;
+}
+.h_iframe {
+    height: 100%;
+    width:100%;
+}
 </style>
 <div class="content">
     <div class="card">
         <div class="card-body">
             <span>
                 <p class="text-justify">
-                    <img src="/assets/images/fba-logo.png" class="d-none d-sm-block" alt="FBA Logo" style="margin-bottom: 20px;">Hello and Welcome to the Smart FBA family! We are happy and grateful that you made the decision to work with us and our dedicated team. We have over 40 team members working hard to make sure your experience is a great one.
+                    <img src="/assets/images/fba-logo.png" class="d-sm-block" alt="FBA Logo">                                        
                 </p>
-                <p>Below is a list of a few of the things we need you to do to get the process started.</p>
+                <div class="h_iframe">
+                    <iframe src="https://drive.google.com/file/d/1e5tCpUCZBHxFty5Rrz3U8yD9HJ-tnwVH/preview" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+                </div>
+                <p class="text-justify">Hello and Welcome to the Smart FBA family! We are happy and grateful that you made the decision to work with us and our dedicated team. We have over 40 team members working hard to make sure your experience is a great one.</p>
+                <p class="text-justify">Below is a list of a few of the things we need you to do to get the process started.</p>
                 <p class="text-justify">Before you do any purchase of inventory or brand approvals we <b>HIGHLY</b> recommend watching this video about the process and expectations for this business. We are <b>NOT</b> a get rich quick scheme nor are we here to promise the unrealistic. You will experience good profitable months and other months may not be. This is the nature of business especially with Amazon. Building an Amazon FBA store takes time and patience. </p>
                 <br>
                 <a href="https://www.youtube.com/watch?v=SbyUfvZDqoU" target="_blank">Click Here</a> to watch the Video Now</P>
                 <br>
-                <p>Once you watch the video, please follow these next steps. </p>
+                <p class="text-justify">Once you watch the video, please follow these next steps. </p>
                 <ol type="1">
                     <li>
                         <p>Make sure to connect with your Customer Service team thru Facebook messenger. Nikki will be your account manager for any questions you may have, but any of our team members are more than happy to assist you. They will always be your point of contact for any questions about your store. </p>

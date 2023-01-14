@@ -76,6 +76,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url('/mobile/how-amazon-payments-work') ?>" class="nav-link">
+                        <i class="icon-reading"></i>
+                        <span>
+                            How Amazon Payments Work
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url('/mobile/pl-report') ?>" class="nav-link">
                         <i class="icon-clipboard5"></i>
                         <span>
@@ -88,6 +96,15 @@
                         <i class="icon-megaphone"></i>
                         <span>
                             Announcements
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <hr>
+                    <a href="" data-toggle="modal" data-target="#exampleModal" class="nav-link reminder">
+                        <i class="icon-reminder"></i>
+                        <span>
+                            Set Reminder
                         </span>
                     </a>
                 </li>

@@ -10,6 +10,7 @@ class Auth extends BaseController
     public function __construct()
     {
         $this->userModel = new UserModel();
+        helper('cookie');        
     }
 
     public function index()
@@ -41,9 +42,14 @@ class Auth extends BaseController
     {
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
+        $username = $post['username'];
+        $password = $post['password'];
         
+        if (isset($post['rememberme'])) {            
+            setcookie("sw-username", $username, time()+ (10 * 365 * 24 * 60 * 60));            
+            setcookie("sw-pw", $password, time()+ (10 * 365 * 24 * 60 * 60));            
+        }
         
-
         $currentPage = $post['current'];
         if ($user) {
             if ($user->under_comp == '2') {
@@ -55,7 +61,7 @@ class Auth extends BaseController
                     'role' => $user->role
                 ];
                 session()->set($params);
-                            
+                
                 if ($user->role == "master" && $user->under_comp == '1') {
                     return redirect()->to(base_url('master/manifest'))->with('message', 'Login Successful!');
                 }

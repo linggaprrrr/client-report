@@ -32,6 +32,7 @@ class Mobile extends BaseController
         $this->newsModel = new NewsModel();
         $this->assignReportModel = new AssignReportModel();
         $this->db = \Config\Database::connect();     
+        helper('cookie');
     }
 
     public function index() {
@@ -47,6 +48,14 @@ class Mobile extends BaseController
     {
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
+        $username = $post['username'];
+        $password = $post['password'];
+        
+        if (isset($post['rememberme'])) {            
+            setcookie("sw-username", $username, time()+ (10 * 365 * 24 * 60 * 60));            
+            setcookie("sw-pw", $password, time()+ (10 * 365 * 24 * 60 * 60));            
+        }
+
         if ($user->under_comp == '2') {
             return redirect()->back()->with('error', 'Username Not Found!');
         }
@@ -67,7 +76,7 @@ class Mobile extends BaseController
                     $ip = getenv('HTTP_CLIENT_IP')?: getenv('HTTP_X_FORWARDED_FOR')?: getenv('HTTP_X_FORWARDED')?: getenv('HTTP_FORWARDED_FOR')?: getenv('HTTP_FORWARDED')?: getenv('REMOTE_ADDR');
                     $page = 'get-started';
                     $this->userModel->logActivityMobile($user->id, $page, $ip);
-                    if ($currentPage == base_url() || $currentPage == base_url() . '/login') {
+                    if ($currentPage == base_url() || $currentPage == base_url() . '/mobile') {
                         return redirect()->to(base_url('mobile/get-started'))->with('message', 'Login Successful!');
                     } else {
                         return redirect()->to($currentPage)->with('message', 'Login Successful!');
@@ -196,6 +205,7 @@ class Mobile extends BaseController
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($investId);
             $file = $this->exportReceipt($investId);
+            $getStatusManifest = $this->assignReportModel->getStatusManifest($investId);
         } else {
             $lastInvestment = $this->investmentModel->getWhere(['id' => $dateId])->getLastRow();
             
@@ -208,6 +218,7 @@ class Mobile extends BaseController
             $investmentDate = $this->investmentModel->investmentDate($user['id']);
             $getVendorName = $this->reportModel->getVendorName($dateId);
             $file = $this->exportReceipt($dateId);
+            $getStatusManifest = $this->assignReportModel->getStatusManifest($dateId);
         }
         
         $data = [
@@ -220,7 +231,7 @@ class Mobile extends BaseController
             'totalCostLeft' => $totalCostLeft,
             'totalFulfilled' => $totalFulfilled,
             'getAllReports' => $getAllReportClient,
-            
+            'statusManifest' => $getStatusManifest,
             'investDate' => $investmentDate,
             'lastInvestment' => $lastInvestment,
             'getVendorName' => $getVendorName,
@@ -295,7 +306,7 @@ class Mobile extends BaseController
     {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/mobile'));
         }
         $user = $this->userModel->find($userId);
         $data = [
@@ -311,7 +322,7 @@ class Mobile extends BaseController
     {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/mobile'));
         }
         $user = $this->userModel->find($userId);
         $plReport = $this->reportModel->showPLReport($userId);
@@ -329,7 +340,7 @@ class Mobile extends BaseController
     public function news() {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/mobile'));
         }
         $user = $this->userModel->find($userId);
         $underComp = 1;
@@ -365,7 +376,7 @@ class Mobile extends BaseController
         $client = $this->request->getVar('client');
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/mobile'));
         }
         $userId = 9;
         
@@ -444,7 +455,7 @@ class Mobile extends BaseController
     {
         $userId = $id;
         if (is_null($userId)) {
-            return redirect()->to(base_url('/login'));
+            return redirect()->to(base_url('/mobile'));
         }
         $user = $this->userModel->find($userId);
         $plReport = $this->reportModel->showPLReport($userId);
@@ -501,6 +512,22 @@ class Mobile extends BaseController
         $output = $dompdf->output();
         file_put_contents('receipts/'.$fileName , $output);
         return $fileName;
+    }
+
+    public function AmazonPayment() {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/mobile'));
+        }        
+        $user = $this->userModel->find($userId);
+        
+        $data = [
+            'tittle' => "How Amazon Payments Work | Report Management System",
+            'menu' => "How Amazon Payments Work",
+            'user' => $user,
+        ];
+        $page = 'how-amazon-payments-work';        
+        return view('mobile/amazon_payments', $data);
     }
 
 }

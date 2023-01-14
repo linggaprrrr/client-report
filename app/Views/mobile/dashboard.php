@@ -2,7 +2,124 @@
 <!-- Font Awesome -->
 
 <?= $this->section('content') ?>
+<style>
+ 
+.progress-tracker {
+  counter-reset: steps;
+  display: inline-block;
+  list-style: none;
+  padding: 2.5em 0 1.5em 0;
+  padding-left: 3em;
+  text-align: left;
+}
+.progress-tracker li {
+  border-bottom: solid 4px #989898;
+  counter-increment: steps;
+  display: inline-block;
+  position: relative;
+  width: 7em;
+  margin-right: -0.375em;
+}
+.progress-tracker li:last-child {
+  border-bottom: none;
+}
+.progress-tracker li:after {
+  background: #989898;
+  border: solid 10px transparent;
+  border-radius: 50%;
+  color: #fff;
+  content: counter(steps);
+  font-weight: bold;
+  display: block;
+  position: absolute;
+  text-align: center;
+  width: 3em;
+  height: 3em;
+  bottom: -1.1em;
+  left: -4px;
+  bottom: -1.7em;
+}
+.progress-tracker li span {
+  display: inline-block;
+  color: #7f7f7f;
+  position: relative;
+  text-align: center;
+  width: 7;
+  left: -3.4em;
+  top: -1.75em;
+  font-size: 0.75em;
+  font-weight: bold;
+  overflow: hidden;
+}
 
+.progress-tracker li.box {
+  border-bottom-color: #2196f3;
+}
+.progress-tracker li.box:after {
+  background: #2196f3;
+}
+.progress-tracker li.box span {
+  color: #2196f3;
+}
+
+.progress-tracker li.completed {
+  border-bottom-color: yellowgreen;
+}
+.progress-tracker li.completed:after {
+  background: yellowgreen;
+}
+.progress-tracker li.completed span {
+  color: #7ba428;
+}
+
+.progress-tracker li.current:after {
+  background: #fff;
+  border-color: yellowgreen;
+}
+.progress-tracker li.current span {
+  color: #7ba428;
+}
+.progress-tracker li.skipped {
+  border-bottom-color: #f5b946;
+}
+.progress-tracker li.skipped:after {
+  background: #f5b946;
+  color: #fff;
+}
+.progress-tracker li.skipped span {
+  color: #f5b946;
+}
+.progress-tracker li.dotted {
+  border-bottom-style: dotted;
+}
+.progress-tracker.v2 {
+  padding-left: 3.25em;
+}
+.progress-tracker.v2 li {
+  width: 6.5em;
+}
+.progress-tracker.v2 li span {
+  width: 6.5em;
+  left: -2.25em;
+}
+.progress-tracker.icon li:after {
+  content: "";
+  font-family: 'FontAwesome';
+}
+.progress-tracker.icon li.completed:after {
+  content: '\f00c';
+}
+.progress-tracker.icon li.completed.document:after {
+  content: '\f16b';
+}
+
+.progress-tracker.icon li.box.document:after {
+  content: '\f16b';
+}
+.progress-tracker.icon li.skipped:after {
+  content: '\f0f6';
+}
+</style>
 <div class="content">
 
     <?php if (session()->getFlashdata('success')) : ?>
@@ -119,6 +236,47 @@
             </div>
 
         </div>
+
+        <?php if ($statusManifest->getNumRows() > 0) : ?>
+            <?php 
+                    $approved = 0;
+                    $rejected = 0;
+                    $waiting = 0;
+                ?>
+            <?php foreach($statusManifest->getResultObject() as $stat) : ?>                
+                <?php if ($stat->status == "approved") : ?>
+                    <?php $approved++; ?>
+                <?php elseif ($stat->status == "reassigned" || $stat->status == "remanifest") : ?>
+                    <?php $rejected++; ?>
+                <?php else : ?>
+                    <?php $waiting++; ?>
+                <?php endif ?>
+            <?php endforeach ?>
+            
+            <?php if ($waiting > 0) : ?>
+                <ol class="progress-tracker text-center icon">
+                    <li class="box document"><span>Phase 1<br />Box Assigned</span> </li>
+                    <li class="skipped dotted"><span>Phase 2<br />In Review <br>(<?= $waiting ?> <?= $waiting > 1 ? 'Boxes' : 'Box' ?>)</span></li>
+                    <li class="hide"><span>Phase 3<br />Completed</span></li>                    
+                </ol>                
+            <?php elseif ($approved > 0 || $rejected > 0) : ?>
+                <ol class="progress-tracker text-center icon">
+                    <li class="box document"><span>Phase 1<br />Box Assigned</span></li>
+                    <li class="skipped"><span>Phase 2<br />In Review <br>(<?= $statusManifest->getNumRows() ?> <?= $statusManifest->getNumRows() > 1 ? 'Boxes' : 'Box' ?>)</span></li>
+                    <li class="completed"><span>Phase 3<br />Completed <br>(<?= $approved > 0 ? $approved. 'Approved ' : '' ?> <?= ($rejected > 0) ? $rejected. ' Rejected' : '' ?>) </span></li>
+                </ol>
+            <?php else : ?>
+                <ol class="progress-tracker text-center icon">
+                    <li class="box document dotted"><span>Phase 1<br />Box Assigned</span> </li>
+                    <li class="hide dotted"><span>Phase 2<br />In Review <br>(<?= $waiting ?> <?= $waiting > 1 ? 'Boxes' : 'Box' ?>)</span></li>
+                    <li class="hide"><span>Phase 3<br />Completed</span></li>  
+                </ol>                  
+            <?php endif ?>
+           
+            <hr>
+        <?php elseif ($lastInvestment->status == 'complete') : ?>
+            <hr>
+        <?php endif ?>
         <div class="card-body d-lg-flex align-items-lg-center justify-content-lg-between flex-lg-wrap">
             <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <a href="#" class="btn bg-transparent border-indigo text-indigo rounded-pill border-2 btn-icon">
