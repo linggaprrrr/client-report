@@ -1,4 +1,4 @@
-<?= $this->extend('va/layout/template') ?>
+<?= $this->extend('warehouse/layout/template') ?>
 
 <?= $this->section('content') ?>
 

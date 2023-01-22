@@ -148,8 +148,11 @@ $routes->get('/warehouse/scan-log', 'Warehouse\Reports::index');
 $routes->get('/warehouse/history-box', 'Warehouse\Reports::historyBox');
 $routes->get('/warehouse/input-item', 'Warehouse\Reports::inputItem');
 $routes->post('/warehouse/input-manual', 'Warehouse\Reports::saveItem');
-$routes->get('/warehouse/export-manual-input/(:any)/
-(:any)', 'Warehouse\Reports::exportDataInput/$1/$2');
+$routes->get('/warehouse/export-manual-input/(:any)/(:any)', 'Warehouse\Reports::exportDataInput/$1/$2');
+$routes->get('/warehouse/upc/', 'UPC::clientUPC');
+$routes->get('/warehouse/upc-database/', 'UPC::warehouseUPC');
+$routes->post('load-client-upc', 'UPC::loadClientUPC');
+$routes->post('load-client-upc/(:num)', 'UPC::loadClientUPC/$1');
 
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');
@@ -220,6 +223,7 @@ $routes->get('/master/manifest', 'Admin\Reports::master');
 $routes->get('/master/manifest/(:num)', 'Admin\Reports::master/$1');
 $routes->post('/master/manifest', 'Admin\Reports::master');
 $routes->get('/master/pl-report/(:num)', 'Admin\Reports::masterPLReport/$1');
+
 
 $routes->get('/mobile/master/manifest', 'Mobile::master');
 $routes->get('/mobile/master/manifest/(:num)', 'Mobile::master/$1');

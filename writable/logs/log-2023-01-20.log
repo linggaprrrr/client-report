@@ -1,0 +1,13 @@
+ERROR - 2023-01-20 08:23:01 --> Expression #15 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.log_files.link' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+CRITICAL - 2023-01-20 08:23:01 --> Expression #15 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.log_files.link' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT reports....', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT reports....')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT reports....')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Models/ReportModel.php(75): CodeIgniter\Database\BaseConnection->query('SELECT reports....')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Clients.php(67): App\Models\ReportModel->getAllReportClient('1319')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Clients->index()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Clients))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}

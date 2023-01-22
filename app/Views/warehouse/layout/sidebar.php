@@ -41,9 +41,24 @@
         <!-- Main navigation -->
         <div class="sidebar-section">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
-                <!-- Main -->
-
+                <!-- Main -->                
                 <li class="nav-item">
+                    <a href="<?= base_url('/warehouse/upc') ?>" class="nav-link">
+                        <i class="icon-search4"></i>
+                        <span>
+                            UPC Client
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/warehouse/upc-database') ?>" class="nav-link">
+                        <i class="icon-folder-search"></i>
+                        <span>
+                            UPC Database
+                        </span>
+                    </a>
+                </li>
+                <!-- <li class="nav-item">
                     <a href="<?= base_url('/warehouse/scan-log') ?>" class="nav-link">
                         <i class="icon-copy"></i>
                         <span>
@@ -66,7 +81,7 @@
                             Input Item
                         </span>
                     </a>
-                </li>
+                </li> -->
                 <!-- /main -->
 
 

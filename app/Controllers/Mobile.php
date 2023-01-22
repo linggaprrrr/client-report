@@ -77,7 +77,7 @@ class Mobile extends BaseController
                     $page = 'get-started';
                     $this->userModel->logActivityMobile($user->id, $page, $ip);
                     if ($currentPage == base_url() || $currentPage == base_url() . '/mobile') {
-                        return redirect()->to(base_url('mobile/get-started'))->with('message', 'Login Successful!');
+                        return redirect()->to(base_url('mobile/get-started/'. $user->id))->with('message', 'Login Successful!');
                     } else {
                         return redirect()->to($currentPage)->with('message', 'Login Successful!');
                     }

@@ -2213,6 +2213,8 @@ class Reports extends BaseController
         return view('administrator/master/dashboard', $data);
     }
 
+    
+
     public function masterPLReport($id)
     {
         $userId = $id;

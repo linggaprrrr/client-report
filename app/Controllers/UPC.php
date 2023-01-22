@@ -74,7 +74,7 @@ class UPC extends BaseController
         return redirect()->back()->with('success', 'UPC Successfully Uploaded!');
     }
 
-    public function loadUPC() {
+    public function loadUPC($id = null) {
         $params['draw'] = $_REQUEST['draw'];
         $start = $_REQUEST['start'];
         $length = $_REQUEST['length'];
@@ -96,6 +96,89 @@ class UPC extends BaseController
         );
 
         echo json_encode($json_data);
+    }
+
+    public function warehouseUPC() {
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return view('login');
+        }
+        $totalUPC = $this->db->query("SELECT COUNT(*) as total FROM upc")->getRow();
+        $user = $this->userModel->find($userId);
+        $data = [
+            'tittle' => 'UPC Database | Report Management System',
+            'menu' => 'UPC Database',            
+            'user' => $user,
+            'totalUPC' => $totalUPC->total
+        ];
+
+        return view('warehouse/upc_database', $data);
+    }
+
+    public function clientUPC() {
+        $userId = session()->get('user_id');
+        $clientId = $this->request->getVar('client');
+
+        if (is_null($userId)) {
+            return view('login');
+        }     
+        $user = $this->userModel->find($userId);
+        $getAllClient = $this->db->query("SELECT * FROM users WHERE role = 'client' ");
+        $data = [
+            'tittle' => 'UPC Search | Report Management System',
+            'menu' => 'UPC Search',            
+            'user' => $user,            
+            'clients' => $getAllClient,
+            'clientSelect' => $clientId,
+        ];
+        return view('warehouse/upc', $data);
+    }
+
+    public function loadClientUPC($id = null) {
+        if (!is_null($id) || !empty($id)) {
+            $params['draw'] = $_REQUEST['draw'];
+            $start = $_REQUEST['start'];
+            $length = $_REQUEST['length'];
+            $search_value = $_REQUEST['search']['value'];
+            ini_set('memory_limit', '-1');
+            if(!empty($search_value)){
+                $total_count = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$id' AND sku <> '' AND (sku like '%".$search_value."%' OR item_description like '%".$search_value."%' OR vendor like '%".$search_value."%') ORDER BY reports.sku ASC ")->getResult(); 
+                $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$id' AND sku <> '' AND (sku like '%".$search_value."%' OR item_description like '%".$search_value."%' OR vendor like '%".$search_value."%') ORDER BY reports.sku ASC limit $start, $length")->getResult();
+            }else{
+                $total_count = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE reports.client_id = '$id' AND sku <> '' ORDER BY reports.sku ASC ")->getResult();
+                $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE reports.client_id = '$id' AND sku <> '' ORDER BY reports.sku ASC limit $start, $length")->getResult();
+            }
+            $json_data = array(
+                "draw" => intval($params['draw']),
+                "recordsTotal" => count($total_count),
+                "recordsFiltered" => count($total_count),
+                "data" => $data   // total data array
+            );
+
+            echo json_encode($json_data);
+        } else {
+            $params['draw'] = $_REQUEST['draw'];
+            $start = $_REQUEST['start'];
+            $length = $_REQUEST['length'];
+            $search_value = $_REQUEST['search']['value'];
+            ini_set('memory_limit', '-1');
+            if(!empty($search_value)){
+                $total_count = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku <> '' AND (sku like '%'".$this->db->escape($search_value)."'%' ) ORDER BY reports.sku ASC ")->getResult(); 
+                $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku <> '' AND (sku like '%" .$this->db->escapeLikeString($search_value)."%' ) ORDER BY reports.sku ASC limit $start, $length")->getResult();
+            }else{
+                $total_count = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE sku <> '' ORDER BY reports.sku ASC ")->getResult();
+                $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE sku <> '' ORDER BY reports.sku ASC limit $start, $length")->getResult();
+            }
+            $json_data = array(
+                "draw" => intval($params['draw']),
+                "recordsTotal" => count($total_count),
+                "recordsFiltered" => count($total_count),
+                "data" => $data   // total data array
+            );
+
+            echo json_encode($json_data);
+        }
+        
     }
     
     public function findUPC() {
