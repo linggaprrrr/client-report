@@ -142,8 +142,8 @@ class UPC extends BaseController
             $search_value = $_REQUEST['search']['value'];
             ini_set('memory_limit', '-1');
             if(!empty($search_value)){
-                $total_count = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$id' AND sku <> '' AND (sku like '%".$search_value."%' OR item_description like '%".$search_value."%' OR vendor like '%".$search_value."%') ORDER BY reports.sku ASC ")->getResult(); 
-                $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$id' AND sku <> '' AND (sku like '%".$search_value."%' OR item_description like '%".$search_value."%' OR vendor like '%".$search_value."%') ORDER BY reports.sku ASC limit $start, $length")->getResult();
+                $total_count = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$id' AND sku <> '' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ORDER BY reports.sku ASC ")->getResult(); 
+                $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$id' AND sku <> '' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ORDER BY reports.sku ASC limit $start, $length")->getResult();
             }else{
                 $total_count = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE reports.client_id = '$id' AND sku <> '' ORDER BY reports.sku ASC ")->getResult();
                 $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE reports.client_id = '$id' AND sku <> '' ORDER BY reports.sku ASC limit $start, $length")->getResult();
@@ -163,8 +163,8 @@ class UPC extends BaseController
             $search_value = $_REQUEST['search']['value'];
             ini_set('memory_limit', '-1');
             if(!empty($search_value)){
-                $total_count = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku <> '' AND (sku like '%'".$this->db->escape($search_value)."'%' ) ORDER BY reports.sku ASC ")->getResult(); 
-                $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku <> '' AND (sku like '%" .$this->db->escapeLikeString($search_value)."%' ) ORDER BY reports.sku ASC limit $start, $length")->getResult();
+                $total_count = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku <> '' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ORDER BY reports.sku ASC ")->getResult(); 
+                $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku <> '' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ORDER BY reports.sku ASC limit $start, $length")->getResult();
             }else{
                 $total_count = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE sku <> '' ORDER BY reports.sku ASC ")->getResult();
                 $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE sku <> '' ORDER BY reports.sku ASC limit $start, $length")->getResult();
@@ -178,7 +178,6 @@ class UPC extends BaseController
 
             echo json_encode($json_data);
         }
-        
     }
     
     public function findUPC() {
@@ -580,6 +579,96 @@ class UPC extends BaseController
         }        
         $this->db->query("UPDATE assign_report_box SET category='$category', description='$desc' WHERE box_name='$box' ");
         
+    }
+
+    public function extractResultAll($search_value) {
+        $upcs = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku <> '' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ORDER BY reports.sku ASC ")->getResult(); 
+        $fileName = "Search Result [{$search_value}].xlsx";  
+        $spreadsheet = new Spreadsheet();
+
+		$sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'CLIENT');
+        $sheet->setCellValue('B1', 'COMPANY');
+        $sheet->setCellValue('C1', 'UPC');
+		$sheet->setCellValue('D1', 'ITEM DESCRIPTION');	
+		$sheet->setCellValue('E1', 'QTY');
+        $sheet->setCellValue('F1', 'RETAIL VALUE');
+        $sheet->setCellValue('G1', 'TOTAL RETAIL');
+        $sheet->setCellValue('H1', 'CLIENT COST');
+        $sheet->setCellValue('I1', 'VENDOR');
+        $no = 2;
+        
+        foreach($upcs as $row) {
+            
+            $sheet->setCellValue('A' . $no, $row->fullname);
+            $sheet->setCellValue('B' . $no, $row->company);
+            $sheet->setCellValue('C' . $no, $row->sku);
+            $sheet->setCellValue('D' . $no, $row->item_description);                
+            $sheet->setCellValue('E' . $no, $row->qty);
+            $sheet->setCellValue('F' . $no, $row->retail_value);
+            $sheet->setCellValue('G' . $no, $row->total_retail);
+            $sheet->setCellValue('H' . $no, $row->client_cost);
+            $sheet->setCellValue('I' . $no, $row->vendor);
+            $no++;
+        }
+        
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName);
+      
+        header("Content-Type: application/vnd.ms-excel");
+
+		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length:' . filesize("files/". $fileName));
+		flush();
+		readfile("files/". $fileName);
+		exit;
+    }
+
+    public function extractResult($id, $search_value) {
+        $upcs = $this->db->query("SELECT company, sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$id' AND sku <> '' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ORDER BY reports.sku ASC ")->getResult();
+        
+        $spreadsheet = new Spreadsheet();
+
+		$sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'CLIENT');
+        $sheet->setCellValue('B1', 'COMPANY');
+        $sheet->setCellValue('C1', 'UPC');
+		$sheet->setCellValue('D1', 'ITEM DESCRIPTION');	
+		$sheet->setCellValue('E1', 'QTY');
+        $sheet->setCellValue('F1', 'RETAIL VALUE');
+        $sheet->setCellValue('G1', 'TOTAL RETAIL');
+        $sheet->setCellValue('H1', 'CLIENT COST');
+        $sheet->setCellValue('I1', 'VENDOR');
+        $no = 2;
+        $comp = "";
+        foreach($upcs as $row) {
+            $comp = $row->company;            
+            $sheet->setCellValue('A' . $no, $row->sku);
+            $sheet->setCellValue('B' . $no, $row->item_description);                
+            $sheet->setCellValue('C' . $no, $row->qty);
+            $sheet->setCellValue('D' . $no, $row->retail_value);
+            $sheet->setCellValue('E' . $no, $row->total_retail);
+            $sheet->setCellValue('F' . $no, $row->client_cost);
+            $sheet->setCellValue('G' . $no, $row->vendor);
+            $no++;
+        }
+        $fileName = "Search Result [{$comp} - {$search_value}].xlsx";  
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName);
+      
+        header("Content-Type: application/vnd.ms-excel");
+
+		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length:' . filesize("files/". $fileName));
+		flush();
+		readfile("files/". $fileName);
+		exit;
     }
 
 }

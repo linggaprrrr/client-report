@@ -14,10 +14,14 @@
                 </select>
                 </h6>                
             </form>
+            
         </div>
         
         <?php if ($clientSelect == "") : ?>
             <div class="card-body">
+                <div class="text-right extract-btn" style="display: none;">
+                    <a href="/export-search-all/" class="btn btn-success export-search"><i class="icon-file-excel mr-2"></i> Export Result</a>
+                </div>                
                 <div class="d-flex align-items-center mb-3 mb-lg-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover clientAll" width="100%" style="font-size: 10px;" cellspacing="0">
@@ -41,6 +45,9 @@
             </div>
         <?php else : ?>
             <div class="card-body">
+                <div class="text-right extract-btn" style="display: none;">
+                    <a href="/export-search/" class="btn btn-success export-search" ><i class="icon-file-excel mr-2"></i> Export Result</a>
+                </div>
                 <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover client" width="100%" style="font-size: 10px;" cellspacing="0">
@@ -85,7 +92,11 @@
 
 <script>
     $(document).ready(function() {
+       
+
         $('.clientAll').DataTable({
+            "aLengthMenu": [[1000, -1], [1000, "All"]],
+            "iDisplayLength": false,
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -104,10 +115,11 @@
                 { "data": "client_cost" },
                 { "data": "vendor" },
             ],
-            
         });
 
         $('.client').DataTable({
+            "aLengthMenu": [[1000, -1], [1000, "All"]],
+            "iDisplayLength": false,
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -128,6 +140,28 @@
             
         });
 
+
+        $('.clientAll').on('search.dt', function() {
+            var value = $('.dataTables_filter input').val();
+            if (value != "") {
+                $('.extract-btn').css('display', 'block');
+            } else {
+                $('.extract-btn').css('display', 'none');
+            }
+            $(".export-search").attr("href", "/export-search-all/"+value);
+        }); 
+
+        $('.client').on('search.dt', function() {
+            var value = $('.dataTables_filter input').val();
+            var client = $('#select-client').val();
+            if (value != "") {
+                $('.extract-btn').css('display', 'block');
+            } else {
+                $('.extract-btn').css('display', 'none');
+            }
+            $(".export-search").attr("href", "/export-search/"+client+"/"+value);
+            
+        }); 
       
     });
 

@@ -217,6 +217,8 @@ $routes->get('/mobile/news', 'Mobile::news');
 $routes->get('/mobile/client-cost-left/(:num)', 'Mobile::getClientCostLeft/$1');
 $routes->post('/api/send-device-token', 'News::sendDeviceToken');
 $routes->get('/get-summary-pl', 'Admin\Reports::getSummaryPL');
+$routes->get('/export-search/(:num)/(:any)', 'UPC::extractResult/$1/$2');
+$routes->get('/export-search-all/(:any)', 'UPC::extractResultAll/$1');
 
 // master
 $routes->get('/master/manifest', 'Admin\Reports::master');
