@@ -51,13 +51,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url('/warehouse/manifest') ?>" class="nav-link">
+                        <i class="icon-search4"></i>
+                        <span>
+                            Manifest Client
+                        </span>
+                    </a>
+                </li>
+                <!-- <li class="nav-item">
                     <a href="<?= base_url('/warehouse/upc-database') ?>" class="nav-link">
                         <i class="icon-folder-search"></i>
                         <span>
                             UPC Database
                         </span>
                     </a>
-                </li>
+                </li> -->
                 <!-- <li class="nav-item">
                     <a href="<?= base_url('/warehouse/scan-log') ?>" class="nav-link">
                         <i class="icon-copy"></i>

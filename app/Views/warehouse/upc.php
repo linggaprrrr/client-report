@@ -50,7 +50,7 @@
                 </div>
                 <div class="d-flex align-items-center mb-3 mb-lg-0">
                 <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover client" width="100%" style="font-size: 10px;" cellspacing="0">
+                        <table class="table table-striped table-bordered table-hover client" width="100%" style="font-size: 11px;" cellspacing="0">
                             <thead>
                                 <tr>
                                      
@@ -96,7 +96,7 @@
 
         $('.clientAll').DataTable({
             "aLengthMenu": [[1000, -1], [1000, "All"]],
-            "iDisplayLength": false,
+            "iDisplayLength": 1000,
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -119,7 +119,7 @@
 
         $('.client').DataTable({
             "aLengthMenu": [[1000, -1], [1000, "All"]],
-            "iDisplayLength": false,
+            "iDisplayLength": 1000,
             "processing": true,
             "serverSide": true,
             "ajax":{

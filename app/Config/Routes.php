@@ -151,8 +151,12 @@ $routes->post('/warehouse/input-manual', 'Warehouse\Reports::saveItem');
 $routes->get('/warehouse/export-manual-input/(:any)/(:any)', 'Warehouse\Reports::exportDataInput/$1/$2');
 $routes->get('/warehouse/upc/', 'UPC::clientUPC');
 $routes->get('/warehouse/upc-database/', 'UPC::warehouseUPC');
+$routes->get('/warehouse/manifest', 'UPC::clientManifest');
+$routes->get('/warehouse/manifest/(:num)', 'UPC::clientManifest/$1');
 $routes->post('load-client-upc', 'UPC::loadClientUPC');
 $routes->post('load-client-upc/(:num)', 'UPC::loadClientUPC/$1');
+$routes->post('load-client-manifest/(:num)', 'UPC::loadClientManifest/$1');
+$routes->get('/export-manifest/(:num)', 'UPC::exportManifest/$1');
 
 //json
 $routes->get('/get-company/(:num)', 'Admin\Reports::getCompany/$1');

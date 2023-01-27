@@ -146,7 +146,11 @@ class UPC extends BaseController
                 $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$id' AND sku <> '' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ORDER BY reports.sku ASC limit $start, $length")->getResult();
             }else{
                 $total_count = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE reports.client_id = '$id' AND sku <> '' ORDER BY reports.sku ASC ")->getResult();
-                $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE reports.client_id = '$id' AND sku <> '' ORDER BY reports.sku ASC limit $start, $length")->getResult();
+                if ($length == -1) {
+                    $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE reports.client_id = '$id' AND sku <> '' ORDER BY reports.sku ASC")->getResult();
+                } else {
+                    $data = $this->db->query("SELECT sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE reports.client_id = '$id' AND sku <> '' ORDER BY reports.sku ASC limit $start, $length")->getResult();
+                }
             }
             $json_data = array(
                 "draw" => intval($params['draw']),
@@ -167,7 +171,11 @@ class UPC extends BaseController
                 $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku <> '' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ORDER BY reports.sku ASC limit $start, $length")->getResult();
             }else{
                 $total_count = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE sku <> '' ORDER BY reports.sku ASC ")->getResult();
-                $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE sku <> '' ORDER BY reports.sku ASC limit $start, $length")->getResult();
+                if ($length == -1) {
+                    $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE sku <> '' ORDER BY reports.sku ASC")->getResult();
+                } else {
+                    $data = $this->db->query("SELECT users.fullname, users.company, sku, item_description, qty,  CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id WHERE sku <> '' ORDER BY reports.sku ASC limit $start, $length")->getResult();
+                }
             }
             $json_data = array(
                 "draw" => intval($params['draw']),
@@ -645,7 +653,7 @@ class UPC extends BaseController
         $no = 2;
         $comp = "";
         foreach($upcs as $row) {
-            $comp = $row->company;            
+            $comp = str_replace('/', ' ', $row->company);  
             $sheet->setCellValue('A' . $no, $row->sku);
             $sheet->setCellValue('B' . $no, $row->item_description);                
             $sheet->setCellValue('C' . $no, $row->qty);
@@ -656,6 +664,153 @@ class UPC extends BaseController
             $no++;
         }
         $fileName = "Search Result [{$comp} - {$search_value}].xlsx";  
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName);
+      
+        header("Content-Type: application/vnd.ms-excel");
+
+		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length:' . filesize("files/". $fileName));
+		flush();
+		readfile("files/". $fileName);
+		exit;
+    }
+
+    public function clientManifest() {
+        $userId = session()->get('user_id');
+        $clientId = $this->request->getVar('client');
+
+        if (is_null($userId)) {
+            return view('login');
+        }     
+        $user = $this->userModel->find($userId);
+        $getAllClient = $this->db->query("SELECT * FROM users WHERE role = 'client' ");
+        $data = [
+            'tittle' => 'Manifest Client | Report Management System',
+            'menu' => 'Manifest Client',            
+            'user' => $user,            
+            'clients' => $getAllClient,
+            'clientSelect' => $clientId,
+        ];
+        return view('warehouse/manifest', $data);
+    }
+
+    public function loadClientManifest($id) {
+        $params['draw'] = $_REQUEST['draw'];
+            $start = $_REQUEST['start'];
+            $length = $_REQUEST['length'];
+            $search_value = $_REQUEST['search']['value'];
+            ini_set('memory_limit', '-1');
+            if(!empty($search_value)){
+                $total_count = $this->db->query("SELECT sku, item_description, cond, qty, CONCAT('$', retail_value) as retail_value, CONCAT('$', original_value) as original_value, CONCAT('$', cost) as cost, vendor  FROM reports WHERE client_id = '$id' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') ")->getResult(); 
+                $data = $this->db->query("SELECT sku, item_description, cond, qty, CONCAT('$', retail_value) as retail_value, CONCAT('$', original_value) as original_value, CONCAT('$', cost) as cost, vendor FROM reports WHERE client_id = '$id' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') limit $start, $length")->getResult();
+            }else{
+                $total_count = $this->db->query("SELECT sku, item_description, cond, qty, CONCAT('$', retail_value) as retail_value, CONCAT('$', original_value) as original_value, CONCAT('$', cost) as cost, vendor FROM reports WHERE client_id = '$id' ")->getResult();
+                if ($length == -1) {
+                    $data = $this->db->query("SELECT sku, item_description, cond, qty, CONCAT('$', retail_value) as retail_value, CONCAT('$', original_value) as original_value, CONCAT('$', cost) as cost, vendor FROM reports WHERE client_id = '$id' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%')")->getResult();
+                } else {
+                    $data = $this->db->query("SELECT sku, item_description, cond, qty, CONCAT('$', retail_value) as retail_value, CONCAT('$', original_value) as original_value, CONCAT('$', cost) as cost, vendor FROM reports WHERE client_id = '$id' AND (sku like '%".$this->db->escapeLikeString($search_value)."%' OR item_description like '%".$this->db->escapeLikeString($search_value)."%' OR vendor like '%".$this->db->escapeLikeString($search_value)."%') limit $start, $length")->getResult();
+                }
+            }
+            $json_data = array(
+                "draw" => intval($params['draw']),
+                "recordsTotal" => count($total_count),
+                "recordsFiltered" => count($total_count),
+                "data" => $data   // total data array
+            );
+
+            echo json_encode($json_data);
+    }
+
+    public function exportManifest($id) {
+        $manifest = $this->db->query("SELECT reports.*, investments.date as order_date, users.fullname, users.company FROM reports JOIN investments ON investments.id = reports.investment_id JOIN users ON users.id = investments.client_id WHERE investments.client_id = '$id' ORDER BY investments.date DESC;")->getResult();        
+        $spreadsheet = new Spreadsheet();
+
+		 // Styling
+         $spreadsheet->getActiveSheet()->getStyle('A:A')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+         $spreadsheet->getActiveSheet()->getStyle('B:B')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+         $spreadsheet->getActiveSheet()->getStyle('C:C')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+         $spreadsheet->getActiveSheet()->getStyle('D:D')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+         $spreadsheet->getActiveSheet()->getStyle('E:E')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+         $spreadsheet->getActiveSheet()->getStyle('F:F')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+         $spreadsheet->getActiveSheet()->getStyle('G:G')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+         $spreadsheet->getActiveSheet()->getStyle('H:H')
+         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+         
+         
+         $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+             ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+         $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+             ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+         $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+             ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+         $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+             ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+         
+         $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+             ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+         $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+             ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+         $spreadsheet->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+         $spreadsheet->getActiveSheet()->getStyle('A:A')->getNumberFormat()
+             ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+         $spreadsheet->getActiveSheet()->getStyle('E:E')->getNumberFormat()
+             ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+         $spreadsheet->getActiveSheet()->getStyle('F:F')->getNumberFormat()
+         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+         $spreadsheet->getActiveSheet()->getStyle('G:G')->getNumberFormat()
+         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+ 
+ 
+         $sheet = $spreadsheet->getActiveSheet();
+         $sheet->setCellValue('A1', 'UPC/SKU');
+         $sheet->setCellValue('B1', 'ITEM DESCRIPTION');
+         $sheet->setCellValue('C1', 'CONDITION');
+         $sheet->setCellValue('D1', 'ORIGINAL QTY');
+         $sheet->setCellValue('E1', 'RETAIL VALUE');
+         $sheet->setCellValue('F1', 'TOTAL ORIGINAL RETAIL');
+         $sheet->setCellValue('G1', 'TOTAL CLIENT COST');
+         $sheet->setCellValue('H1', 'VENDOR');
+         $no = 2;
+         $comp = "";
+         
+         foreach($manifest as $row) {    
+            $name = $row->fullname;         
+            $comp = str_replace('/', ' ', $row->company);   
+            $date = $row->order_date;
+            $sheet->setCellValue('A' . $no, $row->sku);
+            $sheet->setCellValue('B' . $no, $row->item_description);                
+            $sheet->setCellValue('C' . $no, $row->cond);
+            $sheet->setCellValue('D' . $no, $row->qty);
+            $sheet->setCellValue('E' . $no, $row->retail_value);
+            $sheet->setCellValue('F' . $no, $row->original_value);
+            $sheet->setCellValue('G' . $no, $row->cost);
+            $sheet->setCellValue('H' . $no, $row->vendor);
+            $no++;
+        }
+         $col = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+         for ($j = 0; $j < count($col); $j++) {
+             $spreadsheet->getActiveSheet()->getStyle($col[$j].'1:'.$col[$j].''.$no)
+                 ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+             $spreadsheet->getActiveSheet()->getStyle($col[$j].'1:'.$col[$j].''.$no)
+                 ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+             $spreadsheet->getActiveSheet()->getStyle($col[$j].'1:'.$col[$j].''.$no)
+                 ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+             $spreadsheet->getActiveSheet()->getStyle($col[$j].'1:'.$col[$j].''.$no)
+                 ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        }
+         
+        $fileName = "Manifest Result - {$name} {$comp}.xlsx";  
         $writer = new Xlsx($spreadsheet);
         $writer->save("files/". $fileName);
       

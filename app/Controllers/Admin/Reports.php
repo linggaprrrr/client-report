@@ -488,7 +488,7 @@ class Reports extends BaseController
         $link = $this->request->getVar('link');
         $chart = $this->request->getFile('chart');
         $types = $this->request->getVar('type');
-        
+        $this->db->query("DELETE FROM chart_pl WHERE client_id = '$client' ");
         $ext = $chart->getClientExtension();
         if ($ext == 'xls') {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
@@ -502,13 +502,25 @@ class Reports extends BaseController
             $chartTitle = array();
             $monthData = array();
             $type = array();
-            
+            $chart = false;
             foreach ($data as $idx => $row) {
                 if (!empty($row[0])) {
-                    array_push($chartTitle, $row[0]);                    
+                    if (strcasecmp($row[0], "Active SKU") == 0) {
+                        $title = "Active SKUs";
+                    } else if (strcasecmp($row[0], "Sold") == 0 || strcasecmp($row[0], "Solds") == 0) {
+                        $title = "Unit Sold";
+                    } else if (strcasecmp($row[0], "Gross Sales") == 0 || strcasecmp($row[0], "Gross Sale") == 0) {
+                        $title = "Gross Revenue";
+                    } else {
+                        $title = $row[0];
+                    }                    
+                    array_push($chartTitle, $title);                    
+                    $chart = true;
                 } else {
-                    if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]) )) {
+                    if ($chart == true && (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]) ))) {
                         $month = array();
+                        $chart = false;
+                        
                         if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false || strpos($row[14], '%') !== false || strpos($row[15], '%') !== false || strpos($row[16], '%') !== false || strpos($row[17], '%') !== false || strpos($row[18], '%') !== false || strpos($row[19], '%') !== false) {
                             for ($i = 2; $i < 19; $i++) {
                                 if ($i != 3) {
@@ -564,22 +576,32 @@ class Reports extends BaseController
                 }
                
         
-            }             
-            
+            }
             for ($i = 0; $i < count($chartTitle); $i++) {
                 $this->reportModel->savePLReport($chartTitle[$i], $monthData[$i], $type[$i], $client);
             }    
         } else {
-
             $chartTitle = array();
             $monthData = array();
             $type = array();
+            $chart = false;
             foreach ($data as $idx => $row) {
                 if (!empty($row[0])) {
-                    array_push($chartTitle, $row[0]);
+                    if (strcasecmp($row[0], "Active SKU") == 0) {
+                        $title = "Active SKUs";
+                    } else if (strcasecmp($row[0], "Sold") == 0 || strcasecmp($row[0], "Solds") == 0) {
+                        $title = "Unit Sold";
+                    } else if (strcasecmp($row[0], "Gross Sales") == 0 || strcasecmp($row[0], "Gross Sale") == 0) {
+                        $title = "Gross Revenue";
+                    } else {
+                        $title = $row[0];
+                    }                                        
+                    array_push($chartTitle, $title);   
+                    $chart = true;
                 } else {
-                    if (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]))) {
+                    if ($chart == true && (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13])))) {
                         $month = array();
+                        $chart = false;
                         if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false || strpos($row[14], '%') !== false || strpos($row[15], '%') !== false || strpos($row[16], '%') !== false || strpos($row[17], '%') !== false || strpos($row[18], '%') !== false || strpos($row[19], '%') !== false) {
                             for ($i = 4; $i < 19; $i++) {
                                 $temp = str_replace('%', '', trim($row[$i]));
