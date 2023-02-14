@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class UPCModel extends Model
 {
     protected $table = 'upc';
-    protected $allowedFields = ['upc', 'asin', 'item_description', 'retail_value', 'vendor_name'];
+    protected $allowedFields = ['upc', 'asin', 'item_description', 'retail_value', 'vendor_name', 'price', 'img'];
     protected $db = "";
     
     public function __construct() {

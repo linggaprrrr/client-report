@@ -826,4 +826,56 @@ class UPC extends BaseController
 		exit;
     }
 
+    public function amazonUPCDatastore() {
+        $post = $this->request->getVar();
+        $temp = [                        
+            'upc' => $post['upc'],
+            'asin' => $post['asin'],
+            'item_description' => $post['title'],            
+            'vendor_name' => $post['brand'],
+            'price' => $post['price'],
+            'img' => $post['img'],
+        ];
+        
+        $check = $this->upcModel->where('upc', $post['upc'])->get();
+        
+        if ($check->getNumRows() == 0) {
+            $this->upcModel->ignore(true)->insert($temp); 
+        }        
+        
+    }
+
+    public function amazonUPCExport() {
+        $post = $this->request->getVar();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'UPC');
+        $sheet->setCellValue('B1', 'ASIN');
+        $sheet->setCellValue('C1', 'ITEM DESCRIPTION');
+        $sheet->setCellValue('D1', 'VENDOR');
+        $sheet->setCellValue('E1', 'PRICE');
+        $sheet->setCellValue('F1', 'IMAGE FILE');
+        $no = 2;
+        $comp = "";
+        for ($i = 0; $i < count($post['upc']); $i++) {
+           if (!empty($post['upc'][$i])) {
+            $sheet->setCellValue('A' . $no, $post['upc'][$i]);
+            $sheet->setCellValue('B' . $no, $post['asin'][$i]);
+            $sheet->setCellValue('C' . $no, $post['title'][$i]);
+            $sheet->setCellValue('D' . $no, $post['brand'][$i]);
+            $sheet->setCellValue('E' . $no, $post['price'][$i]);            
+            $sheet->setCellValue('F' . $no, $post['img'][$i]);                
+            $no++;
+           }
+        }
+        
+        $time = time();
+        $fileName = "UPC Archive {$time}.xlsx";  
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName); 
+        echo json_encode([
+            'file' => $fileName,
+        ]);
+    }
+
 }

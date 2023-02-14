@@ -17,6 +17,7 @@ use CodeIgniter\Database\BaseBuilder;
 
 
 
+
 class Reports extends BaseController
 {
     protected $reportModel = "";
@@ -483,11 +484,12 @@ class Reports extends BaseController
         return view('administrator/pl_reports', $data);
     }
 
-    public function uploadPLReport() {
+    public function uploadPLReport() {        
         $client = $this->request->getVar('client');
         $link = $this->request->getVar('link');
         $chart = $this->request->getFile('chart');
         $types = $this->request->getVar('type');
+        
         $this->db->query("DELETE FROM chart_pl WHERE client_id = '$client' ");
         $ext = $chart->getClientExtension();
         if ($ext == 'xls') {
@@ -495,9 +497,12 @@ class Reports extends BaseController
         } else {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         }
-        $spreadsheet = $render->load($chart);
-        $data = $spreadsheet->getActiveSheet()->toArray();
-        
+        ini_set('memory_limit', -1);
+        $render->setReadEmptyCells(false);
+        $spreadsheet = $render->load($chart);     
+        $data = $spreadsheet->getSheetByName('Charts')->toArray();
+        // $data = $spreadsheet->getActiveSheet()->toArray();
+        dd($data);
         if ($types == 'yes') {    
             $chartTitle = array();
             $monthData = array();
@@ -656,7 +661,7 @@ class Reports extends BaseController
         
         $fileName = $chart->getName();
         $this->db->query("INSERT into log_files(date, file, link, client_id) VALUES(NOW(), " . $this->db->escape($fileName) . "," . $this->db->escape($link) . " , $client) ");
-        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
+        // return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
     
@@ -1639,21 +1644,22 @@ class Reports extends BaseController
     }
 
     public function refreshDashboard()
-    {
-        $totalInvest = $this->investmentModel->totalClientInvestment();
-        $totalUnit = $this->reportModel->totalUnit();
-        $unit = ($totalUnit->total_unit > 0) ? $totalUnit->total_unit : "0";
+    {   
+        $data = $this->db->query("SELECT SUM(investments.cost) as client_cost, SUM(total_retail) as total_retail, SUM(total_unit) as total_unit, total_fulfilled, SUM(investments.cost - IFNULL(cost_, 0)) as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id")->getRow();
+        // $totalInvest = $this->investmentModel->totalClientInvestment();
+        // $totalUnit = $this->reportModel->totalUnit();
+        // $unit = ($totalUnit->total_unit > 0) ? $totalUnit->total_unit : "0";
         $totalRetail = $this->reportModel->totalRetail();
-        $totalCostLeft = $this->reportModel->totalCostLeft();
-        $totalFulfilled = $this->reportModel->totalFulfilled();
-        $avgRetail = ($totalUnit->total_unit != 0) ? number_format(($totalFulfilled->total_fulfilled / $totalUnit->total_unit), 2) : "0";
-        $avgClientCost = ($totalUnit->total_unit != 0) ? number_format(($totalRetail->total_retail / $totalUnit->total_unit), 2) : "0";
+        // $totalCostLeft = $this->reportModel->totalCostLeft();
+        // $totalFulfilled = $this->reportModel->totalFulfilled();
+        $avgRetail = ($data->total_unit != 0) ? number_format(($data->total_fulfilled / $data->total_unit), 2) : "0";
+        $avgClientCost = ($data->total_unit != 0) ? number_format(($data->total_fulfilled / $data->total_unit), 2) : "0";
         $summary = array(
-            'total_client_cost' => number_format($totalInvest->total_client_cost, 2),
-            'total_cost_left' => number_format($totalCostLeft, 2),
-            'total_unit' => $unit,
+            'total_client_cost' => number_format($data->client_cost, 2),
+            'total_cost_left' => number_format($data->cost_left, 2),
+            'total_unit' => $data->total_unit,
             'total_original' => number_format($totalRetail->total_retail, 2),
-            'total_fulfilled' => number_format($totalFulfilled->total_fulfilled, 2),
+            'total_fulfilled' => number_format($data->total_fulfilled, 2),
             'avg_retail' => $avgRetail,
             'avg_client_cost' => $avgClientCost
         );
@@ -2629,6 +2635,12 @@ class Reports extends BaseController
     public function clearReminder() {
         $id = $this->request->getVar('id');
         $this->db->query("DELETE FROM reminder WHERE id = '$id' ");
+    }
+
+    public function getClientManifest() {
+        $id = $this->request->getVar('id');
+        $data = $this->investmentModel->getClientManifest($id);
+        echo json_encode($data->getResultArray());
     }
 
     public function test()

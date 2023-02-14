@@ -152,4 +152,9 @@ class InvestmentModel extends Model
         $query = $this->db->query("SELECT * FROM investments JOIN reports ON reports.investment_id = investments.id WHERE investments.id = '$id' ");
         return $query;
     }
+
+    public function getClientManifest($id) {
+        $query = $this->db->query("SELECT reports.*, users.fullname, users.company FROM reports JOIN users ON users.id = reports.client_id WHERE investment_id = '$id' ");
+        return $query;
+    }
 }

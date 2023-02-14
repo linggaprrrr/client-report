@@ -171,7 +171,7 @@
                             </td>
                             <td><?= $row['fullname'] ?></td>
                             <td><?= $row['company'] ?></td>
-                            <td><b>$ <?= number_format($row['amount'], 2) ?></b></td>
+                            <td><b>$<?= number_format($row['amount'], 0) ?></b></td>
                             <td><?= $row['file'] ?></td>
                             <td class="text-center"><?= $row['date'] ?></td>
                             <td class="text-center">
@@ -187,6 +187,7 @@
                                     <div class="dropdown">
                                         <a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu7"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item preview" data-id="<?= $row['investment_id'] ?>" data-toggle="modal" data-target="#previewManifest"><i class="icon-pencil text-warning"></i> Preview</a>
                                             <form action="<?= base_url("/report/" . $row['investment_id']) ?>" method="post">
                                                 <?= csrf_field() ?>
                                                 <input type="hidden" name="_method" value="DELETE">
@@ -201,6 +202,40 @@
                 <?php endif ?>
             </tbody>
         </table>
+    </div>
+    <div class="modal fade" id="previewManifest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clientName"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table manifestTable" style="font-size: 10px;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 12%;">UPC</th>
+                                <th class="text-center">ITEM DESCRIPTION</th>
+                                <th class="text-center" style="width: 5%;">COND</th>
+                                <th class="text-center" style="width: 5%;">QTY</th>
+                                <th class="text-center" style="width: 5%;">RETAIL</th>
+                                <th class="text-center" style="width: 5%;">TOTAL RETAIL</th>
+                                <th class="text-center" style="width: 5%;">CLIENT COST</th>
+                                <th class="text-center">VENDOR NAME</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manifestBody">
+                           
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>
@@ -232,10 +267,37 @@
         <?php if (session()->getFlashdata('delete')) : ?>
             $('#noty_deleted').click();
         <?php endif ?>
+        var t = $('.manifestTable').DataTable(); 
+
+        $('.preview').click(function() {
+            const id = $(this).data('id');        
+            var client = "";
+            $.get('/get-manifest', {id: id}, function(data) {
+                const res = JSON.parse(data);
+                t.clear().draw(); 
+                $('#clientName').html("");
+                for (var i = 0; i < res.length; i++) {
+                    if (i == 0) {
+                        var client = res[i]['fullname']+' - '+res[i]['company'];
+                    }
+                    t.row.add([
+                        '<p class="text-center font-weight-bold">'+res[i]['sku']+'</p>',
+                        res[i]['item_description'],
+                        res[i]['cond'],
+                        res[i]['qty'],
+                        '$'+res[i]['retail_value'],
+                        '$'+res[i]['original_value'],
+                        '$'+parseFloat(res[i]['cost'], 2),
+                        res[i]['vendor'],
+                    ]).draw(false);
+                }
+                $('#clientName').html(client);
+            });
+        })
+
     });
 
-
-
+    
     $('#noty_created').on('click', function() {
         new Noty({
             text: 'You successfully upload the manifest.',

@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form class="wizard-form steps-async wizard clearfix" id="log-form"  method="post" >
+            <form class="wizard-form steps-async wizard clearfix" id="log-form" >
                 <div class="table-responsive">                
                     <?= csrf_field() ?>
                     <input type="hidden" class="box" name="box">
@@ -120,6 +120,15 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    $(document).ready(function() {
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+            }
+        });
+    });
+
     var cat = "";
     var audio = new Audio('/assets/beep.mp3');
     $('form#newBox').submit(function(event) {

@@ -75,7 +75,11 @@ class Auth extends BaseController
                 } elseif ($user->role == "va") {
                     return redirect()->to(base_url('/va/assignment-process'))->with('message', 'Login Successful!');
                 }  elseif ($user->role == "admin") {
-                    return redirect()->to(base_url('/warehouse/upc'))->with('message', 'Login Successful!');
+                    if ($user->username == "scanner") {
+                        return redirect()->to(base_url('/scanner/upc'))->with('message', 'Login Successful!');
+                    } else {
+                        return redirect()->to(base_url('/warehouse/upc'))->with('message', 'Login Successful!');
+                    }
                 } else {
                     $ip = getenv('HTTP_CLIENT_IP')?: getenv('HTTP_X_FORWARDED_FOR')?: getenv('HTTP_X_FORWARDED')?: getenv('HTTP_FORWARDED_FOR')?: getenv('HTTP_FORWARDED')?: getenv('REMOTE_ADDR');
                     $page = 'get-started';

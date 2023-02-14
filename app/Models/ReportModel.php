@@ -91,7 +91,7 @@ class ReportModel extends Model
 
     public function getAllFiles()
     {
-        $query = $this->db->query("SELECT log_files.id as log_id, investments.date as invest_date, investments.cost as amount, fullname, company, file, log_files.date, link, investments.id as investment_id  FROM `log_files` RIGHT JOIN investments ON investments.id = log_files.investment_id JOIN users ON users.id = log_files.client_id ORDER BY investments.date DESC");
+        $query = $this->db->query("SELECT log_files.id as log_id, investments.date as invest_date, investments.cost as amount, fullname, company, file, log_files.date, link, investments.id as investment_id  FROM `log_files` RIGHT JOIN investments ON investments.id = log_files.investment_id JOIN users ON users.id = log_files.client_id ORDER BY log_files.date DESC");
         return $query;
     }
 

@@ -6,6 +6,7 @@
         font-weight: bold;
     }
 </style>
+
 <div class="content">
     <div class="card">
         <ul class="nav nav-tabs nav-tabs-bottom">

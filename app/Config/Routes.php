@@ -258,10 +258,23 @@ $routes->post('/set-reminder', 'Clients::setReminder');
 $routes->get('/push-reminder', 'Admin\Reports::pushReminder');
 $routes->get('/get-reminder', 'Admin\Reports::getReminder');
 $routes->post('/clear-reminder', 'Admin\Reports::clearReminder');
+$routes->get('/get-manifest', 'Admin\Reports::getClientManifest');
 
 $routes->get('/how-amazon-payments-work', 'Clients::AmazonPayment');
 $routes->get('/mobile/how-amazon-payments-work', 'Mobile::AmazonPayment');
 $routes->get('/android/how-amazon-payments-work', 'Android::AmazonPayment');
+
+$routes->get('/manifest-api/(:num)/(:num)', 'API::manifestAPI/$1/$2');
+$routes->get('/update-manifest', 'Logs::testAPI');
+$routes->post('/save-to-upc-db', 'UPC::amazonUPCDatastore');
+$routes->post('/export-amazon-upc', 'UPC::amazonUPCExport');
+
+
+// scanner
+
+$routes->get('/scanner/upc', 'Warehouse\Scanner::UPCScanner');
+
+$routes->get('/unlock-file', 'API::unlockFile');
 
 /*
  * --------------------------------------------------------------------

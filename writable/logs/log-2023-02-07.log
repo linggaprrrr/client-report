@@ -1,0 +1,246 @@
+ERROR - 2023-02-07 06:23:56 --> Error connecting to the database: Connection refused
+CRITICAL - 2023-02-07 06:23:56 --> Unable to connect to the database.
+Main connection [MySQLi]: Connection refused
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Auth.php(24): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->login()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+ERROR - 2023-02-07 06:24:36 --> Error connecting to the database: Connection refused
+CRITICAL - 2023-02-07 06:24:36 --> Unable to connect to the database.
+Main connection [MySQLi]: Connection refused
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Auth.php(24): CodeIgniter\Database\BaseConnection->query('SELECT logo FRO...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Auth->login()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-07 06:27:59 --> ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Head...', '/Applications/M...', 71, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Session/Handlers/FileHandler.php(71): ini_set('session.save_pa...', '/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(570): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\App), '::1')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session(Object(Config\App), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(189): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(563): CodeIgniter\Config\BaseService::getSharedInstance('session', NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/BaseController.php(51): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(802): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(401): CodeIgniter\CodeIgniter->createController()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-07 06:27:59 --> Uncaught ErrorException: Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/smartwholesale/client-report/app/Config/Events.php:32) in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php:107
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'Cannot modify h...', '/Applications/M...', 107, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php(107): header('HTTP/1.1 500 In...', true, 500)
+#2 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#3 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 07:07:10 --> ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Head...', '/Applications/M...', 71, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Session/Handlers/FileHandler.php(71): ini_set('session.save_pa...', '/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(570): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\App), '::1')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session(Object(Config\App), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(189): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(563): CodeIgniter\Config\BaseService::getSharedInstance('session', NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/BaseController.php(51): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(802): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(401): CodeIgniter\CodeIgniter->createController()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-07 07:07:10 --> Uncaught ErrorException: Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/smartwholesale/client-report/app/Config/Events.php:32) in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php:107
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'Cannot modify h...', '/Applications/M...', 107, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php(107): header('HTTP/1.1 500 In...', true, 500)
+#2 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#3 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 07:07:28 --> ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Head...', '/Applications/M...', 71, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Session/Handlers/FileHandler.php(71): ini_set('session.save_pa...', '/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(570): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\App), '::1')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session(Object(Config\App), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(189): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(563): CodeIgniter\Config\BaseService::getSharedInstance('session', NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/BaseController.php(51): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(802): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(401): CodeIgniter\CodeIgniter->createController()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-07 07:07:28 --> Uncaught ErrorException: Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/smartwholesale/client-report/app/Config/Events.php:32) in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php:107
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'Cannot modify h...', '/Applications/M...', 107, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php(107): header('HTTP/1.1 500 In...', true, 500)
+#2 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#3 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 07:21:17 --> ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Head...', '/Applications/M...', 71, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Session/Handlers/FileHandler.php(71): ini_set('session.save_pa...', '/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(570): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\App), '::1')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session(Object(Config\App), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(189): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(563): CodeIgniter\Config\BaseService::getSharedInstance('session', NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/BaseController.php(51): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(802): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(401): CodeIgniter\CodeIgniter->createController()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-07 07:21:17 --> Uncaught ErrorException: Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/smartwholesale/client-report/app/Config/Events.php:32) in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php:107
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'Cannot modify h...', '/Applications/M...', 107, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php(107): header('HTTP/1.1 500 In...', true, 500)
+#2 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#3 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:06:21 --> Could not find zip member zip:///private/var/folders/jj/44b2kndd7158kc_vdvkhpybh0000gn/T/phppAwbdE#_rels/.rels
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php(408): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('/private/var/fo...', '_rels/.rels')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php(166): PhpOffice\PhpSpreadsheet\Reader\Xlsx->loadSpreadsheetFromFile('/private/var/fo...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(501): PhpOffice\PhpSpreadsheet\Reader\BaseReader->load('/private/var/fo...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadPLReport()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-07 16:27:37 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required '/Applications/MAMP/htdocs/smartwholesale/client-report/app/libraries/PHPDecryptXLSXWithPassword.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:28:09 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:28:11 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:28:12 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:28:14 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:28:14 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:28:14 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:28:54 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:30:22 --> include_once(OLE/ChainedBlockStream.php): failed to open stream: No such file or directory
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/libraries/PHPDecryptXLSXWithPassword/OLE.php(238): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include_once(OL...', '/Applications/M...', 238, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/libraries/PHPDecryptXLSXWithPassword/OLE.php(238): include_once()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/libraries/PHPDecryptXLSXWithPassword/OLE.php(204): OLE->getStream(2)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/libraries/PHPDecryptXLSXWithPassword/PHPDecryptXLSXWithPassword.php(25): OLE->read('encrypted.xlsx')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(497): decrypt('encrypted.xlsx', 'testpass', 'decrypted.xlsx')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadPLReport()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2023-02-07 16:30:51 --> OLE::main(): Failed opening required 'OLE/PPS.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:31:45 --> OLE::main(): Failed opening required 'OLE/PPS.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:34:18 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:34:20 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:34:21 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:34:22 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:34:23 --> CodeIgniter\Autoloader\Autoloader::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 16:36:24 --> CodeIgniter\View\View::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 19:50:35 --> CodeIgniter\View\View::main(): Failed opening required 'OLE.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear:./lib:./include/lib')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 20:48:02 --> CodeIgniter\View\View::main(): Failed opening required 'PHPDecryptXLSXWithPassword.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 20:51:55 --> CodeIgniter\View\View::main(): Failed opening required 'PHPDecryptXLSXWithPassword.php' (include_path='.:/opt/homebrew/Cellar/php@7.4/7.4.32/share/php@7.4/pear')
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 20:52:57 --> ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Head...', '/Applications/M...', 71, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Session/Handlers/FileHandler.php(71): ini_set('session.save_pa...', '/Applications/M...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(570): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\App), '::1')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session(Object(Config\App), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(189): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/Services.php(563): CodeIgniter\Config\BaseService::getSharedInstance('session', NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Config/BaseService.php(248): CodeIgniter\Config\Services::session()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/BaseController.php(51): CodeIgniter\Config\BaseService::__callStatic('session', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(802): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(401): CodeIgniter\CodeIgniter->createController()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-07 20:52:57 --> Uncaught ErrorException: Cannot modify header information - headers already sent by (output started at /Applications/MAMP/htdocs/smartwholesale/client-report/app/Config/Events.php:32) in /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php:107
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'Cannot modify h...', '/Applications/M...', 107, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Debug/Exceptions.php(107): header('HTTP/1.1 500 In...', true, 500)
+#2 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#3 {main}
+  thrown
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 21:17:38 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 1740800 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 21:17:56 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 4096 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 21:18:27 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 4096 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 21:20:13 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 30308509 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 21:21:24 --> Call to a member function toArray() on null
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->uploadPLReport()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-07 21:24:31 --> Maximum execution time of 60 seconds exceeded
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-07 21:30:06 --> Maximum execution time of 60 seconds exceeded
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
