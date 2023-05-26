@@ -27,6 +27,7 @@
                     <div>
                         <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-file-upload mr-2"></i>Upload Report</button>
                         <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload2"><i class="icon-file-upload2 mr-2"></i>Bulk Upload</button>
+                        <a onclick="window.open('http://localhost:8080/sync-profits-and-loses', '_blank', 'location:yes');" class="btn btn-danger"><i class="icon-sync mr-2"></i>Automation Sync</a>
                         <div id="modal_form_upload" class="modal fade" tabindex="-1">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -120,6 +121,29 @@
                                         <div class="modal-footer">
                                             <div class="text-right">
                                                 <button type="submit" class="btn btn-secondary">Save <i class="icon-paperplane ml-2"></i></button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="modal_form_upload3" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-secondary text-white">
+                                        <h5 class="modal-title">P&L Files</h5>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <form action="<?= base_url('pl-automation') ?>" method="POST" enctype="multipart/form-data">
+                                        <?php csrf_field() ?>
+                                        <div class="modal-body">
+                                           
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-secondary">Confirm <i class="icon-paperplane ml-2"></i></button>
                                             </div>
 
                                         </div>

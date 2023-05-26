@@ -1,0 +1,22 @@
+CRITICAL - 2023-02-22 23:06:38 --> Charts!F32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(668): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->test()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-22 23:07:22 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 41943072 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-22 23:07:26 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 41943072 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-22 23:17:00 --> Charts!Q32 -> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(680): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->test()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}

@@ -1,0 +1,23 @@
+CRITICAL - 2023-03-04 01:48:56 --> syntax error, unexpected '?>', expecting function (T_FUNCTION) or const (T_CONST)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+ERROR - 2023-03-04 01:49:08 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.under_comp FROM investments JOIN log_files ON log_files.investment_id = investm' at line 1
+CRITICAL - 2023-03-04 01:49:08 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.under_comp FROM investments JOIN log_files ON log_files.investment_id = investm' at line 1
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT investme...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT investme...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT investme...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(880): CodeIgniter\Database\BaseConnection->query('SELECT investme...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->test()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}

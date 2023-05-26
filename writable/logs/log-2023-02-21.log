@@ -1,0 +1,16 @@
+CRITICAL - 2023-02-21 21:59:23 --> Object of class Google\Client could not be converted to string
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(501): App\Models\ReportModel->savePLReport('Merchandise Pur...', Array, 'num', Object(Google\Client))
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+ERROR - 2023-02-21 22:02:36 --> Duplicate entry '0' for key 'PRIMARY'
+CRITICAL - 2023-02-21 22:09:11 --> Object of class Google\Client could not be converted to string
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}

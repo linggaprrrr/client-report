@@ -1386,6 +1386,71 @@
             "install-path": "../guzzlehttp/psr7"
         },
         {
+            "name": "hybridauth/hybridauth",
+            "version": "v3.0.0",
+            "version_normalized": "3.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hybridauth/hybridauth.git",
+                "reference": "be337a4a79bdb3b0587c81e202e674b40b125bcb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/be337a4a79bdb3b0587c81e202e674b40b125bcb",
+                "reference": "be337a4a79bdb3b0587c81e202e674b40b125bcb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.8.35"
+            },
+            "time": "2019-05-31T15:20:03+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Hybridauth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miled",
+                    "email": "hybridauth@gmail.com"
+                }
+            ],
+            "description": "PHP Social Authentication Library",
+            "homepage": "https://hybridauth.github.io",
+            "keywords": [
+                "Authentication",
+                "OpenId",
+                "api",
+                "authorization",
+                "facebook",
+                "google",
+                "oauth",
+                "social",
+                "twitter"
+            ],
+            "support": {
+                "gitter": "https://gitter.im/hybridauth/hybridauth",
+                "issues": "https://github.com/hybridauth/hybridauth/issues",
+                "source": "https://github.com/hybridauth/hybridauth/tree/v3.0.0"
+            },
+            "install-path": "../hybridauth/hybridauth"
+        },
+        {
             "name": "kint-php/kint",
             "version": "3.3",
             "version_normalized": "3.3.0.0",
@@ -1843,6 +1908,69 @@
             "install-path": "../mikey179/vfsstream"
         },
         {
+            "name": "mnapoli/silly",
+            "version": "1.8.1",
+            "version_normalized": "1.8.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mnapoli/silly.git",
+                "reference": "3ff92aab46f365eb341c581dcba074f812420827"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mnapoli/silly/zipball/3ff92aab46f365eb341c581dcba074f812420827",
+                "reference": "3ff92aab46f365eb341c581dcba074f812420827",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4",
+                "php-di/invoker": "~2.0",
+                "psr/container": "^1.0|^2.0",
+                "symfony/console": "~3.0|~4.0|~5.0|~6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.12",
+                "mnapoli/phpunit-easymock": "~1.0",
+                "phpunit/phpunit": "^6.4|^7|^8|^9"
+            },
+            "time": "2022-09-06T14:21:36+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Silly\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Silly CLI micro-framework based on Symfony Console",
+            "keywords": [
+                "PSR-11",
+                "cli",
+                "console",
+                "framework",
+                "micro-framework",
+                "silly"
+            ],
+            "support": {
+                "issues": "https://github.com/mnapoli/silly/issues",
+                "source": "https://github.com/mnapoli/silly/tree/1.8.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/mnapoli/silly",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "../mnapoli/silly"
+        },
+        {
             "name": "monolog/monolog",
             "version": "2.8.0",
             "version_normalized": "2.8.0.0",
@@ -2200,6 +2328,62 @@
                 }
             ],
             "install-path": "../nexusphp/tachycardia"
+        },
+        {
+            "name": "nick322/secure-spreadsheet",
+            "version": "1.0.4",
+            "version_normalized": "1.0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nick322/secure-spreadsheet.git",
+                "reference": "5f294411b95ff80f61229676e6b7679b5f8bb56e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nick322/secure-spreadsheet/zipball/5f294411b95ff80f61229676e6b7679b5f8bb56e",
+                "reference": "5f294411b95ff80f61229676e6b7679b5f8bb56e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-hash": "*",
+                "ext-openssl": "*",
+                "ext-simplexml": "*",
+                "mnapoli/silly": "^1.8",
+                "php": "^7.4 || ^8.0 || ^8.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "require-dev": {
+                "ext-hash": "*",
+                "ext-openssl": "*",
+                "php": "^7.4 || ^8.0 || ^8.1"
+            },
+            "time": "2022-12-05T08:33:20+00:00",
+            "bin": [
+                "secure-spreadsheet"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Nick\\SecureSpreadsheet\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nick Huang",
+                    "email": "nick80322@gmail.com"
+                }
+            ],
+            "description": "Encrypt and password protect sensitive XLSX files",
+            "support": {
+                "issues": "https://github.com/nick322/secure-spreadsheet/issues",
+                "source": "https://github.com/nick322/secure-spreadsheet/tree/1.0.4"
+            },
+            "install-path": "../nick322/secure-spreadsheet"
         },
         {
             "name": "nikic/php-parser",
@@ -2650,6 +2834,64 @@
                 "source": "https://github.com/PHP-CS-Fixer/diff/tree/v2.0.2"
             },
             "install-path": "../php-cs-fixer/diff"
+        },
+        {
+            "name": "php-di/invoker",
+            "version": "2.3.3",
+            "version_normalized": "2.3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHP-DI/Invoker.git",
+                "reference": "cd6d9f267d1a3474bdddf1be1da079f01b942786"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHP-DI/Invoker/zipball/cd6d9f267d1a3474bdddf1be1da079f01b942786",
+                "reference": "cd6d9f267d1a3474bdddf1be1da079f01b942786",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3",
+                "psr/container": "^1.0|^2.0"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1.8",
+                "mnapoli/hard-mode": "~0.3.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "time": "2021-12-13T09:22:56+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Invoker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generic and extensible callable invoker",
+            "homepage": "https://github.com/PHP-DI/Invoker",
+            "keywords": [
+                "callable",
+                "dependency",
+                "dependency-injection",
+                "injection",
+                "invoke",
+                "invoker"
+            ],
+            "support": {
+                "issues": "https://github.com/PHP-DI/Invoker/issues",
+                "source": "https://github.com/PHP-DI/Invoker/tree/2.3.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../php-di/invoker"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -6938,66 +7180,24 @@
         "composer/semver",
         "composer/xdebug-handler",
         "doctrine/annotations",
-        "doctrine/instantiator",
         "doctrine/lexer",
         "fakerphp/faker",
         "friendsofphp/php-cs-fixer",
         "mikey179/vfsstream",
-        "myclabs/deep-copy",
         "nexusphp/cs-config",
         "nexusphp/tachycardia",
-        "nikic/php-parser",
-        "phar-io/manifest",
-        "phar-io/version",
         "php-cs-fixer/diff",
-        "phpdocumentor/reflection-common",
-        "phpdocumentor/reflection-docblock",
-        "phpdocumentor/type-resolver",
-        "phpspec/prophecy",
         "phpstan/phpstan",
-        "phpunit/php-code-coverage",
-        "phpunit/php-file-iterator",
-        "phpunit/php-invoker",
-        "phpunit/php-text-template",
-        "phpunit/php-timer",
-        "phpunit/phpunit",
         "predis/predis",
-        "psr/container",
         "psr/event-dispatcher",
         "rector/rector",
-        "sebastian/cli-parser",
-        "sebastian/code-unit",
-        "sebastian/code-unit-reverse-lookup",
-        "sebastian/comparator",
-        "sebastian/complexity",
-        "sebastian/diff",
-        "sebastian/environment",
-        "sebastian/exporter",
-        "sebastian/global-state",
-        "sebastian/lines-of-code",
-        "sebastian/object-enumerator",
-        "sebastian/object-reflector",
-        "sebastian/recursion-context",
-        "sebastian/resource-operations",
-        "sebastian/type",
-        "sebastian/version",
-        "symfony/console",
         "symfony/event-dispatcher",
         "symfony/event-dispatcher-contracts",
         "symfony/filesystem",
         "symfony/finder",
         "symfony/options-resolver",
-        "symfony/polyfill-ctype",
-        "symfony/polyfill-intl-grapheme",
-        "symfony/polyfill-intl-normalizer",
-        "symfony/polyfill-php73",
-        "symfony/polyfill-php80",
         "symfony/polyfill-php81",
         "symfony/process",
-        "symfony/service-contracts",
-        "symfony/stopwatch",
-        "symfony/string",
-        "theseer/tokenizer",
-        "webmozart/assert"
+        "symfony/stopwatch"
     ]
 }

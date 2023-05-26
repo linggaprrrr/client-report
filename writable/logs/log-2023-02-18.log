@@ -1,0 +1,998 @@
+CRITICAL - 2023-02-18 00:02:46 --> Could not load the default credentials. Browse to https://developers.google.com/accounts/docs/application-default-credentials for more information
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1247): Google\Auth\ApplicationDefaultCredentials::getCredentials('https://www.goo...', Object(Google\Auth\HttpHandler\Guzzle7HttpHandler), Array, Object(Google\Auth\Cache\MemoryCacheItemPool), NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(434): Google\Client->createApplicationDefaultCredentials()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(914): Google\Client->authorize()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(160): Google\Service\Drive\Resource\Files->get(false, Array)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-18 00:09:38 --> Could not load the default credentials. Browse to https://developers.google.com/accounts/docs/application-default-credentials for more information
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1247): Google\Auth\ApplicationDefaultCredentials::getCredentials('https://www.goo...', Object(Google\Auth\HttpHandler\Guzzle7HttpHandler), Array, Object(Google\Auth\Cache\MemoryCacheItemPool), NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(434): Google\Client->createApplicationDefaultCredentials()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(914): Google\Client->authorize()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(161): Google\Service\Resource->call('export', Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(160): Google\Service\Drive\Resource\Files->export(false, 'application/pdf', Array)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-18 00:11:55 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:11:57 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:12:31 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:15:26 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:17:20 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:24:04 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:24:51 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:26:41 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:30:10 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(153): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:32:40 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(153): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:33:49 --> Could not load the default credentials. Browse to https://developers.google.com/accounts/docs/application-default-credentials for more information
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1247): Google\Auth\ApplicationDefaultCredentials::getCredentials('https://www.goo...', Object(Google\Auth\HttpHandler\Guzzle7HttpHandler), Array, Object(Google\Auth\Cache\MemoryCacheItemPool), NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(434): Google\Client->createApplicationDefaultCredentials()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(914): Google\Client->authorize()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(162): Google\Service\Drive\Resource\Files->listFiles(Array)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-18 00:34:49 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(155): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:34:56 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:34:57 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:41:48 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:41:54 --> Undefined index: client_id
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1012): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 1012, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(154): Google\Client->setAuthConfig(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 00:55:38 --> Class 'App\Controllers\Google_Client' not found
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-18 00:57:12 --> Class 'App\Controllers\Google_Service_Drive' not found
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-18 01:00:56 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "global",
+    "reason": "required",
+    "message": "Login Required",
+    "locationType": "header",
+    "location": "Authorization"
+   }
+  ],
+  "code": 401,
+  "message": "Login Required"
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(108): Google\Service\Resource->call('create', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(198): Google\Service\Drive\Resource\Files->create(Object(Google\Service\Drive\DriveFile), Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 01:03:15 --> missing the required redirect URI
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(404): Google\Auth\OAuth2->buildFullAuthorizationUri(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(212): Google\Client->createAuthUrl()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 01:43:55 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "global",
+    "reason": "required",
+    "message": "Login Required",
+    "locationType": "header",
+    "location": "Authorization"
+   }
+  ],
+  "code": 401,
+  "message": "Login Required"
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(108): Google\Service\Resource->call('create', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(226): Google\Service\Drive\Resource\Files->create(Object(Google\Service\Drive\DriveFile), Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 01:44:09 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "global",
+    "reason": "required",
+    "message": "Login Required",
+    "locationType": "header",
+    "location": "Authorization"
+   }
+  ],
+  "code": 401,
+  "message": "Login Required"
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(108): Google\Service\Resource->call('create', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(226): Google\Service\Drive\Resource\Files->create(Object(Google\Service\Drive\DriveFile), Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 01:47:23 --> {
+  "error": {
+    "code": 400,
+    "message": "Unsupported alt type \"media\" for non byte stream request.",
+    "errors": [
+      {
+        "message": "Unsupported alt type \"media\" for non byte stream request.",
+        "domain": "global",
+        "reason": "badRequest"
+      }
+    ],
+    "status": "INVALID_ARGUMENT"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(172): Google\Service\Drive\Resource\Files->get(false, Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 01:47:59 --> missing the required redirect URI
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(404): Google\Auth\OAuth2->buildFullAuthorizationUri(Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(176): Google\Client->createAuthUrl()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 01:50:03 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(162): Google\Service\Drive\Resource\Files->get(false, Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 01:50:10 --> syntax error, unexpected '}', expecting ';' or ','
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2023-02-18 01:50:40 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "usageLimits",
+    "reason": "dailyLimitExceededUnreg",
+    "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup.",
+    "extendedHelp": "https://code.google.com/apis/console"
+   }
+  ],
+  "code": 403,
+  "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(159): Google\Service\Drive\Resource\Files->get('16gytd0TJmi8yq7...', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 01:51:44 --> syntax error, unexpected 'catch' (T_CATCH), expecting function (T_FUNCTION) or const (T_CONST)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2023-02-18 01:55:50 --> fopen(/files): failed to open stream: Read-only file system
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(/files): ...', '/Applications/M...', 173, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(173): fopen('/files', 'w+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 01:56:18 --> fopen(files): failed to open stream: Is a directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(files): f...', '/Applications/M...', 173, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(173): fopen('files', 'w+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 01:56:35 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "usageLimits",
+    "reason": "dailyLimitExceededUnreg",
+    "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup.",
+    "extendedHelp": "https://code.google.com/apis/console"
+   }
+  ],
+  "code": 403,
+  "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Service\Drive\Resource\Files->get('16gytd0TJmi8yq7...', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 01:56:42 --> fopen(/files): failed to open stream: Read-only file system
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(/files): ...', '/Applications/M...', 173, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(173): fopen('/files', 'w+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 01:57:21 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "usageLimits",
+    "reason": "dailyLimitExceededUnreg",
+    "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup.",
+    "extendedHelp": "https://code.google.com/apis/console"
+   }
+  ],
+  "code": 403,
+  "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Service\Drive\Resource\Files->get('16gytd0TJmi8yq7...', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 01:57:31 --> fopen(files): failed to open stream: Is a directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(files): f...', '/Applications/M...', 173, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(173): fopen('files', 'w+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 01:58:14 --> fopen(files/): failed to open stream: Is a directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(files/): ...', '/Applications/M...', 173, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(173): fopen('files/', 'w+')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 01:59:26 --> Call to a member function getBody() on string
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-18 02:01:51 --> Undefined property: GuzzleHttp\Psr7\Response::$name
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(172): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Applications/M...', 172, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-18 02:03:43 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "global",
+    "reason": "fileNotDownloadable",
+    "message": "Only files with binary content can be downloaded. Use Export with Docs Editors files.",
+    "locationType": "parameter",
+    "location": "alt"
+   }
+  ],
+  "code": 403,
+  "message": "Only files with binary content can be downloaded. Use Export with Docs Editors files."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Service\Drive\Resource\Files->get('1VqDyvbSMgGF2U0...', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 02:07:38 --> Call to a member function getBody() on string
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-18 02:08:19 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "global",
+    "reason": "badRequest",
+    "message": "The requested conversion is not supported.",
+    "locationType": "parameter",
+    "location": "convertTo"
+   }
+  ],
+  "code": 400,
+  "message": "The requested conversion is not supported."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(161): Google\Service\Resource->call('export', Array)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Service\Drive\Resource\Files->export('1VqDyvbSMgGF2U0...', 'application/xls', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 02:08:30 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "global",
+    "reason": "badRequest",
+    "message": "The requested conversion is not supported.",
+    "locationType": "parameter",
+    "location": "convertTo"
+   }
+  ],
+  "code": 400,
+  "message": "The requested conversion is not supported."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(161): Google\Service\Resource->call('export', Array)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Service\Drive\Resource\Files->export('1VqDyvbSMgGF2U0...', 'application/xlx...', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 02:08:47 --> Call to a member function getBody() on string
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-18 02:10:49 --> Call to undefined method GuzzleHttp\Psr7\Stream::getBody()
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-18 02:12:11 --> Call to a member function getBody() on string
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-18 02:17:33 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "global",
+    "reason": "exportSizeLimitExceeded",
+    "message": "This file is too large to be exported."
+   }
+  ],
+  "code": 403,
+  "message": "This file is too large to be exported."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(161): Google\Service\Resource->call('export', Array)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Service\Drive\Resource\Files->export('1VqDyvbSMgGF2U0...', 'application/vnd...', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 22:38:49 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(265): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->findDrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 22:40:24 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(265): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->findDrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 22:41:23 --> syntax error, unexpected 'catch' (T_CATCH), expecting function (T_FUNCTION) or const (T_CONST)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}
+CRITICAL - 2023-02-18 22:54:50 --> array_push() expects parameter 1 to be array, null given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'array_push() ex...', '/Applications/M...', 237, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(237): array_push(NULL, Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:01:17 --> cURL error 6: Could not resolve host: oauth2.googleapis.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://oauth2.googleapis.com/token
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php(158): GuzzleHttp\Handler\CurlFactory::createRejection(Object(GuzzleHttp\Handler\EasyHandle), Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php(110): GuzzleHttp\Handler\CurlFactory::finishError(Object(GuzzleHttp\Handler\CurlHandler), Object(GuzzleHttp\Handler\EasyHandle), Object(GuzzleHttp\Handler\CurlFactory))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Handler/CurlHandler.php(47): GuzzleHttp\Handler\CurlFactory::finish(Object(GuzzleHttp\Handler\CurlHandler), Object(GuzzleHttp\Handler\EasyHandle), Object(GuzzleHttp\Handler\CurlFactory))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Handler/Proxy.php(28): GuzzleHttp\Handler\CurlHandler->__invoke(Object(GuzzleHttp\Psr7\Request), Array)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Handler/Proxy.php(48): GuzzleHttp\Handler\Proxy::GuzzleHttp\Handler\{closure}(Object(GuzzleHttp\Psr7\Request), Array)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/PrepareBodyMiddleware.php(64): GuzzleHttp\Handler\Proxy::GuzzleHttp\Handler\{closure}(Object(GuzzleHttp\Psr7\Request), Array)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Middleware.php(31): GuzzleHttp\PrepareBodyMiddleware->__invoke(Object(GuzzleHttp\Psr7\Request), Array)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/RedirectMiddleware.php(71): GuzzleHttp\Middleware::GuzzleHttp\{closure}(Object(GuzzleHttp\Psr7\Request), Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Middleware.php(61): GuzzleHttp\RedirectMiddleware->__invoke(Object(GuzzleHttp\Psr7\Request), Array)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/HandlerStack.php(75): GuzzleHttp\Middleware::GuzzleHttp\{closure}(Object(GuzzleHttp\Psr7\Request), Array)
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Client.php(331): GuzzleHttp\HandlerStack->__invoke(Object(GuzzleHttp\Psr7\Request), Array)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Client.php(107): GuzzleHttp\Client->transfer(Object(GuzzleHttp\Psr7\Request), Array)
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/guzzlehttp/guzzle/src/Client.php(123): GuzzleHttp\Client->sendAsync(Object(GuzzleHttp\Psr7\Request), Array)
+#13 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/auth/src/HttpHandler/Guzzle6HttpHandler.php(47): GuzzleHttp\Client->send(Object(GuzzleHttp\Psr7\Request), Array)
+#14 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/auth/src/OAuth2.php(544): Google\Auth\HttpHandler\Guzzle6HttpHandler->__invoke(Object(GuzzleHttp\Psr7\Request))
+#15 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(256): Google\Auth\OAuth2->fetchAuthToken(Object(Google\Auth\HttpHandler\Guzzle7HttpHandler))
+#16 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(235): Google\Client->fetchAccessTokenWithAuthCode('4/0AWtgzh7DFcJj...')
+#17 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): Google\Client->authenticate('4/0AWtgzh7DFcJj...')
+#18 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#19 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#20 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#21 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#22 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#23 {main}
+CRITICAL - 2023-02-18 23:19:21 --> array_push() expects parameter 1 to be array, null given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'array_push() ex...', '/Applications/M...', 237, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(237): array_push(NULL, Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:20:29 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(232): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 23:20:35 --> array_push() expects parameter 1 to be array, null given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'array_push() ex...', '/Applications/M...', 239, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(239): array_push(NULL, Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:21:15 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(232): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 23:21:19 --> array_push() expects parameter 1 to be array, null given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'array_push() ex...', '/Applications/M...', 239, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(239): array_push(NULL, Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:21:46 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "usageLimits",
+    "reason": "dailyLimitExceededUnreg",
+    "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup.",
+    "extendedHelp": "https://code.google.com/apis/console"
+   }
+  ],
+  "code": 403,
+  "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(232): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 23:21:51 --> array_push() expects parameter 1 to be array, null given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'array_push() ex...', '/Applications/M...', 240, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(240): array_push(NULL, Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:23:15 --> array_push() expects parameter 1 to be array, null given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'array_push() ex...', '/Applications/M...', 243, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(243): array_push(NULL, Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:24:28 --> array_push() expects parameter 1 to be array, null given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'array_push() ex...', '/Applications/M...', 242, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(242): array_push(NULL, Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:24:45 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(232): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 23:24:50 --> array_push() expects parameter 1 to be array, null given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'array_push() ex...', '/Applications/M...', 243, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(243): array_push(NULL, Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:30:55 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(233): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-18 23:59:31 --> (list) unknown parameter: 'parent'
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(234): Google\Service\Drive\Resource\Files->listFiles(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-18 23:59:41 --> (list) unknown parameter: 'parents'
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(234): Google\Service\Drive\Resource\Files->listFiles(Array)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}

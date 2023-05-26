@@ -12,8 +12,10 @@
         "ext-mbstring": "*",
         "dompdf/dompdf": "^2.0",
         "google/apiclient": "^2.12.1",
+        "hybridauth/hybridauth": "3.0",
         "kint-php/kint": "^3.3",
         "laminas/laminas-escaper": "^2.9",
+        "nick322/secure-spreadsheet": "^1.0",
         "phpmailer/phpmailer": "^6.6",
         "phpoffice/phpspreadsheet": "^1.25",
         "psr/log": "^1.1"

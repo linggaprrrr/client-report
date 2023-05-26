@@ -150,6 +150,7 @@ $routes->get('/warehouse/input-item', 'Warehouse\Reports::inputItem');
 $routes->post('/warehouse/input-manual', 'Warehouse\Reports::saveItem');
 $routes->get('/warehouse/export-manual-input/(:any)/(:any)', 'Warehouse\Reports::exportDataInput/$1/$2');
 $routes->get('/warehouse/upc/', 'UPC::clientUPC');
+$routes->post('/upload-upc-search', 'UPC::uploadUPCSearch');
 $routes->get('/warehouse/upc-database/', 'UPC::warehouseUPC');
 $routes->get('/warehouse/manifest', 'UPC::clientManifest');
 $routes->get('/warehouse/manifest/(:num)', 'UPC::clientManifest/$1');
@@ -224,6 +225,15 @@ $routes->get('/get-summary-pl', 'Admin\Reports::getSummaryPL');
 $routes->get('/export-search/(:num)/(:any)', 'UPC::extractResult/$1/$2');
 $routes->get('/export-search-all/(:any)', 'UPC::extractResultAll/$1');
 
+$routes->get('/unlock-file', 'API::unlockFile');
+$routes->get('/test-gdrive', 'API::testgdrive');
+$routes->get('/find-drive', 'API::findDrive');
+$routes->get('/sync-profits-and-loses', 'API::syncPandL');
+$routes->get('/test-api', 'API::test');
+$routes->get('/check-cost-left-client', 'API::costLeftClient');
+
+
+
 // master
 $routes->get('/master/manifest', 'Admin\Reports::master');
 $routes->get('/master/manifest/(:num)', 'Admin\Reports::master/$1');
@@ -274,7 +284,7 @@ $routes->post('/export-amazon-upc', 'UPC::amazonUPCExport');
 
 $routes->get('/scanner/upc', 'Warehouse\Scanner::UPCScanner');
 
-$routes->get('/unlock-file', 'API::unlockFile');
+
 
 /*
  * --------------------------------------------------------------------

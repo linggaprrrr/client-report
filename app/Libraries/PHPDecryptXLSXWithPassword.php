@@ -101,7 +101,7 @@ function decrypt($encryptedFilePath, $password, $decryptedFilePath)
 				break;
 			}
 		}
-
+		ini_set('memory_limit', -1);
 		$decrypted = substr($decrypted, 0, $totalSize);
 	}
 

@@ -1,0 +1,17 @@
+ERROR - 2023-02-24 00:55:14 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'JOIN users ON users.id = log_files.client_id LIKE '%Top Choice Liquidation%'' at line 1
+CRITICAL - 2023-02-24 00:59:38 --> Undefined index: filname
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(480): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 480, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->syncPandL()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-24 01:01:54 --> Undefined index: filename
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(480): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', '/Applications/M...', 480, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->syncPandL()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}

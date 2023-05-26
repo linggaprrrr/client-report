@@ -1,0 +1,491 @@
+CRITICAL - 2023-02-19 00:00:33 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(234): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-19 00:30:36 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(234): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-19 00:30:37 --> {
+ "error": {
+  "errors": [
+   {
+    "domain": "usageLimits",
+    "reason": "dailyLimitExceededUnreg",
+    "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup.",
+    "extendedHelp": "https://code.google.com/apis/console"
+   }
+  ],
+  "code": 403,
+  "message": "Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup."
+ }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), NULL)
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), NULL, Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Service\Drive\Resource\Files->get('1-3U5EBoWRFecHM...', Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-19 02:48:03 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(301): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-19 03:06:54 --> Trying to access array offset on value of type int
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(363): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', '/Applications/M...', 363, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 03:10:18 --> Trying to access array offset on value of type int
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(363): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', '/Applications/M...', 363, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 03:11:32 --> Trying to access array offset on value of type int
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(363): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', '/Applications/M...', 363, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 03:13:44 --> Trying to access array offset on value of type int
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(364): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', '/Applications/M...', 364, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 03:15:34 --> Trying to access array offset on value of type int
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(366): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', '/Applications/M...', 366, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 03:16:19 --> Trying to access array offset on value of type int
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(366): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', '/Applications/M...', 366, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 03:16:46 --> Trying to access array offset on value of type int
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(366): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', '/Applications/M...', 366, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 03:17:22 --> Undefined offset: -31451
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(126): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', '/Applications/M...', 126, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(371): OLE->getStream(3)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(215): OLE->_readPpsWks(1)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Shayona Wholesa...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(372): decrypt('Shayona Wholesa...', 'eComm', 'unprotected-Sha...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#12 {main}
+CRITICAL - 2023-02-19 03:30:03 --> Could not find zip member zip://Shayona Wholesale (web) - Dec 2022.xlsx#_rels/.rels
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php(408): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('Shayona Wholesa...', '_rels/.rels')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php(166): PhpOffice\PhpSpreadsheet\Reader\Xlsx->loadSpreadsheetFromFile('Shayona Wholesa...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(219): PhpOffice\PhpSpreadsheet\Reader\BaseReader->load('Shayona Wholesa...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-19 03:30:04 --> Could not find zip member zip://Shayona Wholesale (web) - Dec 2022.xlsx#_rels/.rels
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php(408): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('Shayona Wholesa...', '_rels/.rels')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php(166): PhpOffice\PhpSpreadsheet\Reader\Xlsx->loadSpreadsheetFromFile('Shayona Wholesa...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(219): PhpOffice\PhpSpreadsheet\Reader\BaseReader->load('Shayona Wholesa...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-19 03:30:22 --> Could not find zip member zip://Shayona Wholesale (web) - Dec 2022.xlsx#_rels/.rels
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php(408): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('Shayona Wholesa...', '_rels/.rels')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php(166): PhpOffice\PhpSpreadsheet\Reader\Xlsx->loadSpreadsheetFromFile('Shayona Wholesa...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(219): PhpOffice\PhpSpreadsheet\Reader\BaseReader->load('Shayona Wholesa...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-19 03:30:24 --> Could not find zip member zip://Shayona Wholesale (web) - Dec 2022.xlsx#_rels/.rels
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php(408): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('Shayona Wholesa...', '_rels/.rels')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php(166): PhpOffice\PhpSpreadsheet\Reader\Xlsx->loadSpreadsheetFromFile('Shayona Wholesa...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(219): PhpOffice\PhpSpreadsheet\Reader\BaseReader->load('Shayona Wholesa...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-19 03:30:25 --> Could not find zip member zip://Shayona Wholesale (web) - Dec 2022.xlsx#_rels/.rels
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php(408): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('Shayona Wholesa...', '_rels/.rels')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php(166): PhpOffice\PhpSpreadsheet\Reader\Xlsx->loadSpreadsheetFromFile('Shayona Wholesa...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(219): PhpOffice\PhpSpreadsheet\Reader\BaseReader->load('Shayona Wholesa...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-19 03:41:41 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 134217736 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-19 03:41:50 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 134217736 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-19 03:42:06 --> Output Filepath cannot be NULL when NOFILE is False
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(222): Nick\SecureSpreadsheet\Encrypt->output()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 03:49:06 --> is_file() expects parameter 1 to be a valid path, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'is_file() expec...', '/Applications/M...', 148, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Shared/File.php(148): is_file('\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1\x00\x00\x00\x00\x00\x00\x00...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php(408): PhpOffice\PhpSpreadsheet\Shared\File::assertFile('\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1\x00\x00\x00\x00\x00\x00\x00...', '_rels/.rels')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php(166): PhpOffice\PhpSpreadsheet\Reader\Xlsx->loadSpreadsheetFromFile('\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1\x00\x00\x00\x00\x00\x00\x00...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(227): PhpOffice\PhpSpreadsheet\Reader\BaseReader->load('\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1\x00\x00\x00\x00\x00\x00\x00...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2023-02-19 06:30:26 --> Undefined offset: -28764
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(126): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', '/Applications/M...', 126, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(371): OLE->getStream(3)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(215): OLE->_readPpsWks(1)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Family Ecommerc...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Family Ecommerc...', 'eComm', 'unprotected-iL ...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#12 {main}
+CRITICAL - 2023-02-19 06:33:33 --> String could not be parsed as XML
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(32): SimpleXMLElement->__construct('')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Viking Blood (w...', 'eComm', 'unprotected-Vik...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-19 06:34:07 --> String could not be parsed as XML
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(32): SimpleXMLElement->__construct('')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Viking Blood (w...', 'eComm', 'unprotected-Vik...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-19 06:38:03 --> Undefined offset: -31425
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(126): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', '/Applications/M...', 126, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(371): OLE->getStream(3)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(215): OLE->_readPpsWks(1)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Oaktree Associa...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Oaktree Associa...', 'eComm', 'unprotected-Oak...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#12 {main}
+CRITICAL - 2023-02-19 06:40:02 --> Undefined offset: -31443
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(126): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', '/Applications/M...', 126, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(371): OLE->getStream(3)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(215): OLE->_readPpsWks(1)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#12 {main}
+CRITICAL - 2023-02-19 06:40:03 --> Undefined offset: -31443
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(126): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', '/Applications/M...', 126, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(371): OLE->getStream(3)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(215): OLE->_readPpsWks(1)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#12 {main}
+CRITICAL - 2023-02-19 06:40:04 --> Undefined offset: -31443
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(126): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', '/Applications/M...', 126, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(371): OLE->getStream(3)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(215): OLE->_readPpsWks(1)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#12 {main}
+CRITICAL - 2023-02-19 06:49:56 --> Use of undefined constant OLE_ENDOFCHAIN - assumed 'OLE_ENDOFCHAIN' (this will throw an Error in a future version of PHP)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(122): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 122, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(204): OLE->getStream(2)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-19 06:51:46 --> Use of undefined constant OLE_ENDOFCHAIN - assumed 'OLE_ENDOFCHAIN' (this will throw an Error in a future version of PHP)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(122): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 122, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(204): OLE->getStream(2)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-19 06:51:47 --> Use of undefined constant OLE_ENDOFCHAIN - assumed 'OLE_ENDOFCHAIN' (this will throw an Error in a future version of PHP)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(122): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 122, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(204): OLE->getStream(2)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-19 06:51:48 --> Use of undefined constant OLE_ENDOFCHAIN - assumed 'OLE_ENDOFCHAIN' (this will throw an Error in a future version of PHP)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(122): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 122, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(204): OLE->getStream(2)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-19 06:51:49 --> Use of undefined constant OLE_ENDOFCHAIN - assumed 'OLE_ENDOFCHAIN' (this will throw an Error in a future version of PHP)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(122): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 122, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(204): OLE->getStream(2)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-19 06:51:49 --> Use of undefined constant OLE_ENDOFCHAIN - assumed 'OLE_ENDOFCHAIN' (this will throw an Error in a future version of PHP)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/public/OLE/ChainedBlockStream.php(122): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 122, Array)
+#1 [internal function]: OLE_ChainedBlockStream->stream_open('ole-chainedbloc...', 'r', 0, NULL)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(260): fopen('ole-chainedbloc...', 'r')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/lib/OLE.php(204): OLE->getStream(2)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/PHPDecryptXLSXWithPassword.php(27): OLE->read('Katies Kloset (...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): decrypt('Katies Kloset (...', 'eComm', 'unprotected-Kat...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}
+CRITICAL - 2023-02-19 06:54:21 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 51297096 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-19 06:55:11 --> Allowed memory size of 134217728 bytes exhausted (tried to allocate 51297096 bytes)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-19 08:07:17 --> unlink(test.xlsx): No such file or directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'unlink(test.xls...', '/Applications/M...', 217, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(217): unlink('test.xlsx')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-19 23:11:42 --> Undefined property: App\Controllers\API::$db
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(218): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Applications/M...', 218, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-19 23:12:23 --> Call to a member function query() on null
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-19 23:12:47 --> Call to a member function query() on null
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-19 23:12:59 --> Call to a member function query() on null
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-19 23:14:17 --> Call to a member function query() on null
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+ERROR - 2023-02-19 23:15:11 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Deals%'' at line 1
+CRITICAL - 2023-02-19 23:15:11 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Deals%'' at line 1
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT client_i...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT client_i...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT client_i...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(221): CodeIgniter\Database\BaseConnection->query('SELECT client_i...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#9 {main}

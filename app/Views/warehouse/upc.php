@@ -4,6 +4,37 @@
 <div class="content">
     <div class="card">
         <div class="card-header">    
+            <div class="text-right mb-4">
+                
+                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Upload List Of UPC</button>
+                
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="/upload-upc-search" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">File</label>
+                                    <input type="file" name="file" class="form-control"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  required>
+                                    <small id="fileHelp" class="form-text text-muted"><a href="" download>list of upc example file</a></small>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <form action="<?= base_url('/warehouse/upc') ?>" method="get">                
                 <h6 class="font-weight-semibold mb-0">
                 <select name="client" class="form-control select-search" id="select-client"  onchange="this.form.submit()" data-fouc>                    

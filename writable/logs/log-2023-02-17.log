@@ -1,0 +1,100 @@
+CRITICAL - 2023-02-17 22:25:11 --> Class 'App\Controllers\Hybridauth\Provider\Google' not found
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-17 22:28:01 --> Class 'App\Controllers\Hybridauth\Provider\Google' not found
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-17 22:28:02 --> Class 'App\Controllers\Hybridauth\Provider\Google' not found
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-17 22:28:48 --> Class 'App\Controllers\Hybridauth\Provider\Google' not found
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#5 {main}
+CRITICAL - 2023-02-17 22:36:47 --> file "/credentials/drivecredential.json" does not exist
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Client->setAuthConfig('/credentials/dr...')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-17 22:36:49 --> file "/credentials/drivecredential.json" does not exist
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(171): Google\Client->setAuthConfig('/credentials/dr...')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-17 22:37:00 --> Use of undefined constant STDIN - assumed 'STDIN' (this will throw an Error in a future version of PHP)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(196): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 196, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-17 22:37:32 --> Undefined variable: authCode
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(199): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 199, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-17 22:37:38 --> Use of undefined constant STDIN - assumed 'STDIN' (this will throw an Error in a future version of PHP)
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(196): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 196, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-17 23:01:51 --> fgets(): read of 8192 bytes failed with errno=5 Input/output error
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(8, 'fgets(): read o...', '/Applications/M...', 198, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(198): fgets(Resource id #13)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-17 23:01:51 --> Uncaught ErrorException: Use of undefined constant STDOUT - assumed 'STDOUT' (this will throw an Error in a future version of PHP) in /Applications/MAMP/htdocs/smartwholesale/client-report/system/CLI/CLI.php:159
+Stack trace:
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CLI/CLI.php(159): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Use of undefine...', '/Applications/M...', 159, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CLI/CLI.php(998): CodeIgniter\CLI\CLI::init()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(264): include_once('/Applications/M...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Autoloader/Autoloader.php(200): CodeIgniter\Autoloader\Autoloader->includeFile('/Applications/M...')
+#4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClassmap('CodeIgniter\\CLI...')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Views/errors/cli/error_exception.php(6): spl_aut
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2023-02-17 23:58:48 --> Could not load the default credentials. Browse to https://developers.google.com/accounts/docs/application-default-credentials for more information
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(1247): Google\Auth\ApplicationDefaultCredentials::getCredentials('https://www.goo...', Object(Google\Auth\HttpHandler\Guzzle7HttpHandler), Array, Object(Google\Auth\Cache\MemoryCacheItemPool), NULL)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(434): Google\Client->createApplicationDefaultCredentials()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(914): Google\Client->authorize()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), NULL)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(205): Google\Service\Resource->call('get', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(160): Google\Service\Drive\Resource\Files->get(false, Array)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->unlockFile()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#11 {main}

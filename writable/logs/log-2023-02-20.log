@@ -1,0 +1,170 @@
+ERROR - 2023-02-20 19:34:48 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+CRITICAL - 2023-02-20 19:34:48 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'rms.investments.date' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/MySQLi/Connection.php(292): mysqli->query('SELECT date_for...', 0)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT date_for...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT date_for...')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Models/ReportModel.php(191): CodeIgniter\Database\BaseConnection->query('SELECT date_for...')
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/Admin/Reports.php(59): App\Models\ReportModel->finSummary('spend')
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\Admin\Reports->index()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\Reports))
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#10 {main}
+CRITICAL - 2023-02-20 19:59:39 --> {
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key.",
+    "errors": [
+      {
+        "message": "The request is missing a valid API key.",
+        "domain": "global",
+        "reason": "forbidden"
+      }
+    ],
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(107): Google\Http\REST::decodeHttpResponse(Object(GuzzleHttp\Psr7\Response), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#1 [internal function]: Google\Http\REST::doExecute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Task/Runner.php(187): call_user_func_array(Array, Array)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Http/REST.php(66): Google\Task\Runner->run()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Client.php(921): Google\Http\REST::execute(Object(GuzzleHttp\Client), Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...', Array, NULL)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient/src/Service/Resource.php(238): Google\Client->execute(Object(GuzzleHttp\Psr7\Request), 'Google\\Service\\...')
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/google/apiclient-services/src/Drive/Resource/Files.php(258): Google\Service\Resource->call('list', Array, 'Google\\Service\\...')
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(257): Google\Service\Drive\Resource\Files->listFiles(Array)
+#8 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#9 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#10 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#12 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#13 {main}
+CRITICAL - 2023-02-20 20:20:00 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2997): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A1:AK283', NULL, true, true, false)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(336): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->toArray()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-20 20:21:12 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2997): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A1:AK283', NULL, true, true, false)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(337): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->toArray()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-20 20:22:49 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2997): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A1:AK284', NULL, true, true, false)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(336): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->toArray()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-20 20:29:06 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2997): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A1:AK284', NULL, true, false, false)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(336): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->toArray(NULL, true, false, false)
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-20 21:04:18 --> Invalid cell coordinate A$
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Cell/Coordinate.php(220): PhpOffice\PhpSpreadsheet\Cell\Coordinate::coordinateFromString('A$')
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2868): PhpOffice\PhpSpreadsheet\Cell\Coordinate::rangeBoundaries('A$:S$')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(335): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A$:S$')
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#7 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#8 {main}
+CRITICAL - 2023-02-20 21:05:04 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(335): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A:S')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-20 21:06:02 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(335): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A32:S32')
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-20 21:10:35 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(335): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A32:S32', NULL, true, false, true)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-20 21:56:58 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(335): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A32:S32', NULL, true, false, false)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-20 22:07:06 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(336): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A32:S32', NULL, true, false, false)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-20 22:19:58 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php(2893): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(337): PhpOffice\PhpSpreadsheet\Worksheet\Worksheet->rangeToArray('A32:S32', NULL, true, false, true)
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#7 {main}
+CRITICAL - 2023-02-20 22:22:04 --> Charts!E32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(337): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-20 22:32:08 --> Undefined variable: data
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(338): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/Applications/M...', 338, Array)
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}
+CRITICAL - 2023-02-20 22:41:19 --> Charts!F32 -> Undefined index: 
+#0 /Applications/MAMP/htdocs/smartwholesale/client-report/app/Controllers/API.php(340): PhpOffice\PhpSpreadsheet\Cell\Cell->getCalculatedValue()
+#1 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(824): App\Controllers\API->testgdrive()
+#2 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\API))
+#3 /Applications/MAMP/htdocs/smartwholesale/client-report/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 /Applications/MAMP/htdocs/smartwholesale/client-report/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 /Applications/MAMP/htdocs/smartwholesale/client-report/system/Commands/Server/rewrite.php(43): require_once('/Applications/M...')
+#6 {main}

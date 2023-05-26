@@ -134,6 +134,24 @@ class UPC extends BaseController
         return view('warehouse/upc', $data);
     }
 
+    public function uploadUPCSearch() {
+        $file = $this->request->getFile('file');        
+        d($file);
+        if (!is_null($file)) {
+            $ext = $file->getClientExtension();        
+            if ($ext == 'xls') {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+            } else {
+                $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            }
+
+            $spreadsheet = $render->load($file);
+            $data = $spreadsheet->getActiveSheet()->toArray();
+
+            dd($data);
+        }
+    }
+
     public function loadClientUPC($id = null) {
         if (!is_null($id) || !empty($id)) {
             $params['draw'] = $_REQUEST['draw'];
