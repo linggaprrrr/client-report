@@ -40,6 +40,7 @@ class Auth extends BaseController
 
     public function loginProses()
     {
+        
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
         $username = $post['username'];
@@ -49,6 +50,8 @@ class Auth extends BaseController
             setcookie("sw-username", $username, time()+ (10 * 365 * 24 * 60 * 60));            
             setcookie("sw-pw", $password, time()+ (10 * 365 * 24 * 60 * 60));            
         }
+
+        
         
         $currentPage = $post['current'];
         if ($user) {
@@ -79,7 +82,7 @@ class Auth extends BaseController
                         return redirect()->to(base_url('/scanner/upc'))->with('message', 'Login Successful!');
                     } else {
                         return redirect()->to(base_url('/warehouse/upc'))->with('message', 'Login Successful!');
-                    }
+                    }                 
                 } else {
                     $ip = getenv('HTTP_CLIENT_IP')?: getenv('HTTP_X_FORWARDED_FOR')?: getenv('HTTP_X_FORWARDED')?: getenv('HTTP_FORWARDED_FOR')?: getenv('HTTP_FORWARDED')?: getenv('REMOTE_ADDR');
                     $page = 'get-started';

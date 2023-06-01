@@ -4,32 +4,44 @@
 <div class="content">
     <div class="card">
         <div class="card-header">    
-            <div class="text-right mb-4">
-                
-                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Upload List Of UPC</button>
-                
+            <div class="text-right mb-4">                
+                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary upload-modal">Upload List Of UPC</button>                
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form action="/upload-upc-search" method="post">
+                        <form class="upload-form" action="/upload-upc-search" method="post" enctype="multipart/form-data">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Search for multiple UPCs</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
+                                <div class="from-group">
+                                    <label for="client">Client</label>
+                                    <select name="client" class="form-control select-search" id="client_upload" data-fouc>                    
+                                        <option value="">All</option>
+                                        <?php foreach ($clients->getResultArray() as $row) : ?>
+                                            <option value="<?= $row['id'] ?>" <?= $row['id'] == $clientSelect ? 'selected' : '' ?> ><?= $row['fullname'] ?> - <?= $row['company'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <br>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">File</label>
                                     <input type="file" name="file" class="form-control"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  required>
-                                    <small id="fileHelp" class="form-text text-muted"><a href="" download>list of upc example file</a></small>
+                                    <small id="fileHelp" class="form-text text-muted"><a href="/list upc.xlsx" download>list of upc example file</a></small>
+                                </div>                                
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border text-primary spinner" role="status" style="display: none;">
+                                        <span class="visually-hidden"></span>
+                                    </div>
                                 </div>
-                                
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Upload</button>
+                                <button type="submit" class="btn btn-primary upload-btn">Upload</button>
                             </div>
                         </form>
                     </div>
@@ -37,7 +49,7 @@
             </div>
             <form action="<?= base_url('/warehouse/upc') ?>" method="get">                
                 <h6 class="font-weight-semibold mb-0">
-                <select name="client" class="form-control select-search" id="select-client"  onchange="this.form.submit()" data-fouc>                    
+                <select name="client" class="form-control select-search" id="select-client" onchange="this.form.submit()" data-fouc>                    
                     <option value="">All</option>
                     <?php foreach ($clients->getResultArray() as $row) : ?>
                         <option value="<?= $row['id'] ?>" <?= $row['id'] == $clientSelect ? 'selected' : '' ?> ><?= $row['fullname'] ?> - <?= $row['company'] ?></option>
@@ -193,8 +205,30 @@
             $(".export-search").attr("href", "/export-search/"+client+"/"+value);
             
         }); 
-      
+
+        
+        $( '.upload-modal' ).click(function() {
+            $( '.upload-form' ).each(function(){
+                this.reset();
+            });
+            $('#client_upload').val('').trigger('change');
+        });
+
+        $('.upload-btn').click(function() {
+            $('.spinner').show();            
+            
+            
+        });        
+       
     });
+    
+    $('.upload-form').submit(function(e) {      
+                      
+        $('.spinner').show();                        
+        this.submit();
+        
+    });
+    
 
 </script>
 <?= $this->endSection() ?>

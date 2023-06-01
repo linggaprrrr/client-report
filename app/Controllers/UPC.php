@@ -136,7 +136,7 @@ class UPC extends BaseController
 
     public function uploadUPCSearch() {
         $file = $this->request->getFile('file');        
-        d($file);
+        $client = $this->request->getVar('client');
         if (!is_null($file)) {
             $ext = $file->getClientExtension();        
             if ($ext == 'xls') {
@@ -147,8 +147,120 @@ class UPC extends BaseController
 
             $spreadsheet = $render->load($file);
             $data = $spreadsheet->getActiveSheet()->toArray();
+            
+            $listUPC = array();                         
+            ini_set('memory_limit', '-1');
+            if (is_null($client) || empty($client)) {                                         
+                foreach ($data as $upc) {
+                    if ($upc[0] != "") {                        
+                        $getUPCData = $this->db->query("SELECT fullname, company, sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE sku LIKE '%". $upc[0]."%' ")->getRow();                                                        
+                        if (!is_null($getUPCData)) {
+                            $temp = [
+                                'upc' => $upc[0],
+                                'item_description' => $getUPCData->item_description,
+                                'qty' => $getUPCData->qty,
+                                'retail_value' => $getUPCData->retail_value,
+                                'total_retail' => $getUPCData->total_retail,
+                                'client_cost' => $getUPCData->client_cost,
+                                'vendor' => $getUPCData->vendor,
+                                'fullname' => $getUPCData->fullname,
+                                'company' => $getUPCData->company,                                
+                            ];                            
+                        } else {
+                            $temp = [
+                                'upc' => $upc[0],
+                                'item_description' => '-',
+                                'qty' => '-',
+                                'retail_value' => '-',
+                                'total_retail' => '-',
+                                'client_cost' => '-',
+                                'vendor' => '-',
+                                'fullname' => '-',
+                                'company' => '-',                                
+                            ];
+                        }
+                        array_push($listUPC, $temp);                        
+                    }
+                }
+            } else {    
+                foreach ($data as $upc) {
+                    if ($upc[0] != "") {                        
+                        $getUPCData = $this->db->query("SELECT fullname, company, sku, item_description, qty, CONCAT('$',retail_value) as retail_value, CONCAT('$',original_value) as total_retail, CONCAT('$',cost) as client_cost, vendor from reports JOIN users ON users.id = reports.client_id  WHERE reports.client_id = '$client' AND sku LIKE '%". $upc[0]."%' ")->getRow();                                                        
+                        if (!is_null($getUPCData)) {
+                            $temp = [
+                                'upc' => $upc[0],
+                                'item_description' => $getUPCData->item_description,
+                                'qty' => $getUPCData->qty,
+                                'retail_value' => $getUPCData->retail_value,
+                                'total_retail' => $getUPCData->total_retail,
+                                'client_cost' => $getUPCData->client_cost,
+                                'vendor' => $getUPCData->vendor,
+                                'fullname' => $getUPCData->fullname,
+                                'company' => $getUPCData->company,                                
+                            ];                            
+                        } else {
+                            $temp = [
+                                'upc' => $upc[0],
+                                'item_description' => '-',
+                                'qty' => '-',
+                                'retail_value' => '-',
+                                'total_retail' => '-',
+                                'client_cost' => '-',
+                                'vendor' => '-',
+                                'fullname' => '-',
+                                'company' => '-',                                
+                            ];
+                        }
+                        array_push($listUPC, $temp);                        
+                    }
+                }                            
+            }            
 
-            dd($data);
+            $fileName = "Result " . $file->getName();  
+            $spreadsheet = new Spreadsheet();
+
+            $sheet = $spreadsheet->getActiveSheet();            
+            $sheet->setCellValue('A1', 'UPC');
+            $sheet->setCellValue('B1', 'ITEM DESCRIPTION');	
+            $sheet->setCellValue('C1', 'QTY');
+            $sheet->setCellValue('D1', 'RETAIL VALUE');
+            $sheet->setCellValue('E1', 'TOTAL RETAIL');
+            $sheet->setCellValue('F1', 'CLIENT COST');
+            $sheet->setCellValue('G1', 'VENDOR');
+            $sheet->setCellValue('H1', 'CLIENT');
+            $sheet->setCellValue('I1', 'STORE');
+            $no = 2;
+            
+            foreach($listUPC as $row) {                                
+                $sheet->setCellValue('A' . $no, $row['upc']);
+                $sheet->setCellValue('B' . $no, $row['item_description']);                
+                $sheet->setCellValue('C' . $no, $row['qty']);
+                $sheet->setCellValue('D' . $no, $row['retail_value']);
+                $sheet->setCellValue('E' . $no, $row['total_retail']);
+                $sheet->setCellValue('F' . $no, $row['client_cost']);
+                $sheet->setCellValue('G' . $no, $row['vendor']);
+                $sheet->setCellValue('H' . $no, $row['fullname']);
+                $sheet->setCellValue('I' . $no, $row['company']);
+                $no++;
+            }
+            
+            $writer = new Xlsx($spreadsheet);
+            $writer->save("files/". $fileName);
+        
+            header("Content-Type: application/vnd.ms-excel");
+
+            header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+            header("Pragma: public");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
+            header("Content-Type: application/force-download");
+            header("Content-Type: application/octet-stream");
+            header("Content-Type: application/download");            
+            header("Content-Transfer-Encoding: binary ");
+            header('Content-Length:' . filesize("files/". $fileName));
+            flush();
+            readfile("files/". $fileName);
+            
         }
     }
 

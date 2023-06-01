@@ -46,10 +46,11 @@
                     <a href="<?= base_url('/warehouse/upc') ?>" class="nav-link">
                         <i class="icon-search4"></i>
                         <span>
-                            UPC Client
+                            UPC Client Search
                         </span>
                     </a>
                 </li>
+                
                 <li class="nav-item">
                     <a href="<?= base_url('/warehouse/manifest') ?>" class="nav-link">
                         <i class="icon-search4"></i>

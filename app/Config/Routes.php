@@ -150,6 +150,7 @@ $routes->get('/warehouse/input-item', 'Warehouse\Reports::inputItem');
 $routes->post('/warehouse/input-manual', 'Warehouse\Reports::saveItem');
 $routes->get('/warehouse/export-manual-input/(:any)/(:any)', 'Warehouse\Reports::exportDataInput/$1/$2');
 $routes->get('/warehouse/upc/', 'UPC::clientUPC');
+$routes->get('/warehouse/multiple-upc/', 'UPC::clientUPCMultiple');
 $routes->post('/upload-upc-search', 'UPC::uploadUPCSearch');
 $routes->get('/warehouse/upc-database/', 'UPC::warehouseUPC');
 $routes->get('/warehouse/manifest', 'UPC::clientManifest');
