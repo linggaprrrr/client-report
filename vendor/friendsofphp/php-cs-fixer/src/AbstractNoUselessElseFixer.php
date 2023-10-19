@@ -18,9 +18,6 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 abstract class AbstractNoUselessElseFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getPriority(): int
     {
         // should be run before NoWhitespaceInBlankLineFixer, NoExtraBlankLinesFixer, BracesFixer and after NoEmptyStatementFixer.
@@ -68,7 +65,7 @@ abstract class AbstractNoUselessElseFixer extends AbstractFixer
                 return false;
             }
 
-            if ($tokens[$candidateIndex]->equals([T_THROW])) {
+            if ($tokens[$candidateIndex]->isGivenKind(T_THROW)) {
                 $previousIndex = $tokens->getPrevMeaningfulToken($candidateIndex);
 
                 if (!$tokens[$previousIndex]->equalsAny([';', '{'])) {

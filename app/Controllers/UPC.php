@@ -246,20 +246,23 @@ class UPC extends BaseController
             
             $writer = new Xlsx($spreadsheet);
             $writer->save("files/". $fileName);
+            echo json_encode(
+                ['file' => $fileName]
+            );
         
-            header("Content-Type: application/vnd.ms-excel");
+            // header("Content-Type: application/vnd.ms-excel");
 
-            header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
-            header("Pragma: public");
-            header("Expires: 0");
-            header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
-            header("Content-Type: application/force-download");
-            header("Content-Type: application/octet-stream");
-            header("Content-Type: application/download");            
-            header("Content-Transfer-Encoding: binary ");
-            header('Content-Length:' . filesize("files/". $fileName));
-            flush();
-            readfile("files/". $fileName);
+            // header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+            // header("Pragma: public");
+            // header("Expires: 0");
+            // header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
+            // header("Content-Type: application/force-download");
+            // header("Content-Type: application/octet-stream");
+            // header("Content-Type: application/download");            
+            // header("Content-Transfer-Encoding: binary ");
+            // header('Content-Length:' . filesize("files/". $fileName));
+            // flush();
+            // readfile("files/". $fileName);
             
         }
     }

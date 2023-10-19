@@ -23,10 +23,13 @@ class GoogleCloudChannelV1ChangeOfferRequest extends \Google\Collection
   /**
    * @var string
    */
+  public $billingAccount;
+  /**
+   * @var string
+   */
   public $offer;
   protected $parametersType = GoogleCloudChannelV1Parameter::class;
   protected $parametersDataType = 'array';
-  public $parameters;
   /**
    * @var string
    */
@@ -36,6 +39,20 @@ class GoogleCloudChannelV1ChangeOfferRequest extends \Google\Collection
    */
   public $requestId;
 
+  /**
+   * @param string
+   */
+  public function setBillingAccount($billingAccount)
+  {
+    $this->billingAccount = $billingAccount;
+  }
+  /**
+   * @return string
+   */
+  public function getBillingAccount()
+  {
+    return $this->billingAccount;
+  }
   /**
    * @param string
    */

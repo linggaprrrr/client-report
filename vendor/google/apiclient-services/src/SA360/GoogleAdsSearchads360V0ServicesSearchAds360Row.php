@@ -22,52 +22,84 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
   protected $collection_key = 'customColumns';
   protected $adGroupType = GoogleAdsSearchads360V0ResourcesAdGroup::class;
   protected $adGroupDataType = '';
-  public $adGroup;
+  protected $adGroupAdType = GoogleAdsSearchads360V0ResourcesAdGroupAd::class;
+  protected $adGroupAdDataType = '';
+  protected $adGroupAdLabelType = GoogleAdsSearchads360V0ResourcesAdGroupAdLabel::class;
+  protected $adGroupAdLabelDataType = '';
+  protected $adGroupAssetType = GoogleAdsSearchads360V0ResourcesAdGroupAsset::class;
+  protected $adGroupAssetDataType = '';
+  protected $adGroupAssetSetType = GoogleAdsSearchads360V0ResourcesAdGroupAssetSet::class;
+  protected $adGroupAssetSetDataType = '';
+  protected $adGroupAudienceViewType = GoogleAdsSearchads360V0ResourcesAdGroupAudienceView::class;
+  protected $adGroupAudienceViewDataType = '';
   protected $adGroupBidModifierType = GoogleAdsSearchads360V0ResourcesAdGroupBidModifier::class;
   protected $adGroupBidModifierDataType = '';
-  public $adGroupBidModifier;
   protected $adGroupCriterionType = GoogleAdsSearchads360V0ResourcesAdGroupCriterion::class;
   protected $adGroupCriterionDataType = '';
-  public $adGroupCriterion;
+  protected $adGroupCriterionLabelType = GoogleAdsSearchads360V0ResourcesAdGroupCriterionLabel::class;
+  protected $adGroupCriterionLabelDataType = '';
+  protected $adGroupLabelType = GoogleAdsSearchads360V0ResourcesAdGroupLabel::class;
+  protected $adGroupLabelDataType = '';
+  protected $ageRangeViewType = GoogleAdsSearchads360V0ResourcesAgeRangeView::class;
+  protected $ageRangeViewDataType = '';
+  protected $assetType = GoogleAdsSearchads360V0ResourcesAsset::class;
+  protected $assetDataType = '';
+  protected $assetSetType = GoogleAdsSearchads360V0ResourcesAssetSet::class;
+  protected $assetSetDataType = '';
+  protected $assetSetAssetType = GoogleAdsSearchads360V0ResourcesAssetSetAsset::class;
+  protected $assetSetAssetDataType = '';
   protected $biddingStrategyType = GoogleAdsSearchads360V0ResourcesBiddingStrategy::class;
   protected $biddingStrategyDataType = '';
-  public $biddingStrategy;
   protected $campaignType = GoogleAdsSearchads360V0ResourcesCampaign::class;
   protected $campaignDataType = '';
-  public $campaign;
+  protected $campaignAssetType = GoogleAdsSearchads360V0ResourcesCampaignAsset::class;
+  protected $campaignAssetDataType = '';
+  protected $campaignAssetSetType = GoogleAdsSearchads360V0ResourcesCampaignAssetSet::class;
+  protected $campaignAssetSetDataType = '';
+  protected $campaignAudienceViewType = GoogleAdsSearchads360V0ResourcesCampaignAudienceView::class;
+  protected $campaignAudienceViewDataType = '';
   protected $campaignBudgetType = GoogleAdsSearchads360V0ResourcesCampaignBudget::class;
   protected $campaignBudgetDataType = '';
-  public $campaignBudget;
   protected $campaignCriterionType = GoogleAdsSearchads360V0ResourcesCampaignCriterion::class;
   protected $campaignCriterionDataType = '';
-  public $campaignCriterion;
+  protected $campaignLabelType = GoogleAdsSearchads360V0ResourcesCampaignLabel::class;
+  protected $campaignLabelDataType = '';
   protected $conversionActionType = GoogleAdsSearchads360V0ResourcesConversionAction::class;
   protected $conversionActionDataType = '';
-  public $conversionAction;
   protected $customColumnsType = GoogleAdsSearchads360V0CommonValue::class;
   protected $customColumnsDataType = 'array';
-  public $customColumns;
   protected $customerType = GoogleAdsSearchads360V0ResourcesCustomer::class;
   protected $customerDataType = '';
-  public $customer;
+  protected $customerAssetType = GoogleAdsSearchads360V0ResourcesCustomerAsset::class;
+  protected $customerAssetDataType = '';
+  protected $customerAssetSetType = GoogleAdsSearchads360V0ResourcesCustomerAssetSet::class;
+  protected $customerAssetSetDataType = '';
   protected $customerClientType = GoogleAdsSearchads360V0ResourcesCustomerClient::class;
   protected $customerClientDataType = '';
-  public $customerClient;
   protected $customerManagerLinkType = GoogleAdsSearchads360V0ResourcesCustomerManagerLink::class;
   protected $customerManagerLinkDataType = '';
-  public $customerManagerLink;
+  protected $dynamicSearchAdsSearchTermViewType = GoogleAdsSearchads360V0ResourcesDynamicSearchAdsSearchTermView::class;
+  protected $dynamicSearchAdsSearchTermViewDataType = '';
+  protected $genderViewType = GoogleAdsSearchads360V0ResourcesGenderView::class;
+  protected $genderViewDataType = '';
+  protected $geoTargetConstantType = GoogleAdsSearchads360V0ResourcesGeoTargetConstant::class;
+  protected $geoTargetConstantDataType = '';
   protected $keywordViewType = GoogleAdsSearchads360V0ResourcesKeywordView::class;
   protected $keywordViewDataType = '';
-  public $keywordView;
+  protected $labelType = GoogleAdsSearchads360V0ResourcesLabel::class;
+  protected $labelDataType = '';
+  protected $locationViewType = GoogleAdsSearchads360V0ResourcesLocationView::class;
+  protected $locationViewDataType = '';
   protected $metricsType = GoogleAdsSearchads360V0CommonMetrics::class;
   protected $metricsDataType = '';
-  public $metrics;
   protected $productGroupViewType = GoogleAdsSearchads360V0ResourcesProductGroupView::class;
   protected $productGroupViewDataType = '';
-  public $productGroupView;
   protected $segmentsType = GoogleAdsSearchads360V0CommonSegments::class;
   protected $segmentsDataType = '';
-  public $segments;
+  protected $userListType = GoogleAdsSearchads360V0ResourcesUserList::class;
+  protected $userListDataType = '';
+  protected $webpageViewType = GoogleAdsSearchads360V0ResourcesWebpageView::class;
+  protected $webpageViewDataType = '';
 
   /**
    * @param GoogleAdsSearchads360V0ResourcesAdGroup
@@ -82,6 +114,76 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
   public function getAdGroup()
   {
     return $this->adGroup;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAdGroupAd
+   */
+  public function setAdGroupAd(GoogleAdsSearchads360V0ResourcesAdGroupAd $adGroupAd)
+  {
+    $this->adGroupAd = $adGroupAd;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAdGroupAd
+   */
+  public function getAdGroupAd()
+  {
+    return $this->adGroupAd;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAdGroupAdLabel
+   */
+  public function setAdGroupAdLabel(GoogleAdsSearchads360V0ResourcesAdGroupAdLabel $adGroupAdLabel)
+  {
+    $this->adGroupAdLabel = $adGroupAdLabel;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAdGroupAdLabel
+   */
+  public function getAdGroupAdLabel()
+  {
+    return $this->adGroupAdLabel;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAdGroupAsset
+   */
+  public function setAdGroupAsset(GoogleAdsSearchads360V0ResourcesAdGroupAsset $adGroupAsset)
+  {
+    $this->adGroupAsset = $adGroupAsset;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAdGroupAsset
+   */
+  public function getAdGroupAsset()
+  {
+    return $this->adGroupAsset;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAdGroupAssetSet
+   */
+  public function setAdGroupAssetSet(GoogleAdsSearchads360V0ResourcesAdGroupAssetSet $adGroupAssetSet)
+  {
+    $this->adGroupAssetSet = $adGroupAssetSet;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAdGroupAssetSet
+   */
+  public function getAdGroupAssetSet()
+  {
+    return $this->adGroupAssetSet;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAdGroupAudienceView
+   */
+  public function setAdGroupAudienceView(GoogleAdsSearchads360V0ResourcesAdGroupAudienceView $adGroupAudienceView)
+  {
+    $this->adGroupAudienceView = $adGroupAudienceView;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAdGroupAudienceView
+   */
+  public function getAdGroupAudienceView()
+  {
+    return $this->adGroupAudienceView;
   }
   /**
    * @param GoogleAdsSearchads360V0ResourcesAdGroupBidModifier
@@ -112,6 +214,90 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
     return $this->adGroupCriterion;
   }
   /**
+   * @param GoogleAdsSearchads360V0ResourcesAdGroupCriterionLabel
+   */
+  public function setAdGroupCriterionLabel(GoogleAdsSearchads360V0ResourcesAdGroupCriterionLabel $adGroupCriterionLabel)
+  {
+    $this->adGroupCriterionLabel = $adGroupCriterionLabel;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAdGroupCriterionLabel
+   */
+  public function getAdGroupCriterionLabel()
+  {
+    return $this->adGroupCriterionLabel;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAdGroupLabel
+   */
+  public function setAdGroupLabel(GoogleAdsSearchads360V0ResourcesAdGroupLabel $adGroupLabel)
+  {
+    $this->adGroupLabel = $adGroupLabel;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAdGroupLabel
+   */
+  public function getAdGroupLabel()
+  {
+    return $this->adGroupLabel;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAgeRangeView
+   */
+  public function setAgeRangeView(GoogleAdsSearchads360V0ResourcesAgeRangeView $ageRangeView)
+  {
+    $this->ageRangeView = $ageRangeView;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAgeRangeView
+   */
+  public function getAgeRangeView()
+  {
+    return $this->ageRangeView;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAsset
+   */
+  public function setAsset(GoogleAdsSearchads360V0ResourcesAsset $asset)
+  {
+    $this->asset = $asset;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAsset
+   */
+  public function getAsset()
+  {
+    return $this->asset;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAssetSet
+   */
+  public function setAssetSet(GoogleAdsSearchads360V0ResourcesAssetSet $assetSet)
+  {
+    $this->assetSet = $assetSet;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAssetSet
+   */
+  public function getAssetSet()
+  {
+    return $this->assetSet;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesAssetSetAsset
+   */
+  public function setAssetSetAsset(GoogleAdsSearchads360V0ResourcesAssetSetAsset $assetSetAsset)
+  {
+    $this->assetSetAsset = $assetSetAsset;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesAssetSetAsset
+   */
+  public function getAssetSetAsset()
+  {
+    return $this->assetSetAsset;
+  }
+  /**
    * @param GoogleAdsSearchads360V0ResourcesBiddingStrategy
    */
   public function setBiddingStrategy(GoogleAdsSearchads360V0ResourcesBiddingStrategy $biddingStrategy)
@@ -140,6 +326,48 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
     return $this->campaign;
   }
   /**
+   * @param GoogleAdsSearchads360V0ResourcesCampaignAsset
+   */
+  public function setCampaignAsset(GoogleAdsSearchads360V0ResourcesCampaignAsset $campaignAsset)
+  {
+    $this->campaignAsset = $campaignAsset;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesCampaignAsset
+   */
+  public function getCampaignAsset()
+  {
+    return $this->campaignAsset;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesCampaignAssetSet
+   */
+  public function setCampaignAssetSet(GoogleAdsSearchads360V0ResourcesCampaignAssetSet $campaignAssetSet)
+  {
+    $this->campaignAssetSet = $campaignAssetSet;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesCampaignAssetSet
+   */
+  public function getCampaignAssetSet()
+  {
+    return $this->campaignAssetSet;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesCampaignAudienceView
+   */
+  public function setCampaignAudienceView(GoogleAdsSearchads360V0ResourcesCampaignAudienceView $campaignAudienceView)
+  {
+    $this->campaignAudienceView = $campaignAudienceView;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesCampaignAudienceView
+   */
+  public function getCampaignAudienceView()
+  {
+    return $this->campaignAudienceView;
+  }
+  /**
    * @param GoogleAdsSearchads360V0ResourcesCampaignBudget
    */
   public function setCampaignBudget(GoogleAdsSearchads360V0ResourcesCampaignBudget $campaignBudget)
@@ -166,6 +394,20 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
   public function getCampaignCriterion()
   {
     return $this->campaignCriterion;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesCampaignLabel
+   */
+  public function setCampaignLabel(GoogleAdsSearchads360V0ResourcesCampaignLabel $campaignLabel)
+  {
+    $this->campaignLabel = $campaignLabel;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesCampaignLabel
+   */
+  public function getCampaignLabel()
+  {
+    return $this->campaignLabel;
   }
   /**
    * @param GoogleAdsSearchads360V0ResourcesConversionAction
@@ -210,6 +452,34 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
     return $this->customer;
   }
   /**
+   * @param GoogleAdsSearchads360V0ResourcesCustomerAsset
+   */
+  public function setCustomerAsset(GoogleAdsSearchads360V0ResourcesCustomerAsset $customerAsset)
+  {
+    $this->customerAsset = $customerAsset;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesCustomerAsset
+   */
+  public function getCustomerAsset()
+  {
+    return $this->customerAsset;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesCustomerAssetSet
+   */
+  public function setCustomerAssetSet(GoogleAdsSearchads360V0ResourcesCustomerAssetSet $customerAssetSet)
+  {
+    $this->customerAssetSet = $customerAssetSet;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesCustomerAssetSet
+   */
+  public function getCustomerAssetSet()
+  {
+    return $this->customerAssetSet;
+  }
+  /**
    * @param GoogleAdsSearchads360V0ResourcesCustomerClient
    */
   public function setCustomerClient(GoogleAdsSearchads360V0ResourcesCustomerClient $customerClient)
@@ -238,6 +508,48 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
     return $this->customerManagerLink;
   }
   /**
+   * @param GoogleAdsSearchads360V0ResourcesDynamicSearchAdsSearchTermView
+   */
+  public function setDynamicSearchAdsSearchTermView(GoogleAdsSearchads360V0ResourcesDynamicSearchAdsSearchTermView $dynamicSearchAdsSearchTermView)
+  {
+    $this->dynamicSearchAdsSearchTermView = $dynamicSearchAdsSearchTermView;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesDynamicSearchAdsSearchTermView
+   */
+  public function getDynamicSearchAdsSearchTermView()
+  {
+    return $this->dynamicSearchAdsSearchTermView;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesGenderView
+   */
+  public function setGenderView(GoogleAdsSearchads360V0ResourcesGenderView $genderView)
+  {
+    $this->genderView = $genderView;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesGenderView
+   */
+  public function getGenderView()
+  {
+    return $this->genderView;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesGeoTargetConstant
+   */
+  public function setGeoTargetConstant(GoogleAdsSearchads360V0ResourcesGeoTargetConstant $geoTargetConstant)
+  {
+    $this->geoTargetConstant = $geoTargetConstant;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesGeoTargetConstant
+   */
+  public function getGeoTargetConstant()
+  {
+    return $this->geoTargetConstant;
+  }
+  /**
    * @param GoogleAdsSearchads360V0ResourcesKeywordView
    */
   public function setKeywordView(GoogleAdsSearchads360V0ResourcesKeywordView $keywordView)
@@ -250,6 +562,34 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
   public function getKeywordView()
   {
     return $this->keywordView;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesLabel
+   */
+  public function setLabel(GoogleAdsSearchads360V0ResourcesLabel $label)
+  {
+    $this->label = $label;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesLabel
+   */
+  public function getLabel()
+  {
+    return $this->label;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesLocationView
+   */
+  public function setLocationView(GoogleAdsSearchads360V0ResourcesLocationView $locationView)
+  {
+    $this->locationView = $locationView;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesLocationView
+   */
+  public function getLocationView()
+  {
+    return $this->locationView;
   }
   /**
    * @param GoogleAdsSearchads360V0CommonMetrics
@@ -292,6 +632,34 @@ class GoogleAdsSearchads360V0ServicesSearchAds360Row extends \Google\Collection
   public function getSegments()
   {
     return $this->segments;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesUserList
+   */
+  public function setUserList(GoogleAdsSearchads360V0ResourcesUserList $userList)
+  {
+    $this->userList = $userList;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesUserList
+   */
+  public function getUserList()
+  {
+    return $this->userList;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0ResourcesWebpageView
+   */
+  public function setWebpageView(GoogleAdsSearchads360V0ResourcesWebpageView $webpageView)
+  {
+    $this->webpageView = $webpageView;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0ResourcesWebpageView
+   */
+  public function getWebpageView()
+  {
+    return $this->webpageView;
   }
 }
 

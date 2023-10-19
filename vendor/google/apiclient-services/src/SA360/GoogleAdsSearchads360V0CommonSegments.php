@@ -22,6 +22,12 @@ class GoogleAdsSearchads360V0CommonSegments extends \Google\Model
   /**
    * @var string
    */
+  public $adNetworkType;
+  protected $assetInteractionTargetType = GoogleAdsSearchads360V0CommonAssetInteractionTarget::class;
+  protected $assetInteractionTargetDataType = '';
+  /**
+   * @var string
+   */
   public $conversionAction;
   /**
    * @var string
@@ -43,6 +49,8 @@ class GoogleAdsSearchads360V0CommonSegments extends \Google\Model
    * @var string
    */
   public $device;
+  protected $keywordType = GoogleAdsSearchads360V0CommonKeyword::class;
+  protected $keywordDataType = '';
   /**
    * @var string
    */
@@ -60,6 +68,34 @@ class GoogleAdsSearchads360V0CommonSegments extends \Google\Model
    */
   public $year;
 
+  /**
+   * @param string
+   */
+  public function setAdNetworkType($adNetworkType)
+  {
+    $this->adNetworkType = $adNetworkType;
+  }
+  /**
+   * @return string
+   */
+  public function getAdNetworkType()
+  {
+    return $this->adNetworkType;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0CommonAssetInteractionTarget
+   */
+  public function setAssetInteractionTarget(GoogleAdsSearchads360V0CommonAssetInteractionTarget $assetInteractionTarget)
+  {
+    $this->assetInteractionTarget = $assetInteractionTarget;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0CommonAssetInteractionTarget
+   */
+  public function getAssetInteractionTarget()
+  {
+    return $this->assetInteractionTarget;
+  }
   /**
    * @param string
    */
@@ -143,6 +179,20 @@ class GoogleAdsSearchads360V0CommonSegments extends \Google\Model
   public function getDevice()
   {
     return $this->device;
+  }
+  /**
+   * @param GoogleAdsSearchads360V0CommonKeyword
+   */
+  public function setKeyword(GoogleAdsSearchads360V0CommonKeyword $keyword)
+  {
+    $this->keyword = $keyword;
+  }
+  /**
+   * @return GoogleAdsSearchads360V0CommonKeyword
+   */
+  public function getKeyword()
+  {
+    return $this->keyword;
   }
   /**
    * @param string

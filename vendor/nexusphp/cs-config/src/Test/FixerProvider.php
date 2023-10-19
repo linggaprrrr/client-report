@@ -26,53 +26,30 @@ final class FixerProvider
      *
      * @var array<string, FixerInterface>
      */
-    private static $builtIn = [];
+    private static array $builtIn = [];
 
     /**
-     * Configured fixers from a ruleset.
-     *
-     * @var array<int, string>
+     * @param array<int, string>                                      $configured configured fixers from a ruleset
+     * @param array<string, array<string, bool|string|string[]>|bool> $enabled    enabled fixers from a ruleset
      */
-    private $configured = [];
-
-    /**
-     * Enabled fixers from a ruleset.
-     *
-     * @var array<string, array<string, bool|string|string[]>|bool>
-     */
-    private $enabled = [];
-
-    /**
-     * @param array<int, string>                                      $configured
-     * @param array<string, array<string, bool|string|string[]>|bool> $enabled
-     */
-    private function __construct(array $configured, array $enabled)
-    {
-        $this->configured = $configured;
-        $this->enabled = $enabled;
-    }
+    private function __construct(private array $configured, private array $enabled) {}
 
     public static function create(RulesetInterface $ruleset): self
     {
         if ([] === self::$builtIn) {
             $fixers = array_filter(
                 (new FixerFactory())->registerBuiltInFixers()->getFixers(),
-                static function (FixerInterface $fixer): bool {
-                    return ! $fixer instanceof DeprecatedFixerInterface;
-                },
+                static fn(FixerInterface $fixer): bool => ! $fixer instanceof DeprecatedFixerInterface,
             );
+            $names = array_map(static fn(FixerInterface $fixer): string => $fixer->getName(), $fixers);
 
-            foreach ($fixers as $fixer) {
-                // workaround for using `array_combine` with PHPStan on PHP < 80000
-                self::$builtIn[$fixer->getName()] = $fixer;
-            }
+            self::$builtIn = array_combine($names, $fixers);
         }
 
         $rules = $ruleset->getRules();
 
         $configured = array_map(static function ($ruleConfiguration): bool {
-            // force enable all rules
-            return true;
+            return true; // force enable all rules
         }, $rules);
 
         return new self(array_keys((new RuleSet($configured))->getRules()), $rules);

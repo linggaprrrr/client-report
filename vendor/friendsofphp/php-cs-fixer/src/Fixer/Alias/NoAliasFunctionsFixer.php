@@ -155,8 +155,10 @@ final class NoAliasFunctionsFixer extends AbstractFixer implements ConfigurableF
         ],
     ];
 
-    /** @var array<string, array<int|string>|string> stores alias (key) - master (value) functions mapping */
-    private $aliases = [];
+    /**
+     * @var array<string, array<int|string>|string> stores alias (key) - master (value) functions mapping
+     */
+    private array $aliases = [];
 
     public function configure(array $configuration): void
     {
@@ -175,9 +177,6 @@ final class NoAliasFunctionsFixer extends AbstractFixer implements ConfigurableF
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -231,25 +230,16 @@ mbereg_search_getregs();
         return 40;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $functionsAnalyzer = new FunctionsAnalyzer();
@@ -291,9 +281,6 @@ mbereg_search_getregs();
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         $sets = [
@@ -319,8 +306,10 @@ mbereg_search_getregs();
         $list = "List of sets to fix. Defined sets are:\n\n";
 
         foreach ($sets as $set => $description) {
-            $list .= sprintf("* `%s` (%s)\n", $set, $description);
+            $list .= sprintf("* `%s` (%s);\n", $set, $description);
         }
+
+        $list = rtrim($list, ";\n").'.';
 
         return new FixerConfigurationResolver([
             (new FixerOptionBuilder('sets', $list))

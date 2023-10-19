@@ -145,7 +145,7 @@ class InvestmentModel extends Model
     }
 
     public function getReceiptClient($id) {
-        $query = $this->db->query("SELECT users.fullname, users.company, investments.* FROM investments JOIN users ON users.id = investments.client_id WHERE investments.id = '$id' ");
+        $query = $this->db->query("SELECT users.fullname, users.company, users.address, investments.* FROM investments JOIN users ON users.id = investments.client_id WHERE investments.id = '$id' ");
         return $query;
     }
     public function getReceiptData($id) {

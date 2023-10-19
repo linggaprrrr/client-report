@@ -23,7 +23,7 @@ use Google\Client;
  * Service definition for Advisorynotifications (v1).
  *
  * <p>
-</p>
+ * An API for accessing Advisory Notifications in Google Cloud</p>
  *
  * <p>
  * For more information about this service, see the API
@@ -38,6 +38,7 @@ class Advisorynotifications extends \Google\Service
   const CLOUD_PLATFORM =
       "https://www.googleapis.com/auth/cloud-platform";
 
+  public $organizations_locations;
   public $organizations_locations_notifications;
 
   /**
@@ -57,6 +58,36 @@ class Advisorynotifications extends \Google\Service
     $this->version = 'v1';
     $this->serviceName = 'advisorynotifications';
 
+    $this->organizations_locations = new Advisorynotifications\Resource\OrganizationsLocations(
+        $this,
+        $this->serviceName,
+        'locations',
+        [
+          'methods' => [
+            'getSettings' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'updateSettings' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'PATCH',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
     $this->organizations_locations_notifications = new Advisorynotifications\Resource\OrganizationsLocationsNotifications(
         $this,
         $this->serviceName,

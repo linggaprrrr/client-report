@@ -66,20 +66,20 @@
                                                 $nov = ($row['nov'] == 0) ? null : round($row['nov'], 0);
                                                 $dec = ($row['dec'] == 0) ? null : round($row['dec'], 0);
                                             } else {
-                                                $lastYear = round($row['last_year']);
-                                                $avg = ($row['avg'] == 0) ? null : round($row['avg']);                                                
-                                                $jan = ($row['jan'] == 0) ? null : round($row['jan']);
-                                                $feb = ($row['feb'] == 0) ? null : round($row['feb']);
-                                                $mar = ($row['mar'] == 0) ? null : round($row['mar']);
-                                                $apr = ($row['apr'] == 0) ? null : round($row['apr']);
-                                                $may = ($row['may'] == 0) ? null : round($row['may']);
-                                                $jun = ($row['jun'] == 0) ? null : round($row['jun']);
-                                                $jul = ($row['jul'] == 0) ? null : round($row['jul']);
-                                                $aug = ($row['aug'] == 0) ? null : round($row['aug']);
-                                                $sep = ($row['sep'] == 0) ? null : round($row['sep']);
-                                                $oct = ($row['oct'] == 0) ? null : round($row['oct']);
-                                                $nov = ($row['nov'] == 0) ? null : round($row['nov']);
-                                                $dec = ($row['dec'] == 0) ? null : round($row['dec']);
+                                                $lastYear = round($row['last_year'], 1);
+                                                $avg = ($row['avg'] == 0) ? null : round($row['avg'], 1);                                                
+                                                $jan = ($row['jan'] == 0) ? null : round($row['jan'], 1);
+                                                $feb = ($row['feb'] == 0) ? null : round($row['feb'], 1);
+                                                $mar = ($row['mar'] == 0) ? null : round($row['mar'], 1);
+                                                $apr = ($row['apr'] == 0) ? null : round($row['apr'], 1);
+                                                $may = ($row['may'] == 0) ? null : round($row['may'], 1);
+                                                $jun = ($row['jun'] == 0) ? null : round($row['jun'], 1);
+                                                $jul = ($row['jul'] == 0) ? null : round($row['jul'], 1);
+                                                $aug = ($row['aug'] == 0) ? null : round($row['aug'], 1);
+                                                $sep = ($row['sep'] == 0) ? null : round($row['sep'], 1);
+                                                $oct = ($row['oct'] == 0) ? null : round($row['oct'], 1);
+                                                $nov = ($row['nov'] == 0) ? null : round($row['nov'], 1);
+                                                $dec = ($row['dec'] == 0) ? null : round($row['dec'], 1);
                                             }
                                            
                                             $data = array("{value: ". $lastYear .", itemStyle: {color: '#a90000'}}", $jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, $avg);
@@ -190,21 +190,21 @@
                                                     </tr>
                                                 <?php elseif ($row['type'] == 'num') : ?>
                                                     <tr>
-                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : round($row['last_year']) ?></td>
-                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : round($row['jan']) ?></td>
-                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : round($row['feb']) ?></td>
-                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : round($row['mar']) ?></td>
-                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : round($row['apr']) ?></td>
-                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : round($row['may']) ?></td>
-                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : round($row['jun']) ?></td>
-                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : round($row['jul']) ?></td>
-                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : round($row['aug']) ?></td>
-                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : round($row['sep']) ?></td>
-                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : round($row['oct']) ?></td>
-                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : round($row['nov']) ?></td>
-                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : round($row['dec']) ?></td>
-                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : round($row['avg']) ?></td>
-                                                        <td class="text-center"><?= round($total) ?></td>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : round($row['last_year'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : round($row['jan'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : round($row['feb'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : round($row['mar'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : round($row['apr'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : round($row['may'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : round($row['jun'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : round($row['jul'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : round($row['aug'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : round($row['sep'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : round($row['oct'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : round($row['nov'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : round($row['dec'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : round($row['avg'], 1) ?></td>
+                                                        <td class="text-center"><?= round($total, 1) ?></td>
                                                     </tr>
                                                 
                                                 <?php endif ?>
@@ -306,7 +306,11 @@
                                             $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']); 
                                             
                                             $total = array_sum($temp);
-                                            $avg = $total / count(array_filter($temp));    
+                                            if (count(array_filter($temp)) > 1) {
+                                                $avg = $total / (count(array_filter($temp)) - 1 );
+                                            } else {
+                                                $avg = 0;
+                                            }
                                             
                                          
                                             $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
@@ -331,19 +335,19 @@
                                                 $dec = ($row['dec'] == 0) ? null : round($row['dec'], 0);
                                             } else {
                                             
-                                                $avg = ($row['avg'] == 0) ? null : round($row['avg']);
-                                                $jan = ($row['jan'] == 0) ? null : round($row['jan']);
-                                                $feb = ($row['feb'] == 0) ? null : round($row['feb']);
-                                                $mar = ($row['mar'] == 0) ? null : round($row['mar']);
-                                                $apr = ($row['apr'] == 0) ? null : round($row['apr']);
-                                                $may = ($row['may'] == 0) ? null : round($row['may']);
-                                                $jun = ($row['jun'] == 0) ? null : round($row['jun']);
-                                                $jul = ($row['jul'] == 0) ? null : round($row['jul']);
-                                                $aug = ($row['aug'] == 0) ? null : round($row['aug']);
-                                                $sep = ($row['sep'] == 0) ? null : round($row['sep']);
-                                                $oct = ($row['oct'] == 0) ? null : round($row['oct']);
-                                                $nov = ($row['nov'] == 0) ? null : round($row['nov']);
-                                                $dec = ($row['dec'] == 0) ? null : round($row['dec']);
+                                                $avg = ($row['avg'] == 0) ? null : round($row['avg'], 1);                                                
+                                                $jan = ($row['jan'] == 0) ? null : round($row['jan'], 1);
+                                                $feb = ($row['feb'] == 0) ? null : round($row['feb'], 1);
+                                                $mar = ($row['mar'] == 0) ? null : round($row['mar'], 1);
+                                                $apr = ($row['apr'] == 0) ? null : round($row['apr'], 1);
+                                                $may = ($row['may'] == 0) ? null : round($row['may'], 1);
+                                                $jun = ($row['jun'] == 0) ? null : round($row['jun'], 1);
+                                                $jul = ($row['jul'] == 0) ? null : round($row['jul'], 1);
+                                                $aug = ($row['aug'] == 0) ? null : round($row['aug'], 1);
+                                                $sep = ($row['sep'] == 0) ? null : round($row['sep'], 1);
+                                                $oct = ($row['oct'] == 0) ? null : round($row['oct'], 1);
+                                                $nov = ($row['nov'] == 0) ? null : round($row['nov'], 1);
+                                                $dec = ($row['dec'] == 0) ? null : round($row['dec'], 1);
                                             }
                                             $data = array($jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec, $avg);
                                             $chartData = json_encode($data);
@@ -454,21 +458,21 @@
                                                     </tr>
                                                 <?php else : ?>
                                                     <tr>
-                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : round($row['last_year']) ?></td>
-                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : round($row['jan']) ?></td>
-                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : round($row['feb']) ?></td>
-                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : round($row['mar']) ?></td>
-                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : round($row['apr']) ?></td>
-                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : round($row['may']) ?></td>
-                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : round($row['jun']) ?></td>
-                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : round($row['jul']) ?></td>
-                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : round($row['aug']) ?></td>
-                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : round($row['sep']) ?></td>
-                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : round($row['oct']) ?></td>
-                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : round($row['nov']) ?></td>
-                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : round($row['dec']) ?></td>
-                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : round($row['avg']) ?></td>
-                                                        <td class="text-center"><?= round($total) ?></td>
+                                                        <td class="text-center"><?= ($row['last_year'] == 0) ? '-' : round($row['last_year'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['jan'] == 0) ? '-' : round($row['jan'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['feb'] == 0) ? '-' : round($row['feb'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['mar'] == 0) ? '-' : round($row['mar'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['apr'] == 0) ? '-' : round($row['apr'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['may'] == 0) ? '-' : round($row['may'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['jun'] == 0) ? '-' : round($row['jun'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['jul'] == 0) ? '-' : round($row['jul'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['aug'] == 0) ? '-' : round($row['aug'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['sep'] == 0) ? '-' : round($row['sep'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['oct'] == 0) ? '-' : round($row['oct'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['nov'] == 0) ? '-' : round($row['nov'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['dec'] == 0) ? '-' : round($row['dec'], 1) ?></td>
+                                                        <td class="text-center"><?= ($row['avg'] == 0) ? '-' : round($row['avg'], 1) ?></td>
+                                                        <td class="text-center"><?= round($total, 1) ?></td>
                                                     </tr>
                                                 <?php endif ?>
                                             </tbody>

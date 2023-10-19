@@ -21,10 +21,8 @@ class BackupPlan extends \Google\Model
 {
   protected $backupConfigType = BackupConfig::class;
   protected $backupConfigDataType = '';
-  public $backupConfig;
   protected $backupScheduleType = Schedule::class;
   protected $backupScheduleDataType = '';
-  public $backupSchedule;
   /**
    * @var string
    */
@@ -59,7 +57,14 @@ class BackupPlan extends \Google\Model
   public $protectedPodCount;
   protected $retentionPolicyType = RetentionPolicy::class;
   protected $retentionPolicyDataType = '';
-  public $retentionPolicy;
+  /**
+   * @var string
+   */
+  public $state;
+  /**
+   * @var string
+   */
+  public $stateReason;
   /**
    * @var string
    */
@@ -222,6 +227,34 @@ class BackupPlan extends \Google\Model
   public function getRetentionPolicy()
   {
     return $this->retentionPolicy;
+  }
+  /**
+   * @param string
+   */
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  /**
+   * @return string
+   */
+  public function getState()
+  {
+    return $this->state;
+  }
+  /**
+   * @param string
+   */
+  public function setStateReason($stateReason)
+  {
+    $this->stateReason = $stateReason;
+  }
+  /**
+   * @return string
+   */
+  public function getStateReason()
+  {
+    return $this->stateReason;
   }
   /**
    * @param string

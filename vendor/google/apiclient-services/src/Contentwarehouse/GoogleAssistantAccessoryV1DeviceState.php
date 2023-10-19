@@ -17,11 +17,11 @@
 
 namespace Google\Service\Contentwarehouse;
 
-class GoogleAssistantAccessoryV1DeviceState extends \Google\Model
+class GoogleAssistantAccessoryV1DeviceState extends \Google\Collection
 {
+  protected $collection_key = 'unavailableSettings';
   protected $alarmStateType = GoogleAssistantEmbeddedV1Alarms::class;
   protected $alarmStateDataType = '';
-  public $alarmState;
   /**
    * @var string
    */
@@ -32,17 +32,24 @@ class GoogleAssistantAccessoryV1DeviceState extends \Google\Model
   public $deviceTime;
   protected $deviceTimeZoneType = GoogleTypeTimeZone::class;
   protected $deviceTimeZoneDataType = '';
-  public $deviceTimeZone;
   /**
    * @var bool
    */
   public $doNotDisturb;
   protected $fitnessActivitiesStateType = GoogleAssistantEmbeddedV1FitnessActivities::class;
   protected $fitnessActivitiesStateDataType = '';
-  public $fitnessActivitiesState;
+  protected $installedAppsType = GoogleAssistantAccessoryV1DeviceStateInstalledAppsState::class;
+  protected $installedAppsDataType = '';
+  /**
+   * @var string
+   */
+  public $installedAppsZlib;
   protected $timerStateType = GoogleAssistantEmbeddedV1Timers::class;
   protected $timerStateDataType = '';
-  public $timerState;
+  /**
+   * @var string[]
+   */
+  public $unavailableSettings;
 
   /**
    * @param GoogleAssistantEmbeddedV1Alarms
@@ -129,6 +136,34 @@ class GoogleAssistantAccessoryV1DeviceState extends \Google\Model
     return $this->fitnessActivitiesState;
   }
   /**
+   * @param GoogleAssistantAccessoryV1DeviceStateInstalledAppsState
+   */
+  public function setInstalledApps(GoogleAssistantAccessoryV1DeviceStateInstalledAppsState $installedApps)
+  {
+    $this->installedApps = $installedApps;
+  }
+  /**
+   * @return GoogleAssistantAccessoryV1DeviceStateInstalledAppsState
+   */
+  public function getInstalledApps()
+  {
+    return $this->installedApps;
+  }
+  /**
+   * @param string
+   */
+  public function setInstalledAppsZlib($installedAppsZlib)
+  {
+    $this->installedAppsZlib = $installedAppsZlib;
+  }
+  /**
+   * @return string
+   */
+  public function getInstalledAppsZlib()
+  {
+    return $this->installedAppsZlib;
+  }
+  /**
    * @param GoogleAssistantEmbeddedV1Timers
    */
   public function setTimerState(GoogleAssistantEmbeddedV1Timers $timerState)
@@ -141,6 +176,20 @@ class GoogleAssistantAccessoryV1DeviceState extends \Google\Model
   public function getTimerState()
   {
     return $this->timerState;
+  }
+  /**
+   * @param string[]
+   */
+  public function setUnavailableSettings($unavailableSettings)
+  {
+    $this->unavailableSettings = $unavailableSettings;
+  }
+  /**
+   * @return string[]
+   */
+  public function getUnavailableSettings()
+  {
+    return $this->unavailableSettings;
   }
 }
 

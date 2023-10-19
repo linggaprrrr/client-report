@@ -19,18 +19,12 @@ namespace Google\Service\Bigquery;
 
 class SparkStatistics extends \Google\Model
 {
-  protected $internal_gapi_mappings = [
-        "loggingInfo" => "logging_info",
-        "sparkJobId" => "spark_job_id",
-        "sparkJobLocation" => "spark_job_location",
-  ];
   /**
    * @var string[]
    */
   public $endpoints;
   protected $loggingInfoType = SparkLoggingInfo::class;
   protected $loggingInfoDataType = '';
-  public $loggingInfo;
   /**
    * @var string
    */

@@ -30,6 +30,7 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
+use PhpCsFixer\Utils;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 /**
@@ -54,11 +55,8 @@ final class ClassAttributesSeparationFixer extends AbstractFixer implements Conf
     /**
      * @var array<string, string>
      */
-    private $classElementTypes = [];
+    private array $classElementTypes = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(array $configuration): void
     {
         parent::configure($configuration);
@@ -70,9 +68,6 @@ final class ClassAttributesSeparationFixer extends AbstractFixer implements Conf
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -146,7 +141,7 @@ class Sample
     public $e;
 }
 ',
-                    new VersionSpecification(80000),
+                    new VersionSpecification(8_00_00),
                     ['elements' => ['property' => self::SPACING_ONLY_IF_META]]
                 ),
             ]
@@ -156,25 +151,19 @@ class Sample
     /**
      * {@inheritdoc}
      *
-     * Must run before BracesFixer, IndentationTypeFixer, NoExtraBlankLinesFixer.
-     * Must run after OrderedClassElementsFixer, SingleClassElementPerStatementFixer.
+     * Must run before BracesFixer, IndentationTypeFixer, NoExtraBlankLinesFixer, StatementIndentationFixer.
+     * Must run after OrderedClassElementsFixer, SingleClassElementPerStatementFixer, VisibilityRequiredFixer.
      */
     public function getPriority(): int
     {
         return 55;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound(Token::getClassyTokenKinds());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($this->getElementsByClass($tokens) as $class) {
@@ -198,23 +187,20 @@ class Sample
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('elements', 'Dictionary of `const|method|property|trait_import` => `none|one|only_if_meta` values.'))
+            (new FixerOptionBuilder('elements', 'Dictionary of `const|method|property|trait_import|case` => `none|one|only_if_meta` values.'))
                 ->setAllowedTypes(['array'])
                 ->setAllowedValues([static function (array $option): bool {
                     foreach ($option as $type => $spacing) {
-                        $supportedTypes = ['const', 'method', 'property', 'trait_import'];
+                        $supportedTypes = ['const', 'method', 'property', 'trait_import', 'case'];
 
                         if (!\in_array($type, $supportedTypes, true)) {
                             throw new InvalidOptionsException(
                                 sprintf(
-                                    'Unexpected element type, expected any of "%s", got "%s".',
-                                    implode('", "', $supportedTypes),
+                                    'Unexpected element type, expected any of %s, got "%s".',
+                                    Utils::naturalLanguageJoin($supportedTypes),
                                     \gettype($type).'#'.$type
                                 )
                             );
@@ -225,9 +211,9 @@ class Sample
                         if (!\in_array($spacing, $supportedSpacings, true)) {
                             throw new InvalidOptionsException(
                                 sprintf(
-                                    'Unexpected spacing for element type "%s", expected any of "%s", got "%s".',
+                                    'Unexpected spacing for element type "%s", expected any of %s, got "%s".',
                                     $spacing,
-                                    implode('", "', $supportedSpacings),
+                                    Utils::naturalLanguageJoin($supportedSpacings),
                                     \is_object($spacing) ? \get_class($spacing) : (null === $spacing ? 'null' : \gettype($spacing).'#'.$spacing)
                                 )
                             );
@@ -241,6 +227,7 @@ class Sample
                     'method' => self::SPACING_ONE,
                     'property' => self::SPACING_ONE,
                     'trait_import' => self::SPACING_NONE,
+                    'case' => self::SPACING_NONE,
                 ])
                 ->getOption(),
         ]);
@@ -251,6 +238,13 @@ class Sample
      *
      * Deals with comments, PHPDocs and spaces above the element with respect to the position of the
      * element within the class, interface or trait.
+     *
+     * @param array{
+     *     index: int,
+     *     open: int,
+     *     close: int,
+     *     elements: non-empty-list<array{token: Token, type: string, index: int, start: int, end: int}>
+     * } $class
      */
     private function fixSpaceAboveClassElement(Tokens $tokens, array $class, int $elementIndex): void
     {
@@ -355,6 +349,14 @@ class Sample
         throw new \RuntimeException(sprintf('Unknown spacing "%s".', $spacing));
     }
 
+    /**
+     * @param array{
+     *     index: int,
+     *     open: int,
+     *     close: int,
+     *     elements: non-empty-list<array{token: Token, type: string, index: int, start: int, end: int}>
+     * } $class
+     */
     private function fixSpaceBelowClassElement(Tokens $tokens, array $class): void
     {
         $element = $class['elements'][0];
@@ -453,6 +455,16 @@ class Sample
         return $start;
     }
 
+    /**
+     * @TODO Introduce proper DTO instead of an array
+     *
+     * @return \Generator<array{
+     *     index: int,
+     *     open: int,
+     *     close: int,
+     *     elements: non-empty-list<array{token: Token, type: string, index: int, start: int, end: int}>
+     * }>
+     */
     private function getElementsByClass(Tokens $tokens): \Generator
     {
         $tokensAnalyzer = new TokensAnalyzer($tokens);
@@ -542,7 +554,7 @@ class Sample
             if (!$tokens[$elementEndIndex]->equals(';')) {
                 $elementEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $tokens->getNextTokenOfKind($element['index'], ['{']));
             }
-        } else { // const or property
+        } else { // 'const', 'property', enum-'case', or 'method' of an interface
             $elementEndIndex = $tokens->getNextTokenOfKind($element['index'], [';']);
         }
 

@@ -20,9 +20,14 @@ namespace Google\Service\Contentwarehouse;
 class KnowledgeAnswersIntentQueryParsingSignals extends \Google\Model
 {
   public $calibratedParsingScore;
-  protected $qrewriteCallPathInfoType = NlpLoggingQRewriteClientCallPathInfo::class;
-  protected $qrewriteCallPathInfoDataType = '';
-  public $qrewriteCallPathInfo;
+  /**
+   * @var float
+   */
+  public $effectiveArgSpanLength;
+  /**
+   * @var float
+   */
+  public $inQueryMaxEffectiveArgSpanLength;
   /**
    * @var string
    */
@@ -41,18 +46,32 @@ class KnowledgeAnswersIntentQueryParsingSignals extends \Google\Model
     return $this->calibratedParsingScore;
   }
   /**
-   * @param NlpLoggingQRewriteClientCallPathInfo
+   * @param float
    */
-  public function setQrewriteCallPathInfo(NlpLoggingQRewriteClientCallPathInfo $qrewriteCallPathInfo)
+  public function setEffectiveArgSpanLength($effectiveArgSpanLength)
   {
-    $this->qrewriteCallPathInfo = $qrewriteCallPathInfo;
+    $this->effectiveArgSpanLength = $effectiveArgSpanLength;
   }
   /**
-   * @return NlpLoggingQRewriteClientCallPathInfo
+   * @return float
    */
-  public function getQrewriteCallPathInfo()
+  public function getEffectiveArgSpanLength()
   {
-    return $this->qrewriteCallPathInfo;
+    return $this->effectiveArgSpanLength;
+  }
+  /**
+   * @param float
+   */
+  public function setInQueryMaxEffectiveArgSpanLength($inQueryMaxEffectiveArgSpanLength)
+  {
+    $this->inQueryMaxEffectiveArgSpanLength = $inQueryMaxEffectiveArgSpanLength;
+  }
+  /**
+   * @return float
+   */
+  public function getInQueryMaxEffectiveArgSpanLength()
+  {
+    return $this->inQueryMaxEffectiveArgSpanLength;
   }
   /**
    * @param string

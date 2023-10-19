@@ -20,10 +20,8 @@ abstract class AbstractCustomFixer extends AbstractFixer
 {
     /**
      * Vendor namespace in fixer's name.
-     *
-     * @var null|string
      */
-    protected static $namespace;
+    protected static ?string $namespace;
 
     /**
      * Returns the fixer name for easy use in fixer registration and usage.
@@ -34,7 +32,7 @@ abstract class AbstractCustomFixer extends AbstractFixer
         $namespace = static::$namespace ?? $nameParts[0];
         $name = substr(end($nameParts), 0, -\strlen('Fixer'));
 
-        return $namespace . '/' . Utils::camelCaseToUnderscore($name);
+        return $namespace.'/'.Utils::camelCaseToUnderscore($name);
     }
 
     /**

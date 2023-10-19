@@ -21,17 +21,16 @@ class SubscriptionPurchaseLineItem extends \Google\Model
 {
   protected $autoRenewingPlanType = AutoRenewingPlan::class;
   protected $autoRenewingPlanDataType = '';
-  public $autoRenewingPlan;
+  protected $deferredItemReplacementType = DeferredItemReplacement::class;
+  protected $deferredItemReplacementDataType = '';
   /**
    * @var string
    */
   public $expiryTime;
   protected $offerDetailsType = OfferDetails::class;
   protected $offerDetailsDataType = '';
-  public $offerDetails;
   protected $prepaidPlanType = PrepaidPlan::class;
   protected $prepaidPlanDataType = '';
-  public $prepaidPlan;
   /**
    * @var string
    */
@@ -50,6 +49,20 @@ class SubscriptionPurchaseLineItem extends \Google\Model
   public function getAutoRenewingPlan()
   {
     return $this->autoRenewingPlan;
+  }
+  /**
+   * @param DeferredItemReplacement
+   */
+  public function setDeferredItemReplacement(DeferredItemReplacement $deferredItemReplacement)
+  {
+    $this->deferredItemReplacement = $deferredItemReplacement;
+  }
+  /**
+   * @return DeferredItemReplacement
+   */
+  public function getDeferredItemReplacement()
+  {
+    return $this->deferredItemReplacement;
   }
   /**
    * @param string

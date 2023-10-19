@@ -23,6 +23,7 @@ use Google\Service\Baremetalsolution\EnableInteractiveSerialConsoleRequest;
 use Google\Service\Baremetalsolution\Instance;
 use Google\Service\Baremetalsolution\ListInstancesResponse;
 use Google\Service\Baremetalsolution\Operation;
+use Google\Service\Baremetalsolution\RenameInstanceRequest;
 use Google\Service\Baremetalsolution\ResetInstanceRequest;
 use Google\Service\Baremetalsolution\StartInstanceRequest;
 use Google\Service\Baremetalsolution\StopInstanceRequest;
@@ -37,20 +38,6 @@ use Google\Service\Baremetalsolution\StopInstanceRequest;
  */
 class ProjectsLocationsInstances extends \Google\Service\Resource
 {
-  /**
-   * Create an Instance. (instances.create)
-   *
-   * @param string $parent Required. The parent project and location.
-   * @param Instance $postBody
-   * @param array $optParams Optional parameters.
-   * @return Operation
-   */
-  public function create($parent, Instance $postBody, $optParams = [])
-  {
-    $params = ['parent' => $parent, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('create', [$params], Operation::class);
-  }
   /**
    * Detach LUN from Instance. (instances.detachLun)
    *
@@ -139,7 +126,8 @@ class ProjectsLocationsInstances extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param string updateMask The list of fields to update. The currently
-   * supported fields are: `labels` `hyperthreading_enabled` `os_image`
+   * supported fields are: `labels` `hyperthreading_enabled` `os_image` `ssh_keys`
+   * `kms_key_version`
    * @return Operation
    */
   public function patch($name, Instance $postBody, $optParams = [])
@@ -147,6 +135,23 @@ class ProjectsLocationsInstances extends \Google\Service\Resource
     $params = ['name' => $name, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('patch', [$params], Operation::class);
+  }
+  /**
+   * RenameInstance sets a new name for an instance. Use with caution, previous
+   * names become immediately invalidated. (instances.rename)
+   *
+   * @param string $name Required. The `name` field is used to identify the
+   * instance. Format:
+   * projects/{project}/locations/{location}/instances/{instance}
+   * @param RenameInstanceRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Instance
+   */
+  public function rename($name, RenameInstanceRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('rename', [$params], Instance::class);
   }
   /**
    * Perform an ungraceful, hard reset on a server. Equivalent to shutting the

@@ -38,19 +38,13 @@ final class OperatorLinebreakFixer extends AbstractFixer implements Configurable
 {
     private const BOOLEAN_OPERATORS = [[T_BOOLEAN_AND], [T_BOOLEAN_OR], [T_LOGICAL_AND], [T_LOGICAL_OR], [T_LOGICAL_XOR]];
 
-    /**
-     * @var string
-     */
-    private $position = 'beginning';
+    private string $position = 'beginning';
 
     /**
      * @var array<array<int|string>|string>
      */
-    private $operators = [];
+    private array $operators = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -75,9 +69,6 @@ function foo() {
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(array $configuration): void
     {
         parent::configure($configuration);
@@ -90,34 +81,25 @@ function foo() {
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('only_booleans', 'whether to limit operators to only boolean ones'))
+            (new FixerOptionBuilder('only_booleans', 'Whether to limit operators to only boolean ones.'))
                 ->setAllowedTypes(['bool'])
                 ->setDefault(false)
                 ->getOption(),
-            (new FixerOptionBuilder('position', 'whether to place operators at the beginning or at the end of the line'))
+            (new FixerOptionBuilder('position', 'Whether to place operators at the beginning or at the end of the line.'))
                 ->setAllowedValues(['beginning', 'end'])
                 ->setDefault($this->position)
                 ->getOption(),
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $referenceAnalyzer = new ReferenceAnalyzer();
@@ -171,23 +153,22 @@ function foo() {
      */
     private function getExcludedIndices(Tokens $tokens): array
     {
-        $colonIndexes = [];
+        $colonIndices = [];
 
+        /** @var SwitchAnalysis $analysis */
         foreach (ControlCaseStructuresAnalyzer::findControlStructures($tokens, [T_SWITCH]) as $analysis) {
             foreach ($analysis->getCases() as $case) {
-                $colonIndexes[] = $case->getColonIndex();
+                $colonIndices[] = $case->getColonIndex();
             }
 
-            if ($analysis instanceof SwitchAnalysis) {
-                $defaultAnalysis = $analysis->getDefaultAnalysis();
+            $defaultAnalysis = $analysis->getDefaultAnalysis();
 
-                if (null !== $defaultAnalysis) {
-                    $colonIndexes[] = $defaultAnalysis->getColonIndex();
-                }
+            if (null !== $defaultAnalysis) {
+                $colonIndices[] = $defaultAnalysis->getColonIndex();
             }
         }
 
-        return $colonIndexes;
+        return $colonIndices;
     }
 
     /**
@@ -234,7 +215,7 @@ function foo() {
         $nextIndex = $tokens->getNextMeaningfulToken(max($operatorIndices));
 
         for ($i = $nextIndex - 1; $i > max($operatorIndices); --$i) {
-            if ($tokens[$i]->isWhitespace() && 1 === Preg::match('/\R/u', $tokens[$i]->getContent())) {
+            if ($tokens[$i]->isWhitespace() && Preg::match('/\R/u', $tokens[$i]->getContent())) {
                 $isWhitespaceBefore = $tokens[$prevIndex]->isWhitespace();
                 $inserts = $this->getReplacementsAndClear($tokens, $operatorIndices, -1);
                 if ($isWhitespaceBefore) {
@@ -259,7 +240,7 @@ function foo() {
         $nextIndex = $tokens->getNonEmptySibling(max($operatorIndices), 1);
 
         for ($i = $prevIndex + 1; $i < max($operatorIndices); ++$i) {
-            if ($tokens[$i]->isWhitespace() && 1 === Preg::match('/\R/u', $tokens[$i]->getContent())) {
+            if ($tokens[$i]->isWhitespace() && Preg::match('/\R/u', $tokens[$i]->getContent())) {
                 $isWhitespaceAfter = $tokens[$nextIndex]->isWhitespace();
                 $inserts = $this->getReplacementsAndClear($tokens, $operatorIndices, 1);
                 if ($isWhitespaceAfter) {
@@ -317,7 +298,7 @@ function foo() {
                 [T_POW_EQUAL], [T_SL], [T_SL_EQUAL], [T_SR], [T_SR_EQUAL], [T_XOR_EQUAL],
                 [T_COALESCE], [T_SPACESHIP],
             ],
-            array_map(static function ($id): array { return [$id]; }, Token::getObjectOperatorKinds())
+            array_map(static fn (int $id): array => [$id], Token::getObjectOperatorKinds()),
         );
     }
 }

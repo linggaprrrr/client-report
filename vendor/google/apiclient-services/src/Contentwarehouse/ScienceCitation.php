@@ -28,6 +28,7 @@ class ScienceCitation extends \Google\Collection
         "abstractLanguage" => "AbstractLanguage",
         "abstractSource" => "AbstractSource",
         "abstractText" => "AbstractText",
+        "abstractTypeFromSource" => "AbstractTypeFromSource",
         "alternateVersionID" => "AlternateVersionID",
         "anchors" => "Anchors",
         "arxivSection" => "ArxivSection",
@@ -39,6 +40,7 @@ class ScienceCitation extends \Google\Collection
         "borrowedFields" => "BorrowedFields",
         "chapter" => "Chapter",
         "citationSource" => "CitationSource",
+        "citationSourceCrawlTimestamp" => "CitationSourceCrawlTimestamp",
         "citationSourceUrl" => "CitationSourceUrl",
         "citationSrc" => "CitationSrc",
         "clearedReason" => "ClearedReason",
@@ -151,10 +153,13 @@ class ScienceCitation extends \Google\Collection
   /**
    * @var string
    */
+  public $abstractTypeFromSource;
+  /**
+   * @var string
+   */
   public $alternateVersionID;
   protected $anchorsType = ScienceCitationAnchor::class;
   protected $anchorsDataType = 'array';
-  public $anchors;
   /**
    * @var string
    */
@@ -191,6 +196,10 @@ class ScienceCitation extends \Google\Collection
    * @var int
    */
   public $citationSource;
+  /**
+   * @var string
+   */
+  public $citationSourceCrawlTimestamp;
   /**
    * @var string
    */
@@ -301,7 +310,6 @@ class ScienceCitation extends \Google\Collection
   public $language;
   protected $legalCitationType = LegalCitation::class;
   protected $legalCitationDataType = '';
-  public $legalCitation;
   /**
    * @var int
    */
@@ -512,37 +520,26 @@ class ScienceCitation extends \Google\Collection
   public $worldViewable;
   protected $accessurlType = ScienceCitationAccessURL::class;
   protected $accessurlDataType = 'array';
-  public $accessurl;
   protected $alternateabstractType = ScienceCitationAlternateAbstract::class;
   protected $alternateabstractDataType = 'array';
-  public $alternateabstract;
   protected $alternatetitleType = ScienceCitationAlternateTitle::class;
   protected $alternatetitleDataType = 'array';
-  public $alternatetitle;
   protected $authorType = ScienceCitationAuthor::class;
   protected $authorDataType = 'array';
-  public $author;
   protected $categoryType = ScienceCitationCategory::class;
   protected $categoryDataType = 'array';
-  public $category;
   protected $downloadurlType = ScienceCitationDownloadURL::class;
   protected $downloadurlDataType = 'array';
-  public $downloadurl;
   protected $fundingType = ScienceCitationFunding::class;
   protected $fundingDataType = 'array';
-  public $funding;
   protected $referencediscussionType = ScienceCitationReferenceDiscussion::class;
   protected $referencediscussionDataType = 'array';
-  public $referencediscussion;
   protected $subjectType = ScienceCitationSubject::class;
   protected $subjectDataType = 'array';
-  public $subject;
   protected $translatedauthorType = ScienceCitationTranslatedAuthor::class;
   protected $translatedauthorDataType = 'array';
-  public $translatedauthor;
   protected $unioncatalogType = ScienceCitationUnionCatalog::class;
   protected $unioncatalogDataType = 'array';
-  public $unioncatalog;
 
   /**
    * @param int
@@ -641,6 +638,20 @@ class ScienceCitation extends \Google\Collection
   public function getAbstractText()
   {
     return $this->abstractText;
+  }
+  /**
+   * @param string
+   */
+  public function setAbstractTypeFromSource($abstractTypeFromSource)
+  {
+    $this->abstractTypeFromSource = $abstractTypeFromSource;
+  }
+  /**
+   * @return string
+   */
+  public function getAbstractTypeFromSource()
+  {
+    return $this->abstractTypeFromSource;
   }
   /**
    * @param string
@@ -795,6 +806,20 @@ class ScienceCitation extends \Google\Collection
   public function getCitationSource()
   {
     return $this->citationSource;
+  }
+  /**
+   * @param string
+   */
+  public function setCitationSourceCrawlTimestamp($citationSourceCrawlTimestamp)
+  {
+    $this->citationSourceCrawlTimestamp = $citationSourceCrawlTimestamp;
+  }
+  /**
+   * @return string
+   */
+  public function getCitationSourceCrawlTimestamp()
+  {
+    return $this->citationSourceCrawlTimestamp;
   }
   /**
    * @param string

@@ -61,7 +61,13 @@ class ReportModel extends Model
 
     public function getAllReports()
     {
-        $query = $this->db->query("SELECT investments.client_id, users.fullname, investments.date as investment_date, link, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - IFNULL(cost_, 0) as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id ORDER BY investments.date DESC");
+        $query = $this->db->query("SELECT investments.client_id, users.fullname, investments.id as order_id, investments.date as investment_date, link, investments.status, users.company, investments.cost as client_cost, total_retail, total_unit, total_fulfilled, investments.cost - IFNULL(cost_, 0) as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id ORDER BY investments.date DESC");
+        return $query;
+    }
+    
+    public function getAllReports2()
+    {
+        $query = $this->db->query("SELECT investments.client_id, users.fullname, investments.id as order_id, investments.date as investment_date, users.company, investments.cost - IFNULL(cost_, 0) as cost_left FROM investments LEFT JOIN (SELECT SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id WHERE YEAR(investments.date) = YEAR(CURDATE()) ORDER BY investments.date DESC");
         return $query;
     }
 
@@ -122,7 +128,12 @@ class ReportModel extends Model
 
     public function savePLReport($chartTitle, $monthData, $type, $client)
     {
-        $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `last_year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `avg`, `total`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$monthData[12]', '$monthData[13]', '$monthData[15]', '$type', '$client' ) ");
+        if ($type == 'percentage') {
+            $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `last_year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `avg`, `total`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]' * 100, '$monthData[1]' * 100, '$monthData[2]' * 100, '$monthData[3]' * 100, '$monthData[4]' * 100, '$monthData[5]' * 100, '$monthData[6]' * 100, '$monthData[7]' * 100, '$monthData[8]' * 100, '$monthData[9]' * 100, '$monthData[10]' * 100, '$monthData[11]' * 100, '$monthData[12]' * 100, '$monthData[13]' * 100, '$monthData[15]' * 100, '$type', '$client' ) ");    
+        } else {
+            $query = $this->db->query("INSERT INTO `chart_pl`(`chart`, `last_year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`, `avg`, `total`, `type`, `client_id`) VALUES('$chartTitle', '$monthData[0]', '$monthData[1]', '$monthData[2]', '$monthData[3]', '$monthData[4]', '$monthData[5]', '$monthData[6]', '$monthData[7]', '$monthData[8]', '$monthData[9]', '$monthData[10]', '$monthData[11]', '$monthData[12]', '$monthData[13]', '$monthData[15]', '$type', '$client' ) ");
+        }
+        
         return $query;
     }
 

@@ -27,9 +27,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class LowercaseStaticReferenceFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -97,6 +94,10 @@ class Foo extends Bar
             }
 
             if ('static' === $newContent && $tokens[$nextIndex]->isGivenKind(T_VARIABLE)) {
+                continue;
+            }
+
+            if ($tokens[$prevIndex]->isGivenKind(T_CASE) && !$tokens[$nextIndex]->isGivenKind(T_PAAMAYIM_NEKUDOTAYIM)) {
                 continue;
             }
 

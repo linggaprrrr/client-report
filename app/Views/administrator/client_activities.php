@@ -42,7 +42,7 @@
             </div>
             <div>
                 <button type="button" class="btn btn-teal" data-toggle="modal" data-target="#modal_form_upload"><i class="icon-file-upload mr-2"></i>Upload Report</button>
-                <div id="modal_form_upload" class="modal fade" tabindex="-1">
+                <div id="modal_form_upload" class="modal fade" >
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header bg-secondary text-white">
@@ -64,10 +64,7 @@
                                     <div class="form-group">
                                         <label>Client Name:</label>
                                         <div class="input-group">
-                                            <span class="input-group-prepend">
-                                                <span class="input-group-text"><i class="icon-user"></i></span>
-                                            </span>
-                                            <select class="form-control" name="client">
+                                            <select class="form-control select-search" name="client" data-fouc>
                                                 <?php if ($getAllClient->getNumRows() > 0) : ?>
                                                     <?php foreach ($getAllClient->getResultArray() as $row) : ?>
                                                         <option value="<?= $row['id'] ?>"><?= $row['fullname'] . " (" . $row['company'] . ")" ?></option>
@@ -255,6 +252,9 @@
 <script src="/assets/js/plugins/notifications/noty.min.js"></script>
 <script src="/assets/js/demo_pages/extra_jgrowl_noty.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/assets/js/demo_pages/form_select2.js"></script>
+<script src="/assets//js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+<script src="/assets//js/plugins/forms/selects/select2.min.js"></script>
 
 <script>
     $(document).ready(function() {

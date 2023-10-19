@@ -19,10 +19,9 @@ namespace Google\Service\Contentwarehouse;
 
 class CompositeDocIndexingInfo extends \Google\Collection
 {
-  protected $collection_key = 'tracingId';
+  protected $collection_key = 'verticals';
   protected $cdocBuildInfoType = IndexingDocjoinerCDocBuildInfo::class;
   protected $cdocBuildInfoDataType = '';
-  public $cdocBuildInfo;
   /**
    * @var bool
    */
@@ -57,15 +56,10 @@ class CompositeDocIndexingInfo extends \Google\Collection
   public $ieIdentifier;
   protected $imageIndexingInfoType = ImageSearchImageIndexingInfo::class;
   protected $imageIndexingInfoDataType = '';
-  public $imageIndexingInfo;
   /**
    * @var string
    */
   public $indexingTs;
-  /**
-   * @var bool
-   */
-  public $isSiblingDeletion;
   /**
    * @var string
    */
@@ -74,6 +68,10 @@ class CompositeDocIndexingInfo extends \Google\Collection
    * @var float
    */
   public $normalizedClickScore;
+  /**
+   * @var string
+   */
+  public $primaryVertical;
   /**
    * @var int
    */
@@ -92,16 +90,16 @@ class CompositeDocIndexingInfo extends \Google\Collection
   public $tracingId;
   protected $urlChangerateType = CrawlerChangerateUrlChangerate::class;
   protected $urlChangerateDataType = '';
-  public $urlChangerate;
   protected $urlHistoryType = CrawlerChangerateUrlHistory::class;
   protected $urlHistoryDataType = '';
-  public $urlHistory;
   protected $urlPatternSignalsType = IndexingSignalAggregatorUrlPatternSignals::class;
   protected $urlPatternSignalsDataType = '';
-  public $urlPatternSignals;
+  /**
+   * @var string[]
+   */
+  public $verticals;
   protected $videoIndexingInfoType = ImageRepositoryVideoIndexingInfo::class;
   protected $videoIndexingInfoDataType = '';
-  public $videoIndexingInfo;
 
   /**
    * @param IndexingDocjoinerCDocBuildInfo
@@ -258,20 +256,6 @@ class CompositeDocIndexingInfo extends \Google\Collection
     return $this->indexingTs;
   }
   /**
-   * @param bool
-   */
-  public function setIsSiblingDeletion($isSiblingDeletion)
-  {
-    $this->isSiblingDeletion = $isSiblingDeletion;
-  }
-  /**
-   * @return bool
-   */
-  public function getIsSiblingDeletion()
-  {
-    return $this->isSiblingDeletion;
-  }
-  /**
    * @param string
    */
   public function setNoLongerCanonicalTimestamp($noLongerCanonicalTimestamp)
@@ -298,6 +282,20 @@ class CompositeDocIndexingInfo extends \Google\Collection
   public function getNormalizedClickScore()
   {
     return $this->normalizedClickScore;
+  }
+  /**
+   * @param string
+   */
+  public function setPrimaryVertical($primaryVertical)
+  {
+    $this->primaryVertical = $primaryVertical;
+  }
+  /**
+   * @return string
+   */
+  public function getPrimaryVertical()
+  {
+    return $this->primaryVertical;
   }
   /**
    * @param int
@@ -396,6 +394,20 @@ class CompositeDocIndexingInfo extends \Google\Collection
   public function getUrlPatternSignals()
   {
     return $this->urlPatternSignals;
+  }
+  /**
+   * @param string[]
+   */
+  public function setVerticals($verticals)
+  {
+    $this->verticals = $verticals;
+  }
+  /**
+   * @return string[]
+   */
+  public function getVerticals()
+  {
+    return $this->verticals;
   }
   /**
    * @param ImageRepositoryVideoIndexingInfo

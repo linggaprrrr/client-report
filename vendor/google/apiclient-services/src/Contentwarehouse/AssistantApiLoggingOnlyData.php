@@ -20,10 +20,6 @@ namespace Google\Service\Contentwarehouse;
 class AssistantApiLoggingOnlyData extends \Google\Model
 {
   /**
-   * @var int
-   */
-  public $accountIndex;
-  /**
    * @var string
    */
   public $acpVersion;
@@ -49,7 +45,6 @@ class AssistantApiLoggingOnlyData extends \Google\Model
   public $boardRevision;
   protected $castAssistantSettingLinkingResultType = AssistantApiCastAssistantSettingLinkingResult::class;
   protected $castAssistantSettingLinkingResultDataType = '';
-  public $castAssistantSettingLinkingResult;
   /**
    * @var string
    */
@@ -63,6 +58,10 @@ class AssistantApiLoggingOnlyData extends \Google\Model
    */
   public $initialAppVersion;
   /**
+   * @var bool
+   */
+  public $isPrimaryUser;
+  /**
    * @var string
    */
   public $mdnsDisplayName;
@@ -75,20 +74,6 @@ class AssistantApiLoggingOnlyData extends \Google\Model
    */
   public $virtualReleaseChannel;
 
-  /**
-   * @param int
-   */
-  public function setAccountIndex($accountIndex)
-  {
-    $this->accountIndex = $accountIndex;
-  }
-  /**
-   * @return int
-   */
-  public function getAccountIndex()
-  {
-    return $this->accountIndex;
-  }
   /**
    * @param string
    */
@@ -228,6 +213,20 @@ class AssistantApiLoggingOnlyData extends \Google\Model
   public function getInitialAppVersion()
   {
     return $this->initialAppVersion;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsPrimaryUser($isPrimaryUser)
+  {
+    $this->isPrimaryUser = $isPrimaryUser;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsPrimaryUser()
+  {
+    return $this->isPrimaryUser;
   }
   /**
    * @param string

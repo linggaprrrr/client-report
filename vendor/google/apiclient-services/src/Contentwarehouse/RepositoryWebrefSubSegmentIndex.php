@@ -21,19 +21,16 @@ class RepositoryWebrefSubSegmentIndex extends \Google\Model
 {
   protected $anchorIndexType = RepositoryWebrefAnchorIndices::class;
   protected $anchorIndexDataType = '';
-  public $anchorIndex;
   protected $genericIndexType = RepositoryWebrefGenericIndices::class;
   protected $genericIndexDataType = '';
-  public $genericIndex;
   protected $imageQueryIndexType = RepositoryWebrefImageQueryIndices::class;
   protected $imageQueryIndexDataType = '';
-  public $imageQueryIndex;
   protected $jgnIndexType = RepositoryWebrefJuggernautIndices::class;
   protected $jgnIndexDataType = '';
-  public $jgnIndex;
+  protected $metaTagIndexType = RepositoryWebrefMetaTagIndices::class;
+  protected $metaTagIndexDataType = '';
   protected $queryIndexType = RepositoryWebrefQueryIndices::class;
   protected $queryIndexDataType = '';
-  public $queryIndex;
 
   /**
    * @param RepositoryWebrefAnchorIndices
@@ -90,6 +87,20 @@ class RepositoryWebrefSubSegmentIndex extends \Google\Model
   public function getJgnIndex()
   {
     return $this->jgnIndex;
+  }
+  /**
+   * @param RepositoryWebrefMetaTagIndices
+   */
+  public function setMetaTagIndex(RepositoryWebrefMetaTagIndices $metaTagIndex)
+  {
+    $this->metaTagIndex = $metaTagIndex;
+  }
+  /**
+   * @return RepositoryWebrefMetaTagIndices
+   */
+  public function getMetaTagIndex()
+  {
+    return $this->metaTagIndex;
   }
   /**
    * @param RepositoryWebrefQueryIndices

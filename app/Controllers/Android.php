@@ -129,8 +129,6 @@ class Android extends BaseController
                 if ($fileName != "") {
                     $this->userModel->save(array(
                         "id" => $post['id'],
-                        "fullname" => $post['fullname'],
-                        "company" => $post['company'],
                         "address" => $post['address'],
                         "photo" => $fileName,
                         "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
@@ -138,8 +136,6 @@ class Android extends BaseController
                 } else {
                     $this->userModel->save(array(
                         "id" => $post['id'],
-                        "fullname" => $post['fullname'],
-                        "company" => $post['company'],
                         "address" => $post['address'],
                         "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
                     ));
@@ -151,16 +147,12 @@ class Android extends BaseController
             if ($fileName != "") {
                 $this->userModel->save(array(
                     "id" => $post['id'],
-                    "fullname" => $post['fullname'],
-                    "company" => $post['company'],
                     "address" => $post['address'],
                     "photo" => $fileName,
                 ));
             } else {
                 $this->userModel->save(array(
                     "id" => $post['id'],
-                    "fullname" => $post['fullname'],
-                    "company" => $post['company'],
                     "address" => $post['address'],
                 ));
             }

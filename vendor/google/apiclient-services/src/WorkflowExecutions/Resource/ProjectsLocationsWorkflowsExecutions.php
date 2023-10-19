@@ -19,6 +19,7 @@ namespace Google\Service\WorkflowExecutions\Resource;
 
 use Google\Service\WorkflowExecutions\CancelExecutionRequest;
 use Google\Service\WorkflowExecutions\Execution;
+use Google\Service\WorkflowExecutions\ExportDataResponse;
 use Google\Service\WorkflowExecutions\ListExecutionsResponse;
 
 /**
@@ -66,6 +67,22 @@ class ProjectsLocationsWorkflowsExecutions extends \Google\Service\Resource
     return $this->call('create', [$params], Execution::class);
   }
   /**
+   * Returns all metadata stored about an execution, excluding most data that is
+   * already accessible using other API methods. (executions.exportData)
+   *
+   * @param string $name Required. Name of the execution for which data is to be
+   * exported. Format: projects/{project}/locations/{location}/workflows/{workflow
+   * }/executions/{execution}
+   * @param array $optParams Optional parameters.
+   * @return ExportDataResponse
+   */
+  public function exportData($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('exportData', [$params], ExportDataResponse::class);
+  }
+  /**
    * Returns an execution of the given name. (executions.get)
    *
    * @param string $name Required. Name of the execution to be retrieved. Format:
@@ -98,7 +115,7 @@ class ProjectsLocationsWorkflowsExecutions extends \Google\Service\Resource
    * [Executions.ListExecutions] results. The following fields are supported for
    * filtering: executionID, state, startTime, endTime, duration,
    * workflowRevisionID, stepName, and label.
-   * @opt_param string orderBy Optional. The orderding applied to the
+   * @opt_param string orderBy Optional. The ordering applied to the
    * [Executions.ListExecutions] results. By default the ordering is based on
    * descending start time. The following fields are supported for order by:
    * executionID, startTime, endTime, duration, state, and workflowRevisionID.
@@ -110,7 +127,8 @@ class ProjectsLocationsWorkflowsExecutions extends \Google\Service\Resource
    * @opt_param string pageToken A page token, received from a previous
    * `ListExecutions` call. Provide this to retrieve the subsequent page. When
    * paginating, all other parameters provided to `ListExecutions` must match the
-   * call that provided the page token.
+   * call that provided the page token. Note that pagination is applied to dynamic
+   * data. The list of executions returned can change between page requests.
    * @opt_param string view Optional. A view defining which fields should be
    * filled in the returned executions. The API will default to the BASIC view.
    * @return ListExecutionsResponse

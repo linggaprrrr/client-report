@@ -53,13 +53,13 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Fullname</label>
                     <div class="col-lg-10">
-                        <input type="text" name="fullname" class="form-control" value="<?= $user['fullname'] ?>">
+                        <input type="text" name="fullname" class="form-control" disabled value="<?= $user['fullname'] ?>">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Company Name</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="company" autocomplete="false" value="<?= $user['company'] ?>">
+                        <input type="text" class="form-control" name="company" disabled autocomplete="false" value="<?= $user['company'] ?>">
                     </div>
                 </div>
                 <div class="form-group row">

@@ -64,10 +64,14 @@ class Product extends \Google\Collection
    * @var string
    */
   public $canonicalLink;
+  protected $certificationsType = ProductCertification::class;
+  protected $certificationsDataType = 'array';
   /**
    * @var string
    */
   public $channel;
+  protected $cloudExportAdditionalPropertiesType = CloudExportAdditionalProperties::class;
+  protected $cloudExportAdditionalPropertiesDataType = 'array';
   /**
    * @var string
    */
@@ -82,10 +86,8 @@ class Product extends \Google\Collection
   public $contentLanguage;
   protected $costOfGoodsSoldType = Price::class;
   protected $costOfGoodsSoldDataType = '';
-  public $costOfGoodsSold;
   protected $customAttributesType = CustomAttribute::class;
   protected $customAttributesDataType = 'array';
-  public $customAttributes;
   /**
    * @var string
    */
@@ -110,6 +112,10 @@ class Product extends \Google\Collection
    * @var string
    */
   public $description;
+  /**
+   * @var string
+   */
+  public $disclosureDate;
   /**
    * @var string
    */
@@ -177,7 +183,6 @@ class Product extends \Google\Collection
   public $includedDestinations;
   protected $installmentType = Installment::class;
   protected $installmentDataType = '';
-  public $installment;
   /**
    * @var bool
    */
@@ -204,7 +209,6 @@ class Product extends \Google\Collection
   public $linkTemplate;
   protected $loyaltyPointsType = LoyaltyPoints::class;
   protected $loyaltyPointsDataType = '';
-  public $loyaltyPoints;
   /**
    * @var string
    */
@@ -263,37 +267,30 @@ class Product extends \Google\Collection
   public $pickupSla;
   protected $priceType = Price::class;
   protected $priceDataType = '';
-  public $price;
   protected $productDetailsType = ProductProductDetail::class;
   protected $productDetailsDataType = 'array';
-  public $productDetails;
   protected $productHeightType = ProductDimension::class;
   protected $productHeightDataType = '';
-  public $productHeight;
   /**
    * @var string[]
    */
   public $productHighlights;
   protected $productLengthType = ProductDimension::class;
   protected $productLengthDataType = '';
-  public $productLength;
   /**
    * @var string[]
    */
   public $productTypes;
   protected $productWeightType = ProductWeight::class;
   protected $productWeightDataType = '';
-  public $productWeight;
   protected $productWidthType = ProductDimension::class;
   protected $productWidthDataType = '';
-  public $productWidth;
   /**
    * @var string[]
    */
   public $promotionIds;
   protected $salePriceType = Price::class;
   protected $salePriceDataType = '';
-  public $salePrice;
   /**
    * @var string
    */
@@ -304,23 +301,18 @@ class Product extends \Google\Collection
   public $sellOnGoogleQuantity;
   protected $shippingType = ProductShipping::class;
   protected $shippingDataType = 'array';
-  public $shipping;
   protected $shippingHeightType = ProductShippingDimension::class;
   protected $shippingHeightDataType = '';
-  public $shippingHeight;
   /**
    * @var string
    */
   public $shippingLabel;
   protected $shippingLengthType = ProductShippingDimension::class;
   protected $shippingLengthDataType = '';
-  public $shippingLength;
   protected $shippingWeightType = ProductShippingWeight::class;
   protected $shippingWeightDataType = '';
-  public $shippingWeight;
   protected $shippingWidthType = ProductShippingDimension::class;
   protected $shippingWidthDataType = '';
-  public $shippingWidth;
   /**
    * @var string[]
    */
@@ -343,7 +335,6 @@ class Product extends \Google\Collection
   public $source;
   protected $subscriptionCostType = ProductSubscriptionCost::class;
   protected $subscriptionCostDataType = '';
-  public $subscriptionCost;
   /**
    * @var string
    */
@@ -354,7 +345,6 @@ class Product extends \Google\Collection
   public $taxCategory;
   protected $taxesType = ProductTax::class;
   protected $taxesDataType = 'array';
-  public $taxes;
   /**
    * @var string
    */
@@ -365,10 +355,12 @@ class Product extends \Google\Collection
   public $transitTimeLabel;
   protected $unitPricingBaseMeasureType = ProductUnitPricingBaseMeasure::class;
   protected $unitPricingBaseMeasureDataType = '';
-  public $unitPricingBaseMeasure;
   protected $unitPricingMeasureType = ProductUnitPricingMeasure::class;
   protected $unitPricingMeasureDataType = '';
-  public $unitPricingMeasure;
+  /**
+   * @var string
+   */
+  public $virtualModelLink;
 
   /**
    * @param string[]
@@ -525,6 +517,20 @@ class Product extends \Google\Collection
     return $this->canonicalLink;
   }
   /**
+   * @param ProductCertification[]
+   */
+  public function setCertifications($certifications)
+  {
+    $this->certifications = $certifications;
+  }
+  /**
+   * @return ProductCertification[]
+   */
+  public function getCertifications()
+  {
+    return $this->certifications;
+  }
+  /**
    * @param string
    */
   public function setChannel($channel)
@@ -537,6 +543,20 @@ class Product extends \Google\Collection
   public function getChannel()
   {
     return $this->channel;
+  }
+  /**
+   * @param CloudExportAdditionalProperties[]
+   */
+  public function setCloudExportAdditionalProperties($cloudExportAdditionalProperties)
+  {
+    $this->cloudExportAdditionalProperties = $cloudExportAdditionalProperties;
+  }
+  /**
+   * @return CloudExportAdditionalProperties[]
+   */
+  public function getCloudExportAdditionalProperties()
+  {
+    return $this->cloudExportAdditionalProperties;
   }
   /**
    * @param string
@@ -691,6 +711,20 @@ class Product extends \Google\Collection
   public function getDescription()
   {
     return $this->description;
+  }
+  /**
+   * @param string
+   */
+  public function setDisclosureDate($disclosureDate)
+  {
+    $this->disclosureDate = $disclosureDate;
+  }
+  /**
+   * @return string
+   */
+  public function getDisclosureDate()
+  {
+    return $this->disclosureDate;
   }
   /**
    * @param string
@@ -1665,6 +1699,20 @@ class Product extends \Google\Collection
   public function getUnitPricingMeasure()
   {
     return $this->unitPricingMeasure;
+  }
+  /**
+   * @param string
+   */
+  public function setVirtualModelLink($virtualModelLink)
+  {
+    $this->virtualModelLink = $virtualModelLink;
+  }
+  /**
+   * @return string
+   */
+  public function getVirtualModelLink()
+  {
+    return $this->virtualModelLink;
   }
 }
 

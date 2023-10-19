@@ -32,13 +32,10 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  */
 final class ClassDefinitionFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            'Whitespace around the keywords of a class, trait or interfaces definition should be one space.',
+            'Whitespace around the keywords of a class, trait, enum or interfaces definition should be one space.',
             [
                 new CodeSample(
                     '<?php
@@ -93,6 +90,10 @@ $foo = new class(){};
 ',
                     ['space_before_parenthesis' => true]
                 ),
+                new CodeSample(
+                    "<?php\n\$foo = new class(\n    \$bar,\n    \$baz\n) {};\n",
+                    ['inline_constructor_arguments' => true]
+                ),
             ]
         );
     }
@@ -100,25 +101,19 @@ $foo = new class(){};
     /**
      * {@inheritdoc}
      *
-     * Must run before BracesFixer.
-     * Must run after NewWithBracesFixer.
+     * Must run before BracesFixer, SingleLineEmptyBodyFixer.
+     * Must run after NewWithBracesFixer, NewWithParenthesesFixer.
      */
     public function getPriority(): int
     {
         return 36;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound(Token::getClassyTokenKinds());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         // -4, one for count to index, 3 because min. of tokens for a classy location.
@@ -129,9 +124,6 @@ $foo = new class(){};
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -150,6 +142,10 @@ $foo = new class(){};
             (new FixerOptionBuilder('space_before_parenthesis', 'Whether there should be a single space after the parenthesis of anonymous class (PSR12) or not.'))
                 ->setAllowedTypes(['bool'])
                 ->setDefault(false)
+                ->getOption(),
+            (new FixerOptionBuilder('inline_constructor_arguments', 'Whether constructor argument list in anonymous classes should be single line.'))
+                ->setAllowedTypes(['bool'])
+                ->setDefault(true)
                 ->getOption(),
         ]);
     }
@@ -193,8 +189,22 @@ $foo = new class(){};
             $end = $tokens->getPrevNonWhitespace($classDefInfo['open']);
         }
 
+        if ($classDefInfo['anonymousClass'] && !$this->configuration['inline_constructor_arguments']) {
+            if (!$tokens[$end]->equals(')')) { // anonymous class with `extends` and/or `implements`
+                $start = $tokens->getPrevMeaningfulToken($end);
+                $this->makeClassyDefinitionSingleLine($tokens, $start, $end);
+                $end = $start;
+            }
+
+            if ($tokens[$end]->equals(')')) { // skip constructor arguments of anonymous class
+                $end = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $end);
+            }
+        }
+
         // 4.1 The extends and implements keywords MUST be declared on the same line as the class name.
         $this->makeClassyDefinitionSingleLine($tokens, $classDefInfo['start'], $end);
+
+        $this->sortClassModifiers($tokens, $classDefInfo);
     }
 
     private function fixClassyDefinitionExtends(Tokens $tokens, int $classOpenIndex, array $classExtendsInfo): array
@@ -266,40 +276,64 @@ $foo = new class(){};
         return $openIndex + 1;
     }
 
+    /**
+     * @return array{
+     *     start: int,
+     *     classy: int,
+     *     open: int,
+     *     extends: false|array{start: int, numberOfExtends: int, multiLine: bool},
+     *     implements: false|array{start: int, numberOfImplements: int, multiLine: bool},
+     *     anonymousClass: bool,
+     *     final: false|int,
+     *     abstract: false|int,
+     *     readonly: false|int,
+     * }
+     */
     private function getClassyDefinitionInfo(Tokens $tokens, int $classyIndex): array
     {
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         $openIndex = $tokens->getNextTokenOfKind($classyIndex, ['{']);
-        $extends = false;
-        $implements = false;
-        $anonymousClass = false;
+        $def = [
+            'classy' => $classyIndex,
+            'open' => $openIndex,
+            'extends' => false,
+            'implements' => false,
+            'anonymousClass' => false,
+            'final' => false,
+            'abstract' => false,
+            'readonly' => false,
+        ];
 
         if (!$tokens[$classyIndex]->isGivenKind(T_TRAIT)) {
             $extends = $tokens->findGivenKind(T_EXTENDS, $classyIndex, $openIndex);
-            $extends = \count($extends) ? $this->getClassyInheritanceInfo($tokens, key($extends), 'numberOfExtends') : false;
+            $def['extends'] = [] !== $extends ? $this->getClassyInheritanceInfo($tokens, key($extends), 'numberOfExtends') : false;
 
             if (!$tokens[$classyIndex]->isGivenKind(T_INTERFACE)) {
                 $implements = $tokens->findGivenKind(T_IMPLEMENTS, $classyIndex, $openIndex);
-                $implements = \count($implements) ? $this->getClassyInheritanceInfo($tokens, key($implements), 'numberOfImplements') : false;
-                $tokensAnalyzer = new TokensAnalyzer($tokens);
-                $anonymousClass = $tokensAnalyzer->isAnonymousClass($classyIndex);
+                $def['implements'] = [] !== $implements ? $this->getClassyInheritanceInfo($tokens, key($implements), 'numberOfImplements') : false;
+                $def['anonymousClass'] = $tokensAnalyzer->isAnonymousClass($classyIndex);
             }
         }
 
-        if ($anonymousClass) {
-            $startIndex = $tokens->getPrevMeaningfulToken($classyIndex); // go to "new" for anonymous class
+        if ($def['anonymousClass']) {
+            $startIndex = $tokens->getPrevTokenOfKind($classyIndex, [[T_NEW]]); // go to "new" for anonymous class
         } else {
-            $prev = $tokens->getPrevMeaningfulToken($classyIndex);
-            $startIndex = $tokens[$prev]->isGivenKind([T_FINAL, T_ABSTRACT]) ? $prev : $classyIndex;
+            $modifiers = $tokensAnalyzer->getClassyModifiers($classyIndex);
+            $startIndex = $classyIndex;
+
+            foreach (['final', 'abstract', 'readonly'] as $modifier) {
+                if (isset($modifiers[$modifier])) {
+                    $def[$modifier] = $modifiers[$modifier];
+                    $startIndex = min($startIndex, $modifiers[$modifier]);
+                } else {
+                    $def[$modifier] = false;
+                }
+            }
         }
 
-        return [
-            'start' => $startIndex,
-            'classy' => $classyIndex,
-            'open' => $openIndex,
-            'extends' => $extends,
-            'implements' => $implements,
-            'anonymousClass' => $anonymousClass,
-        ];
+        $def['start'] = $startIndex;
+
+        return $def;
     }
 
     private function getClassyInheritanceInfo(Tokens $tokens, int $startIndex, string $label): array
@@ -425,6 +459,41 @@ $foo = new class(){};
             }
 
             $i = $previousInterfaceImplementingIndex + 1;
+        }
+    }
+
+    /**
+     * @param array{
+     *     final: false|int,
+     *     abstract: false|int,
+     *     readonly: false|int,
+     * } $classDefInfo
+     */
+    private function sortClassModifiers(Tokens $tokens, array $classDefInfo): void
+    {
+        if (false === $classDefInfo['readonly']) {
+            return;
+        }
+
+        $readonlyIndex = $classDefInfo['readonly'];
+
+        foreach (['final', 'abstract'] as $accessModifier) {
+            if (false === $classDefInfo[$accessModifier] || $classDefInfo[$accessModifier] < $readonlyIndex) {
+                continue;
+            }
+
+            $accessModifierIndex = $classDefInfo[$accessModifier];
+
+            /** @var Token $readonlyToken */
+            $readonlyToken = clone $tokens[$readonlyIndex];
+
+            /** @var Token $accessToken */
+            $accessToken = clone $tokens[$accessModifierIndex];
+
+            $tokens[$readonlyIndex] = $accessToken;
+            $tokens[$accessModifierIndex] = $readonlyToken;
+
+            break;
         }
     }
 }

@@ -16,10 +16,9 @@ namespace PhpCsFixer\Fixer\FunctionNotation;
 
 use PhpCsFixer\AbstractPhpdocToTypeDeclarationFixer;
 use PhpCsFixer\DocBlock\Annotation;
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -28,21 +27,18 @@ final class PhpdocToPropertyTypeFixer extends AbstractPhpdocToTypeDeclarationFix
     /**
      * @var array<string, true>
      */
-    private $skippedTypes = [
+    private array $skippedTypes = [
         'mixed' => true,
         'resource' => true,
         'null' => true,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
             'EXPERIMENTAL: Takes `@var` annotation of non-mixed types and adjusts accordingly the property signature. Requires PHP >= 7.4.',
             [
-                new VersionSpecificCodeSample(
+                new CodeSample(
                     '<?php
 class Foo {
     /** @var int */
@@ -51,9 +47,8 @@ class Foo {
     private $bar;
 }
 ',
-                    new VersionSpecification(70400)
                 ),
-                new VersionSpecificCodeSample(
+                new CodeSample(
                     '<?php
 class Foo {
     /** @var int */
@@ -62,7 +57,6 @@ class Foo {
     private $bar;
 }
 ',
-                    new VersionSpecification(70400),
                     ['scalar_types' => false]
                 ),
             ],
@@ -71,12 +65,9 @@ class Foo {
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
-        return \PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
 
     /**
@@ -95,9 +86,6 @@ class Foo {
         return isset($this->skippedTypes[$type]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
@@ -128,14 +116,14 @@ class Foo {
             }
 
             $docCommentIndex = $index;
-            $propertyIndexes = $this->findNextUntypedPropertiesDeclaration($tokens, $docCommentIndex);
+            $propertyIndices = $this->findNextUntypedPropertiesDeclaration($tokens, $docCommentIndex);
 
-            if ([] === $propertyIndexes) {
+            if ([] === $propertyIndices) {
                 continue;
             }
 
             $typeInfo = $this->resolveApplicableType(
-                $propertyIndexes,
+                $propertyIndices,
                 $this->getAnnotationsFromDocComment('var', $tokens, $docCommentIndex)
             );
 
@@ -154,9 +142,9 @@ class Foo {
                 [new Token([T_WHITESPACE, ' '])]
             );
 
-            $tokens->insertAt(current($propertyIndexes), $newTokens);
+            $tokens->insertAt(current($propertyIndices), $newTokens);
 
-            $index = max($propertyIndexes) + \count($newTokens) + 1;
+            $index = max($propertyIndices) + \count($newTokens) + 1;
             $classEndIndex += \count($newTokens);
         }
     }
@@ -194,10 +182,10 @@ class Foo {
     }
 
     /**
-     * @param array<string, int> $propertyIndexes
+     * @param array<string, int> $propertyIndices
      * @param Annotation[]       $annotations
      */
-    private function resolveApplicableType(array $propertyIndexes, array $annotations): ?array
+    private function resolveApplicableType(array $propertyIndices, array $annotations): ?array
     {
         $propertyTypes = [];
 
@@ -205,14 +193,14 @@ class Foo {
             $propertyName = $annotation->getVariableName();
 
             if (null === $propertyName) {
-                if (1 !== \count($propertyIndexes)) {
+                if (1 !== \count($propertyIndices)) {
                     continue;
                 }
 
-                $propertyName = key($propertyIndexes);
+                $propertyName = key($propertyIndices);
             }
 
-            if (!isset($propertyIndexes[$propertyName])) {
+            if (!isset($propertyIndices[$propertyName])) {
                 continue;
             }
 
@@ -227,7 +215,7 @@ class Foo {
             $propertyTypes[$propertyName] = $typeInfo;
         }
 
-        if (\count($propertyTypes) !== \count($propertyIndexes)) {
+        if (\count($propertyTypes) !== \count($propertyIndices)) {
             return null;
         }
 

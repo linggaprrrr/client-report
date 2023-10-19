@@ -19,9 +19,16 @@ namespace Google\Service\Dataform;
 
 class Repository extends \Google\Model
 {
+  /**
+   * @var string
+   */
+  public $displayName;
   protected $gitRemoteSettingsType = GitRemoteSettings::class;
   protected $gitRemoteSettingsDataType = '';
-  public $gitRemoteSettings;
+  /**
+   * @var string[]
+   */
+  public $labels;
   /**
    * @var string
    */
@@ -30,7 +37,31 @@ class Repository extends \Google\Model
    * @var string
    */
   public $npmrcEnvironmentVariablesSecretVersion;
+  /**
+   * @var string
+   */
+  public $serviceAccount;
+  /**
+   * @var bool
+   */
+  public $setAuthenticatedUserAdmin;
+  protected $workspaceCompilationOverridesType = WorkspaceCompilationOverrides::class;
+  protected $workspaceCompilationOverridesDataType = '';
 
+  /**
+   * @param string
+   */
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  /**
+   * @return string
+   */
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
   /**
    * @param GitRemoteSettings
    */
@@ -44,6 +75,20 @@ class Repository extends \Google\Model
   public function getGitRemoteSettings()
   {
     return $this->gitRemoteSettings;
+  }
+  /**
+   * @param string[]
+   */
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  /**
+   * @return string[]
+   */
+  public function getLabels()
+  {
+    return $this->labels;
   }
   /**
    * @param string
@@ -72,6 +117,48 @@ class Repository extends \Google\Model
   public function getNpmrcEnvironmentVariablesSecretVersion()
   {
     return $this->npmrcEnvironmentVariablesSecretVersion;
+  }
+  /**
+   * @param string
+   */
+  public function setServiceAccount($serviceAccount)
+  {
+    $this->serviceAccount = $serviceAccount;
+  }
+  /**
+   * @return string
+   */
+  public function getServiceAccount()
+  {
+    return $this->serviceAccount;
+  }
+  /**
+   * @param bool
+   */
+  public function setSetAuthenticatedUserAdmin($setAuthenticatedUserAdmin)
+  {
+    $this->setAuthenticatedUserAdmin = $setAuthenticatedUserAdmin;
+  }
+  /**
+   * @return bool
+   */
+  public function getSetAuthenticatedUserAdmin()
+  {
+    return $this->setAuthenticatedUserAdmin;
+  }
+  /**
+   * @param WorkspaceCompilationOverrides
+   */
+  public function setWorkspaceCompilationOverrides(WorkspaceCompilationOverrides $workspaceCompilationOverrides)
+  {
+    $this->workspaceCompilationOverrides = $workspaceCompilationOverrides;
+  }
+  /**
+   * @return WorkspaceCompilationOverrides
+   */
+  public function getWorkspaceCompilationOverrides()
+  {
+    return $this->workspaceCompilationOverrides;
   }
 }
 

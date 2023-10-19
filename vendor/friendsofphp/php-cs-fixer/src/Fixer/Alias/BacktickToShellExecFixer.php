@@ -27,17 +27,11 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class BacktickToShellExecFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound('`');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -45,11 +39,11 @@ final class BacktickToShellExecFixer extends AbstractFixer
             [
                 new CodeSample(
                     <<<'EOT'
-<?php
-$plain = `ls -lah`;
-$withVar = `ls -lah $var1 ${var2} {$var3} {$var4[0]} {$var5->call()}`;
+                        <?php
+                        $plain = `ls -lah`;
+                        $withVar = `ls -lah $var1 ${var2} {$var3} {$var4[0]} {$var5->call()}`;
 
-EOT
+                        EOT
                 ),
             ],
             'Conversion is done only when it is non risky, so when special chars like single-quotes, double-quotes and backticks are not used inside the command.'
@@ -63,12 +57,9 @@ EOT
      */
     public function getPriority(): int
     {
-        return 2;
+        return 17;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $backtickStarted = false;
@@ -102,7 +93,7 @@ EOT
      */
     private function fixBackticks(Tokens $tokens, array $backtickTokens): void
     {
-        // Track indexes for final override
+        // Track indices for final override
         ksort($backtickTokens);
         $openingBacktickIndex = key($backtickTokens);
         end($backtickTokens);

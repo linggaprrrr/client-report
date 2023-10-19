@@ -21,16 +21,14 @@ class Condition extends \Google\Model
 {
   protected $conditionAbsentType = MetricAbsence::class;
   protected $conditionAbsentDataType = '';
-  public $conditionAbsent;
   protected $conditionMatchedLogType = LogMatch::class;
   protected $conditionMatchedLogDataType = '';
-  public $conditionMatchedLog;
   protected $conditionMonitoringQueryLanguageType = MonitoringQueryLanguageCondition::class;
   protected $conditionMonitoringQueryLanguageDataType = '';
-  public $conditionMonitoringQueryLanguage;
+  protected $conditionPrometheusQueryLanguageType = PrometheusQueryLanguageCondition::class;
+  protected $conditionPrometheusQueryLanguageDataType = '';
   protected $conditionThresholdType = MetricThreshold::class;
   protected $conditionThresholdDataType = '';
-  public $conditionThreshold;
   /**
    * @var string
    */
@@ -81,6 +79,20 @@ class Condition extends \Google\Model
   public function getConditionMonitoringQueryLanguage()
   {
     return $this->conditionMonitoringQueryLanguage;
+  }
+  /**
+   * @param PrometheusQueryLanguageCondition
+   */
+  public function setConditionPrometheusQueryLanguage(PrometheusQueryLanguageCondition $conditionPrometheusQueryLanguage)
+  {
+    $this->conditionPrometheusQueryLanguage = $conditionPrometheusQueryLanguage;
+  }
+  /**
+   * @return PrometheusQueryLanguageCondition
+   */
+  public function getConditionPrometheusQueryLanguage()
+  {
+    return $this->conditionPrometheusQueryLanguage;
   }
   /**
    * @param MetricThreshold

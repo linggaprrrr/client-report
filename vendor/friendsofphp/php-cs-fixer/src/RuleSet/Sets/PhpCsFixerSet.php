@@ -24,8 +24,8 @@ final class PhpCsFixerSet extends AbstractRuleSetDescription
     public function getRules(): array
     {
         return [
+            '@PER-CS' => true,
             '@Symfony' => true,
-            'align_multiline_comment' => true,
             'array_indentation' => true,
             'blank_line_before_statement' => [
                 'statements' => [
@@ -38,12 +38,15 @@ final class PhpCsFixerSet extends AbstractRuleSetDescription
                     'goto',
                     'include',
                     'include_once',
+                    'phpdoc',
                     'require',
                     'require_once',
                     'return',
                     'switch',
                     'throw',
                     'try',
+                    'yield',
+                    'yield_from',
                 ],
             ],
             'combine_consecutive_issets' => true,
@@ -63,6 +66,7 @@ final class PhpCsFixerSet extends AbstractRuleSetDescription
             ],
             'no_extra_blank_lines' => [
                 'tokens' => [
+                    'attribute',
                     'break',
                     'case',
                     'continue',
@@ -77,26 +81,43 @@ final class PhpCsFixerSet extends AbstractRuleSetDescription
                     'use',
                 ],
             ],
-            'no_null_property_initialization' => true,
             'no_superfluous_elseif' => true,
+            'no_superfluous_phpdoc_tags' => [
+                'allow_mixed' => true,
+                'remove_inheritdoc' => true,
+            ],
+            'no_unneeded_control_parentheses' => [
+                'statements' => [
+                    'break',
+                    'clone',
+                    'continue',
+                    'echo_print',
+                    'negative_instanceof',
+                    'others',
+                    'return',
+                    'switch_case',
+                    'yield',
+                    'yield_from',
+                ],
+            ],
             'no_useless_else' => true,
             'no_useless_return' => true,
-            'operator_linebreak' => [
-                'only_booleans' => true,
-            ],
+            'nullable_type_declaration_for_default_null_value' => false,
             'ordered_class_elements' => true,
+            'ordered_types' => true,
             'php_unit_internal_class' => true,
             'php_unit_test_class_requires_covers' => true,
             'phpdoc_add_missing_param_annotation' => true,
             'phpdoc_no_empty_return' => true,
-            'phpdoc_order' => true,
             'phpdoc_order_by_value' => true,
             'phpdoc_types_order' => true,
             'phpdoc_var_annotation_correct_order' => true,
+            'protected_to_private' => true,
             'return_assignment' => true,
-            'simple_to_complex_string_variable' => true,
+            'self_static_accessor' => true,
             'single_line_comment_style' => true,
             'single_line_throw' => false,
+            'whitespace_after_comma_in_array' => ['ensure_single_space' => true],
         ];
     }
 

@@ -30,11 +30,14 @@ class SocialGraphWireProtoPeopleapiExtensionPeopleStackPersonExtendedData extend
   public $familyStatus;
   protected $hiddenKeysType = SocialDiscoveryExternalEntityKey::class;
   protected $hiddenKeysDataType = 'array';
-  public $hiddenKeys;
   /**
    * @var string
    */
   public $hideType;
+  /**
+   * @var string
+   */
+  public $suggestionConfidence;
 
   /**
    * @param string
@@ -91,6 +94,20 @@ class SocialGraphWireProtoPeopleapiExtensionPeopleStackPersonExtendedData extend
   public function getHideType()
   {
     return $this->hideType;
+  }
+  /**
+   * @param string
+   */
+  public function setSuggestionConfidence($suggestionConfidence)
+  {
+    $this->suggestionConfidence = $suggestionConfidence;
+  }
+  /**
+   * @return string
+   */
+  public function getSuggestionConfidence()
+  {
+    return $this->suggestionConfidence;
   }
 }
 

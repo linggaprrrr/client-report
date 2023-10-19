@@ -19,7 +19,7 @@ namespace Google\Service\Compute;
 
 class RouterBgpPeer extends \Google\Collection
 {
-  protected $collection_key = 'advertisedIpRanges';
+  protected $collection_key = 'customLearnedIpRanges';
   /**
    * @var string
    */
@@ -30,14 +30,18 @@ class RouterBgpPeer extends \Google\Collection
   public $advertisedGroups;
   protected $advertisedIpRangesType = RouterAdvertisedIpRange::class;
   protected $advertisedIpRangesDataType = 'array';
-  public $advertisedIpRanges;
   /**
    * @var string
    */
   public $advertisedRoutePriority;
   protected $bfdType = RouterBgpPeerBfd::class;
   protected $bfdDataType = '';
-  public $bfd;
+  protected $customLearnedIpRangesType = RouterBgpPeerCustomLearnedIpRange::class;
+  protected $customLearnedIpRangesDataType = 'array';
+  /**
+   * @var int
+   */
+  public $customLearnedRoutePriority;
   /**
    * @var string
    */
@@ -156,6 +160,34 @@ class RouterBgpPeer extends \Google\Collection
   public function getBfd()
   {
     return $this->bfd;
+  }
+  /**
+   * @param RouterBgpPeerCustomLearnedIpRange[]
+   */
+  public function setCustomLearnedIpRanges($customLearnedIpRanges)
+  {
+    $this->customLearnedIpRanges = $customLearnedIpRanges;
+  }
+  /**
+   * @return RouterBgpPeerCustomLearnedIpRange[]
+   */
+  public function getCustomLearnedIpRanges()
+  {
+    return $this->customLearnedIpRanges;
+  }
+  /**
+   * @param int
+   */
+  public function setCustomLearnedRoutePriority($customLearnedRoutePriority)
+  {
+    $this->customLearnedRoutePriority = $customLearnedRoutePriority;
+  }
+  /**
+   * @return int
+   */
+  public function getCustomLearnedRoutePriority()
+  {
+    return $this->customLearnedRoutePriority;
   }
   /**
    * @param string

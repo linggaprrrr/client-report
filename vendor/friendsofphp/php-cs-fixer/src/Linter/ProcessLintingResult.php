@@ -23,20 +23,11 @@ use Symfony\Component\Process\Process;
  */
 final class ProcessLintingResult implements LintingResultInterface
 {
-    /**
-     * @var bool
-     */
-    private $isSuccessful;
+    private Process $process;
 
-    /**
-     * @var Process
-     */
-    private $process;
+    private ?string $path;
 
-    /**
-     * @var null|string
-     */
-    private $path;
+    private ?bool $isSuccessful = null;
 
     public function __construct(Process $process, ?string $path = null)
     {
@@ -44,9 +35,6 @@ final class ProcessLintingResult implements LintingResultInterface
         $this->path = $path;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function check(): void
     {
         if (!$this->isSuccessful()) {
@@ -57,7 +45,8 @@ final class ProcessLintingResult implements LintingResultInterface
 
     private function getProcessErrorMessage(): string
     {
-        $output = strtok(ltrim($this->process->getErrorOutput() ?: $this->process->getOutput()), "\n");
+        $errorOutput = $this->process->getErrorOutput();
+        $output = strtok(ltrim('' !== $errorOutput ? $errorOutput : $this->process->getOutput()), "\n");
 
         if (false === $output) {
             return 'Fatal error: Unable to lint file.';

@@ -14,17 +14,19 @@ declare(strict_types=1);
 namespace Nexus\CsConfig\Fixer\Comment;
 
 use Nexus\CsConfig\Fixer\AbstractCustomFixer;
+use PhpCsFixer\Fixer\DeprecatedFixerInterface;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 /**
  * Simple comments should have one space after the `//`.
+ *
+ * @deprecated
  */
-final class SpaceAfterCommentStartFixer extends AbstractCustomFixer
+final class SpaceAfterCommentStartFixer extends AbstractCustomFixer implements DeprecatedFixerInterface
 {
     /**
      * {@inheritDoc}
@@ -38,6 +40,14 @@ final class SpaceAfterCommentStartFixer extends AbstractCustomFixer
                 new CodeSample("<?php\n    //  this is another comment\n"),
             ],
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSuccessorsNames(): array
+    {
+        return ['single_line_comment_spacing'];
     }
 
     /**
@@ -81,17 +91,17 @@ final class SpaceAfterCommentStartFixer extends AbstractCustomFixer
                 continue;
             }
 
-            Preg::match('/^\/\/(\s*)(.+)/', $comment, $matches);
+            preg_match('/^\/\/(\s*)(.+)/', $comment, $matches);
 
             if (' ' === $matches[1]) {
                 continue;
             }
 
-            if (Preg::match('/\-+/', $matches[2]) === 1 || Preg::match('/\=+/', $matches[2]) === 1) {
+            if (preg_match('/\-+/', $matches[2]) === 1 || preg_match('/\=+/', $matches[2]) === 1) {
                 continue;
             }
 
-            $tokens[$index] = new Token([T_COMMENT, '// ' . $matches[2]]);
+            $tokens[$index] = new Token([T_COMMENT, '// '.$matches[2]]);
         }
     }
 }

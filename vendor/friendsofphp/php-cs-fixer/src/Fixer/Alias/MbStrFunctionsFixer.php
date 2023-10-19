@@ -28,9 +28,17 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class MbStrFunctionsFixer extends AbstractFunctionReferenceFixer
 {
     /**
-     * @var array the list of the string-related function names and their mb_ equivalent
+     * list of the string-related function names and their mb_ equivalent.
+     *
+     * @var array<
+     *     string,
+     *     array{
+     *         alternativeName: string,
+     *         argumentCount: list<int>,
+     *     },
+     * >
      */
-    private static $functionsMap = [
+    private static array $functionsMap = [
         'str_split' => ['alternativeName' => 'mb_str_split', 'argumentCount' => [1, 2, 3]],
         'stripos' => ['alternativeName' => 'mb_stripos', 'argumentCount' => [2, 3]],
         'stristr' => ['alternativeName' => 'mb_stristr', 'argumentCount' => [2, 3]],
@@ -47,9 +55,15 @@ final class MbStrFunctionsFixer extends AbstractFunctionReferenceFixer
     ];
 
     /**
-     * @var array<string, array>
+     * @var array<
+     *     string,
+     *     array{
+     *         alternativeName: string,
+     *         argumentCount: list<int>,
+     *     },
+     * >
      */
-    private $functions;
+    private array $functions;
 
     public function __construct()
     {
@@ -57,15 +71,10 @@ final class MbStrFunctionsFixer extends AbstractFunctionReferenceFixer
 
         $this->functions = array_filter(
             self::$functionsMap,
-            static function (array $mapping): bool {
-                return (new \ReflectionFunction($mapping['alternativeName']))->isInternal();
-            }
+            static fn (array $mapping): bool => (new \ReflectionFunction($mapping['alternativeName']))->isInternal()
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -93,9 +102,6 @@ $a = substr_count($a, $b);
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $argumentsAnalyzer = new ArgumentsAnalyzer();

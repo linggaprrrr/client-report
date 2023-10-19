@@ -23,7 +23,6 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis;
-use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -38,16 +37,13 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
     /**
      * @var array<string, true>
      */
-    private $constantsToEscape = [];
+    private array $constantsToEscape = [];
 
     /**
      * @var array<string, true>
      */
-    private $caseInsensitiveConstantsToEscape = [];
+    private array $caseInsensitiveConstantsToEscape = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -100,31 +96,23 @@ namespace {
      * {@inheritdoc}
      *
      * Must run before GlobalNamespaceImportFixer.
+     * Must run after FunctionToConstantFixer.
      */
     public function getPriority(): int
     {
-        return 10;
+        return 1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(array $configuration): void
     {
         parent::configure($configuration);
@@ -138,7 +126,7 @@ namespace {
             $getDefinedConstants = get_defined_constants(true);
             unset($getDefinedConstants['user']);
             foreach ($getDefinedConstants as $constants) {
-                $constantsToEscape = array_merge($constantsToEscape, array_keys($constants));
+                $constantsToEscape = [...$constantsToEscape, ...array_keys($constants)];
             }
         }
 
@@ -161,7 +149,10 @@ namespace {
 
         $caseInsensitiveConstantsToEscape = array_diff(
             array_unique($caseInsensitiveConstantsToEscape),
-            array_map(static function (string $function): string { return strtolower($function); }, $uniqueConfiguredExclude)
+            array_map(
+                static fn (string $function): string => strtolower($function),
+                $uniqueConfiguredExclude,
+            ),
         );
 
         // Store the cache
@@ -172,9 +163,6 @@ namespace {
         ksort($this->caseInsensitiveConstantsToEscape);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         if ('all' === $this->configuration['scope']) {
@@ -183,12 +171,12 @@ namespace {
             return;
         }
 
-        $namespaces = (new NamespacesAnalyzer())->getDeclarations($tokens);
+        $namespaces = $tokens->getNamespaceDeclarations();
 
         // 'scope' is 'namespaced' here
         /** @var NamespaceAnalysis $namespace */
         foreach (array_reverse($namespaces) as $namespace) {
-            if ('' === $namespace->getFullName()) {
+            if ($namespace->isGlobalNamespace()) {
                 continue;
             }
 
@@ -196,9 +184,6 @@ namespace {
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         $constantChecker = static function (array $value): bool {
@@ -206,7 +191,7 @@ namespace {
                 if (!\is_string($constantName) || '' === trim($constantName) || trim($constantName) !== $constantName) {
                     throw new InvalidOptionsException(sprintf(
                         'Each element must be a non-empty, trimmed string, got "%s" instead.',
-                        \is_object($constantName) ? \get_class($constantName) : \gettype($constantName)
+                        get_debug_type($constantName)
                     ));
                 }
             }

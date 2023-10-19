@@ -19,7 +19,7 @@ namespace Google\Service\ServiceUsage;
 
 class Documentation extends \Google\Collection
 {
-  protected $collection_key = 'rules';
+  protected $collection_key = 'sectionOverrides';
   /**
    * @var string
    */
@@ -30,10 +30,10 @@ class Documentation extends \Google\Collection
   public $overview;
   protected $pagesType = Page::class;
   protected $pagesDataType = 'array';
-  public $pages;
   protected $rulesType = DocumentationRule::class;
   protected $rulesDataType = 'array';
-  public $rules;
+  protected $sectionOverridesType = Page::class;
+  protected $sectionOverridesDataType = 'array';
   /**
    * @var string
    */
@@ -98,6 +98,20 @@ class Documentation extends \Google\Collection
   public function getRules()
   {
     return $this->rules;
+  }
+  /**
+   * @param Page[]
+   */
+  public function setSectionOverrides($sectionOverrides)
+  {
+    $this->sectionOverrides = $sectionOverrides;
+  }
+  /**
+   * @return Page[]
+   */
+  public function getSectionOverrides()
+  {
+    return $this->sectionOverrides;
   }
   /**
    * @param string

@@ -19,11 +19,13 @@ namespace Google\Service\Contentwarehouse;
 
 class KnowledgeAnswersEntityType extends \Google\Collection
 {
-  protected $collection_key = 'stbrDomain';
+  protected $collection_key = 'identifier';
   /**
    * @var string[]
    */
   public $collection;
+  protected $componentSpecificContractsType = NlpMeaningComponentSpecificContracts::class;
+  protected $componentSpecificContractsDataType = '';
   /**
    * @var string[]
    */
@@ -34,7 +36,6 @@ class KnowledgeAnswersEntityType extends \Google\Collection
   public $id;
   protected $identifierType = KnowledgeAnswersIntentQueryIdentifier::class;
   protected $identifierDataType = 'array';
-  public $identifier;
   /**
    * @var bool
    */
@@ -45,11 +46,6 @@ class KnowledgeAnswersEntityType extends \Google\Collection
   public $includeGeolocationData;
   protected $remodelingsType = NlpMeaningMeaningRemodelings::class;
   protected $remodelingsDataType = '';
-  public $remodelings;
-  /**
-   * @var string[]
-   */
-  public $stbrDomain;
 
   /**
    * @param string[]
@@ -64,6 +60,20 @@ class KnowledgeAnswersEntityType extends \Google\Collection
   public function getCollection()
   {
     return $this->collection;
+  }
+  /**
+   * @param NlpMeaningComponentSpecificContracts
+   */
+  public function setComponentSpecificContracts(NlpMeaningComponentSpecificContracts $componentSpecificContracts)
+  {
+    $this->componentSpecificContracts = $componentSpecificContracts;
+  }
+  /**
+   * @return NlpMeaningComponentSpecificContracts
+   */
+  public function getComponentSpecificContracts()
+  {
+    return $this->componentSpecificContracts;
   }
   /**
    * @param string[]
@@ -148,20 +158,6 @@ class KnowledgeAnswersEntityType extends \Google\Collection
   public function getRemodelings()
   {
     return $this->remodelings;
-  }
-  /**
-   * @param string[]
-   */
-  public function setStbrDomain($stbrDomain)
-  {
-    $this->stbrDomain = $stbrDomain;
-  }
-  /**
-   * @return string[]
-   */
-  public function getStbrDomain()
-  {
-    return $this->stbrDomain;
   }
 }
 

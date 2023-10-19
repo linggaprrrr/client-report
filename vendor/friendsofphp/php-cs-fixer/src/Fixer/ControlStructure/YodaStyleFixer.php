@@ -48,9 +48,6 @@ final class YodaStyleFixer extends AbstractFixer implements ConfigurableFixerInt
      */
     private $candidateTypes;
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(array $configuration): void
     {
         parent::configure($configuration);
@@ -58,9 +55,6 @@ final class YodaStyleFixer extends AbstractFixer implements ConfigurableFixerInt
         $this->resolveConfiguration();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -120,25 +114,16 @@ return $foo === count($bar);
         return 0;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound($this->candidateTypes);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $this->fixTokens($tokens);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -362,12 +347,13 @@ return $foo === count($bar);
 
     private function getCompareFixableInfo(Tokens $tokens, int $index, bool $yoda): ?array
     {
-        $left = $this->getLeftSideCompareFixableInfo($tokens, $index);
         $right = $this->getRightSideCompareFixableInfo($tokens, $index);
 
         if (!$yoda && $this->isOfLowerPrecedenceAssignment($tokens[$tokens->getNextMeaningfulToken($right['end'])])) {
             return null;
         }
+
+        $left = $this->getLeftSideCompareFixableInfo($tokens, $index);
 
         if ($this->isListStatement($tokens, $left['start'], $left['end']) || $this->isListStatement($tokens, $right['start'], $right['end'])) {
             return null; // do not fix lists assignment inside statements
@@ -378,7 +364,7 @@ return $foo === count($bar);
         $leftSideIsVariable = $this->isVariable($tokens, $left['start'], $left['end'], $strict);
         $rightSideIsVariable = $this->isVariable($tokens, $right['start'], $right['end'], $strict);
 
-        if (!($leftSideIsVariable ^ $rightSideIsVariable)) {
+        if (!($leftSideIsVariable xor $rightSideIsVariable)) {
             return null; // both are (not) variables, do not touch
         }
 
@@ -389,10 +375,12 @@ return $foo === count($bar);
 
         return ($yoda && !$leftSideIsVariable) || (!$yoda && !$rightSideIsVariable)
             ? null
-            : ['left' => $left, 'right' => $right]
-        ;
+            : ['left' => $left, 'right' => $right];
     }
 
+    /**
+     * @return array{start: int, end: int}
+     */
     private function getLeftSideCompareFixableInfo(Tokens $tokens, int $index): array
     {
         return [
@@ -401,6 +389,9 @@ return $foo === count($bar);
         ];
     }
 
+    /**
+     * @return array{start: int, end: int}
+     */
     private function getRightSideCompareFixableInfo(Tokens $tokens, int $index): array
     {
         return [
@@ -450,6 +441,11 @@ return $foo === count($bar);
                 T_THROW,        // throw
                 T_COALESCE,
                 T_YIELD,        // yield
+                T_YIELD_FROM,
+                T_REQUIRE,
+                T_REQUIRE_ONCE,
+                T_INCLUDE,
+                T_INCLUDE_ONCE,
             ];
         }
 
@@ -475,24 +471,20 @@ return $foo === count($bar);
 
         if (null === $tokens) {
             $tokens = [
-                T_AND_EQUAL,    // &=
-                T_CONCAT_EQUAL, // .=
-                T_DIV_EQUAL,    // /=
-                T_MINUS_EQUAL,  // -=
-                T_MOD_EQUAL,    // %=
-                T_MUL_EQUAL,    // *=
-                T_OR_EQUAL,     // |=
-                T_PLUS_EQUAL,   // +=
-                T_POW_EQUAL,    // **=
-                T_SL_EQUAL,     // <<=
-                T_SR_EQUAL,     // >>=
-                T_XOR_EQUAL,    // ^=
+                T_AND_EQUAL,      // &=
+                T_CONCAT_EQUAL,   // .=
+                T_DIV_EQUAL,      // /=
+                T_MINUS_EQUAL,    // -=
+                T_MOD_EQUAL,      // %=
+                T_MUL_EQUAL,      // *=
+                T_OR_EQUAL,       // |=
+                T_PLUS_EQUAL,     // +=
+                T_POW_EQUAL,      // **=
+                T_SL_EQUAL,       // <<=
+                T_SR_EQUAL,       // >>=
+                T_XOR_EQUAL,      // ^=
+                T_COALESCE_EQUAL, // ??=
             ];
-
-            // @TODO: drop condition when PHP 7.4+ is required
-            if (\defined('T_COALESCE_EQUAL')) {
-                $tokens[] = T_COALESCE_EQUAL; // ??=
-            }
         }
 
         return $token->equals('=') || $token->isGivenKind($tokens);
@@ -677,7 +669,7 @@ return $foo === count($bar);
                 return false;
             }
 
-            if ($token->isGivenKind([T_ARRAY,  CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
+            if ($token->isGivenKind([T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
                 $expectArrayOnly = true;
 
                 continue;

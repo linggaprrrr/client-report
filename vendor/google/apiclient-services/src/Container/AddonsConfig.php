@@ -21,34 +21,26 @@ class AddonsConfig extends \Google\Model
 {
   protected $cloudRunConfigType = CloudRunConfig::class;
   protected $cloudRunConfigDataType = '';
-  public $cloudRunConfig;
   protected $configConnectorConfigType = ConfigConnectorConfig::class;
   protected $configConnectorConfigDataType = '';
-  public $configConnectorConfig;
   protected $dnsCacheConfigType = DnsCacheConfig::class;
   protected $dnsCacheConfigDataType = '';
-  public $dnsCacheConfig;
   protected $gcePersistentDiskCsiDriverConfigType = GcePersistentDiskCsiDriverConfig::class;
   protected $gcePersistentDiskCsiDriverConfigDataType = '';
-  public $gcePersistentDiskCsiDriverConfig;
   protected $gcpFilestoreCsiDriverConfigType = GcpFilestoreCsiDriverConfig::class;
   protected $gcpFilestoreCsiDriverConfigDataType = '';
-  public $gcpFilestoreCsiDriverConfig;
+  protected $gcsFuseCsiDriverConfigType = GcsFuseCsiDriverConfig::class;
+  protected $gcsFuseCsiDriverConfigDataType = '';
   protected $gkeBackupAgentConfigType = GkeBackupAgentConfig::class;
   protected $gkeBackupAgentConfigDataType = '';
-  public $gkeBackupAgentConfig;
   protected $horizontalPodAutoscalingType = HorizontalPodAutoscaling::class;
   protected $horizontalPodAutoscalingDataType = '';
-  public $horizontalPodAutoscaling;
   protected $httpLoadBalancingType = HttpLoadBalancing::class;
   protected $httpLoadBalancingDataType = '';
-  public $httpLoadBalancing;
   protected $kubernetesDashboardType = KubernetesDashboard::class;
   protected $kubernetesDashboardDataType = '';
-  public $kubernetesDashboard;
   protected $networkPolicyConfigType = NetworkPolicyConfig::class;
   protected $networkPolicyConfigDataType = '';
-  public $networkPolicyConfig;
 
   /**
    * @param CloudRunConfig
@@ -119,6 +111,20 @@ class AddonsConfig extends \Google\Model
   public function getGcpFilestoreCsiDriverConfig()
   {
     return $this->gcpFilestoreCsiDriverConfig;
+  }
+  /**
+   * @param GcsFuseCsiDriverConfig
+   */
+  public function setGcsFuseCsiDriverConfig(GcsFuseCsiDriverConfig $gcsFuseCsiDriverConfig)
+  {
+    $this->gcsFuseCsiDriverConfig = $gcsFuseCsiDriverConfig;
+  }
+  /**
+   * @return GcsFuseCsiDriverConfig
+   */
+  public function getGcsFuseCsiDriverConfig()
+  {
+    return $this->gcsFuseCsiDriverConfig;
   }
   /**
    * @param GkeBackupAgentConfig

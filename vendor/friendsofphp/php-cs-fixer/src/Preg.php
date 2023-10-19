@@ -25,20 +25,21 @@ namespace PhpCsFixer;
 final class Preg
 {
     /**
-     * @param null|string[] $matches
+     * @param null|string[]         $matches
+     * @param int-mask<0, 256, 512> $flags
      *
      * @throws PregException
      */
-    public static function match(string $pattern, string $subject, ?array &$matches = null, int $flags = 0, int $offset = 0): int
+    public static function match(string $pattern, string $subject, ?array &$matches = null, int $flags = 0, int $offset = 0): bool
     {
         $result = @preg_match(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (false !== $result && PREG_NO_ERROR === preg_last_error()) {
-            return $result;
+            return 1 === $result;
         }
 
         $result = @preg_match(self::removeUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (false !== $result && PREG_NO_ERROR === preg_last_error()) {
-            return $result;
+            return 1 === $result;
         }
 
         throw self::newPregException(preg_last_error(), __METHOD__, (array) $pattern);
@@ -65,15 +66,11 @@ final class Preg
     }
 
     /**
-     * @param string|string[] $pattern
-     * @param string|string[] $replacement
      * @param string|string[] $subject
      *
      * @throws PregException
-     *
-     * @return string|string[]
      */
-    public static function replace($pattern, $replacement, $subject, int $limit = -1, ?int &$count = null)
+    public static function replace(string $pattern, string $replacement, $subject, int $limit = -1, ?int &$count = null): string
     {
         $result = @preg_replace(self::addUtf8Modifier($pattern), $replacement, $subject, $limit, $count);
         if (null !== $result && PREG_NO_ERROR === preg_last_error()) {
@@ -89,14 +86,9 @@ final class Preg
     }
 
     /**
-     * @param string|string[] $pattern
-     * @param string|string[] $subject
-     *
      * @throws PregException
-     *
-     * @return string|string[]
      */
-    public static function replaceCallback($pattern, callable $callback, $subject, int $limit = -1, ?int &$count = null)
+    public static function replaceCallback(string $pattern, callable $callback, string $subject, int $limit = -1, ?int &$count = null): string
     {
         $result = @preg_replace_callback(self::addUtf8Modifier($pattern), $callback, $subject, $limit, $count);
         if (null !== $result && PREG_NO_ERROR === preg_last_error()) {
@@ -112,9 +104,9 @@ final class Preg
     }
 
     /**
-     * @throws PregException
-     *
      * @return string[]
+     *
+     * @throws PregException
      */
     public static function split(string $pattern, string $subject, int $limit = -1, int $flags = 0): array
     {

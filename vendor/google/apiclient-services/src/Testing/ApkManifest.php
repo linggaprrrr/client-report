@@ -26,14 +26,12 @@ class ApkManifest extends \Google\Collection
   public $applicationLabel;
   protected $intentFiltersType = IntentFilter::class;
   protected $intentFiltersDataType = 'array';
-  public $intentFilters;
   /**
    * @var int
    */
   public $maxSdkVersion;
   protected $metadataType = Metadata::class;
   protected $metadataDataType = 'array';
-  public $metadata;
   /**
    * @var int
    */
@@ -42,13 +40,14 @@ class ApkManifest extends \Google\Collection
    * @var string
    */
   public $packageName;
+  protected $servicesType = Service::class;
+  protected $servicesDataType = 'array';
   /**
    * @var int
    */
   public $targetSdkVersion;
   protected $usesFeatureType = UsesFeature::class;
   protected $usesFeatureDataType = 'array';
-  public $usesFeature;
   /**
    * @var string[]
    */
@@ -145,6 +144,20 @@ class ApkManifest extends \Google\Collection
   public function getPackageName()
   {
     return $this->packageName;
+  }
+  /**
+   * @param Service[]
+   */
+  public function setServices($services)
+  {
+    $this->services = $services;
+  }
+  /**
+   * @return Service[]
+   */
+  public function getServices()
+  {
+    return $this->services;
   }
   /**
    * @param int

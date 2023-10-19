@@ -10,7 +10,7 @@
             <div class="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form class="upload-form" action="/upload-upc-search" method="post" enctype="multipart/form-data">
+                        <form class="upload-form" enctype="multipart/form-data">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Search for multiple UPCs</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -42,6 +42,9 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary upload-btn">Upload</button>
+                                <div style="display:none">
+                                    <a href="" id="link" download></a>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -113,6 +116,7 @@
             </div>
         <?php endif ?>
     </div>
+    
     <!-- /blocks with chart -->
     <button type="button" id="noty_created" style="display: none;"></button>
     <button type="button" id="noty_deleted" style="display: none;"></button>
@@ -218,16 +222,41 @@
             $('.spinner').show();            
             
             
-        });        
+        });               
        
     });
+
+    $(".upload-form").on('submit', function(e){            
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/upload-upc-search',
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(response){   
+                    $("#link").attr('href', "/files/" + response['file'])                                     
+                    $("#link").trigger('click');
+                    $('.spinner').hide(); 
+                    window.location.href =  "/files/" + response['file'];
+                    
+                },
+                error: function (request, status, error) {                                        
+                    $('.spinner').hide();    
+                }
+            });
+            
+            
+        });
     
-    $('.upload-form').submit(function(e) {      
+    // $('.upload-form').submit(function(e) {      
                       
-        $('.spinner').show();                        
-        this.submit();
+    //     $('.spinner').show();                        
+    //     this.submit();
         
-    });
+    // });
     
 
 </script>

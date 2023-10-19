@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Auth extends BaseController
 {
@@ -40,7 +41,6 @@ class Auth extends BaseController
 
     public function loginProses()
     {
-        
         $post = $this->request->getVar();
         $user = $this->userModel->getWhere(['username' => $post['username']])->getRow();
         $username = $post['username'];
@@ -50,8 +50,6 @@ class Auth extends BaseController
             setcookie("sw-username", $username, time()+ (10 * 365 * 24 * 60 * 60));            
             setcookie("sw-pw", $password, time()+ (10 * 365 * 24 * 60 * 60));            
         }
-
-        
         
         $currentPage = $post['current'];
         if ($user) {
@@ -82,7 +80,7 @@ class Auth extends BaseController
                         return redirect()->to(base_url('/scanner/upc'))->with('message', 'Login Successful!');
                     } else {
                         return redirect()->to(base_url('/warehouse/upc'))->with('message', 'Login Successful!');
-                    }                 
+                    }
                 } else {
                     $ip = getenv('HTTP_CLIENT_IP')?: getenv('HTTP_X_FORWARDED_FOR')?: getenv('HTTP_X_FORWARDED')?: getenv('HTTP_FORWARDED_FOR')?: getenv('HTTP_FORWARDED')?: getenv('REMOTE_ADDR');
                     $page = 'get-started';
@@ -138,6 +136,47 @@ class Auth extends BaseController
             return redirect()->back()->with('error', 'Password doesn\'t Match!');
         }
         
+    }
+    
+    public function register() {
+        return view('registration');
+    }
+    
+    public function addRegisteredUser() {
+        $owners = implode(',', $this->request->getVar('owner'));
+        $this->userModel->save([
+            'fullname' => $this->request->getVar('name'),
+            'company' => $this->request->getVar('business_name'),
+            'email' => $this->request->getVar('email'),
+            'new_gmail_address' => $this->request->getVar('business_email'),
+            'skype_id' => $this->request->getVar('skype_id'),
+            'phone_number' => $this->request->getVar('phone_number'),
+            'birth' => $this->request->getVar('birth'),
+            'address' => $this->request->getVar('address'),
+            'business_address' => $this->request->getVar('business_address'),
+            'owner' => $owners,
+            'ein' => $this->request->getVar('ein'),
+            'state_number' => $this->request->getVar('state_number'),
+            'username' => $this->request->getVar('username'),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT),
+            'new_custm' => '1'
+            ]);
+        $message  = "<p>Hi ".$this->request->getVar('name').",</p>";
+        $message .= "<p style='text-align: justify;'>Account creation in the name of ". $this->request->getVar('name') .", Smart FBA LLC has been successful created <br><br><br>Thank you.</p>";                    
+        $mail = new PHPMailer;
+        $mail->isSMTP();        
+        $mail->IsHTML(true);
+        $mail->Host = 'smtp.titan.email';
+        $mail->Port = 587;
+        $mail->SMTPAuth = true;
+        $mail->Username = 'noreply.info@swclient.site';
+        $mail->Password = 'swclientinfo1';
+        $mail->setFrom('noreply.info@swclient.site', 'Smart FBA Inc');
+        $mail->addAddress($this->request->getVar('email'), $this->request->getVar('name'));
+        $mail->addAddress('support@buysmartwholesale.com', "Support");
+        $mail->Subject = 'Welcome to Smart FBA';
+        $mail->Body = $message;
+        $mail->send();
     }
 
 }

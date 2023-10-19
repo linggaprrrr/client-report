@@ -21,37 +21,31 @@ class TravelFlightsAirlineConfig extends \Google\Collection
 {
   protected $collection_key = 'localizedContactInfo';
   /**
-   * @var int
-   */
-  public $adwordsCid;
-  /**
    * @var string
    */
   public $alliance;
   protected $baggageCarryonLimitationsUrlsType = TravelFlightsNameCatalogProto::class;
   protected $baggageCarryonLimitationsUrlsDataType = '';
-  public $baggageCarryonLimitationsUrls;
   protected $baggageFeeUrlsType = TravelFlightsNameCatalogProto::class;
   protected $baggageFeeUrlsDataType = '';
-  public $baggageFeeUrls;
   /**
    * @var string
    */
   public $countryCode;
   protected $countryContactInfoType = TravelFlightsAirlineConfigCountryContactInfo::class;
   protected $countryContactInfoDataType = 'array';
-  public $countryContactInfo;
   /**
    * @var bool
    */
   public $dupFlag;
   protected $fareFamilyUrlsType = TravelFlightsNameCatalogProto::class;
   protected $fareFamilyUrlsDataType = '';
-  public $fareFamilyUrls;
   /**
    * @var string[]
    */
   public $fqtvPartnerCode;
+  protected $greenFaresInfoType = TravelFlightsAirlineConfigGreenFaresInfo::class;
+  protected $greenFaresInfoDataType = '';
   /**
    * @var string
    */
@@ -66,49 +60,31 @@ class TravelFlightsAirlineConfig extends \Google\Collection
   public $innovataCode;
   protected $localizedContactInfoType = TravelFlightsAirlineConfigLocalizedContactInfo::class;
   protected $localizedContactInfoDataType = 'array';
-  public $localizedContactInfo;
   /**
    * @var string
    */
   public $mid;
   protected $namesType = TravelFlightsNameCatalogProto::class;
   protected $namesDataType = '';
-  public $names;
   protected $passengerAssistanceUrlsType = TravelFlightsNameCatalogProto::class;
   protected $passengerAssistanceUrlsDataType = '';
-  public $passengerAssistanceUrls;
   /**
    * @var int
    */
   public $popularity;
   protected $shortNamesType = TravelFlightsNameCatalogProto::class;
   protected $shortNamesDataType = '';
-  public $shortNames;
+  protected $sustainabilityProgramUrlsType = TravelFlightsNameCatalogProto::class;
+  protected $sustainabilityProgramUrlsDataType = '';
   /**
    * @var string
    */
   public $type;
   protected $urlsType = TravelFlightsNameCatalogProto::class;
   protected $urlsDataType = '';
-  public $urls;
   protected $waiverSummaryUrlsType = TravelFlightsNameCatalogProto::class;
   protected $waiverSummaryUrlsDataType = '';
-  public $waiverSummaryUrls;
 
-  /**
-   * @param int
-   */
-  public function setAdwordsCid($adwordsCid)
-  {
-    $this->adwordsCid = $adwordsCid;
-  }
-  /**
-   * @return int
-   */
-  public function getAdwordsCid()
-  {
-    return $this->adwordsCid;
-  }
   /**
    * @param string
    */
@@ -220,6 +196,20 @@ class TravelFlightsAirlineConfig extends \Google\Collection
   public function getFqtvPartnerCode()
   {
     return $this->fqtvPartnerCode;
+  }
+  /**
+   * @param TravelFlightsAirlineConfigGreenFaresInfo
+   */
+  public function setGreenFaresInfo(TravelFlightsAirlineConfigGreenFaresInfo $greenFaresInfo)
+  {
+    $this->greenFaresInfo = $greenFaresInfo;
+  }
+  /**
+   * @return TravelFlightsAirlineConfigGreenFaresInfo
+   */
+  public function getGreenFaresInfo()
+  {
+    return $this->greenFaresInfo;
   }
   /**
    * @param string
@@ -346,6 +336,20 @@ class TravelFlightsAirlineConfig extends \Google\Collection
   public function getShortNames()
   {
     return $this->shortNames;
+  }
+  /**
+   * @param TravelFlightsNameCatalogProto
+   */
+  public function setSustainabilityProgramUrls(TravelFlightsNameCatalogProto $sustainabilityProgramUrls)
+  {
+    $this->sustainabilityProgramUrls = $sustainabilityProgramUrls;
+  }
+  /**
+   * @return TravelFlightsNameCatalogProto
+   */
+  public function getSustainabilityProgramUrls()
+  {
+    return $this->sustainabilityProgramUrls;
   }
   /**
    * @param string

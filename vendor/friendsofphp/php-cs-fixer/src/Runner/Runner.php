@@ -37,58 +37,38 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 final class Runner
 {
-    /**
-     * @var DifferInterface
-     */
-    private $differ;
+    private DifferInterface $differ;
+
+    private ?DirectoryInterface $directory;
+
+    private ?EventDispatcherInterface $eventDispatcher;
+
+    private ErrorsManager $errorsManager;
+
+    private CacheManagerInterface $cacheManager;
+
+    private bool $isDryRun;
+
+    private LinterInterface $linter;
 
     /**
-     * @var DirectoryInterface
-     */
-    private $directory;
-
-    /**
-     * @var null|EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
-     * @var ErrorsManager
-     */
-    private $errorsManager;
-
-    /**
-     * @var CacheManagerInterface
-     */
-    private $cacheManager;
-
-    /**
-     * @var bool
-     */
-    private $isDryRun;
-
-    /**
-     * @var LinterInterface
-     */
-    private $linter;
-
-    /**
-     * @var \Traversable
+     * @var \Traversable<\SplFileInfo>
      */
     private $finder;
 
     /**
-     * @var FixerInterface[]
+     * @var list<FixerInterface>
      */
-    private $fixers;
+    private array $fixers;
+
+    private bool $stopOnViolation;
 
     /**
-     * @var bool
+     * @param \Traversable<\SplFileInfo> $finder
+     * @param list<FixerInterface>       $fixers
      */
-    private $stopOnViolation;
-
     public function __construct(
-        $finder,
+        \Traversable $finder,
         array $fixers,
         DifferInterface $differ,
         ?EventDispatcherInterface $eventDispatcher,
@@ -107,10 +87,13 @@ final class Runner
         $this->linter = $linter;
         $this->isDryRun = $isDryRun;
         $this->cacheManager = $cacheManager;
-        $this->directory = $directory ?: new Directory('');
+        $this->directory = $directory ?? new Directory('');
         $this->stopOnViolation = $stopOnViolation;
     }
 
+    /**
+     * @return array<string, array{appliedFixers: list<string>, diff: string}>
+     */
     public function fix(): array
     {
         $changed = [];
@@ -127,7 +110,6 @@ final class Runner
             ? new FileCachingLintingIterator($fileFilteredFileIterator, $this->linter)
             : new FileLintingIterator($fileFilteredFileIterator, $this->linter);
 
-        /** @var \SplFileInfo $file */
         foreach ($collection as $file) {
             $fixInfo = $this->fixFile($file, $collection->currentLintingResult());
 
@@ -147,6 +129,9 @@ final class Runner
         return $changed;
     }
 
+    /**
+     * @return null|array{appliedFixers: list<string>, diff: string}
+     */
     private function fixFile(\SplFileInfo $file, LintingResultInterface $lintingResult): ?array
     {
         $name = $file->getPathname();
@@ -210,7 +195,7 @@ final class Runner
 
         $fixInfo = null;
 
-        if (!empty($appliedFixers)) {
+        if ([] !== $appliedFixers) {
             $new = $tokens->generateCode();
             $newHash = $tokens->getCodeHash();
         }
@@ -272,7 +257,7 @@ final class Runner
                     $error = error_get_last();
 
                     throw new IOException(
-                        sprintf('Failed to write file "%s", "%s".', $fileName, $error ? $error['message'] : 'no reason available'),
+                        sprintf('Failed to write file "%s", "%s".', $fileName, null !== $error ? $error['message'] : 'no reason available'),
                         0,
                         null,
                         $fileName
@@ -285,7 +270,7 @@ final class Runner
 
         $this->dispatchEvent(
             FixerFileProcessedEvent::NAME,
-            new FixerFileProcessedEvent($fixInfo ? FixerFileProcessedEvent::STATUS_FIXED : FixerFileProcessedEvent::STATUS_NO_CHANGES)
+            new FixerFileProcessedEvent(null !== $fixInfo ? FixerFileProcessedEvent::STATUS_FIXED : FixerFileProcessedEvent::STATUS_NO_CHANGES)
         );
 
         return $fixInfo;

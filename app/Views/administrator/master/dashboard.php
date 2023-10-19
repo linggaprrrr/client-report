@@ -93,12 +93,13 @@
                         <div class="form-group" style="width: 200px; text-align-last:center; font-weight: 700; font-size: 12px;text-transform: uppercase;">
                             <select class="form-control select-search" name="investdate" onchange="this.form.submit()" data-fouc>
                                 <?php if (!empty($investDate)) : ?>
-                                    <?php $idx = 1  ?>
+                                    <?php $idx = 1; $purcId = 0  ?>
                                     
                                     <?php foreach ($investDate->getResultArray() as $row) : ?>
                                         <?php $newDate = date("M-d-Y", strtotime($row['date'])); ?>
                                         
                                         <?php if ($row['id'] == $lastInvestment->id) : ?>
+                                            <?php $purcId = $lastInvestment->id ?>
                                             <option value="<?= $row['id'] ?>" selected><?= strtoupper($newDate) ?></option>
                                         <?php else : ?>
                                             <option value="<?= $row['id'] ?>"><?= strtoupper($newDate) ?></option>
@@ -111,6 +112,9 @@
                     <?php if (!empty($temp['link'])) : ?>
                         <div class="form-group row ml-4">
                             <a href="<?= $temp['link'] ?>" class="btn btn-secondary" target="_blank"><i class="icon-google-drive mr-2"></i> Google Sheet</a>
+                        </div>
+                        <div class="form-group row ml-4">
+                            <a href="<?= base_url('download-receipt').'/'.$purcId ?>" class="btn btn-danger" target="_blank"><i class="icon-file-text3 mr-2"></i>Receipt</a>
                         </div>
                     <?php endif ?>
 

@@ -129,8 +129,6 @@ class Mobile extends BaseController
                 if ($fileName != "") {
                     $this->userModel->save(array(
                         "id" => $post['id'],
-                        "fullname" => $post['fullname'],
-                        "company" => $post['company'],
                         "address" => $post['address'],
                         "photo" => $fileName,
                         "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
@@ -138,8 +136,6 @@ class Mobile extends BaseController
                 } else {
                     $this->userModel->save(array(
                         "id" => $post['id'],
-                        "fullname" => $post['fullname'],
-                        "company" => $post['company'],
                         "address" => $post['address'],
                         "password" => password_hash($post['new_password'], PASSWORD_BCRYPT),
                     ));
@@ -151,16 +147,12 @@ class Mobile extends BaseController
             if ($fileName != "") {
                 $this->userModel->save(array(
                     "id" => $post['id'],
-                    "fullname" => $post['fullname'],
-                    "company" => $post['company'],
                     "address" => $post['address'],
                     "photo" => $fileName,
                 ));
             } else {
                 $this->userModel->save(array(
                     "id" => $post['id'],
-                    "fullname" => $post['fullname'],
-                    "company" => $post['company'],
                     "address" => $post['address'],
                 ));
             }
@@ -174,6 +166,9 @@ class Mobile extends BaseController
             return redirect()->to(base_url('/mobile'));
         }
         $user = $this->userModel->find($userId);
+        if ($user['username'] == 'luke') {
+            $userId = 125;
+        }
         $investId = $this->investmentModel->getInvestmentId($userId);
         // dd($investId);
         $dateId = $this->request->getVar('investdate');
@@ -202,7 +197,7 @@ class Mobile extends BaseController
             $totalCostLeft = $this->reportModel->totalCostLeft($investId);
             $totalFulfilled = $this->reportModel->totalFulfilled($investId);
             $getAllReportClient = $this->reportModel->getAllReportClient($investId);
-            $investmentDate = $this->investmentModel->investmentDate($user['id']);
+            $investmentDate = $this->investmentModel->investmentDate($userId);
             $getVendorName = $this->reportModel->getVendorName($investId);
             $file = $this->exportReceipt($investId);
             $getStatusManifest = $this->assignReportModel->getStatusManifest($investId);
@@ -215,7 +210,7 @@ class Mobile extends BaseController
             $totalCostLeft = $this->reportModel->totalCostLeft($dateId);
             $totalFulfilled = $this->reportModel->totalFulfilled($dateId);
             $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
-            $investmentDate = $this->investmentModel->investmentDate($user['id']);
+            $investmentDate = $this->investmentModel->investmentDate($userId);
             $getVendorName = $this->reportModel->getVendorName($dateId);
             $file = $this->exportReceipt($dateId);
             $getStatusManifest = $this->assignReportModel->getStatusManifest($dateId);
@@ -245,7 +240,7 @@ class Mobile extends BaseController
     {
         $userId = session()->get('user_id');
         if (is_null($userId)) {
-            return redirect()->to(base_url('/mobile'));
+            return redirect()->to(base_url('/login'));
         }
         $user = $this->userModel->find($userId);
         $getClientCostLeft = $this->reportModel->getClientCostLeft($userId);

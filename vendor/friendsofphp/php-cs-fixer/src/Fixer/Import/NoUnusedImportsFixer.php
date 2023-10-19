@@ -22,7 +22,6 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer;
-use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
@@ -34,9 +33,6 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  */
 final class NoUnusedImportsFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -56,17 +52,11 @@ final class NoUnusedImportsFixer extends AbstractFixer
         return -10;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_USE);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $useDeclarations = (new NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
@@ -75,19 +65,19 @@ final class NoUnusedImportsFixer extends AbstractFixer
             return;
         }
 
-        foreach ((new NamespacesAnalyzer())->getDeclarations($tokens) as $namespace) {
+        foreach ($tokens->getNamespaceDeclarations() as $namespace) {
             $currentNamespaceUseDeclarations = [];
-            $currentNamespaceUseDeclarationIndexes = [];
+            $currentNamespaceUseDeclarationIndices = [];
 
             foreach ($useDeclarations as $useDeclaration) {
                 if ($useDeclaration->getStartIndex() >= $namespace->getScopeStartIndex() && $useDeclaration->getEndIndex() <= $namespace->getScopeEndIndex()) {
                     $currentNamespaceUseDeclarations[] = $useDeclaration;
-                    $currentNamespaceUseDeclarationIndexes[$useDeclaration->getStartIndex()] = $useDeclaration->getEndIndex();
+                    $currentNamespaceUseDeclarationIndices[$useDeclaration->getStartIndex()] = $useDeclaration->getEndIndex();
                 }
             }
 
             foreach ($currentNamespaceUseDeclarations as $useDeclaration) {
-                if (!$this->isImportUsed($tokens, $namespace, $useDeclaration, $currentNamespaceUseDeclarationIndexes)) {
+                if (!$this->isImportUsed($tokens, $namespace, $useDeclaration, $currentNamespaceUseDeclarationIndices)) {
                     $this->removeUseDeclaration($tokens, $useDeclaration);
                 }
             }
@@ -97,9 +87,9 @@ final class NoUnusedImportsFixer extends AbstractFixer
     }
 
     /**
-     * @param array<int, int> $ignoredIndexes indexes of the use statements themselves that should not be checked as being "used"
+     * @param array<int, int> $ignoredIndices indices of the use statements themselves that should not be checked as being "used"
      */
-    private function isImportUsed(Tokens $tokens, NamespaceAnalysis $namespace, NamespaceUseAnalysis $import, array $ignoredIndexes): bool
+    private function isImportUsed(Tokens $tokens, NamespaceAnalysis $namespace, NamespaceUseAnalysis $import, array $ignoredIndices): bool
     {
         $analyzer = new TokensAnalyzer($tokens);
         $gotoLabelAnalyzer = new GotoLabelAnalyzer();
@@ -130,8 +120,8 @@ final class NoUnusedImportsFixer extends AbstractFixer
                 continue;
             }
 
-            if (isset($ignoredIndexes[$index])) {
-                $index = $ignoredIndexes[$index];
+            if (isset($ignoredIndices[$index])) {
+                $index = $ignoredIndices[$index];
 
                 continue;
             }
@@ -139,10 +129,6 @@ final class NoUnusedImportsFixer extends AbstractFixer
             if ($token->isGivenKind(T_STRING)) {
                 if (0 !== strcasecmp($import->getShortName(), $token->getContent())) {
                     continue;
-                }
-
-                if ($inAttribute) {
-                    return true;
                 }
 
                 $prevMeaningfulToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
@@ -158,6 +144,10 @@ final class NoUnusedImportsFixer extends AbstractFixer
                     || $prevMeaningfulToken->isObjectOperator()
                 ) {
                     continue;
+                }
+
+                if ($inAttribute) {
+                    return true;
                 }
 
                 $nextMeaningfulIndex = $tokens->getNextMeaningfulToken($index);
@@ -271,6 +261,9 @@ final class NoUnusedImportsFixer extends AbstractFixer
         }
     }
 
+    /**
+     * @param list<NamespaceUseAnalysis> $useDeclarations
+     */
     private function removeUsesInSameNamespace(Tokens $tokens, array $useDeclarations, NamespaceAnalysis $namespaceDeclaration): void
     {
         $namespace = $namespaceDeclaration->getFullName();

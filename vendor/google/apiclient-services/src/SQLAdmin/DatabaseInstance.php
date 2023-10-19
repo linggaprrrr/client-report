@@ -50,17 +50,18 @@ class DatabaseInstance extends \Google\Collection
   public $databaseVersion;
   protected $diskEncryptionConfigurationType = DiskEncryptionConfiguration::class;
   protected $diskEncryptionConfigurationDataType = '';
-  public $diskEncryptionConfiguration;
   protected $diskEncryptionStatusType = DiskEncryptionStatus::class;
   protected $diskEncryptionStatusDataType = '';
-  public $diskEncryptionStatus;
+  /**
+   * @var string
+   */
+  public $dnsName;
   /**
    * @var string
    */
   public $etag;
   protected $failoverReplicaType = DatabaseInstanceFailoverReplica::class;
   protected $failoverReplicaDataType = '';
-  public $failoverReplica;
   /**
    * @var string
    */
@@ -71,7 +72,6 @@ class DatabaseInstance extends \Google\Collection
   public $instanceType;
   protected $ipAddressesType = IpMapping::class;
   protected $ipAddressesDataType = 'array';
-  public $ipAddresses;
   /**
    * @var string
    */
@@ -98,10 +98,12 @@ class DatabaseInstance extends \Google\Collection
   public $name;
   protected $onPremisesConfigurationType = OnPremisesConfiguration::class;
   protected $onPremisesConfigurationDataType = '';
-  public $onPremisesConfiguration;
   protected $outOfDiskReportType = SqlOutOfDiskReport::class;
   protected $outOfDiskReportDataType = '';
-  public $outOfDiskReport;
+  /**
+   * @var string
+   */
+  public $primaryDnsName;
   /**
    * @var string
    */
@@ -109,10 +111,13 @@ class DatabaseInstance extends \Google\Collection
   /**
    * @var string
    */
+  public $pscServiceAttachmentLink;
+  /**
+   * @var string
+   */
   public $region;
   protected $replicaConfigurationType = ReplicaConfiguration::class;
   protected $replicaConfigurationDataType = '';
-  public $replicaConfiguration;
   /**
    * @var string[]
    */
@@ -127,7 +132,6 @@ class DatabaseInstance extends \Google\Collection
   public $satisfiesPzs;
   protected $scheduledMaintenanceType = SqlScheduledMaintenance::class;
   protected $scheduledMaintenanceDataType = '';
-  public $scheduledMaintenance;
   /**
    * @var string
    */
@@ -138,14 +142,12 @@ class DatabaseInstance extends \Google\Collection
   public $selfLink;
   protected $serverCaCertType = SslCert::class;
   protected $serverCaCertDataType = '';
-  public $serverCaCert;
   /**
    * @var string
    */
   public $serviceAccountEmailAddress;
   protected $settingsType = Settings::class;
   protected $settingsDataType = '';
-  public $settings;
   /**
    * @var string
    */
@@ -154,6 +156,10 @@ class DatabaseInstance extends \Google\Collection
    * @var string[]
    */
   public $suspensionReason;
+  /**
+   * @var string
+   */
+  public $writeEndpoint;
 
   /**
    * @param string[]
@@ -280,6 +286,20 @@ class DatabaseInstance extends \Google\Collection
   public function getDiskEncryptionStatus()
   {
     return $this->diskEncryptionStatus;
+  }
+  /**
+   * @param string
+   */
+  public function setDnsName($dnsName)
+  {
+    $this->dnsName = $dnsName;
+  }
+  /**
+   * @return string
+   */
+  public function getDnsName()
+  {
+    return $this->dnsName;
   }
   /**
    * @param string
@@ -466,6 +486,20 @@ class DatabaseInstance extends \Google\Collection
   /**
    * @param string
    */
+  public function setPrimaryDnsName($primaryDnsName)
+  {
+    $this->primaryDnsName = $primaryDnsName;
+  }
+  /**
+   * @return string
+   */
+  public function getPrimaryDnsName()
+  {
+    return $this->primaryDnsName;
+  }
+  /**
+   * @param string
+   */
   public function setProject($project)
   {
     $this->project = $project;
@@ -476,6 +510,20 @@ class DatabaseInstance extends \Google\Collection
   public function getProject()
   {
     return $this->project;
+  }
+  /**
+   * @param string
+   */
+  public function setPscServiceAttachmentLink($pscServiceAttachmentLink)
+  {
+    $this->pscServiceAttachmentLink = $pscServiceAttachmentLink;
+  }
+  /**
+   * @return string
+   */
+  public function getPscServiceAttachmentLink()
+  {
+    return $this->pscServiceAttachmentLink;
   }
   /**
    * @param string
@@ -658,6 +706,20 @@ class DatabaseInstance extends \Google\Collection
   public function getSuspensionReason()
   {
     return $this->suspensionReason;
+  }
+  /**
+   * @param string
+   */
+  public function setWriteEndpoint($writeEndpoint)
+  {
+    $this->writeEndpoint = $writeEndpoint;
+  }
+  /**
+   * @return string
+   */
+  public function getWriteEndpoint()
+  {
+    return $this->writeEndpoint;
   }
 }
 

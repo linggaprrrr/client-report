@@ -30,26 +30,17 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class UseTransformer extends AbstractTransformer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getPriority(): int
     {
         // Should run after CurlyBraceTransformer and before TypeColonTransformer
         return -5;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRequiredPhpVersionId(): int
     {
-        return 50300;
+        return 5_03_00;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(Tokens $tokens, Token $token, int $index): void
     {
         if ($token->isGivenKind(T_USE) && $this->isUseForLambda($tokens, $index)) {
@@ -61,11 +52,17 @@ final class UseTransformer extends AbstractTransformer
         // Only search inside class/trait body for `T_USE` for traits.
         // Cannot import traits inside interfaces or anywhere else
 
-        if (!$token->isGivenKind([T_CLASS, T_TRAIT])) {
-            return;
+        $classTypes = [T_TRAIT];
+
+        if (\defined('T_ENUM')) { // @TODO: drop condition when PHP 8.1+ is required
+            $classTypes[] = T_ENUM;
         }
 
-        if ($tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind(T_DOUBLE_COLON)) {
+        if ($token->isGivenKind(T_CLASS)) {
+            if ($tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind(T_DOUBLE_COLON)) {
+                return;
+            }
+        } elseif (!$token->isGivenKind($classTypes)) {
             return;
         }
 
@@ -87,9 +84,6 @@ final class UseTransformer extends AbstractTransformer
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCustomTokens(): array
     {
         return [CT::T_USE_TRAIT, CT::T_USE_LAMBDA];

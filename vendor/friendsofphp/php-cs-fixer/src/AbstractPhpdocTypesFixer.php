@@ -33,11 +33,8 @@ abstract class AbstractPhpdocTypesFixer extends AbstractFixer
      *
      * @var string[]
      */
-    protected $tags;
+    protected array $tags;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct()
     {
         parent::__construct();
@@ -45,17 +42,11 @@ abstract class AbstractPhpdocTypesFixer extends AbstractFixer
         $this->tags = Annotation::getTagsWithTypes();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {
@@ -122,7 +113,6 @@ abstract class AbstractPhpdocTypesFixer extends AbstractFixer
     {
         return str_ends_with($type, '[]')
             ? $this->normalizeType(substr($type, 0, -2)).'[]'
-            : $this->normalize($type)
-        ;
+            : $this->normalize($type);
     }
 }

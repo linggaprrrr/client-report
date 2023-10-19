@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace PhpCsFixer\Console;
 
+use PhpCsFixer\Console\Command\CheckCommand;
 use PhpCsFixer\Console\Command\DescribeCommand;
 use PhpCsFixer\Console\Command\FixCommand;
 use PhpCsFixer\Console\Command\HelpCommand;
@@ -39,13 +40,10 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class Application extends BaseApplication
 {
-    public const VERSION = '3.4.0';
-    public const VERSION_CODENAME = 'Si!';
+    public const VERSION = '3.35.1';
+    public const VERSION_CODENAME = 'Freezy Vrooom';
 
-    /**
-     * @var ToolInfo
-     */
-    private $toolInfo;
+    private ToolInfo $toolInfo;
 
     public function __construct()
     {
@@ -55,6 +53,7 @@ final class Application extends BaseApplication
 
         // in alphabetical order
         $this->add(new DescribeCommand());
+        $this->add(new CheckCommand($this->toolInfo));
         $this->add(new FixCommand($this->toolInfo));
         $this->add(new ListFilesCommand($this->toolInfo));
         $this->add(new ListSetsCommand());
@@ -70,15 +69,11 @@ final class Application extends BaseApplication
         return (int) explode('.', self::VERSION)[0];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRun(InputInterface $input, OutputInterface $output): int
     {
         $stdErr = $output instanceof ConsoleOutputInterface
             ? $output->getErrorOutput()
-            : ($input->hasParameterOption('--format', true) && 'txt' !== $input->getParameterOption('--format', null, true) ? null : $output)
-        ;
+            : ($input->hasParameterOption('--format', true) && 'txt' !== $input->getParameterOption('--format', null, true) ? null : $output);
 
         if (null !== $stdErr) {
             $warningsDetector = new WarningsDetector($this->toolInfo);
@@ -114,29 +109,24 @@ final class Application extends BaseApplication
         return $result;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLongVersion(): string
     {
-        $version = implode('', [
-            parent::getLongVersion(),
-            self::VERSION_CODENAME ? sprintf(' <info>%s</info>', self::VERSION_CODENAME) : '', // @phpstan-ignore-line to avoid `Ternary operator condition is always true|false.`
-            ' by <comment>Fabien Potencier</comment> and <comment>Dariusz Ruminski</comment>',
-        ]);
-
         $commit = '@git-commit@';
+        $versionCommit = '';
 
-        if ('@'.'git-commit@' !== $commit) { // @phpstan-ignore-line as `$commit` is replaced during phar building
-            $version .= ' ('.substr($commit, 0, 7).')';
+        if ('@'.'git-commit@' !== $commit) { /** @phpstan-ignore-line as `$commit` is replaced during phar building */
+            $versionCommit = substr($commit, 0, 7);
         }
 
-        return $version;
+        return implode('', [
+            parent::getLongVersion(),
+            $versionCommit ? sprintf(' <info>(%s)</info>', $versionCommit) : '', // @phpstan-ignore-line to avoid `Ternary operator condition is always true|false.`
+            self::VERSION_CODENAME ? sprintf(' <info>%s</info>', self::VERSION_CODENAME) : '', // @phpstan-ignore-line to avoid `Ternary operator condition is always true|false.`
+            ' by <comment>Fabien Potencier</comment> and <comment>Dariusz Ruminski</comment>.',
+            "\nPHP runtime: <info>".PHP_VERSION.'</info>',
+        ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDefaultCommands(): array
     {
         return [new HelpCommand(), new ListCommand()];

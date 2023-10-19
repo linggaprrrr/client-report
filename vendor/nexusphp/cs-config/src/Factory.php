@@ -25,36 +25,10 @@ use PhpCsFixer\Finder;
 final class Factory
 {
     /**
-     * Current RulesetInterface instance.
-     *
-     * @var \Nexus\CsConfig\Ruleset\RulesetInterface
-     */
-    private $ruleset;
-
-    /**
-     * Array of resolved options.
-     *
-     * @phpstan-var array{
-     *     cacheFile: string,
-     *     customFixers: iterable<\PhpCsFixer\Fixer\FixerInterface>,
-     *     finder: \PhpCsFixer\Finder|iterable<string>,
-     *     format: string,
-     *     hideProgress: bool,
-     *     indent: string,
-     *     lineEnding: string,
-     *     phpExecutable: null|string,
-     *     isRiskyAllowed: bool,
-     *     usingCache: bool,
-     *     rules: array<string, mixed>
-     * }
-     */
-    private $options;
-
-    /**
      * @param array{
      *     cacheFile: string,
      *     customFixers: iterable<\PhpCsFixer\Fixer\FixerInterface>,
-     *     finder: \PhpCsFixer\Finder|iterable<string>,
+     *     finder: \PhpCsFixer\Finder|iterable<\SplFileInfo>,
      *     format: string,
      *     hideProgress: bool,
      *     indent: string,
@@ -62,24 +36,20 @@ final class Factory
      *     phpExecutable: null|string,
      *     isRiskyAllowed: bool,
      *     usingCache: bool,
-     *     rules: array<string, mixed>
-     * } $options
+     *     rules: array<string, array<string, mixed>|bool>
+     * } $options Array of resolved options
      */
-    private function __construct(RulesetInterface $ruleset, array $options)
-    {
-        $this->ruleset = $ruleset;
-        $this->options = $options;
-    }
+    private function __construct(private RulesetInterface $ruleset, private array $options) {}
 
     /**
      * Prepares the ruleset and options before the `PhpCsFixer\Config` object
      * is created.
      *
-     * @param array<string, mixed> $overrides
+     * @param array<string, array<string, mixed>|bool> $overrides
      * @param array{
      *     cacheFile?: string,
      *     customFixers?: iterable<\PhpCsFixer\Fixer\FixerInterface>,
-     *     finder?: \PhpCsFixer\Finder|iterable<string>,
+     *     finder?: \PhpCsFixer\Finder|iterable<\SplFileInfo>,
      *     format?: string,
      *     hideProgress?: bool,
      *     indent?: string,
@@ -87,7 +57,7 @@ final class Factory
      *     phpExecutable?: null|string,
      *     isRiskyAllowed?: bool,
      *     usingCache?: bool,
-     *     customRules?: array<string, mixed>
+     *     customRules?: array<string, array<string, mixed>|bool>
      * } $options
      */
     public static function create(RulesetInterface $ruleset, array $overrides = [], array $options = []): self
@@ -103,7 +73,7 @@ final class Factory
 
         // Meant to be used in vendor/ to get to the root directory
         $dir = \dirname(__DIR__, 4);
-        $dir = realpath($dir) ?: $dir;
+        $dir = (string) realpath($dir);
 
         $defaultFinder = Finder::create()
             ->files()
@@ -112,16 +82,16 @@ final class Factory
         ;
 
         // Resolve Config options
-        $options['cacheFile'] = $options['cacheFile'] ?? '.php-cs-fixer.cache';
-        $options['customFixers'] = $options['customFixers'] ?? [];
-        $options['finder'] = $options['finder'] ?? $defaultFinder;
-        $options['format'] = $options['format'] ?? 'txt';
-        $options['hideProgress'] = $options['hideProgress'] ?? false;
-        $options['indent'] = $options['indent'] ?? '    ';
-        $options['lineEnding'] = $options['lineEnding'] ?? "\n";
-        $options['phpExecutable'] = $options['phpExecutable'] ?? null;
-        $options['isRiskyAllowed'] = $options['isRiskyAllowed'] ?? ($ruleset->willAutoActivateIsRiskyAllowed() ?: false);
-        $options['usingCache'] = $options['usingCache'] ?? true;
+        $options['cacheFile'] ??= '.php-cs-fixer.cache';
+        $options['customFixers'] ??= [];
+        $options['finder'] ??= $defaultFinder;
+        $options['format'] ??= 'txt';
+        $options['hideProgress'] ??= false;
+        $options['indent'] ??= '    ';
+        $options['lineEnding'] ??= "\n";
+        $options['phpExecutable'] ??= null;
+        $options['isRiskyAllowed'] ??= $ruleset->willAutoActivateIsRiskyAllowed();
+        $options['usingCache'] ??= true;
         $options['rules'] = array_merge($ruleset->getRules(), $overrides, $options['customRules'] ?? []);
 
         return new self($ruleset, $options);
@@ -141,7 +111,7 @@ final class Factory
 
         if ('' !== $email) {
             $email = trim($email, '<>');
-            $email = ' <' . $email . '>';
+            $email = ' <'.$email.'>';
         }
 
         $header = sprintf(
@@ -180,7 +150,7 @@ final class Factory
     /**
      * The main method of creating the Config instance.
      *
-     * @param array<string, array<string>|bool> $overrides
+     * @param array<string, array<string, mixed>|bool> $overrides
      *
      * @internal
      */

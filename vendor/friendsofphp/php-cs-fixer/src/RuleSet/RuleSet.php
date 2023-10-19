@@ -31,9 +31,9 @@ final class RuleSet implements RuleSetInterface
      * The key is name of rule, value is bool if the rule/set should be used.
      * The key must not point to any set.
      *
-     * @var array
+     * @var array<string, array<string, mixed>|bool>
      */
-    private $rules;
+    private array $rules;
 
     public function __construct(array $set = [])
     {
@@ -60,17 +60,11 @@ final class RuleSet implements RuleSetInterface
         $this->resolveSet($set);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasRule(string $rule): bool
     {
         return \array_key_exists($rule, $this->rules);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRuleConfiguration(string $rule): ?array
     {
         if (!$this->hasRule($rule)) {
@@ -84,9 +78,6 @@ final class RuleSet implements RuleSetInterface
         return $this->rules[$rule];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRules(): array
     {
         return $this->rules;
@@ -94,6 +85,8 @@ final class RuleSet implements RuleSetInterface
 
     /**
      * Resolve input set into group of rules.
+     *
+     * @param array<string, array<string, mixed>|bool> $rules
      */
     private function resolveSet(array $rules): void
     {
@@ -124,6 +117,8 @@ final class RuleSet implements RuleSetInterface
      *
      * If set value is false then disable all fixers in set,
      * if not then get value from set item.
+     *
+     * @return array<string, array<string, mixed>|bool>
      */
     private function resolveSubset(string $setName, bool $setValue): array
     {

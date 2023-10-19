@@ -74,9 +74,8 @@ class MonetizationSubscriptionsBasePlansOffers extends \Google\Service\Resource
    * @opt_param string offerId Required. The ID to use for the offer. For the
    * requirements on this format, see the documentation of the offer_id field on
    * the SubscriptionOffer resource.
-   * @opt_param string regionsVersion.version Required. A string representing
-   * version of the available regions being used for the specified resource. The
-   * current version is 2022/02.
+   * @opt_param string regionsVersion.version Required. The latest version is
+   * 2022/02.
    * @return SubscriptionOffer
    */
   public function create($packageName, $productId, $basePlanId, SubscriptionOffer $postBody, $optParams = [])
@@ -153,10 +152,12 @@ class MonetizationSubscriptionsBasePlansOffers extends \Google\Service\Resource
    * @param string $packageName Required. The parent app (package name) for which
    * the subscriptions should be read.
    * @param string $productId Required. The parent subscription (ID) for which the
-   * offers should be read.
+   * offers should be read. May be specified as '-' to read all offers under an
+   * app.
    * @param string $basePlanId Required. The parent base plan (ID) for which the
    * offers should be read. May be specified as '-' to read all offers under a
-   * subscription.
+   * subscription or an app. Must be specified as '-' if product_id is specified
+   * as '-'.
    * @param array $optParams Optional parameters.
    *
    * @opt_param int pageSize The maximum number of subscriptions to return. The
@@ -189,9 +190,8 @@ class MonetizationSubscriptionsBasePlansOffers extends \Google\Service\Resource
    * @param SubscriptionOffer $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string regionsVersion.version Required. A string representing
-   * version of the available regions being used for the specified resource. The
-   * current version is 2022/02.
+   * @opt_param string regionsVersion.version Required. The latest version is
+   * 2022/02.
    * @opt_param string updateMask Required. The list of fields to be updated.
    * @return SubscriptionOffer
    */

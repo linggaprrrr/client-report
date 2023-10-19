@@ -25,17 +25,14 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public $aaeNotificationSourceSupported;
   protected $acpSupportType = AssistantApiAssistantContinuedPresenceSupport::class;
   protected $acpSupportDataType = '';
-  public $acpSupport;
   protected $actionV2SupportedFeaturesType = AssistantApiActionV2SupportedFeatures::class;
   protected $actionV2SupportedFeaturesDataType = '';
-  public $actionV2SupportedFeatures;
   /**
    * @var bool
    */
   public $alarmTimerManagerApiSupported;
   protected $appControlSupportType = AssistantApiAppControlSupport::class;
   protected $appControlSupportDataType = '';
-  public $appControlSupport;
   /**
    * @var bool
    */
@@ -63,6 +60,14 @@ class AssistantApiSupportedFeatures extends \Google\Model
   /**
    * @var bool
    */
+  public $confirmationBeforeReadingMultipleMessagesSupported;
+  /**
+   * @var bool
+   */
+  public $conversationalCareSupported;
+  /**
+   * @var bool
+   */
   public $crossDeviceBroadcastSupported;
   /**
    * @var string
@@ -82,10 +87,8 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public $duoGroupCallingSupported;
   protected $fitnessFeatureSupportType = AssistantApiFitnessFeatureSupport::class;
   protected $fitnessFeatureSupportDataType = '';
-  public $fitnessFeatureSupport;
   protected $fluidActionsSupportType = AssistantApiFluidActionsSupport::class;
   protected $fluidActionsSupportDataType = '';
-  public $fluidActionsSupport;
   /**
    * @var bool
    */
@@ -108,7 +111,6 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public $immersiveCanvasConfirmationMessageSupported;
   protected $immersiveCanvasSupportType = AssistantApiImmersiveCanvasSupport::class;
   protected $immersiveCanvasSupportDataType = '';
-  public $immersiveCanvasSupport;
   /**
    * @var bool
    */
@@ -122,6 +124,10 @@ class AssistantApiSupportedFeatures extends \Google\Model
    */
   public $isPairedPhoneNeededForComms;
   /**
+   * @var bool
+   */
+  public $justInTimeSupported;
+  /**
    * @var string
    */
   public $launchKeyboardSupported;
@@ -134,6 +140,10 @@ class AssistantApiSupportedFeatures extends \Google\Model
    */
   public $liveCardsSupported;
   /**
+   * @var string
+   */
+  public $lottieAnimationSupport;
+  /**
    * @var bool
    */
   public $mapsDialogsSupported;
@@ -143,7 +153,6 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public $masqueradeModeSupported;
   protected $mediaControlSupportType = AssistantApiMediaControlSupport::class;
   protected $mediaControlSupportDataType = '';
-  public $mediaControlSupport;
   /**
    * @var string
    */
@@ -175,6 +184,14 @@ class AssistantApiSupportedFeatures extends \Google\Model
   /**
    * @var bool
    */
+  public $readMessagesTtsTaperingSupported;
+  /**
+   * @var bool
+   */
+  public $readNotificationSummarizationSupported;
+  /**
+   * @var bool
+   */
   public $remoteCloudCastingEnabled;
   /**
    * @var bool
@@ -186,7 +203,6 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public $shLockScreenSupported;
   protected $signInMethodType = AssistantApiSignInMethod::class;
   protected $signInMethodDataType = '';
-  public $signInMethod;
   /**
    * @var bool
    */
@@ -201,10 +217,8 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public $soliGestureDetectionSupported;
   protected $suggestionsSupportType = AssistantApiSuggestionsSupport::class;
   protected $suggestionsSupportDataType = '';
-  public $suggestionsSupport;
   protected $sunriseFeaturesSupportType = AssistantApiSunriseFeaturesSupport::class;
   protected $sunriseFeaturesSupportDataType = '';
-  public $sunriseFeaturesSupport;
   /**
    * @var bool
    */
@@ -215,7 +229,6 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public $thirdPartyGuiSupported;
   protected $transactionFeaturesSupportType = AssistantApiTransactionFeaturesSupport::class;
   protected $transactionFeaturesSupportDataType = '';
-  public $transactionFeaturesSupport;
   /**
    * @var string
    */
@@ -398,6 +411,34 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public function getClientOpResultBatchingSupported()
   {
     return $this->clientOpResultBatchingSupported;
+  }
+  /**
+   * @param bool
+   */
+  public function setConfirmationBeforeReadingMultipleMessagesSupported($confirmationBeforeReadingMultipleMessagesSupported)
+  {
+    $this->confirmationBeforeReadingMultipleMessagesSupported = $confirmationBeforeReadingMultipleMessagesSupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getConfirmationBeforeReadingMultipleMessagesSupported()
+  {
+    return $this->confirmationBeforeReadingMultipleMessagesSupported;
+  }
+  /**
+   * @param bool
+   */
+  public function setConversationalCareSupported($conversationalCareSupported)
+  {
+    $this->conversationalCareSupported = $conversationalCareSupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getConversationalCareSupported()
+  {
+    return $this->conversationalCareSupported;
   }
   /**
    * @param bool
@@ -624,6 +665,20 @@ class AssistantApiSupportedFeatures extends \Google\Model
     return $this->isPairedPhoneNeededForComms;
   }
   /**
+   * @param bool
+   */
+  public function setJustInTimeSupported($justInTimeSupported)
+  {
+    $this->justInTimeSupported = $justInTimeSupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getJustInTimeSupported()
+  {
+    return $this->justInTimeSupported;
+  }
+  /**
    * @param string
    */
   public function setLaunchKeyboardSupported($launchKeyboardSupported)
@@ -664,6 +719,20 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public function getLiveCardsSupported()
   {
     return $this->liveCardsSupported;
+  }
+  /**
+   * @param string
+   */
+  public function setLottieAnimationSupport($lottieAnimationSupport)
+  {
+    $this->lottieAnimationSupport = $lottieAnimationSupport;
+  }
+  /**
+   * @return string
+   */
+  public function getLottieAnimationSupport()
+  {
+    return $this->lottieAnimationSupport;
   }
   /**
    * @param bool
@@ -804,6 +873,34 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public function getPrivacyAwareLockscreenSupported()
   {
     return $this->privacyAwareLockscreenSupported;
+  }
+  /**
+   * @param bool
+   */
+  public function setReadMessagesTtsTaperingSupported($readMessagesTtsTaperingSupported)
+  {
+    $this->readMessagesTtsTaperingSupported = $readMessagesTtsTaperingSupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getReadMessagesTtsTaperingSupported()
+  {
+    return $this->readMessagesTtsTaperingSupported;
+  }
+  /**
+   * @param bool
+   */
+  public function setReadNotificationSummarizationSupported($readNotificationSummarizationSupported)
+  {
+    $this->readNotificationSummarizationSupported = $readNotificationSummarizationSupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getReadNotificationSummarizationSupported()
+  {
+    return $this->readNotificationSummarizationSupported;
   }
   /**
    * @param bool

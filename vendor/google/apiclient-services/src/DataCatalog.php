@@ -100,6 +100,14 @@ class DataCatalog extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
+                'location' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'project' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'sqlResource' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -429,6 +437,16 @@ class DataCatalog extends \Google\Service
                 'updateMask' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],'reconcile' => [
+              'path' => 'v1/{+parent}/tags:reconcile',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],

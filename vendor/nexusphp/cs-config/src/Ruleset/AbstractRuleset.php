@@ -17,38 +17,44 @@ abstract class AbstractRuleset implements RulesetInterface
 {
     /**
      * Name of the ruleset.
-     *
-     * @var string
      */
-    protected $name;
+    protected string $name = '';
 
     /**
      * Rules for the ruleset.
      *
-     * @var array
+     * @var array<string, array<string, array<string>|bool|string>|bool>
      */
-    protected $rules = [];
+    protected array $rules = [];
 
     /**
      * Minimum PHP version.
      *
-     * @var int
+     * @phpstan-var int<0, max>
      */
-    protected $requiredPHPVersion = 0;
+    protected int $requiredPHPVersion = 0;
 
     /**
      * Have this ruleset turn on `$isRiskyAllowed` flag?
-     *
-     * @var bool
      */
-    protected $autoActivateIsRiskyAllowed = false;
+    protected bool $autoActivateIsRiskyAllowed = false;
 
     /**
      * {@inheritDoc}
      */
     final public function getName(): string
     {
-        return $this->name ?: trim(strrchr(static::class, '\\') ?: static::class, '\\');
+        if ('' !== $this->name) {
+            return $this->name;
+        }
+
+        if (str_contains(static::class, '\\')) {
+            $class = str_replace('\\', '/', static::class);
+
+            return basename($class);
+        }
+
+        return static::class;
     }
 
     /**

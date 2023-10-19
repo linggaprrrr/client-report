@@ -38,7 +38,6 @@
                                             $temp = array($row['last_year'], $row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
                                             
                                             $total = array_sum($temp) - $row['last_year'];
-                                            $avg = $total / (count(array_filter($temp)) - 1 );
 
                                             $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
                                             $usd = $fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, 'EUR');
@@ -46,7 +45,7 @@
                                          
                                             if ($row['type'] == 'percentage') {
                             
-                                                $total = round($avg, 0);
+                                                $total = round($row['avg'], 0);
                                                 $lastYear = round($row['last_year']);
                                                 $avg = ($row['avg'] == 0) ? null : round($row['avg'], 0);
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan'], 0);
@@ -305,8 +304,6 @@
                                             $temp = array($row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']); 
                                             
                                             $total = array_sum($temp);
-                                            $avg = $total / count(array_filter($temp));    
-                                            
                                          
                                             $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
                                             $usd = $fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, 'EUR');
@@ -318,7 +315,7 @@
                                             
                                                                                        
                                             if ($row['type'] == 'percentage') {
-                                                $total = round($avg, 0);
+                                                $total = round($row['avg'], 0);
                                                 $avg = ($row['avg'] == 0) ? null : round($row['avg'], 0);
                                                 $jan = ($row['jan'] == 0) ? null : round($row['jan'], 0);
                                                 $feb = ($row['feb'] == 0) ? null : round($row['feb'], 0);

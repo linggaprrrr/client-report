@@ -22,7 +22,6 @@ class GoogleAppsCloudidentityDevicesV1Device extends \Google\Collection
   protected $collection_key = 'wifiMacAddresses';
   protected $androidSpecificAttributesType = GoogleAppsCloudidentityDevicesV1AndroidAttributes::class;
   protected $androidSpecificAttributesDataType = '';
-  public $androidSpecificAttributes;
   /**
    * @var string
    */
@@ -71,6 +70,10 @@ class GoogleAppsCloudidentityDevicesV1Device extends \Google\Collection
    * @var string
    */
   public $encryptionState;
+  /**
+   * @var string
+   */
+  public $hostname;
   /**
    * @var string
    */
@@ -317,6 +320,20 @@ class GoogleAppsCloudidentityDevicesV1Device extends \Google\Collection
   public function getEncryptionState()
   {
     return $this->encryptionState;
+  }
+  /**
+   * @param string
+   */
+  public function setHostname($hostname)
+  {
+    $this->hostname = $hostname;
+  }
+  /**
+   * @return string
+   */
+  public function getHostname()
+  {
+    return $this->hostname;
   }
   /**
    * @param string

@@ -29,17 +29,11 @@ abstract class AbstractFunctionReferenceFixer extends AbstractFixer
      */
     private $functionsAnalyzer;
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
@@ -58,7 +52,7 @@ abstract class AbstractFunctionReferenceFixer extends AbstractFixer
         }
 
         // make interface consistent with findSequence
-        $end = $end ?? $tokens->count();
+        $end ??= $tokens->count();
 
         // find raw sequence which we can analyse for context
         $candidateSequence = [[T_STRING, $functionNameToSearch], '('];

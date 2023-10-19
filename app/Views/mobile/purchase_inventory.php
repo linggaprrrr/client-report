@@ -12,7 +12,10 @@
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <iframe src="https://drive.google.com/file/d/189mC7ZgItsib1_7wyg5m5JrJPfpcTCi9/preview" allow="autoplay"></iframe>
+             <object >
+                <param name="movie" value="https://www.youtube.com/embed/cy2K--Owzy0"></param>
+                <embed src="https://www.youtube.com/embed/cy2K--Owzy0"></embed>
+            </object>
             <h5>Click Below to Purchase Inventory with Credit Card</h5>
             <p><a href="https://checkout.square.site/merchant/MLZMCABT6VC84/checkout/53ERSRX7XUBPWNWGNIGNDVEM" target="_blank" class="link-primary btn btn-secondary credit">Purchase Inventory</a></p>
         </div>

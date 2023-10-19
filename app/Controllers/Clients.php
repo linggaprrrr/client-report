@@ -26,6 +26,16 @@ class Clients extends BaseController
         $this->categoryModel = new CategoryModel();
         $this->newsModel = new NewsModel();
         $this->assignReportModel = new AssignReportModel();
+        
+        $userId = session()->get('user_id');
+        if (is_null($userId)) {
+            return redirect()->to(base_url('/login'));
+        } else {
+            $user = $this->userModel->find($userId);
+            if ($user['role'] != 'client') {
+                return redirect()->back()->with('failed', 'Cant Access');
+            }
+        }
     }
 
     public function index()
@@ -33,9 +43,20 @@ class Clients extends BaseController
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
+        } else {
+            $user = $this->userModel->find($userId);
+            if ($user['role'] != 'client') {
+                return redirect()->back()->with('failed', 'Cant Access');
+            }
         }
         
         $user = $this->userModel->find($userId);
+        
+        if ($user['username'] == 'luke') {
+            $userId = 125;
+        }
+        
+        
         $investId = $this->investmentModel->getInvestmentId($userId);
         // dd($investId);
         $dateId = $this->request->getVar('investdate');
@@ -65,7 +86,7 @@ class Clients extends BaseController
             $totalCostLeft = $this->reportModel->totalCostLeft($investId);
             $totalFulfilled = $this->reportModel->totalFulfilled($investId);
             $getAllReportClient = $this->reportModel->getAllReportClient($investId);
-            $investmentDate = $this->investmentModel->investmentDate($user['id']);
+            $investmentDate = $this->investmentModel->investmentDate($userId);
             $getVendorName = $this->reportModel->getVendorName($investId);
             $getStatusManifest = $this->assignReportModel->getStatusManifest($investId);
             
@@ -78,7 +99,7 @@ class Clients extends BaseController
             $totalCostLeft = $this->reportModel->totalCostLeft($dateId);
             $totalFulfilled = $this->reportModel->totalFulfilled($dateId);
             $getAllReportClient = $this->reportModel->getAllReportClient($dateId);
-            $investmentDate = $this->investmentModel->investmentDate($user['id']);
+            $investmentDate = $this->investmentModel->investmentDate($userId);
             $getVendorName = $this->reportModel->getVendorName($dateId);
             $getStatusManifest = $this->assignReportModel->getStatusManifest($dateId);
             
@@ -186,6 +207,11 @@ class Clients extends BaseController
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
+        } else {
+            $user = $this->userModel->find($userId);
+            if ($user['role'] != 'client') {
+                return redirect()->back()->with('failed', 'Cant Access');
+            }
         }
         $user = $this->userModel->find($userId);
         $data = [
@@ -203,6 +229,11 @@ class Clients extends BaseController
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
+        } else {
+            $user = $this->userModel->find($userId);
+            if ($user['role'] != 'client') {
+                return redirect()->back()->with('failed', 'Cant Access');
+            }
         }
         $user = $this->userModel->find($userId);
         $plReport = $this->reportModel->showPLReport($userId);
@@ -229,6 +260,11 @@ class Clients extends BaseController
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
+        } else {
+            $user = $this->userModel->find($userId);
+            if ($user['role'] != 'client') {
+                return redirect()->back()->with('failed', 'Cant Access');
+            }
         }
         $user = $this->userModel->find($userId);
         $getClientCostLeft = $this->reportModel->getClientCostLeft($userId);
@@ -251,6 +287,11 @@ class Clients extends BaseController
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
+        } else {
+            $user = $this->userModel->find($userId);
+            if ($user['role'] != 'client') {
+                return redirect()->back()->with('failed', 'Cant Access');
+            }
         }
         $brands = $this->categoryModel->getBrands();
         $user = $this->userModel->find($userId);
@@ -301,11 +342,14 @@ class Clients extends BaseController
         $avgUnitRetail = $totalRetail->total_retail / $totalUnit->total_unit;
         $avgUnitClientCost = $totalClientCost->total_fulfilled / $totalUnit->total_unit;
         $link = $this->reportModel->getLinkManifest($dateId);
-        $path = FCPATH."/assets/images/fba-logo.png";
+        $path = FCPATH."/assets/images/wholesales-logo.png";
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $temp = $investment->getResultObject();
+        $comp = explode("(", $temp[0]->company);
         $data = [
+            'comp' => $comp[0],
             'manifestDesc' => $investment->getResultObject(),
             'manifestData' => $receiptData->getResultObject(),
             'totalUnit' => $totalUnit->total_unit,
@@ -348,7 +392,12 @@ class Clients extends BaseController
         $userId = session()->get('user_id');
         if (is_null($userId)) {
             return redirect()->to(base_url('/login'));
-        }        
+        } else {
+            $user = $this->userModel->find($userId);
+            if ($user['role'] != 'client') {
+                return redirect()->back()->with('failed', 'Cant Access');
+            }
+        }       
         $user = $this->userModel->find($userId);
         
         $data = [

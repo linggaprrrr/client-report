@@ -20,19 +20,20 @@ namespace Google\Service\Dialogflow;
 class GoogleCloudDialogflowCxV3beta1Page extends \Google\Collection
 {
   protected $collection_key = 'transitionRoutes';
+  protected $advancedSettingsType = GoogleCloudDialogflowCxV3beta1AdvancedSettings::class;
+  protected $advancedSettingsDataType = '';
   /**
    * @var string
    */
   public $displayName;
   protected $entryFulfillmentType = GoogleCloudDialogflowCxV3beta1Fulfillment::class;
   protected $entryFulfillmentDataType = '';
-  public $entryFulfillment;
   protected $eventHandlersType = GoogleCloudDialogflowCxV3beta1EventHandler::class;
   protected $eventHandlersDataType = 'array';
-  public $eventHandlers;
   protected $formType = GoogleCloudDialogflowCxV3beta1Form::class;
   protected $formDataType = '';
-  public $form;
+  protected $knowledgeConnectorSettingsType = GoogleCloudDialogflowCxV3beta1KnowledgeConnectorSettings::class;
+  protected $knowledgeConnectorSettingsDataType = '';
   /**
    * @var string
    */
@@ -43,8 +44,21 @@ class GoogleCloudDialogflowCxV3beta1Page extends \Google\Collection
   public $transitionRouteGroups;
   protected $transitionRoutesType = GoogleCloudDialogflowCxV3beta1TransitionRoute::class;
   protected $transitionRoutesDataType = 'array';
-  public $transitionRoutes;
 
+  /**
+   * @param GoogleCloudDialogflowCxV3beta1AdvancedSettings
+   */
+  public function setAdvancedSettings(GoogleCloudDialogflowCxV3beta1AdvancedSettings $advancedSettings)
+  {
+    $this->advancedSettings = $advancedSettings;
+  }
+  /**
+   * @return GoogleCloudDialogflowCxV3beta1AdvancedSettings
+   */
+  public function getAdvancedSettings()
+  {
+    return $this->advancedSettings;
+  }
   /**
    * @param string
    */
@@ -100,6 +114,20 @@ class GoogleCloudDialogflowCxV3beta1Page extends \Google\Collection
   public function getForm()
   {
     return $this->form;
+  }
+  /**
+   * @param GoogleCloudDialogflowCxV3beta1KnowledgeConnectorSettings
+   */
+  public function setKnowledgeConnectorSettings(GoogleCloudDialogflowCxV3beta1KnowledgeConnectorSettings $knowledgeConnectorSettings)
+  {
+    $this->knowledgeConnectorSettings = $knowledgeConnectorSettings;
+  }
+  /**
+   * @return GoogleCloudDialogflowCxV3beta1KnowledgeConnectorSettings
+   */
+  public function getKnowledgeConnectorSettings()
+  {
+    return $this->knowledgeConnectorSettings;
   }
   /**
    * @param string

@@ -21,11 +21,13 @@ class SocialGraphWireProtoPeopleapiAffinityMetadata extends \Google\Model
 {
   protected $clientInteractionInfoType = SocialGraphWireProtoPeopleapiAffinityMetadataClientInteractionInfo::class;
   protected $clientInteractionInfoDataType = '';
-  public $clientInteractionInfo;
   protected $cloudDeviceDataInfoType = SocialGraphWireProtoPeopleapiAffinityMetadataCloudDeviceDataInfo::class;
   protected $cloudDeviceDataInfoDataType = '';
-  public $cloudDeviceDataInfo;
   public $cloudScore;
+  /**
+   * @var string
+   */
+  public $suggestionConfidence;
 
   /**
    * @param SocialGraphWireProtoPeopleapiAffinityMetadataClientInteractionInfo
@@ -62,6 +64,20 @@ class SocialGraphWireProtoPeopleapiAffinityMetadata extends \Google\Model
   public function getCloudScore()
   {
     return $this->cloudScore;
+  }
+  /**
+   * @param string
+   */
+  public function setSuggestionConfidence($suggestionConfidence)
+  {
+    $this->suggestionConfidence = $suggestionConfidence;
+  }
+  /**
+   * @return string
+   */
+  public function getSuggestionConfidence()
+  {
+    return $this->suggestionConfidence;
   }
 }
 

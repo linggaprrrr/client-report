@@ -25,6 +25,7 @@ final class SymfonySet extends AbstractRuleSetDescription
     {
         return [
             '@PSR12' => true,
+            'align_multiline_comment' => true,
             'array_syntax' => true,
             'backtick_to_shell_exec' => true,
             'binary_operator_spaces' => true,
@@ -33,9 +34,9 @@ final class SymfonySet extends AbstractRuleSetDescription
                     'return',
                 ],
             ],
-            'braces' => [
-                'allow_single_line_anonymous_class_with_empty_body' => true,
-                'allow_single_line_closure' => true,
+            'braces_position' => [
+                'allow_single_line_anonymous_functions' => true,
+                'allow_single_line_empty_anonymous_classes' => true,
             ],
             'cast_spaces' => true,
             'class_attributes_separation' => [
@@ -46,30 +47,37 @@ final class SymfonySet extends AbstractRuleSetDescription
             'class_definition' => [
                 'single_line' => true,
             ],
+            'class_reference_name_casing' => true,
             'clean_namespace' => true,
             'concat_space' => true,
+            'declare_parentheses' => true,
             'echo_tag_syntax' => true,
             'empty_loop_body' => ['style' => 'braces'],
             'empty_loop_condition' => true,
             'fully_qualified_strict_types' => true,
-            'function_typehint_space' => true,
             'general_phpdoc_tag_rename' => [
                 'replacements' => [
                     'inheritDocs' => 'inheritDoc',
                 ],
+            ],
+            'global_namespace_import' => [
+                'import_classes' => false,
+                'import_constants' => false,
+                'import_functions' => false,
             ],
             'include' => true,
             'increment_style' => true,
             'integer_literal_case' => true,
             'lambda_not_used_import' => true,
             'linebreak_after_opening_tag' => true,
+            'long_to_shorthand_operator' => true,
             'magic_constant_casing' => true,
             'magic_method_casing' => true,
             'method_argument_space' => [
                 'on_multiline' => 'ignore',
             ],
             'native_function_casing' => true,
-            'native_function_type_declaration_casing' => true,
+            'native_type_declaration_casing' => true,
             'no_alias_language_construct_call' => true,
             'no_alternative_syntax' => true,
             'no_binary_string' => true,
@@ -79,6 +87,7 @@ final class SymfonySet extends AbstractRuleSetDescription
             'no_empty_statement' => true,
             'no_extra_blank_lines' => [
                 'tokens' => [
+                    'attribute',
                     'case',
                     'continue',
                     'curly_brace_block',
@@ -94,36 +103,50 @@ final class SymfonySet extends AbstractRuleSetDescription
             'no_leading_namespace_whitespace' => true,
             'no_mixed_echo_print' => true,
             'no_multiline_whitespace_around_double_arrow' => true,
+            'no_null_property_initialization' => true,
             'no_short_bool_cast' => true,
             'no_singleline_whitespace_before_semicolons' => true,
             'no_spaces_around_offset' => true,
             'no_superfluous_phpdoc_tags' => [
-                'allow_mixed' => true,
-                'allow_unused_params' => true,
+                'remove_inheritdoc' => true,
             ],
-            'no_trailing_comma_in_list_call' => true,
-            'no_trailing_comma_in_singleline_array' => true,
+            'no_trailing_comma_in_singleline' => true,
+            'no_unneeded_braces' => [
+                'namespaces' => true,
+            ],
             'no_unneeded_control_parentheses' => [
                 'statements' => [
                     'break',
                     'clone',
                     'continue',
                     'echo_print',
+                    'others',
                     'return',
                     'switch_case',
                     'yield',
                     'yield_from',
                 ],
             ],
-            'no_unneeded_curly_braces' => [
-                'namespaces' => true,
-            ],
+            'no_unneeded_import_alias' => true,
             'no_unset_cast' => true,
             'no_unused_imports' => true,
+            'no_useless_concat_operator' => true,
+            'no_useless_nullsafe_operator' => true,
             'no_whitespace_before_comma_in_array' => true,
             'normalize_index_brace' => true,
+            'nullable_type_declaration_for_default_null_value' => ['use_nullable_type_declaration' => false],
             'object_operator_without_whitespace' => true,
-            'ordered_imports' => true,
+            'operator_linebreak' => [
+                'only_booleans' => true,
+            ],
+            'ordered_imports' => [
+                'imports_order' => [
+                    'class',
+                    'function',
+                    'const',
+                ],
+                'sort_algorithm' => 'alpha',
+            ],
             'php_unit_fqcn_annotation' => true,
             'php_unit_method_casing' => true,
             'phpdoc_align' => true,
@@ -134,6 +157,13 @@ final class SymfonySet extends AbstractRuleSetDescription
             'phpdoc_no_alias_tag' => true,
             'phpdoc_no_package' => true,
             'phpdoc_no_useless_inheritdoc' => true,
+            'phpdoc_order' => [
+                'order' => [
+                    'param',
+                    'return',
+                    'throws',
+                ],
+            ],
             'phpdoc_return_self_reference' => true,
             'phpdoc_scalar' => true,
             'phpdoc_separation' => true,
@@ -153,9 +183,11 @@ final class SymfonySet extends AbstractRuleSetDescription
                 'sort_algorithm' => 'none',
             ],
             'phpdoc_var_without_name' => true,
-            'protected_to_private' => true,
             'semicolon_after_instruction' => true,
+            'simple_to_complex_string_variable' => true,
             'single_class_element_per_statement' => true,
+            'single_import_per_statement' => true,
+            'single_line_comment_spacing' => true,
             'single_line_comment_style' => [
                 'comment_types' => [
                     'hash',
@@ -163,7 +195,7 @@ final class SymfonySet extends AbstractRuleSetDescription
             ],
             'single_line_throw' => true,
             'single_quote' => true,
-            'single_space_after_construct' => true,
+            'single_space_around_construct' => true,
             'space_after_semicolon' => [
                 'remove_in_empty_for_expressions' => true,
             ],
@@ -172,6 +204,7 @@ final class SymfonySet extends AbstractRuleSetDescription
             'switch_continue_to_break' => true,
             'trailing_comma_in_multiline' => true,
             'trim_array_spaces' => true,
+            'type_declaration_spaces' => true,
             'types_spaces' => true,
             'unary_operator_spaces' => true,
             'whitespace_after_comma_in_array' => true,

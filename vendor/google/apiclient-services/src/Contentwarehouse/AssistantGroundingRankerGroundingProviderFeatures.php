@@ -21,13 +21,16 @@ class AssistantGroundingRankerGroundingProviderFeatures extends \Google\Model
 {
   protected $contactGroundingProviderFeaturesType = AssistantGroundingRankerContactGroundingProviderFeatures::class;
   protected $contactGroundingProviderFeaturesDataType = '';
-  public $contactGroundingProviderFeatures;
+  protected $deviceGroundingProviderFeaturesType = AssistantGroundingRankerDeviceGroundingProviderFeatures::class;
+  protected $deviceGroundingProviderFeaturesDataType = '';
+  protected $endpointGroundingProviderFeaturesType = AssistantGroundingRankerEndpointGroundingProviderFeatures::class;
+  protected $endpointGroundingProviderFeaturesDataType = '';
   protected $mediaGroundingProviderFeaturesType = AssistantGroundingRankerMediaGroundingProviderFeatures::class;
   protected $mediaGroundingProviderFeaturesDataType = '';
-  public $mediaGroundingProviderFeatures;
+  protected $podcastGroundingProviderFeaturesType = AssistantGroundingRankerPodcastGroundingProviderFeatures::class;
+  protected $podcastGroundingProviderFeaturesDataType = '';
   protected $providerGroundingProviderFeaturesType = AssistantGroundingRankerProviderGroundingProviderFeatures::class;
   protected $providerGroundingProviderFeaturesDataType = '';
-  public $providerGroundingProviderFeatures;
 
   /**
    * @param AssistantGroundingRankerContactGroundingProviderFeatures
@@ -44,6 +47,34 @@ class AssistantGroundingRankerGroundingProviderFeatures extends \Google\Model
     return $this->contactGroundingProviderFeatures;
   }
   /**
+   * @param AssistantGroundingRankerDeviceGroundingProviderFeatures
+   */
+  public function setDeviceGroundingProviderFeatures(AssistantGroundingRankerDeviceGroundingProviderFeatures $deviceGroundingProviderFeatures)
+  {
+    $this->deviceGroundingProviderFeatures = $deviceGroundingProviderFeatures;
+  }
+  /**
+   * @return AssistantGroundingRankerDeviceGroundingProviderFeatures
+   */
+  public function getDeviceGroundingProviderFeatures()
+  {
+    return $this->deviceGroundingProviderFeatures;
+  }
+  /**
+   * @param AssistantGroundingRankerEndpointGroundingProviderFeatures
+   */
+  public function setEndpointGroundingProviderFeatures(AssistantGroundingRankerEndpointGroundingProviderFeatures $endpointGroundingProviderFeatures)
+  {
+    $this->endpointGroundingProviderFeatures = $endpointGroundingProviderFeatures;
+  }
+  /**
+   * @return AssistantGroundingRankerEndpointGroundingProviderFeatures
+   */
+  public function getEndpointGroundingProviderFeatures()
+  {
+    return $this->endpointGroundingProviderFeatures;
+  }
+  /**
    * @param AssistantGroundingRankerMediaGroundingProviderFeatures
    */
   public function setMediaGroundingProviderFeatures(AssistantGroundingRankerMediaGroundingProviderFeatures $mediaGroundingProviderFeatures)
@@ -56,6 +87,20 @@ class AssistantGroundingRankerGroundingProviderFeatures extends \Google\Model
   public function getMediaGroundingProviderFeatures()
   {
     return $this->mediaGroundingProviderFeatures;
+  }
+  /**
+   * @param AssistantGroundingRankerPodcastGroundingProviderFeatures
+   */
+  public function setPodcastGroundingProviderFeatures(AssistantGroundingRankerPodcastGroundingProviderFeatures $podcastGroundingProviderFeatures)
+  {
+    $this->podcastGroundingProviderFeatures = $podcastGroundingProviderFeatures;
+  }
+  /**
+   * @return AssistantGroundingRankerPodcastGroundingProviderFeatures
+   */
+  public function getPodcastGroundingProviderFeatures()
+  {
+    return $this->podcastGroundingProviderFeatures;
   }
   /**
    * @param AssistantGroundingRankerProviderGroundingProviderFeatures

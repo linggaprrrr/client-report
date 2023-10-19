@@ -19,16 +19,12 @@ namespace Google\Service\Contentwarehouse;
 
 class AssistantApiOutputRestrictions extends \Google\Model
 {
-  protected $accessControlOutputType = AssistantApiAccessControlOutput::class;
-  protected $accessControlOutputDataType = '';
-  public $accessControlOutput;
   /**
    * @var string
    */
   public $googlePhotoContent;
   protected $guestAccessOutputType = AssistantApiGuestAccessOutput::class;
   protected $guestAccessOutputDataType = '';
-  public $guestAccessOutput;
   /**
    * @var string
    */
@@ -39,7 +35,6 @@ class AssistantApiOutputRestrictions extends \Google\Model
   public $proactiveNotificationOutput;
   protected $proactiveOutputType = AssistantApiProactiveOutput::class;
   protected $proactiveOutputDataType = '';
-  public $proactiveOutput;
   /**
    * @var string
    */
@@ -53,20 +48,6 @@ class AssistantApiOutputRestrictions extends \Google\Model
    */
   public $youtubeTvContent;
 
-  /**
-   * @param AssistantApiAccessControlOutput
-   */
-  public function setAccessControlOutput(AssistantApiAccessControlOutput $accessControlOutput)
-  {
-    $this->accessControlOutput = $accessControlOutput;
-  }
-  /**
-   * @return AssistantApiAccessControlOutput
-   */
-  public function getAccessControlOutput()
-  {
-    return $this->accessControlOutput;
-  }
   /**
    * @param string
    */

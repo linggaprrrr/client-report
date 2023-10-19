@@ -35,10 +35,13 @@ class QualityShoppingShoppingAttachmentOffer extends \Google\Collection
   /**
    * @var string[]
    */
+  public $gtinValue;
+  /**
+   * @var string[]
+   */
   public $imageId;
   protected $inferredImagesType = ShoppingWebentityShoppingAnnotationInferredImage::class;
   protected $inferredImagesDataType = 'array';
-  public $inferredImages;
   /**
    * @var bool
    */
@@ -67,6 +70,8 @@ class QualityShoppingShoppingAttachmentOffer extends \Google\Collection
    * @var int
    */
   public $nonDisplayableOrganicScoreMillis;
+  protected $nonDisplayableStaleAvailabilityType = ShoppingWebentityShoppingAnnotationOfferAvailabilityInfo::class;
+  protected $nonDisplayableStaleAvailabilityDataType = '';
   /**
    * @var string
    */
@@ -77,7 +82,6 @@ class QualityShoppingShoppingAttachmentOffer extends \Google\Collection
   public $refType;
   protected $soriVersionIdType = ShoppingWebentityShoppingAnnotationSoriVersionId::class;
   protected $soriVersionIdDataType = '';
-  public $soriVersionId;
 
   /**
    * @param string
@@ -120,6 +124,20 @@ class QualityShoppingShoppingAttachmentOffer extends \Google\Collection
   public function getFingerprintOfOfferUrls()
   {
     return $this->fingerprintOfOfferUrls;
+  }
+  /**
+   * @param string[]
+   */
+  public function setGtinValue($gtinValue)
+  {
+    $this->gtinValue = $gtinValue;
+  }
+  /**
+   * @return string[]
+   */
+  public function getGtinValue()
+  {
+    return $this->gtinValue;
   }
   /**
    * @param string[]
@@ -246,6 +264,20 @@ class QualityShoppingShoppingAttachmentOffer extends \Google\Collection
   public function getNonDisplayableOrganicScoreMillis()
   {
     return $this->nonDisplayableOrganicScoreMillis;
+  }
+  /**
+   * @param ShoppingWebentityShoppingAnnotationOfferAvailabilityInfo
+   */
+  public function setNonDisplayableStaleAvailability(ShoppingWebentityShoppingAnnotationOfferAvailabilityInfo $nonDisplayableStaleAvailability)
+  {
+    $this->nonDisplayableStaleAvailability = $nonDisplayableStaleAvailability;
+  }
+  /**
+   * @return ShoppingWebentityShoppingAnnotationOfferAvailabilityInfo
+   */
+  public function getNonDisplayableStaleAvailability()
+  {
+    return $this->nonDisplayableStaleAvailability;
   }
   /**
    * @param string

@@ -17,8 +17,9 @@
 
 namespace Google\Service\Networkconnectivity;
 
-class Spoke extends \Google\Model
+class Spoke extends \Google\Collection
 {
+  protected $collection_key = 'reasons';
   /**
    * @var string
    */
@@ -30,6 +31,10 @@ class Spoke extends \Google\Model
   /**
    * @var string
    */
+  public $group;
+  /**
+   * @var string
+   */
   public $hub;
   /**
    * @var string[]
@@ -37,17 +42,22 @@ class Spoke extends \Google\Model
   public $labels;
   protected $linkedInterconnectAttachmentsType = LinkedInterconnectAttachments::class;
   protected $linkedInterconnectAttachmentsDataType = '';
-  public $linkedInterconnectAttachments;
   protected $linkedRouterApplianceInstancesType = LinkedRouterApplianceInstances::class;
   protected $linkedRouterApplianceInstancesDataType = '';
-  public $linkedRouterApplianceInstances;
+  protected $linkedVpcNetworkType = LinkedVpcNetwork::class;
+  protected $linkedVpcNetworkDataType = '';
   protected $linkedVpnTunnelsType = LinkedVpnTunnels::class;
   protected $linkedVpnTunnelsDataType = '';
-  public $linkedVpnTunnels;
   /**
    * @var string
    */
   public $name;
+  protected $reasonsType = StateReason::class;
+  protected $reasonsDataType = 'array';
+  /**
+   * @var string
+   */
+  public $spokeType;
   /**
    * @var string
    */
@@ -88,6 +98,20 @@ class Spoke extends \Google\Model
   public function getDescription()
   {
     return $this->description;
+  }
+  /**
+   * @param string
+   */
+  public function setGroup($group)
+  {
+    $this->group = $group;
+  }
+  /**
+   * @return string
+   */
+  public function getGroup()
+  {
+    return $this->group;
   }
   /**
    * @param string
@@ -146,6 +170,20 @@ class Spoke extends \Google\Model
     return $this->linkedRouterApplianceInstances;
   }
   /**
+   * @param LinkedVpcNetwork
+   */
+  public function setLinkedVpcNetwork(LinkedVpcNetwork $linkedVpcNetwork)
+  {
+    $this->linkedVpcNetwork = $linkedVpcNetwork;
+  }
+  /**
+   * @return LinkedVpcNetwork
+   */
+  public function getLinkedVpcNetwork()
+  {
+    return $this->linkedVpcNetwork;
+  }
+  /**
    * @param LinkedVpnTunnels
    */
   public function setLinkedVpnTunnels(LinkedVpnTunnels $linkedVpnTunnels)
@@ -172,6 +210,34 @@ class Spoke extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * @param StateReason[]
+   */
+  public function setReasons($reasons)
+  {
+    $this->reasons = $reasons;
+  }
+  /**
+   * @return StateReason[]
+   */
+  public function getReasons()
+  {
+    return $this->reasons;
+  }
+  /**
+   * @param string
+   */
+  public function setSpokeType($spokeType)
+  {
+    $this->spokeType = $spokeType;
+  }
+  /**
+   * @return string
+   */
+  public function getSpokeType()
+  {
+    return $this->spokeType;
   }
   /**
    * @param string

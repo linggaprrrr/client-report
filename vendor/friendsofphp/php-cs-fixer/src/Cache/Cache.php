@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace PhpCsFixer\Cache;
 
+use PhpCsFixer\Utils;
+
 /**
  * @author Andreas Möller <am@localheinz.com>
  *
@@ -21,15 +23,12 @@ namespace PhpCsFixer\Cache;
  */
 final class Cache implements CacheInterface
 {
-    /**
-     * @var SignatureInterface
-     */
-    private $signature;
+    private SignatureInterface $signature;
 
     /**
-     * @var array<string, int>
+     * @var array<string, string>
      */
-    private $hashes = [];
+    private array $hashes = [];
 
     public function __construct(SignatureInterface $signature)
     {
@@ -46,7 +45,7 @@ final class Cache implements CacheInterface
         return \array_key_exists($file, $this->hashes);
     }
 
-    public function get(string $file): ?int
+    public function get(string $file): ?string
     {
         if (!$this->has($file)) {
             return null;
@@ -55,7 +54,7 @@ final class Cache implements CacheInterface
         return $this->hashes[$file];
     }
 
-    public function set(string $file, int $hash): void
+    public function set(string $file, string $hash): void
     {
         $this->hashes[$file] = $hash;
     }
@@ -88,8 +87,6 @@ final class Cache implements CacheInterface
 
     /**
      * @throws \InvalidArgumentException
-     *
-     * @return Cache
      */
     public static function fromJson(string $json): self
     {
@@ -116,8 +113,8 @@ final class Cache implements CacheInterface
 
         if (\count($missingKeys) > 0) {
             throw new \InvalidArgumentException(sprintf(
-                'JSON data is missing keys "%s"',
-                implode('", "', $missingKeys)
+                'JSON data is missing keys %s',
+                Utils::naturalLanguageJoin(array_keys($missingKeys))
             ));
         }
 
@@ -131,7 +128,9 @@ final class Cache implements CacheInterface
 
         $cache = new self($signature);
 
-        $cache->hashes = $data['hashes'];
+        // before v3.11.1 the hashes were crc32 encoded and saved as integers
+        // @TODO: remove the to string cast/array_map in v4.0
+        $cache->hashes = array_map(static fn ($v): string => \is_int($v) ? (string) $v : $v, $data['hashes']);
 
         return $cache;
     }

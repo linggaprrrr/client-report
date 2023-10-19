@@ -56,13 +56,12 @@ class VideoVideoStreamInfo extends \Google\Collection
   public $audioStartTimestamp;
   protected $audioStreamType = VideoVideoStreamInfoAudioStream::class;
   protected $audioStreamDataType = 'array';
-  public $audioStream;
   /**
    * @var string
    */
   public $audioStreamCodecTag;
   /**
-   * @var int
+   * @var string
    */
   public $avDistance;
   public $avLength;
@@ -85,7 +84,6 @@ class VideoVideoStreamInfo extends \Google\Collection
   public $containsChapters;
   protected $dataStreamType = VideoVideoStreamInfoDataStream::class;
   protected $dataStreamDataType = 'array';
-  public $dataStream;
   /**
    * @var int
    */
@@ -118,9 +116,10 @@ class VideoVideoStreamInfo extends \Google\Collection
    * @var int
    */
   public $fileType;
+  protected $googleVideoClipInfoType = VideoGoogleVideoClipInfo::class;
+  protected $googleVideoClipInfoDataType = '';
   protected $imageStreamType = VideoVideoStreamInfoVideoStream::class;
   protected $imageStreamDataType = 'array';
-  public $imageStream;
   /**
    * @var bool
    */
@@ -139,7 +138,6 @@ class VideoVideoStreamInfo extends \Google\Collection
   public $level;
   protected $metadataType = VideoVideoStreamInfoMetadata::class;
   protected $metadataDataType = '';
-  public $metadata;
   /**
    * @var int
    */
@@ -167,6 +165,10 @@ class VideoVideoStreamInfo extends \Google\Collection
   /**
    * @var bool
    */
+  public $parsedByInHouseParsers;
+  /**
+   * @var bool
+   */
   public $partialFile;
   /**
    * @var string
@@ -178,11 +180,9 @@ class VideoVideoStreamInfo extends \Google\Collection
   public $profile;
   protected $timedtextStreamType = VideoVideoStreamInfoTimedTextStream::class;
   protected $timedtextStreamDataType = 'array';
-  public $timedtextStream;
   public $videoBitrate;
   protected $videoClipInfoType = VideoVideoClipInfo::class;
   protected $videoClipInfoDataType = '';
-  public $videoClipInfo;
   /**
    * @var string
    */
@@ -256,7 +256,6 @@ class VideoVideoStreamInfo extends \Google\Collection
   public $videoStartTimestamp;
   protected $videoStreamType = VideoVideoStreamInfoVideoStream::class;
   protected $videoStreamDataType = 'array';
-  public $videoStream;
   /**
    * @var int
    */
@@ -428,14 +427,14 @@ class VideoVideoStreamInfo extends \Google\Collection
     return $this->audioStreamCodecTag;
   }
   /**
-   * @param int
+   * @param string
    */
   public function setAvDistance($avDistance)
   {
     $this->avDistance = $avDistance;
   }
   /**
-   * @return int
+   * @return string
    */
   public function getAvDistance()
   {
@@ -640,6 +639,20 @@ class VideoVideoStreamInfo extends \Google\Collection
     return $this->fileType;
   }
   /**
+   * @param VideoGoogleVideoClipInfo
+   */
+  public function setGoogleVideoClipInfo(VideoGoogleVideoClipInfo $googleVideoClipInfo)
+  {
+    $this->googleVideoClipInfo = $googleVideoClipInfo;
+  }
+  /**
+   * @return VideoGoogleVideoClipInfo
+   */
+  public function getGoogleVideoClipInfo()
+  {
+    return $this->googleVideoClipInfo;
+  }
+  /**
    * @param VideoVideoStreamInfoVideoStream[]
    */
   public function setImageStream($imageStream)
@@ -806,6 +819,20 @@ class VideoVideoStreamInfo extends \Google\Collection
   public function getParsedByFfmpeg()
   {
     return $this->parsedByFfmpeg;
+  }
+  /**
+   * @param bool
+   */
+  public function setParsedByInHouseParsers($parsedByInHouseParsers)
+  {
+    $this->parsedByInHouseParsers = $parsedByInHouseParsers;
+  }
+  /**
+   * @return bool
+   */
+  public function getParsedByInHouseParsers()
+  {
+    return $this->parsedByInHouseParsers;
   }
   /**
    * @param bool

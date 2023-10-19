@@ -19,6 +19,8 @@ namespace Google\Service\Dataflow;
 
 class WorkerMessage extends \Google\Model
 {
+  protected $dataSamplingReportType = DataSamplingReport::class;
+  protected $dataSamplingReportDataType = '';
   /**
    * @var string[]
    */
@@ -29,23 +31,31 @@ class WorkerMessage extends \Google\Model
   public $time;
   protected $workerHealthReportType = WorkerHealthReport::class;
   protected $workerHealthReportDataType = '';
-  public $workerHealthReport;
   protected $workerLifecycleEventType = WorkerLifecycleEvent::class;
   protected $workerLifecycleEventDataType = '';
-  public $workerLifecycleEvent;
   protected $workerMessageCodeType = WorkerMessageCode::class;
   protected $workerMessageCodeDataType = '';
-  public $workerMessageCode;
   protected $workerMetricsType = ResourceUtilizationReport::class;
   protected $workerMetricsDataType = '';
-  public $workerMetrics;
   protected $workerShutdownNoticeType = WorkerShutdownNotice::class;
   protected $workerShutdownNoticeDataType = '';
-  public $workerShutdownNotice;
   protected $workerThreadScalingReportType = WorkerThreadScalingReport::class;
   protected $workerThreadScalingReportDataType = '';
-  public $workerThreadScalingReport;
 
+  /**
+   * @param DataSamplingReport
+   */
+  public function setDataSamplingReport(DataSamplingReport $dataSamplingReport)
+  {
+    $this->dataSamplingReport = $dataSamplingReport;
+  }
+  /**
+   * @return DataSamplingReport
+   */
+  public function getDataSamplingReport()
+  {
+    return $this->dataSamplingReport;
+  }
   /**
    * @param string[]
    */

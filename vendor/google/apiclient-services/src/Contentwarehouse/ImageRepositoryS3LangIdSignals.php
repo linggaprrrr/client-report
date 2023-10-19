@@ -23,16 +23,16 @@ class ImageRepositoryS3LangIdSignals extends \Google\Model
    * @var bool
    */
   public $containsSpeech;
+  protected $debuggingInfoType = ImageRepositoryS3LangIdDebuggingInfo::class;
+  protected $debuggingInfoDataType = '';
   /**
    * @var string
    */
   public $endSec;
   protected $langidResultType = SpeechS3LanguageIdentificationResult::class;
   protected $langidResultDataType = '';
-  public $langidResult;
   protected $languageIdentificationType = VideoTimedtextS4ALIResults::class;
   protected $languageIdentificationDataType = '';
-  public $languageIdentification;
   /**
    * @var string
    */
@@ -63,6 +63,20 @@ class ImageRepositoryS3LangIdSignals extends \Google\Model
   public function getContainsSpeech()
   {
     return $this->containsSpeech;
+  }
+  /**
+   * @param ImageRepositoryS3LangIdDebuggingInfo
+   */
+  public function setDebuggingInfo(ImageRepositoryS3LangIdDebuggingInfo $debuggingInfo)
+  {
+    $this->debuggingInfo = $debuggingInfo;
+  }
+  /**
+   * @return ImageRepositoryS3LangIdDebuggingInfo
+   */
+  public function getDebuggingInfo()
+  {
+    return $this->debuggingInfo;
   }
   /**
    * @param string

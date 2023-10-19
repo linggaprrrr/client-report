@@ -13,9 +13,8 @@ declare(strict_types=1);
 
 use Nexus\CsConfig\Factory;
 use Nexus\CsConfig\Fixer\Comment\NoCodeSeparatorCommentFixer;
-use Nexus\CsConfig\Fixer\Comment\SpaceAfterCommentStartFixer;
 use Nexus\CsConfig\FixerGenerator;
-use Nexus\CsConfig\Ruleset\Nexus73;
+use Nexus\CsConfig\Ruleset\Nexus80;
 use PhpCsFixer\Finder;
 
 $finder = Finder::create()
@@ -25,15 +24,16 @@ $finder = Finder::create()
     ->append([__FILE__])
 ;
 
-$overrides = [];
+$overrides = [
+    'final_public_method_for_abstract_class' => false,
+];
 $options = [
     'finder' => $finder,
     'cacheFile' => 'build/.php-cs-fixer.cache',
     'customFixers' => FixerGenerator::create('src/Fixer', 'Nexus\\CsConfig\\Fixer'),
     'customRules' => [
         NoCodeSeparatorCommentFixer::name() => true,
-        SpaceAfterCommentStartFixer::name() => true,
     ],
 ];
 
-return Factory::create(new Nexus73(), $overrides, $options)->forLibrary('Nexus CS Config', 'John Paul E. Balandan, CPA', 'paulbalandan@gmail.com', 2020);
+return Factory::create(new Nexus80(), $overrides, $options)->forLibrary('Nexus CS Config', 'John Paul E. Balandan, CPA', 'paulbalandan@gmail.com', 2020);

@@ -25,18 +25,12 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class PowToExponentiationFixer extends AbstractFunctionReferenceFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         // minimal candidate to fix is seven tokens: pow(x,y);
         return $tokens->count() > 7 && $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -54,16 +48,13 @@ final class PowToExponentiationFixer extends AbstractFunctionReferenceFixer
     /**
      * {@inheritdoc}
      *
-     * Must run before BinaryOperatorSpacesFixer, MethodArgumentSpaceFixer, NativeFunctionCasingFixer, NoSpacesAfterFunctionNameFixer, NoSpacesInsideParenthesisFixer.
+     * Must run before BinaryOperatorSpacesFixer, MethodArgumentSpaceFixer, NativeFunctionCasingFixer, NoSpacesAfterFunctionNameFixer, NoSpacesInsideParenthesisFixer, SpacesInsideParenthesesFixer.
      */
     public function getPriority(): int
     {
         return 32;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $candidates = $this->findPowCalls($tokens);
@@ -73,7 +64,7 @@ final class PowToExponentiationFixer extends AbstractFunctionReferenceFixer
 
         foreach (array_reverse($candidates) as $candidate) {
             // if in the previous iteration(s) tokens were added to the collection and this is done within the tokens
-            // indexes of the current candidate than the index of the close ')' of the candidate has moved and so
+            // indices of the current candidate than the index of the close ')' of the candidate has moved and so
             // the index needs to be updated
             if ($previousCloseParenthesisIndex < $candidate[2]) {
                 $previousCloseParenthesisIndex = $candidate[2];
@@ -218,13 +209,11 @@ final class PowToExponentiationFixer extends AbstractFunctionReferenceFixer
      */
     private function getAllowedKinds(): array
     {
-        return array_merge(
-            [
-                T_DNUMBER, T_LNUMBER, T_VARIABLE, T_STRING, T_CONSTANT_ENCAPSED_STRING, T_DOUBLE_CAST,
-                T_INT_CAST, T_INC, T_DEC, T_NS_SEPARATOR, T_WHITESPACE, T_DOUBLE_COLON, T_LINE, T_COMMENT, T_DOC_COMMENT,
-                CT::T_NAMESPACE_OPERATOR,
-            ],
-            Token::getObjectOperatorKinds()
-        );
+        return [
+            T_DNUMBER, T_LNUMBER, T_VARIABLE, T_STRING, T_CONSTANT_ENCAPSED_STRING, T_DOUBLE_CAST,
+            T_INT_CAST, T_INC, T_DEC, T_NS_SEPARATOR, T_WHITESPACE, T_DOUBLE_COLON, T_LINE, T_COMMENT, T_DOC_COMMENT,
+            CT::T_NAMESPACE_OPERATOR,
+            ...Token::getObjectOperatorKinds(),
+        ];
     }
 }

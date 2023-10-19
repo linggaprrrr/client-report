@@ -21,7 +21,6 @@ class SqlInstancesStartExternalSyncRequest extends \Google\Model
 {
   protected $mysqlSyncConfigType = MySqlSyncConfig::class;
   protected $mysqlSyncConfigDataType = '';
-  public $mysqlSyncConfig;
   /**
    * @var bool
    */
@@ -30,6 +29,10 @@ class SqlInstancesStartExternalSyncRequest extends \Google\Model
    * @var string
    */
   public $syncMode;
+  /**
+   * @var string
+   */
+  public $syncParallelLevel;
 
   /**
    * @param MySqlSyncConfig
@@ -72,6 +75,20 @@ class SqlInstancesStartExternalSyncRequest extends \Google\Model
   public function getSyncMode()
   {
     return $this->syncMode;
+  }
+  /**
+   * @param string
+   */
+  public function setSyncParallelLevel($syncParallelLevel)
+  {
+    $this->syncParallelLevel = $syncParallelLevel;
+  }
+  /**
+   * @return string
+   */
+  public function getSyncParallelLevel()
+  {
+    return $this->syncParallelLevel;
   }
 }
 

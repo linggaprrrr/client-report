@@ -26,7 +26,6 @@ class GoogleCloudRunV2Service extends \Google\Collection
   public $annotations;
   protected $binaryAuthorizationType = GoogleCloudRunV2BinaryAuthorization::class;
   protected $binaryAuthorizationDataType = '';
-  public $binaryAuthorization;
   /**
    * @var string
    */
@@ -37,7 +36,6 @@ class GoogleCloudRunV2Service extends \Google\Collection
   public $clientVersion;
   protected $conditionsType = GoogleCloudRunV2Condition::class;
   protected $conditionsDataType = 'array';
-  public $conditions;
   /**
    * @var string
    */
@@ -46,6 +44,10 @@ class GoogleCloudRunV2Service extends \Google\Collection
    * @var string
    */
   public $creator;
+  /**
+   * @var string[]
+   */
+  public $customAudiences;
   /**
    * @var string
    */
@@ -102,18 +104,18 @@ class GoogleCloudRunV2Service extends \Google\Collection
    * @var bool
    */
   public $reconciling;
+  /**
+   * @var bool
+   */
+  public $satisfiesPzs;
   protected $templateType = GoogleCloudRunV2RevisionTemplate::class;
   protected $templateDataType = '';
-  public $template;
   protected $terminalConditionType = GoogleCloudRunV2Condition::class;
   protected $terminalConditionDataType = '';
-  public $terminalCondition;
   protected $trafficType = GoogleCloudRunV2TrafficTarget::class;
   protected $trafficDataType = 'array';
-  public $traffic;
   protected $trafficStatusesType = GoogleCloudRunV2TrafficTargetStatus::class;
   protected $trafficStatusesDataType = 'array';
-  public $trafficStatuses;
   /**
    * @var string
    */
@@ -224,6 +226,20 @@ class GoogleCloudRunV2Service extends \Google\Collection
   public function getCreator()
   {
     return $this->creator;
+  }
+  /**
+   * @param string[]
+   */
+  public function setCustomAudiences($customAudiences)
+  {
+    $this->customAudiences = $customAudiences;
+  }
+  /**
+   * @return string[]
+   */
+  public function getCustomAudiences()
+  {
+    return $this->customAudiences;
   }
   /**
    * @param string
@@ -420,6 +436,20 @@ class GoogleCloudRunV2Service extends \Google\Collection
   public function getReconciling()
   {
     return $this->reconciling;
+  }
+  /**
+   * @param bool
+   */
+  public function setSatisfiesPzs($satisfiesPzs)
+  {
+    $this->satisfiesPzs = $satisfiesPzs;
+  }
+  /**
+   * @return bool
+   */
+  public function getSatisfiesPzs()
+  {
+    return $this->satisfiesPzs;
   }
   /**
    * @param GoogleCloudRunV2RevisionTemplate

@@ -86,24 +86,7 @@
         position: absolute;
     }
 
-    .switch2 {
-        opacity: 0;
-        position: absolute;
-    }
-
     .label {
-        background: #359DE6;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        padding: 3px;
-        border-radius: 50px;
-        position: relative;
-        width: 55px;
-        height: 26px;
-    }
-
-    .label2 {
         background: #359DE6;
         display: flex;
         align-items: center;
@@ -120,10 +103,6 @@
     }
 
     .label.dark {
-        background: #111;
-    }
-
-    .label2.dark {
         background: #111;
     }
 
@@ -150,22 +129,7 @@
         height: 22px;
         transition: transform 0.3s linear;
     }
-
-    .ball2 {
-        background-color: #fff;
-        border-radius: 50%;
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 22px;
-        height: 22px;
-        transition: transform 0.3s linear;
-    }
     .switch:checked + .label .ball {
-        transform: translateX(29px);
-    }
-
-    .switch2:checked + .label2 .ball2 {
         transform: translateX(29px);
     }
 
@@ -231,5 +195,72 @@
 </body>
 <?= $this->renderSection('js') ?>
 <!-- Your SDK code -->
+<!-- Messenger Chat Plugin Code -->
+    <div id="fb-root"></div>
 
+    <!-- Your Chat Plugin code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "106425448582832");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v15.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+<script>
+    const sw = document.getElementById('switch');
+    const h1 = document.getElementById("title");
+    const card = document.getElementsByClassName("card");
+    const lbl = document.getElementById('label');
+
+    if (localStorage.getItem('theme') == 'dark') {
+        document.body.classList.toggle('dark');
+        h1.classList.toggle('dark');
+        $(".card").addClass("carddark");
+        $("table").addClass("tabledark");
+        $('#switch').prop('checked', true);
+    } else {
+        localStorage.setItem('theme', 'nondark');
+        $(".card").removeClass("carddark");
+        $("table").removeClass("tabledark");
+        $('#switch').prop('checked', false);
+    }
+
+    sw.addEventListener("change", () => { 
+        if ($('#switch').is(':checked')) {
+            document.body.classList.toggle('dark');
+            h1.classList.toggle('dark');
+            $(".card").addClass("carddark");
+            $("table").addClass("tabledark");
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.toggle('dark');
+            h1.classList.toggle('dark');
+            $(".card").removeClass("carddark");
+            $("table").removeClass("tabledark");
+            localStorage.setItem('theme', 'nondark');
+        }
+        
+        
+    });
+</script>
 </html>

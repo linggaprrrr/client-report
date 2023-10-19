@@ -165,6 +165,7 @@
         <td></td>
         <td></td>
       </tr>
+      
       <tr>
         <td style="vertical-align: top;">Client Name</td>
         <td style="vertical-align: top;"><?= $manifestDesc[0]->fullname ?></td>
@@ -174,37 +175,37 @@
       </tr>
       <tr>
         <td style="vertical-align: top;">Company</td>
-        <td style="vertical-align: top;"><?= $manifestDesc[0]->company ?></td>
+        <td style="vertical-align: top;"><?= $comp ?></td>
         <td></td>
         <td style="vertical-align: top;">Total Original Retail</td>
         <td style="text-align: right; vertical-align:top">$<?= number_format($totalRetail, 2) ?></td>        
       </tr>
       <tr>
-        <td style="vertical-align: top;">Purchase Date</td>
-        <td style="vertical-align: top;"><?= date('m/d/y', strtotime($manifestDesc[0]->date))?></td>
+        <td style="vertical-align: top;">Address</td>
+        <td style="vertical-align: top;"><?=  (empty($manifestDesc[0]->address)) ? '-' : $manifestDesc[0]->address ?></td>
         <td></td>
         <td style="vertical-align: top;">Total Client Cost</td>
         <td style="text-align: right">$<?= number_format($totalClientCost, 2) ?></td>
-        
       </tr>
       <tr>
-        <td style="vertical-align: top;">Link</td>
-        <td style="color: #0000FF; vertical-align:top; font-size: 8px"><?= (empty($link[0])) ? '-' : '<u>'. $link[0]->link. '</u>' ?></td>
+        <td style="vertical-align: top;">Purchase Date</td>
+        <td style="vertical-align: top;"><?= date('m/d/y', strtotime($manifestDesc[0]->date))?></td>
         <td></td>
         <td>Avg. Unit Client Cost</td>
         <td style="text-align: right; vertical-align:top">$<?= number_format($avgUnitClientCost, 2) ?></td>
         
       </tr>
       <tr>
-        <td style="vertical-align: top;">Purchase Amount</td>
-        <td style="vertical-align:top">$<?= number_format($manifestDesc[0]->cost, 2) ?></td>
+        <td style="vertical-align: top;">Link</td>
+        <td style="color: #0000FF; vertical-align:top; font-size: 8px"><?= (empty($link[0])) ? '-' : '<u>'. $link[0]->link. '</u>' ?></td>
         <td></td>
         <td style="vertical-align: top;">Avg. Unit Retail</td>
         <td style="text-align: right; vertical-align:top">$<?= number_format($avgUnitRetail, 2) ?></td>        
+        
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td style="vertical-align: top;">Purchase Amount</td>
+        <td style="vertical-align:top">$<?= number_format($manifestDesc[0]->cost, 2) ?></td>
         <td></td>
         <td style="vertical-align: top;">Condition</td>
         <td style="text-align: right; vertical-align:top">New</td>        
@@ -215,6 +216,13 @@
         <td></td>
         <td style="vertical-align: top;">Cost Left</td>
         <td style="text-align: right; background-color:aqua; vertical-align:top">$<?= number_format($totalCostLeft, 2) ?></td>        
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </table>
     <br>

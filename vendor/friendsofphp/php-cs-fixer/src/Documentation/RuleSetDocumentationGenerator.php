@@ -14,20 +14,17 @@ declare(strict_types=1);
 
 namespace PhpCsFixer\Documentation;
 
-use PhpCsFixer\Console\Command\HelpCommand;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\RuleSet\RuleSetDescriptionInterface;
+use PhpCsFixer\Utils;
 
 /**
  * @internal
  */
 final class RuleSetDocumentationGenerator
 {
-    /**
-     * @var DocumentationLocator
-     */
-    private $locator;
+    private DocumentationLocator $locator;
 
     public function __construct(DocumentationLocator $locator)
     {
@@ -53,34 +50,45 @@ final class RuleSetDocumentationGenerator
             $doc .= ' This set contains rules that are risky.';
         }
 
-        $doc .= "\n\n";
-
         $rules = $definition->getRules();
 
-        if (\count($rules) < 1) {
-            $doc .= 'This is an empty set.';
+        if ([] === $rules) {
+            $doc .= "\n\nThis is an empty set.";
         } else {
-            $doc .= "Rules\n-----\n";
+            $enabledRules = array_filter($rules, static fn ($config) => false !== $config);
+            $disabledRules = array_filter($rules, static fn ($config) => false === $config);
 
-            foreach ($rules as $rule => $config) {
-                if (str_starts_with($rule, '@')) {
-                    $ruleSetPath = $this->locator->getRuleSetsDocumentationFilePath($rule);
-                    $ruleSetPath = substr($ruleSetPath, strrpos($ruleSetPath, '/'));
+            $listRules = function (array $rules) use (&$doc, $fixerNames): void {
+                foreach ($rules as $rule => $config) {
+                    if (str_starts_with($rule, '@')) {
+                        $ruleSetPath = $this->locator->getRuleSetsDocumentationFilePath($rule);
+                        $ruleSetPath = substr($ruleSetPath, strrpos($ruleSetPath, '/'));
 
-                    $doc .= "\n- `{$rule} <.{$ruleSetPath}>`_";
-                } else {
-                    $path = Preg::replace(
-                        '#^'.preg_quote($this->locator->getFixersDocumentationDirectoryPath(), '#').'/#',
-                        './../rules/',
-                        $this->locator->getFixerDocumentationFilePath($fixerNames[$rule])
-                    );
+                        $doc .= "\n- `{$rule} <.{$ruleSetPath}>`_";
+                    } else {
+                        $path = Preg::replace(
+                            '#^'.preg_quote($this->locator->getFixersDocumentationDirectoryPath(), '#').'/#',
+                            './../rules/',
+                            $this->locator->getFixerDocumentationFilePath($fixerNames[$rule])
+                        );
 
-                    $doc .= "\n- `{$rule} <{$path}>`_";
+                        $doc .= "\n- `{$rule} <{$path}>`_";
+                    }
+
+                    if (!\is_bool($config)) {
+                        $doc .= " with config:\n\n  ``".Utils::toString($config)."``\n";
+                    }
                 }
+            };
 
-                if (!\is_bool($config)) {
-                    $doc .= "\n  config:\n  ``".HelpCommand::toString($config).'``';
-                }
+            if ([] !== $enabledRules) {
+                $doc .= "\n\nRules\n-----\n";
+                $listRules($enabledRules);
+            }
+
+            if ([] !== $disabledRules) {
+                $doc .= "\n\nDisabled rules\n--------------\n";
+                $listRules($disabledRules);
             }
         }
 
@@ -93,10 +101,10 @@ final class RuleSetDocumentationGenerator
     public function generateRuleSetsDocumentationIndex(array $setDefinitions): string
     {
         $documentation = <<<'RST'
-===========================
-List of Available Rule sets
-===========================
-RST;
+            ===========================
+            List of Available Rule sets
+            ===========================
+            RST;
         foreach ($setDefinitions as $name => $path) {
             $path = substr($path, strrpos($path, '/'));
             $documentation .= "\n- `{$name} <.{$path}>`_";

@@ -49,9 +49,18 @@
                             UPC Scanner    
                         </span>
                     </a>
-                </li>                
+                </li>           
+                 <li class="nav-item">
+                    <a href="<?= base_url('/warehouse/scan-log') ?>" class="nav-link">
+                        <i class="icon-copy"></i>
+                        <span>
+                            Scan Log
+                        </span>
+                    </a>
+                </li>
             </ul>
         </div>
+        
         <!-- /main navigation -->
 
     </div>

@@ -26,17 +26,18 @@ class QueryResponse extends \Google\Collection
   public $cacheHit;
   protected $dmlStatsType = DmlStatistics::class;
   protected $dmlStatsDataType = '';
-  public $dmlStats;
   protected $errorsType = ErrorProto::class;
   protected $errorsDataType = 'array';
-  public $errors;
   /**
    * @var bool
    */
   public $jobComplete;
+  /**
+   * @var array
+   */
+  public $jobCreationReason;
   protected $jobReferenceType = JobReference::class;
   protected $jobReferenceDataType = '';
-  public $jobReference;
   /**
    * @var string
    */
@@ -49,15 +50,16 @@ class QueryResponse extends \Google\Collection
    * @var string
    */
   public $pageToken;
+  /**
+   * @var string
+   */
+  public $queryId;
   protected $rowsType = TableRow::class;
   protected $rowsDataType = 'array';
-  public $rows;
   protected $schemaType = TableSchema::class;
   protected $schemaDataType = '';
-  public $schema;
   protected $sessionInfoType = SessionInfo::class;
   protected $sessionInfoDataType = '';
-  public $sessionInfo;
   /**
    * @var string
    */
@@ -124,6 +126,20 @@ class QueryResponse extends \Google\Collection
     return $this->jobComplete;
   }
   /**
+   * @param array
+   */
+  public function setJobCreationReason($jobCreationReason)
+  {
+    $this->jobCreationReason = $jobCreationReason;
+  }
+  /**
+   * @return array
+   */
+  public function getJobCreationReason()
+  {
+    return $this->jobCreationReason;
+  }
+  /**
    * @param JobReference
    */
   public function setJobReference(JobReference $jobReference)
@@ -178,6 +194,20 @@ class QueryResponse extends \Google\Collection
   public function getPageToken()
   {
     return $this->pageToken;
+  }
+  /**
+   * @param string
+   */
+  public function setQueryId($queryId)
+  {
+    $this->queryId = $queryId;
+  }
+  /**
+   * @return string
+   */
+  public function getQueryId()
+  {
+    return $this->queryId;
   }
   /**
    * @param TableRow[]

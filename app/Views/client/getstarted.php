@@ -2,7 +2,14 @@
 
 <?= $this->section('content') ?>
 <style>
-
+.h_iframe iframe {
+    width:100%;
+    height:100%;
+}
+.h_iframe {
+    height: 100%;
+    width:100%;
+}
 </style>
 <div class="content">
     <div class="card">
@@ -11,7 +18,13 @@
             <span>
                 <p class="text-justify">
                     <img src="/assets/images/fba-logo.png" class="d-none d-sm-block" alt="FBA Logo">
-                    <iframe src="https://drive.google.com/file/d/1e5tCpUCZBHxFty5Rrz3U8yD9HJ-tnwVH/preview" width="683" height="360" allow="autoplay"></iframe>
+                     <object style="width: 683px;  height: 360px" >
+                        <param name="movie" value="https://www.youtube.com/embed/U4rLveCPkiE?autoplay=1" width="683" height="360"></param>
+                        <embed src="https://www.youtube.com/embed/U4rLveCPkiE?autoplay=1" width="683" height="360"></embed>
+                    </object>
+                    
+                   
+           
                     <br>
                     Hello and Welcome to the Smart FBA family! We are happy and grateful that you made the decision to work with us and our dedicated team. We have over 40 team members working hard to make sure your experience is a great one.
                 </p>
@@ -24,7 +37,7 @@
                 <p>Once you watch the video, please follow these next steps. </p>
                 <ol type="1">
                     <li>
-                        <p>Make sure to connect with your Customer Service team thru Facebook messenger. Nikki will be your account manager for any questions you may have, but any of our team members are more than happy to assist you. They will always be your point of contact for any questions about your store. </p>
+                        <p>Make sure to connect with your Customer Service team thru Skype. Please reach out to your customer service team in your group chat for any questions or concerns, any of our team members are more than happy to assist you. They will always be your point of contact for any questions about your store.</p>
                     </li>
                     <li>
                         <p>We need you to set up your $150/month recurring payment. This payment will begin 30 days after you set up the payment. Please note this step needs to be done PRIOR to purchasing inventory. (<a href="https://square.link/u/KYEuq1Hy" target="_blank">https://square.link/u/KYEuq1Hy</a>)</p>

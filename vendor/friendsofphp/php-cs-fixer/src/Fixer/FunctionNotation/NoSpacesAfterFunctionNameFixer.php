@@ -29,9 +29,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class NoSpacesAfterFunctionNameFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -43,25 +40,19 @@ final class NoSpacesAfterFunctionNameFixer extends AbstractFixer
     /**
      * {@inheritdoc}
      *
-     * Must run before FunctionToConstantFixer.
+     * Must run before FunctionToConstantFixer, GetClassToClassKeywordFixer.
      * Must run after PowToExponentiationFixer.
      */
     public function getPriority(): int
     {
-        return 2;
+        return 3;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound(array_merge($this->getFunctionyTokenKinds(), [T_STRING]));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $functionyTokens = $this->getFunctionyTokenKinds();
@@ -125,7 +116,7 @@ final class NoSpacesAfterFunctionNameFixer extends AbstractFixer
     }
 
     /**
-     * @return array<array|string>
+     * @return array<list<int>|string>
      */
     private function getBraceAfterVariableKinds(): array
     {

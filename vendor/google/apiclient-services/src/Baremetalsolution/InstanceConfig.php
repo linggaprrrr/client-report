@@ -19,14 +19,13 @@ namespace Google\Service\Baremetalsolution;
 
 class InstanceConfig extends \Google\Collection
 {
-  protected $collection_key = 'logicalInterfaces';
+  protected $collection_key = 'sshKeyNames';
   /**
    * @var bool
    */
   public $accountNetworksEnabled;
   protected $clientNetworkType = NetworkAddress::class;
   protected $clientNetworkDataType = '';
-  public $clientNetwork;
   /**
    * @var bool
    */
@@ -41,7 +40,6 @@ class InstanceConfig extends \Google\Collection
   public $instanceType;
   protected $logicalInterfacesType = GoogleCloudBaremetalsolutionV2LogicalInterface::class;
   protected $logicalInterfacesDataType = 'array';
-  public $logicalInterfaces;
   /**
    * @var string
    */
@@ -60,7 +58,10 @@ class InstanceConfig extends \Google\Collection
   public $osImage;
   protected $privateNetworkType = NetworkAddress::class;
   protected $privateNetworkDataType = '';
-  public $privateNetwork;
+  /**
+   * @var string[]
+   */
+  public $sshKeyNames;
   /**
    * @var string
    */
@@ -219,6 +220,20 @@ class InstanceConfig extends \Google\Collection
   public function getPrivateNetwork()
   {
     return $this->privateNetwork;
+  }
+  /**
+   * @param string[]
+   */
+  public function setSshKeyNames($sshKeyNames)
+  {
+    $this->sshKeyNames = $sshKeyNames;
+  }
+  /**
+   * @return string[]
+   */
+  public function getSshKeyNames()
+  {
+    return $this->sshKeyNames;
   }
   /**
    * @param string

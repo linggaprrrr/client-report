@@ -1,4 +1,5 @@
 includes:
+  - phpstan-baseline.php
   - vendor/phpstan/phpstan/conf/bleedingEdge.neon
 
 parameters:
@@ -9,17 +10,14 @@ parameters:
     - tests
   bootstrapFiles:
     - vendor/autoload.php
-  parallel:
-    processTimeout: 300.0
-  polluteScopeWithLoopInitialAssignments: false
-  polluteScopeWithAlwaysIterableForeach: false
-  checkAlwaysTrueCheckTypeFunctionCall: true
-  checkAlwaysTrueInstanceof: true
-  checkAlwaysTrueStrictComparison: true
-  checkExplicitMixedMissingReturn: true
-  checkFunctionNameCase: true
-  checkInternalClassCaseSensitivity: true
-  checkMissingIterableValueType: false
-  reportMaybesInMethodSignatures: true
-  reportStaticMethodSignatures: true
+  additionalConstructors:
+    - Nexus\CsConfig\Test\AbstractCustomFixerTestCase::setUp
+  featureToggles:
+    disableCheckMissingIterableValueType: false
   checkTooWideReturnTypesInProtectedAndPublicMethods: true
+  checkUninitializedProperties: true
+  checkImplicitMixed: true
+  checkBenevolentUnionTypes: true
+  checkMissingCallableSignature: true
+  reportAlwaysTrueInLastCondition: true
+  treatPhpDocTypesAsCertain: false

@@ -18,7 +18,11 @@
                     <img src="/assets/images/fba-logo.png" class="d-sm-block" alt="FBA Logo">                                        
                 </p>
                 <div class="h_iframe">
-                    <iframe src="https://drive.google.com/file/d/1e5tCpUCZBHxFty5Rrz3U8yD9HJ-tnwVH/preview" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+                    <object>
+                        <param name="movie" value="https://www.youtube.com/embed/U4rLveCPkiE"></param>
+                        <embed src="https://www.youtube.com/embed/U4rLveCPkiE"></embed>
+                    </object>
+                    <!--<iframe src="https://drive.google.com/file/d/1e5tCpUCZBHxFty5Rrz3U8yD9HJ-tnwVH/preview" frameborder="0" allowfullscreen allow="autoplay"></iframe>-->
                 </div>
                 <p class="text-justify">Hello and Welcome to the Smart FBA family! We are happy and grateful that you made the decision to work with us and our dedicated team. We have over 40 team members working hard to make sure your experience is a great one.</p>
                 <p class="text-justify">Below is a list of a few of the things we need you to do to get the process started.</p>

@@ -35,9 +35,6 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  */
 final class PhpdocLineSpanFixer extends AbstractFixer implements WhitespacesAwareFixerInterface, ConfigurableFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -63,29 +60,23 @@ final class PhpdocLineSpanFixer extends AbstractFixer implements WhitespacesAwar
         return 7;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('const', 'Whether const blocks should be single or multi line'))
+            (new FixerOptionBuilder('const', 'Whether const blocks should be single or multi line.'))
                 ->setAllowedValues(['single', 'multi', null])
                 ->setDefault('multi')
                 ->getOption(),
-            (new FixerOptionBuilder('property', 'Whether property doc blocks should be single or multi line'))
+            (new FixerOptionBuilder('property', 'Whether property doc blocks should be single or multi line.'))
                 ->setAllowedValues(['single', 'multi', null])
                 ->setDefault('multi')
                 ->getOption(),
-            (new FixerOptionBuilder('method', 'Whether method doc blocks should be single or multi line'))
+            (new FixerOptionBuilder('method', 'Whether method doc blocks should be single or multi line.'))
                 ->setAllowedValues(['single', 'multi', null])
                 ->setDefault('multi')
                 ->getOption(),
@@ -144,12 +135,20 @@ final class PhpdocLineSpanFixer extends AbstractFixer implements WhitespacesAwar
             CT::T_NULLABLE_TYPE,
         ];
 
+        if (\defined('T_ATTRIBUTE')) { // @TODO: drop condition when PHP 8.0+ is required
+            $propertyPartKinds[] = T_ATTRIBUTE;
+        }
+
         if (\defined('T_READONLY')) { // @TODO: drop condition when PHP 8.1+ is required
             $propertyPartKinds[] = T_READONLY;
         }
 
         do {
             $index = $tokens->getPrevNonWhitespace($index);
+
+            if ($tokens[$index]->isGivenKind(CT::T_ATTRIBUTE_CLOSE)) {
+                $index = $tokens->getPrevTokenOfKind($index, [[T_ATTRIBUTE]]);
+            }
         } while ($tokens[$index]->isGivenKind($propertyPartKinds));
 
         return $index;

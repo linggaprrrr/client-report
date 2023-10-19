@@ -197,6 +197,14 @@ class Events extends \Google\Service\Resource
    * always be returned in the email field for the organizer, creator and
    * attendees, even if no real email address is available (i.e. a generated, non-
    * working value will be provided).
+   * @opt_param string eventTypes Event types to return. Optional. Possible values
+   * are: - "default"  - "focusTime"  - "outOfOffice"  - "workingLocation"This
+   * parameter can be repeated multiple times to return events of different types.
+   * Currently, these are the only allowed values for this field:  - ["default",
+   * "focusTime", "outOfOffice"]  - ["default", "focusTime", "outOfOffice",
+   * "workingLocation"]  - ["workingLocation"] The default is ["default",
+   * "focusTime", "outOfOffice"]. Additional combinations of these four event
+   * types will be made available in later releases.
    * @opt_param string iCalUID Specifies an event ID in the iCalendar format to be
    * provided in the response. Optional. Use this if you want to search for an
    * event by its iCalendar ID.
@@ -245,11 +253,12 @@ class Events extends \Google\Service\Resource
    * to ensure consistency of the client state.
    *
    * These are:  - iCalUID  - orderBy  - privateExtendedProperty  - q  -
-   * sharedExtendedProperty  - timeMin  - timeMax  - updatedMin If the syncToken
-   * expires, the server will respond with a 410 GONE response code and the client
-   * should clear its storage and perform a full synchronization without any
-   * syncToken. Learn more about incremental synchronization. Optional. The
-   * default is to return all entries.
+   * sharedExtendedProperty  - timeMin  - timeMax  - updatedMin All other query
+   * parameters should be the same as for the initial synchronization to avoid
+   * undefined behavior. If the syncToken expires, the server will respond with a
+   * 410 GONE response code and the client should clear its storage and perform a
+   * full synchronization without any syncToken. Learn more about incremental
+   * synchronization. Optional. The default is to return all entries.
    * @opt_param string timeMax Upper bound (exclusive) for an event's start time
    * to filter by. Optional. The default is not to filter by start time. Must be
    * an RFC3339 timestamp with mandatory time zone offset, for example,
@@ -415,6 +424,14 @@ class Events extends \Google\Service\Resource
    * always be returned in the email field for the organizer, creator and
    * attendees, even if no real email address is available (i.e. a generated, non-
    * working value will be provided).
+   * @opt_param string eventTypes Event types to return. Optional. Possible values
+   * are: - "default"  - "focusTime"  - "outOfOffice"  - "workingLocation"This
+   * parameter can be repeated multiple times to return events of different types.
+   * Currently, these are the only allowed values for this field:  - ["default",
+   * "focusTime", "outOfOffice"]  - ["default", "focusTime", "outOfOffice",
+   * "workingLocation"]  - ["workingLocation"] The default is ["default",
+   * "focusTime", "outOfOffice"]. Additional combinations of these four event
+   * types will be made available in later releases.
    * @opt_param string iCalUID Specifies an event ID in the iCalendar format to be
    * provided in the response. Optional. Use this if you want to search for an
    * event by its iCalendar ID.
@@ -463,11 +480,12 @@ class Events extends \Google\Service\Resource
    * to ensure consistency of the client state.
    *
    * These are:  - iCalUID  - orderBy  - privateExtendedProperty  - q  -
-   * sharedExtendedProperty  - timeMin  - timeMax  - updatedMin If the syncToken
-   * expires, the server will respond with a 410 GONE response code and the client
-   * should clear its storage and perform a full synchronization without any
-   * syncToken. Learn more about incremental synchronization. Optional. The
-   * default is to return all entries.
+   * sharedExtendedProperty  - timeMin  - timeMax  - updatedMin All other query
+   * parameters should be the same as for the initial synchronization to avoid
+   * undefined behavior. If the syncToken expires, the server will respond with a
+   * 410 GONE response code and the client should clear its storage and perform a
+   * full synchronization without any syncToken. Learn more about incremental
+   * synchronization. Optional. The default is to return all entries.
    * @opt_param string timeMax Upper bound (exclusive) for an event's start time
    * to filter by. Optional. The default is not to filter by start time. Must be
    * an RFC3339 timestamp with mandatory time zone offset, for example,

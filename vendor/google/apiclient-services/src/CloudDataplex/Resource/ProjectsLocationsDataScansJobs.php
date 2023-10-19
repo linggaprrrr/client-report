@@ -34,9 +34,9 @@ class ProjectsLocationsDataScansJobs extends \Google\Service\Resource
    * Gets a DataScanJob resource. (jobs.get)
    *
    * @param string $name Required. The resource name of the DataScanJob: projects/
-   * {project}/locations/{location_id}/dataScans/{data_scan_id}/dataScanJobs/{data
-   * _scan_job_id} where project refers to a project_id or project_number and
-   * location_id refers to a GCP region.
+   * {project}/locations/{location_id}/dataScans/{data_scan_id}/jobs/{data_scan_jo
+   * b_id} where project refers to a project_id or project_number and location_id
+   * refers to a GCP region.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string view Optional. Select the DataScanJob view to return.
@@ -59,6 +59,14 @@ class ProjectsLocationsDataScansJobs extends \Google\Service\Resource
    * GCP region.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string filter Optional. An expression for filtering the results of
+   * the ListDataScanJobs request.If unspecified, all datascan jobs will be
+   * returned. Multiple filters can be applied (with AND, OR logical operators).
+   * Filters are case-sensitive.Allowed fields are: start_time end_timestart_time
+   * and end_time expect RFC-3339 formatted strings (e.g.
+   * 2018-10-08T18:30:00-07:00).For instance, 'start_time >
+   * 2018-10-08T00:00:00.123456789Z AND end_time < 2018-10-09T00:00:00.123456789Z'
+   * limits results to DataScanJobs between specified start and end times.
    * @opt_param int pageSize Optional. Maximum number of DataScanJobs to return.
    * The service may return fewer than this value. If unspecified, at most 10
    * DataScanJobs will be returned. The maximum value is 1000; values above 1000

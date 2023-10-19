@@ -100,11 +100,31 @@ class Contentwarehouse extends \Google\Service
         'locations',
         [
           'methods' => [
-            'initialize' => [
+            'getStatus' => [
+              'path' => 'v1/{+location}:getStatus',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'location' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'initialize' => [
               'path' => 'v1/{+location}:initialize',
               'httpMethod' => 'POST',
               'parameters' => [
                 'location' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'runPipeline' => [
+              'path' => 'v1/{+name}:runPipeline',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -243,6 +263,16 @@ class Contentwarehouse extends \Google\Service
               'httpMethod' => 'POST',
               'parameters' => [
                 'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'lock' => [
+              'path' => 'v1/{+name}:lock',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,

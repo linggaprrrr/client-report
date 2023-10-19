@@ -15,7 +15,11 @@ declare(strict_types=1);
 namespace PhpCsFixer\Fixer\Import;
 
 use PhpCsFixer\AbstractFixer;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
+use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -30,16 +34,29 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class SingleImportPerStatementFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
+final class SingleImportPerStatementFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
             'There MUST be one use keyword per declaration.',
-            [new CodeSample("<?php\nuse Foo, Sample, Sample\\Sample as Sample2;\n")]
+            [
+                new CodeSample(
+                    '<?php
+use Foo, Sample, Sample\Sample as Sample2;
+'
+                ),
+                new CodeSample(
+                    '<?php
+use Space\Models\ {
+    TestModelA,
+    TestModelB,
+    TestModel,
+};
+',
+                    ['group_to_single_imports' => true]
+                ),
+            ]
         );
     }
 
@@ -53,17 +70,11 @@ final class SingleImportPerStatementFixer extends AbstractFixer implements White
         return 1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_USE);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $tokensAnalyzer = new TokensAnalyzer($tokens);
@@ -73,11 +84,23 @@ final class SingleImportPerStatementFixer extends AbstractFixer implements White
             $groupClose = $tokens->getPrevMeaningfulToken($endIndex);
 
             if ($tokens[$groupClose]->isGivenKind(CT::T_GROUP_IMPORT_BRACE_CLOSE)) {
-                $this->fixGroupUse($tokens, $index, $endIndex);
+                if ($this->configuration['group_to_single_imports']) {
+                    $this->fixGroupUse($tokens, $index, $endIndex);
+                }
             } else {
                 $this->fixMultipleUse($tokens, $index, $endIndex);
             }
         }
+    }
+
+    protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
+    {
+        return new FixerConfigurationResolver([
+            (new FixerOptionBuilder('group_to_single_imports', 'Whether to change group imports into single imports.'))
+                ->setAllowedTypes(['bool'])
+                ->setDefault(true)
+                ->getOption(),
+        ]);
     }
 
     private function getGroupDeclaration(Tokens $tokens, int $index): array
@@ -130,7 +153,7 @@ final class SingleImportPerStatementFixer extends AbstractFixer implements White
         for ($i = $groupOpenIndex + 1; $i <= $groupCloseIndex; ++$i) {
             $token = $tokens[$i];
 
-            if ($token->equals(',') && $tokens[$tokens->getNextMeaningfulToken($i)]->equals([CT::T_GROUP_IMPORT_BRACE_CLOSE])) {
+            if ($token->equals(',') && $tokens[$tokens->getNextMeaningfulToken($i)]->isGivenKind(CT::T_GROUP_IMPORT_BRACE_CLOSE)) {
                 continue;
             }
 
@@ -144,7 +167,7 @@ final class SingleImportPerStatementFixer extends AbstractFixer implements White
             if ($token->isWhitespace()) {
                 $j = $tokens->getNextMeaningfulToken($i);
 
-                if ($tokens[$j]->equals([T_AS])) {
+                if ($tokens[$j]->isGivenKind(T_AS)) {
                     $statement .= ' as ';
                     $i += 2;
                 } elseif ($tokens[$j]->isGivenKind(CT::T_FUNCTION_IMPORT)) {

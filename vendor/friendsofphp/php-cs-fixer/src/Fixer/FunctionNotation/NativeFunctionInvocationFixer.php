@@ -24,9 +24,9 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
-use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use PhpCsFixer\Utils;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 /**
@@ -68,9 +68,6 @@ final class NativeFunctionInvocationFixer extends AbstractFixer implements Confi
         $this->functionFilter = $this->getFunctionFilter();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -174,25 +171,16 @@ $c = get_class($d);
         return 1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         if ('all' === $this->configuration['scope']) {
@@ -201,18 +189,15 @@ $c = get_class($d);
             return;
         }
 
-        $namespaces = (new NamespacesAnalyzer())->getDeclarations($tokens);
+        $namespaces = $tokens->getNamespaceDeclarations();
 
         // 'scope' is 'namespaced' here
         /** @var NamespaceAnalysis $namespace */
         foreach (array_reverse($namespaces) as $namespace) {
-            $this->fixFunctionCalls($tokens, $this->functionFilter, $namespace->getScopeStartIndex(), $namespace->getScopeEndIndex(), '' === $namespace->getFullName());
+            $this->fixFunctionCalls($tokens, $this->functionFilter, $namespace->getScopeStartIndex(), $namespace->getScopeEndIndex(), $namespace->isGlobalNamespace());
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -223,7 +208,7 @@ $c = get_class($d);
                         if (!\is_string($functionName) || '' === trim($functionName) || trim($functionName) !== $functionName) {
                             throw new InvalidOptionsException(sprintf(
                                 'Each element must be a non-empty, trimmed string, got "%s" instead.',
-                                \is_object($functionName) ? \get_class($functionName) : \gettype($functionName)
+                                get_debug_type($functionName)
                             ));
                         }
                     }
@@ -239,7 +224,7 @@ $c = get_class($d);
                         if (!\is_string($functionName) || '' === trim($functionName) || trim($functionName) !== $functionName) {
                             throw new InvalidOptionsException(sprintf(
                                 'Each element must be a non-empty, trimmed string, got "%s" instead.',
-                                \is_object($functionName) ? \get_class($functionName) : \gettype($functionName)
+                                get_debug_type($functionName)
                             ));
                         }
 
@@ -250,7 +235,7 @@ $c = get_class($d);
                         ];
 
                         if (str_starts_with($functionName, '@') && !\in_array($functionName, $sets, true)) {
-                            throw new InvalidOptionsException(sprintf('Unknown set "%s", known sets are "%s".', $functionName, implode('", "', $sets)));
+                            throw new InvalidOptionsException(sprintf('Unknown set "%s", known sets are %s.', $functionName, Utils::naturalLanguageJoin($sets)));
                         }
                     }
 
@@ -309,14 +294,10 @@ $c = get_class($d);
 
         if (\in_array(self::SET_ALL, $this->configuration['include'], true)) {
             if (\count($exclude) > 0) {
-                return static function (string $functionName) use ($exclude): bool {
-                    return !isset($exclude[strtolower($functionName)]);
-                };
+                return static fn (string $functionName): bool => !isset($exclude[strtolower($functionName)]);
             }
 
-            return static function (): bool {
-                return true;
-            };
+            return static fn (): bool => true;
         }
 
         $include = [];
@@ -334,14 +315,10 @@ $c = get_class($d);
         }
 
         if (\count($exclude) > 0) {
-            return static function (string $functionName) use ($include, $exclude): bool {
-                return isset($include[strtolower($functionName)]) && !isset($exclude[strtolower($functionName)]);
-            };
+            return static fn (string $functionName): bool => isset($include[strtolower($functionName)]) && !isset($exclude[strtolower($functionName)]);
         }
 
-        return static function (string $functionName) use ($include): bool {
-            return isset($include[strtolower($functionName)]);
-        };
+        return static fn (string $functionName): bool => isset($include[strtolower($functionName)]);
     }
 
     /**
@@ -380,17 +357,22 @@ $c = get_class($d);
             'is_object',
             'is_real',
             'is_resource',
+            'is_scalar',
             'is_string',
             'ord',
+            'sizeof',
             'strlen',
             'strval',
             // @see https://github.com/php/php-src/blob/php-7.2.6/ext/opcache/Optimizer/pass1_5.c
+            // @see https://github.com/php/php-src/blob/PHP-8.1.2/Zend/Optimizer/block_pass.c
+            // @see https://github.com/php/php-src/blob/php-8.1.3/Zend/Optimizer/zend_optimizer.c
             'constant',
             'define',
             'dirname',
             'extension_loaded',
             'function_exists',
             'is_callable',
+            'ini_get',
         ]);
     }
 

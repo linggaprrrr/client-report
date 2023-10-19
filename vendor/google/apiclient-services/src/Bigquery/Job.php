@@ -24,7 +24,6 @@ class Job extends \Google\Model
   ];
   protected $configurationType = JobConfiguration::class;
   protected $configurationDataType = '';
-  public $configuration;
   /**
    * @var string
    */
@@ -33,9 +32,12 @@ class Job extends \Google\Model
    * @var string
    */
   public $id;
+  /**
+   * @var array
+   */
+  public $jobCreationReason;
   protected $jobReferenceType = JobReference::class;
   protected $jobReferenceDataType = '';
-  public $jobReference;
   /**
    * @var string
    */
@@ -46,10 +48,8 @@ class Job extends \Google\Model
   public $selfLink;
   protected $statisticsType = JobStatistics::class;
   protected $statisticsDataType = '';
-  public $statistics;
   protected $statusType = JobStatus::class;
   protected $statusDataType = '';
-  public $status;
   /**
    * @var string
    */
@@ -96,6 +96,20 @@ class Job extends \Google\Model
   public function getId()
   {
     return $this->id;
+  }
+  /**
+   * @param array
+   */
+  public function setJobCreationReason($jobCreationReason)
+  {
+    $this->jobCreationReason = $jobCreationReason;
+  }
+  /**
+   * @return array
+   */
+  public function getJobCreationReason()
+  {
+    return $this->jobCreationReason;
   }
   /**
    * @param JobReference

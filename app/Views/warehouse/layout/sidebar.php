@@ -46,16 +46,23 @@
                     <a href="<?= base_url('/warehouse/upc') ?>" class="nav-link">
                         <i class="icon-search4"></i>
                         <span>
-                            UPC Client Search
+                            UPC Client
                         </span>
                     </a>
                 </li>
-                
                 <li class="nav-item">
                     <a href="<?= base_url('/warehouse/manifest') ?>" class="nav-link">
                         <i class="icon-search4"></i>
                         <span>
                             Manifest Client
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/warehouse/scan-log') ?>" class="nav-link">
+                        <i class="icon-copy"></i>
+                        <span>
+                            Scan Log
                         </span>
                     </a>
                 </li>

@@ -17,7 +17,6 @@ use CodeIgniter\Database\BaseBuilder;
 
 
 
-
 class Reports extends BaseController
 {
     protected $reportModel = "";
@@ -450,7 +449,7 @@ class Reports extends BaseController
         $manifest = $this->reportModel->getFileManifest($id);
         $this->reportModel->deleteReport($id);
         if (!is_null($manifest)) {
-            unlink('files/' . $manifest->file);
+           
         }
         return redirect()->back()->with('delete', 'Report Successfully Deleted!');
     }
@@ -484,25 +483,23 @@ class Reports extends BaseController
         return view('administrator/pl_reports', $data);
     }
 
-    public function uploadPLReport() {        
+    public function uploadPLReport() {
         $client = $this->request->getVar('client');
         $link = $this->request->getVar('link');
         $chart = $this->request->getFile('chart');
         $types = $this->request->getVar('type');
         
         $this->db->query("DELETE FROM chart_pl WHERE client_id = '$client' ");
+        $fileName = $chart->getName();
         $ext = $chart->getClientExtension();
         if ($ext == 'xls') {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
         } else {
             $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         }
-        ini_set('memory_limit', -1);
-        $render->setReadEmptyCells(false);
-        $spreadsheet = $render->load($chart);     
-        $data = $spreadsheet->getSheetByName('Charts')->toArray();
-        // $data = $spreadsheet->getActiveSheet()->toArray();
-        dd($data);
+        $spreadsheet = $render->load($chart);
+        $data = $spreadsheet->getActiveSheet()->toArray();
+        
         if ($types == 'yes') {    
             $chartTitle = array();
             $monthData = array();
@@ -522,7 +519,7 @@ class Reports extends BaseController
                     array_push($chartTitle, $title);                    
                     $chart = true;
                 } else {
-                    if ($chart == true && (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13]) || !empty($row[14]) || !empty($row[15]) ))) {
+                    if ($chart == true) {
                         $month = array();
                         $chart = false;
                         
@@ -604,7 +601,7 @@ class Reports extends BaseController
                     array_push($chartTitle, $title);   
                     $chart = true;
                 } else {
-                    if ($chart == true && (!empty($row[2]) || !empty($row[3]) || !empty($row[4]) || !empty($row[5]) || !empty($row[6]) || !empty($row[7]) || !empty($row[8] || !empty($row[9]) || !empty($row[10]) || !empty($row[11]) || !empty($row[12]) || !empty($row[13])))) {
+                     if ($chart == true) {
                         $month = array();
                         $chart = false;
                         if (strpos($row[2], '%') !== false || strpos($row[3], '%') !== false || strpos($row[4], '%') !== false || strpos($row[5], '%') !== false || strpos($row[6], '%') !== false || strpos($row[7], '%') !== false || strpos($row[8], '%') !== false || strpos($row[9], '%') !== false || strpos($row[10], '%') !== false || strpos($row[11], '%') !== false || strpos($row[12], '%') !== false || strpos($row[13], '%') !== false || strpos($row[14], '%') !== false || strpos($row[15], '%') !== false || strpos($row[16], '%') !== false || strpos($row[17], '%') !== false || strpos($row[18], '%') !== false || strpos($row[19], '%') !== false) {
@@ -659,9 +656,9 @@ class Reports extends BaseController
             }
         }
         
-        $fileName = $chart->getName();
+        
         $this->db->query("INSERT into log_files(date, file, link, client_id) VALUES(NOW(), " . $this->db->escape($fileName) . "," . $this->db->escape($link) . " , $client) ");
-        // return redirect()->back()->with('success', 'Report Successfully Uploaded!');
+        return redirect()->back()->with('success', 'Report Successfully Uploaded!');
     }
 
     
@@ -1644,8 +1641,8 @@ class Reports extends BaseController
     }
 
     public function refreshDashboard()
-    {   
-        $data = $this->db->query("SELECT SUM(investments.cost) as client_cost, SUM(total_retail) as total_retail, SUM(total_unit) as total_unit, total_fulfilled, SUM(investments.cost - IFNULL(cost_, 0)) as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id")->getRow();
+    {
+         $data = $this->db->query("SELECT SUM(investments.cost) as client_cost, SUM(total_retail) as total_retail, SUM(total_unit) as total_unit, total_fulfilled, SUM(investments.cost - IFNULL(cost_, 0)) as cost_left FROM investments LEFT JOIN (SELECT SUM(reports.qty) as total_unit, SUM(reports.original_value) as total_retail, SUM(reports.cost) as total_fulfilled, SUM(IFNULL(reports.cost, 0)) as cost_, investment_id FROM reports GROUP BY reports.investment_id ) as rep  ON investments.id = rep.investment_id JOIN users ON users.id = investments.client_id JOIN log_files ON log_files.investment_id = investments.id")->getRow();
         // $totalInvest = $this->investmentModel->totalClientInvestment();
         // $totalUnit = $this->reportModel->totalUnit();
         // $unit = ($totalUnit->total_unit > 0) ? $totalUnit->total_unit : "0";
@@ -1658,7 +1655,7 @@ class Reports extends BaseController
             'total_client_cost' => number_format($data->client_cost, 2),
             'total_cost_left' => number_format($data->cost_left, 2),
             'total_unit' => $data->total_unit,
-            'total_original' => number_format($totalRetail->total_retail, 2),
+            'total_original' => number_format($data->total_retail, 2),
             'total_fulfilled' => number_format($data->total_fulfilled, 2),
             'avg_retail' => $avgRetail,
             'avg_client_cost' => $avgClientCost

@@ -30,7 +30,6 @@ class Environment extends \Google\Collection
   public $dataset;
   protected $debugOptionsType = DebugOptions::class;
   protected $debugOptionsDataType = '';
-  public $debugOptions;
   /**
    * @var string[]
    */
@@ -68,6 +67,10 @@ class Environment extends \Google\Collection
    */
   public $tempStoragePrefix;
   /**
+   * @var bool
+   */
+  public $useStreamingEngineResourceBasedBilling;
+  /**
    * @var array[]
    */
   public $userAgent;
@@ -77,7 +80,6 @@ class Environment extends \Google\Collection
   public $version;
   protected $workerPoolsType = WorkerPool::class;
   protected $workerPoolsDataType = 'array';
-  public $workerPools;
   /**
    * @var string
    */
@@ -254,6 +256,20 @@ class Environment extends \Google\Collection
   public function getTempStoragePrefix()
   {
     return $this->tempStoragePrefix;
+  }
+  /**
+   * @param bool
+   */
+  public function setUseStreamingEngineResourceBasedBilling($useStreamingEngineResourceBasedBilling)
+  {
+    $this->useStreamingEngineResourceBasedBilling = $useStreamingEngineResourceBasedBilling;
+  }
+  /**
+   * @return bool
+   */
+  public function getUseStreamingEngineResourceBasedBilling()
+  {
+    return $this->useStreamingEngineResourceBasedBilling;
   }
   /**
    * @param array[]

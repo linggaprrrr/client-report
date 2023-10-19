@@ -1,4 +1,4 @@
-<?= $this->extend('mobile/layout/template') ?>
+<?= $this->extend('mobile_copy/layout/template') ?>
 
 <?= $this->section('content') ?>
 
@@ -38,7 +38,7 @@
                                             $temp = array($row['last_year'], $row['jan'], $row['feb'], $row['mar'], $row['apr'], $row['may'], $row['jun'], $row['jul'], $row['aug'], $row['sep'], $row['oct'], $row['nov'], $row['dec']);
                                             
                                             $total = array_sum($temp) - $row['last_year'];
-                                            // $avg = $total / (count(array_filter($temp)) - 1 );
+                                            $avg = $total / (count(array_filter($temp)) - 1 );
 
                                             $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
                                             $usd = $fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, 'EUR');

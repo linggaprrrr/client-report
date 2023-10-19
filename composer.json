@@ -13,7 +13,7 @@
         "dompdf/dompdf": "^2.0",
         "google/apiclient": "^2.12.1",
         "hybridauth/hybridauth": "3.0",
-        "kint-php/kint": "^3.3",
+        
         "laminas/laminas-escaper": "^2.9",
         "nick322/secure-spreadsheet": "^1.0",
         "phpmailer/phpmailer": "^6.6",
@@ -36,6 +36,7 @@
         "ext-fileinfo": "Improves mime type detection for files"
     },
     "config": {
+        "platform-check": false,
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
@@ -60,9 +61,8 @@
         }
     },
     "scripts": {
-        "post-update-cmd": [
-            "CodeIgniter\\ComposerScripts::postUpdate",
-            "bash -c \"if [ -f admin/setup.sh ]; then bash admin/setup.sh; fi\""
+        "post-update-cmd": [            
+            
         ],
         "analyze": "phpstan analyse",
         "test": "phpunit",
@@ -86,4 +86,6 @@
         "source": "https://github.com/codeigniter4/CodeIgniter4",
         "slack": "https://codeigniterchat.slack.com"
     }
+
+  
 }

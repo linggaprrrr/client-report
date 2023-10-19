@@ -22,14 +22,14 @@ class GoogleChromeManagementV1TelemetryUserDevice extends \Google\Collection
   protected $collection_key = 'peripheralsReport';
   protected $audioStatusReportType = GoogleChromeManagementV1AudioStatusReport::class;
   protected $audioStatusReportDataType = 'array';
-  public $audioStatusReport;
+  protected $deviceActivityReportType = GoogleChromeManagementV1DeviceActivityReport::class;
+  protected $deviceActivityReportDataType = 'array';
   /**
    * @var string
    */
   public $deviceId;
   protected $peripheralsReportType = GoogleChromeManagementV1PeripheralsReport::class;
   protected $peripheralsReportDataType = 'array';
-  public $peripheralsReport;
 
   /**
    * @param GoogleChromeManagementV1AudioStatusReport[]
@@ -44,6 +44,20 @@ class GoogleChromeManagementV1TelemetryUserDevice extends \Google\Collection
   public function getAudioStatusReport()
   {
     return $this->audioStatusReport;
+  }
+  /**
+   * @param GoogleChromeManagementV1DeviceActivityReport[]
+   */
+  public function setDeviceActivityReport($deviceActivityReport)
+  {
+    $this->deviceActivityReport = $deviceActivityReport;
+  }
+  /**
+   * @return GoogleChromeManagementV1DeviceActivityReport[]
+   */
+  public function getDeviceActivityReport()
+  {
+    return $this->deviceActivityReport;
   }
   /**
    * @param string

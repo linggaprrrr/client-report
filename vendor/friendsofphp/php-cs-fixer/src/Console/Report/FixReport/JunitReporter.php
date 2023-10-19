@@ -24,17 +24,11 @@ use Symfony\Component\Console\Formatter\OutputFormatter;
  */
 final class JunitReporter implements ReporterInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getFormat(): string
     {
         return 'junit';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function generate(ReportSummary $reportSummary): string
     {
         if (!\extension_loaded('dom')) {
@@ -43,7 +37,8 @@ final class JunitReporter implements ReporterInterface
 
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $testsuites = $dom->appendChild($dom->createElement('testsuites'));
-        /** @var \DomElement $testsuite */
+
+        /** @var \DOMElement $testsuite */
         $testsuite = $testsuites->appendChild($dom->createElement('testsuite'));
         $testsuite->setAttribute('name', 'PHP CS Fixer');
 
@@ -101,6 +96,9 @@ final class JunitReporter implements ReporterInterface
         $testsuite->setAttribute('errors', '0');
     }
 
+    /**
+     * @param array{appliedFixers: list<string>, diff: string} $fixResult
+     */
     private function createFailedTestCase(\DOMDocument $dom, string $file, array $fixResult, bool $shouldAddAppliedFixers): \DOMElement
     {
         $appliedFixersCount = \count($fixResult['appliedFixers']);
@@ -126,7 +124,7 @@ final class JunitReporter implements ReporterInterface
             $failureContent = "Wrong code style\n";
         }
 
-        if (!empty($fixResult['diff'])) {
+        if ('' !== $fixResult['diff']) {
             $failureContent .= "\nDiff:\n---------------\n\n".$fixResult['diff'];
         }
 

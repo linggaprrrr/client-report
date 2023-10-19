@@ -21,14 +21,12 @@ class PersonalizationMapsAliasIcon extends \Google\Model
 {
   protected $aliasIdType = PersonalizationMapsAliasAliasId::class;
   protected $aliasIdDataType = '';
-  public $aliasId;
   /**
    * @var string
    */
   public $droppedPinS2cellId;
   protected $featureIdType = GeostoreFeatureIdProto::class;
   protected $featureIdDataType = '';
-  public $featureId;
   /**
    * @var string
    */
@@ -47,7 +45,8 @@ class PersonalizationMapsAliasIcon extends \Google\Model
   public $nickname;
   protected $pointType = GeostorePointProto::class;
   protected $pointDataType = '';
-  public $point;
+  protected $ptokenType = PtokenPToken::class;
+  protected $ptokenDataType = '';
   /**
    * @var string
    */
@@ -172,6 +171,20 @@ class PersonalizationMapsAliasIcon extends \Google\Model
   public function getPoint()
   {
     return $this->point;
+  }
+  /**
+   * @param PtokenPToken
+   */
+  public function setPtoken(PtokenPToken $ptoken)
+  {
+    $this->ptoken = $ptoken;
+  }
+  /**
+   * @return PtokenPToken
+   */
+  public function getPtoken()
+  {
+    return $this->ptoken;
   }
   /**
    * @param string

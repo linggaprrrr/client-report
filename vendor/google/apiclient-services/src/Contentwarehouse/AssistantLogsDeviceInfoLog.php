@@ -34,7 +34,6 @@ class AssistantLogsDeviceInfoLog extends \Google\Collection
   public $deviceId;
   protected $deviceIdLogType = AssistantLogsSettingsDeviceIdLog::class;
   protected $deviceIdLogDataType = '';
-  public $deviceIdLog;
   /**
    * @var int
    */
@@ -52,6 +51,10 @@ class AssistantLogsDeviceInfoLog extends \Google\Collection
    */
   public $eliminatingLumosProcessor;
   /**
+   * @var string
+   */
+  public $homeStructureId;
+  /**
    * @var bool
    */
   public $isRemote;
@@ -61,7 +64,6 @@ class AssistantLogsDeviceInfoLog extends \Google\Collection
   public $isTethered;
   protected $mediaCapabilitiesType = AssistantLogsMediaCapabilities::class;
   protected $mediaCapabilitiesDataType = '';
-  public $mediaCapabilities;
   /**
    * @var string
    */
@@ -72,7 +74,6 @@ class AssistantLogsDeviceInfoLog extends \Google\Collection
   public $name;
   protected $sessionsType = AssistantLogsDeviceMediaSessionLog::class;
   protected $sessionsDataType = 'array';
-  public $sessions;
   /**
    * @var string
    */
@@ -189,6 +190,20 @@ class AssistantLogsDeviceInfoLog extends \Google\Collection
   public function getEliminatingLumosProcessor()
   {
     return $this->eliminatingLumosProcessor;
+  }
+  /**
+   * @param string
+   */
+  public function setHomeStructureId($homeStructureId)
+  {
+    $this->homeStructureId = $homeStructureId;
+  }
+  /**
+   * @return string
+   */
+  public function getHomeStructureId()
+  {
+    return $this->homeStructureId;
   }
   /**
    * @param bool

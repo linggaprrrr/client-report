@@ -22,7 +22,6 @@ class TableFieldSchema extends \Google\Collection
   protected $collection_key = 'fields';
   protected $categoriesType = TableFieldSchemaCategories::class;
   protected $categoriesDataType = '';
-  public $categories;
   /**
    * @var string
    */
@@ -37,7 +36,6 @@ class TableFieldSchema extends \Google\Collection
   public $description;
   protected $fieldsType = TableFieldSchema::class;
   protected $fieldsDataType = 'array';
-  public $fields;
   /**
    * @var string
    */
@@ -52,11 +50,16 @@ class TableFieldSchema extends \Google\Collection
   public $name;
   protected $policyTagsType = TableFieldSchemaPolicyTags::class;
   protected $policyTagsDataType = '';
-  public $policyTags;
   /**
    * @var string
    */
   public $precision;
+  protected $rangeElementTypeType = TableFieldSchemaRangeElementType::class;
+  protected $rangeElementTypeDataType = '';
+  /**
+   * @var string
+   */
+  public $roundingMode;
   /**
    * @var string
    */
@@ -205,6 +208,34 @@ class TableFieldSchema extends \Google\Collection
   public function getPrecision()
   {
     return $this->precision;
+  }
+  /**
+   * @param TableFieldSchemaRangeElementType
+   */
+  public function setRangeElementType(TableFieldSchemaRangeElementType $rangeElementType)
+  {
+    $this->rangeElementType = $rangeElementType;
+  }
+  /**
+   * @return TableFieldSchemaRangeElementType
+   */
+  public function getRangeElementType()
+  {
+    return $this->rangeElementType;
+  }
+  /**
+   * @param string
+   */
+  public function setRoundingMode($roundingMode)
+  {
+    $this->roundingMode = $roundingMode;
+  }
+  /**
+   * @return string
+   */
+  public function getRoundingMode()
+  {
+    return $this->roundingMode;
   }
   /**
    * @param string

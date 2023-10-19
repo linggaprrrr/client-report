@@ -17,11 +17,15 @@
 
 namespace Google\Service\ChromeManagement\Resource;
 
+use Google\Service\ChromeManagement\GoogleChromeManagementV1CountChromeBrowsersNeedingAttentionResponse;
 use Google\Service\ChromeManagement\GoogleChromeManagementV1CountChromeDevicesReachingAutoExpirationDateResponse;
 use Google\Service\ChromeManagement\GoogleChromeManagementV1CountChromeDevicesThatNeedAttentionResponse;
 use Google\Service\ChromeManagement\GoogleChromeManagementV1CountChromeHardwareFleetDevicesResponse;
 use Google\Service\ChromeManagement\GoogleChromeManagementV1CountChromeVersionsResponse;
 use Google\Service\ChromeManagement\GoogleChromeManagementV1CountInstalledAppsResponse;
+use Google\Service\ChromeManagement\GoogleChromeManagementV1CountPrintJobsByPrinterResponse;
+use Google\Service\ChromeManagement\GoogleChromeManagementV1CountPrintJobsByUserResponse;
+use Google\Service\ChromeManagement\GoogleChromeManagementV1EnumeratePrintJobsResponse;
 use Google\Service\ChromeManagement\GoogleChromeManagementV1FindInstalledAppDevicesResponse;
 
 /**
@@ -34,6 +38,25 @@ use Google\Service\ChromeManagement\GoogleChromeManagementV1FindInstalledAppDevi
  */
 class CustomersReports extends \Google\Service\Resource
 {
+  /**
+   * Count of Chrome Browsers that have been recently enrolled, have new policy to
+   * be synced, or have no recent activity.
+   * (reports.countChromeBrowsersNeedingAttention)
+   *
+   * @param string $customer Required. The customer ID or "my_customer" prefixed
+   * with "customers/".
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string orgUnitId Optional. The ID of the organizational unit. If
+   * omitted, all data will be returned.
+   * @return GoogleChromeManagementV1CountChromeBrowsersNeedingAttentionResponse
+   */
+  public function countChromeBrowsersNeedingAttention($customer, $optParams = [])
+  {
+    $params = ['customer' => $customer];
+    $params = array_merge($params, $optParams);
+    return $this->call('countChromeBrowsersNeedingAttention', [$params], GoogleChromeManagementV1CountChromeBrowsersNeedingAttentionResponse::class);
+  }
   /**
    * Generate report of the number of devices expiring in each month of the
    * selected time frame. Devices are grouped by auto update expiration date and
@@ -141,10 +164,10 @@ class CustomersReports extends \Google\Service\Resource
    * in EBNF syntax. Note: OR operations are not supported in this filter.
    * Supported filter fields: * app_name * app_type * install_type *
    * number_of_permissions * total_install_count * latest_profile_active_date *
-   * permission_name
+   * permission_name * app_id
    * @opt_param string orderBy Field used to order results. Supported order by
    * fields: * app_name * app_type * install_type * number_of_permissions *
-   * total_install_count
+   * total_install_count * app_id
    * @opt_param string orgUnitId The ID of the organizational unit.
    * @opt_param int pageSize Maximum number of results to return. Maximum and
    * default are 100.
@@ -159,8 +182,106 @@ class CustomersReports extends \Google\Service\Resource
     return $this->call('countInstalledApps', [$params], GoogleChromeManagementV1CountInstalledAppsResponse::class);
   }
   /**
-   * Generate report of devices that have a specified app installed.
-   * (reports.findInstalledAppDevices)
+   * Get a summary of printing done by each printer.
+   * (reports.countPrintJobsByPrinter)
+   *
+   * @param string $customer Required. Customer ID prefixed with "customers/" or
+   * "customers/my_customer" to use the customer associated to the account making
+   * the request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter Query string to filter results, AND-separated fields
+   * in EBNF syntax. Note: OR operations are not supported in this filter. Note:
+   * Only >= and <= comparators are supported in this filter. Supported filter
+   * fields: * complete_time
+   * @opt_param string orderBy Field used to order results. If omitted, results
+   * will be ordered in ascending order of the 'printer' field. Supported order_by
+   * fields: * printer * job_count * device_count * user_count
+   * @opt_param int pageSize Maximum number of results to return. Maximum and
+   * default are 100.
+   * @opt_param string pageToken Token to specify the page of the response to be
+   * returned.
+   * @opt_param string printerOrgUnitId The ID of the organizational unit for
+   * printers. If specified, only data for printers from the specified
+   * organizational unit will be returned. If omitted, data for printers from all
+   * organizational units will be returned.
+   * @return GoogleChromeManagementV1CountPrintJobsByPrinterResponse
+   */
+  public function countPrintJobsByPrinter($customer, $optParams = [])
+  {
+    $params = ['customer' => $customer];
+    $params = array_merge($params, $optParams);
+    return $this->call('countPrintJobsByPrinter', [$params], GoogleChromeManagementV1CountPrintJobsByPrinterResponse::class);
+  }
+  /**
+   * Get a summary of printing done by each user. (reports.countPrintJobsByUser)
+   *
+   * @param string $customer Required. Customer ID prefixed with "customers/" or
+   * "customers/my_customer" to use the customer associated to the account making
+   * the request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter Query string to filter results, AND-separated fields
+   * in EBNF syntax. Note: OR operations are not supported in this filter. Note:
+   * Only >= and <= comparators are supported in this filter. Supported filter
+   * fields: * complete_time
+   * @opt_param string orderBy Field used to order results. If omitted, results
+   * will be ordered in ascending order of the 'user_email' field. Supported
+   * order_by fields: * user_email * job_count * printer_count * device_count
+   * @opt_param int pageSize Maximum number of results to return. Maximum and
+   * default are 100.
+   * @opt_param string pageToken Token to specify the page of the response to be
+   * returned.
+   * @opt_param string printerOrgUnitId The ID of the organizational unit for
+   * printers. If specified, only print jobs initiated with printers from the
+   * specified organizational unit will be counted. If omitted, all print jobs
+   * will be counted.
+   * @return GoogleChromeManagementV1CountPrintJobsByUserResponse
+   */
+  public function countPrintJobsByUser($customer, $optParams = [])
+  {
+    $params = ['customer' => $customer];
+    $params = array_merge($params, $optParams);
+    return $this->call('countPrintJobsByUser', [$params], GoogleChromeManagementV1CountPrintJobsByUserResponse::class);
+  }
+  /**
+   * Get a list of print jobs. (reports.enumeratePrintJobs)
+   *
+   * @param string $customer Required. Customer ID prefixed with "customers/" or
+   * "customers/my_customer" to use the customer associated to the account making
+   * the request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter Query string to filter results, AND-separated fields
+   * in EBNF syntax. Note: OR operations are not supported in this filter. Note:
+   * Only >= and <= comparators are supported for `complete_time`. Note: Only =
+   * comparator supported for `user_id` and `printer_id`. Supported filter fields:
+   * * complete_time * printer_id * user_id
+   * @opt_param string orderBy Field used to order results. If not specified,
+   * results will be ordered in descending order of the `complete_time` field.
+   * Supported order by fields: * title * state * create_time * complete_time *
+   * document_page_count * color_mode * duplex_mode * printer * user_email
+   * @opt_param int pageSize The number of print jobs in the page from 0 to 100
+   * inclusive, if page_size is not specified or zero, the size will be 50.
+   * @opt_param string pageToken A page token received from a previous
+   * `EnumeratePrintJobs` call. Provide this to retrieve the subsequent page. If
+   * omitted, the first page of results will be returned. When paginating, all
+   * other parameters provided to `EnumeratePrintJobs` must match the call that
+   * provided the page token.
+   * @opt_param string printerOrgUnitId The ID of the organizational unit for
+   * printers. If specified, only print jobs submitted to printers from the
+   * specified organizational unit will be returned.
+   * @return GoogleChromeManagementV1EnumeratePrintJobsResponse
+   */
+  public function enumeratePrintJobs($customer, $optParams = [])
+  {
+    $params = ['customer' => $customer];
+    $params = array_merge($params, $optParams);
+    return $this->call('enumeratePrintJobs', [$params], GoogleChromeManagementV1EnumeratePrintJobsResponse::class);
+  }
+  /**
+   * Generate report of managed Chrome browser devices that have a specified app
+   * installed. (reports.findInstalledAppDevices)
    *
    * @param string $customer Required. Customer id or "my_customer" to use the
    * customer associated to the account making the request.

@@ -22,10 +22,8 @@ class EnterpriseCrmFrontendsEventbusProtoTriggerConfig extends \Google\Collectio
   protected $collection_key = 'startTasks';
   protected $alertConfigType = EnterpriseCrmEventbusProtoWorkflowAlertConfig::class;
   protected $alertConfigDataType = 'array';
-  public $alertConfig;
   protected $cloudSchedulerConfigType = EnterpriseCrmEventbusProtoCloudSchedulerConfig::class;
   protected $cloudSchedulerConfigDataType = '';
-  public $cloudSchedulerConfig;
   /**
    * @var string
    */
@@ -34,6 +32,10 @@ class EnterpriseCrmFrontendsEventbusProtoTriggerConfig extends \Google\Collectio
    * @var string[]
    */
   public $enabledClients;
+  /**
+   * @var string
+   */
+  public $errorCatcherId;
   /**
    * @var string
    */
@@ -48,21 +50,22 @@ class EnterpriseCrmFrontendsEventbusProtoTriggerConfig extends \Google\Collectio
   public $pauseWorkflowExecutions;
   protected $positionType = EnterpriseCrmEventbusProtoCoordinate::class;
   protected $positionDataType = '';
-  public $position;
   /**
    * @var string[]
    */
   public $properties;
   protected $startTasksType = EnterpriseCrmEventbusProtoNextTask::class;
   protected $startTasksDataType = 'array';
-  public $startTasks;
   protected $triggerCriteriaType = EnterpriseCrmEventbusProtoTriggerCriteria::class;
   protected $triggerCriteriaDataType = '';
-  public $triggerCriteria;
   /**
    * @var string
    */
   public $triggerId;
+  /**
+   * @var string
+   */
+  public $triggerName;
   /**
    * @var string
    */
@@ -127,6 +130,20 @@ class EnterpriseCrmFrontendsEventbusProtoTriggerConfig extends \Google\Collectio
   public function getEnabledClients()
   {
     return $this->enabledClients;
+  }
+  /**
+   * @param string
+   */
+  public function setErrorCatcherId($errorCatcherId)
+  {
+    $this->errorCatcherId = $errorCatcherId;
+  }
+  /**
+   * @return string
+   */
+  public function getErrorCatcherId()
+  {
+    return $this->errorCatcherId;
   }
   /**
    * @param string
@@ -239,6 +256,20 @@ class EnterpriseCrmFrontendsEventbusProtoTriggerConfig extends \Google\Collectio
   public function getTriggerId()
   {
     return $this->triggerId;
+  }
+  /**
+   * @param string
+   */
+  public function setTriggerName($triggerName)
+  {
+    $this->triggerName = $triggerName;
+  }
+  /**
+   * @return string
+   */
+  public function getTriggerName()
+  {
+    return $this->triggerName;
   }
   /**
    * @param string

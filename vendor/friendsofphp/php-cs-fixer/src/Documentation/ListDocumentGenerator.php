@@ -30,10 +30,7 @@ use PhpCsFixer\Utils;
  */
 final class ListDocumentGenerator
 {
-    /**
-     * @var DocumentationLocator
-     */
-    private $locator;
+    private DocumentationLocator $locator;
 
     public function __construct(DocumentationLocator $locator)
     {
@@ -47,17 +44,15 @@ final class ListDocumentGenerator
     {
         usort(
             $fixers,
-            static function (FixerInterface $fixer1, FixerInterface $fixer2): int {
-                return strnatcasecmp($fixer1->getName(), $fixer2->getName());
-            }
+            static fn (FixerInterface $fixer1, FixerInterface $fixer2): int => strnatcasecmp($fixer1->getName(), $fixer2->getName())
         );
 
         $documentation = <<<'RST'
-=======================
-List of Available Rules
-=======================
+            =======================
+            List of Available Rules
+            =======================
 
-RST;
+            RST;
         foreach ($fixers as $fixer) {
             $name = $fixer->getName();
             $definition = $fixer->getDefinition();
@@ -96,41 +91,37 @@ RST;
 
                 foreach ($configurationDefinition->getOptions() as $option) {
                     $documentation .= "\n   - | ``{$option->getName()}``";
-                    $documentation .= "\n     | {$option->getDescription()}";
+                    $documentation .= "\n     | ".RstUtils::ensureProperInlineCode($option->getDescription());
 
                     if ($option instanceof DeprecatedFixerOptionInterface) {
                         $deprecationMessage = RstUtils::toRst($option->getDeprecationMessage(), 3);
-                        $documentation .= "\n     | warning:: This option is deprecated and will be removed on next major version. {$deprecationMessage}";
+                        $documentation .= "\n     | warning:: This option is deprecated and will be removed in the next major version. {$deprecationMessage}";
                     }
 
                     if ($option instanceof AliasedFixerOption) {
-                        $documentation .= "\n     | note:: The previous name of this option was ``{$option->getAlias()}`` but it is now deprecated and will be removed on next major version.";
+                        $documentation .= "\n     | note:: The previous name of this option was ``{$option->getAlias()}`` but it is now deprecated and will be removed in the next major version.";
                     }
 
                     $allowed = HelpCommand::getDisplayableAllowedValues($option);
 
                     if (null === $allowed) {
                         $allowedKind = 'Allowed types';
-                        $allowed = array_map(static function ($value): string {
-                            return '``'.$value.'``';
-                        }, $option->getAllowedTypes());
+                        $allowed = array_map(
+                            static fn ($value): string => '``'.$value.'``',
+                            $option->getAllowedTypes(),
+                        );
                     } else {
                         $allowedKind = 'Allowed values';
-
-                        foreach ($allowed as &$value) {
-                            if ($value instanceof AllowedValueSubset) {
-                                $value = 'a subset of ``'.HelpCommand::toString($value->getAllowedValues()).'``';
-                            } else {
-                                $value = '``'.HelpCommand::toString($value).'``';
-                            }
-                        }
+                        $allowed = array_map(static fn ($value): string => $value instanceof AllowedValueSubset
+                            ? 'a subset of ``'.Utils::toString($value->getAllowedValues()).'``'
+                            : '``'.Utils::toString($value).'``', $allowed);
                     }
 
-                    $allowed = implode(', ', $allowed);
+                    $allowed = Utils::naturalLanguageJoin($allowed, '');
                     $documentation .= "\n     | {$allowedKind}: {$allowed}";
 
                     if ($option->hasDefault()) {
-                        $default = HelpCommand::toString($option->getDefault());
+                        $default = Utils::toString($option->getDefault());
                         $documentation .= "\n     | Default value: ``{$default}``";
                     } else {
                         $documentation .= "\n     | This option is required.";

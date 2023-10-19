@@ -38,6 +38,8 @@ $routes->get('/logout', 'Auth::logout');
 $routes->post('/find-username', 'Auth::findUsername');
 $routes->get('/forgot-password', 'Auth::forgotPassword');
 $routes->post('/forgot-password', 'Auth::forgotPasswordProcess');
+$routes->get('/register', 'Auth::register');
+$routes->post('/post-register', 'Auth::addRegisteredUser');
 
 // Admin Side
 $routes->get('/admin/dashboard', 'Admin\Reports::index');
@@ -232,6 +234,7 @@ $routes->get('/find-drive', 'API::findDrive');
 $routes->get('/sync-profits-and-loses', 'API::syncPandL');
 $routes->get('/test-api', 'API::test');
 $routes->get('/check-cost-left-client', 'API::costLeftClient');
+$routes->get('/get-sw-users', 'API::getUser');
 
 
 
@@ -284,6 +287,7 @@ $routes->post('/export-amazon-upc', 'UPC::amazonUPCExport');
 // scanner
 
 $routes->get('/scanner/upc', 'Warehouse\Scanner::UPCScanner');
+
 
 
 

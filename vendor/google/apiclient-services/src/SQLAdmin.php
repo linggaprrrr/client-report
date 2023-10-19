@@ -541,6 +541,25 @@ class SQLAdmin extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'failover' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
+              ],
+            ],'reencrypt' => [
+              'path' => 'v1/projects/{project}/instances/{instance}/reencrypt',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'instance' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
               ],
             ],'resetSslConfig' => [
               'path' => 'v1/projects/{project}/instances/{instance}/resetSslConfig',
@@ -632,6 +651,25 @@ class SQLAdmin extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'switchover' => [
+              'path' => 'v1/projects/{project}/instances/{instance}/switchover',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'instance' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'dbTimeout' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
             ],'truncateLog' => [
               'path' => 'v1/projects/{project}/instances/{instance}/truncateLog',
               'httpMethod' => 'POST',
@@ -672,7 +710,22 @@ class SQLAdmin extends \Google\Service
         'operations',
         [
           'methods' => [
-            'get' => [
+            'cancel' => [
+              'path' => 'v1/projects/{project}/operations/{operation}/cancel',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'operation' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
               'path' => 'v1/projects/{project}/operations/{operation}',
               'httpMethod' => 'GET',
               'parameters' => [
@@ -719,8 +772,68 @@ class SQLAdmin extends \Google\Service
         'instances',
         [
           'methods' => [
-            'rescheduleMaintenance' => [
+            'getDiskShrinkConfig' => [
+              'path' => 'v1/projects/{project}/instances/{instance}/getDiskShrinkConfig',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'instance' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'getLatestRecoveryTime' => [
+              'path' => 'v1/projects/{project}/instances/{instance}/getLatestRecoveryTime',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'instance' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'performDiskShrink' => [
+              'path' => 'v1/projects/{project}/instances/{instance}/performDiskShrink',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'instance' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'rescheduleMaintenance' => [
               'path' => 'v1/projects/{project}/instances/{instance}/rescheduleMaintenance',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'instance' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'resetReplicaSize' => [
+              'path' => 'v1/projects/{project}/instances/{instance}/resetReplicaSize',
               'httpMethod' => 'POST',
               'parameters' => [
                 'project' => [

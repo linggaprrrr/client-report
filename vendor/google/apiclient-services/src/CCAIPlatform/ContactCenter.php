@@ -19,6 +19,8 @@ namespace Google\Service\CCAIPlatform;
 
 class ContactCenter extends \Google\Model
 {
+  protected $adminUserType = AdminUser::class;
+  protected $adminUserDataType = '';
   /**
    * @var bool
    */
@@ -37,7 +39,10 @@ class ContactCenter extends \Google\Model
   public $displayName;
   protected $instanceConfigType = InstanceConfig::class;
   protected $instanceConfigDataType = '';
-  public $instanceConfig;
+  /**
+   * @var string
+   */
+  public $kmsKey;
   /**
    * @var string[]
    */
@@ -48,7 +53,6 @@ class ContactCenter extends \Google\Model
   public $name;
   protected $samlParamsType = SAMLParams::class;
   protected $samlParamsDataType = '';
-  public $samlParams;
   /**
    * @var string
    */
@@ -59,12 +63,25 @@ class ContactCenter extends \Google\Model
   public $updateTime;
   protected $urisType = URIs::class;
   protected $urisDataType = '';
-  public $uris;
   /**
    * @var string
    */
   public $userEmail;
 
+  /**
+   * @param AdminUser
+   */
+  public function setAdminUser(AdminUser $adminUser)
+  {
+    $this->adminUser = $adminUser;
+  }
+  /**
+   * @return AdminUser
+   */
+  public function getAdminUser()
+  {
+    return $this->adminUser;
+  }
   /**
    * @param bool
    */
@@ -134,6 +151,20 @@ class ContactCenter extends \Google\Model
   public function getInstanceConfig()
   {
     return $this->instanceConfig;
+  }
+  /**
+   * @param string
+   */
+  public function setKmsKey($kmsKey)
+  {
+    $this->kmsKey = $kmsKey;
+  }
+  /**
+   * @return string
+   */
+  public function getKmsKey()
+  {
+    return $this->kmsKey;
   }
   /**
    * @param string[]

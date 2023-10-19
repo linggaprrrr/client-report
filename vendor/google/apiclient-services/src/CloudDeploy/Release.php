@@ -30,14 +30,18 @@ class Release extends \Google\Collection
   public $annotations;
   protected $buildArtifactsType = BuildArtifact::class;
   protected $buildArtifactsDataType = 'array';
-  public $buildArtifacts;
+  protected $conditionType = ReleaseCondition::class;
+  protected $conditionDataType = '';
   /**
    * @var string
    */
   public $createTime;
   protected $deliveryPipelineSnapshotType = DeliveryPipeline::class;
   protected $deliveryPipelineSnapshotDataType = '';
-  public $deliveryPipelineSnapshot;
+  /**
+   * @var string[]
+   */
+  public $deployParameters;
   /**
    * @var string
    */
@@ -80,13 +84,10 @@ class Release extends \Google\Collection
   public $skaffoldVersion;
   protected $targetArtifactsType = TargetArtifact::class;
   protected $targetArtifactsDataType = 'map';
-  public $targetArtifacts;
   protected $targetRendersType = TargetRender::class;
   protected $targetRendersDataType = 'map';
-  public $targetRenders;
   protected $targetSnapshotsType = Target::class;
   protected $targetSnapshotsDataType = 'array';
-  public $targetSnapshots;
   /**
    * @var string
    */
@@ -135,6 +136,20 @@ class Release extends \Google\Collection
     return $this->buildArtifacts;
   }
   /**
+   * @param ReleaseCondition
+   */
+  public function setCondition(ReleaseCondition $condition)
+  {
+    $this->condition = $condition;
+  }
+  /**
+   * @return ReleaseCondition
+   */
+  public function getCondition()
+  {
+    return $this->condition;
+  }
+  /**
    * @param string
    */
   public function setCreateTime($createTime)
@@ -161,6 +176,20 @@ class Release extends \Google\Collection
   public function getDeliveryPipelineSnapshot()
   {
     return $this->deliveryPipelineSnapshot;
+  }
+  /**
+   * @param string[]
+   */
+  public function setDeployParameters($deployParameters)
+  {
+    $this->deployParameters = $deployParameters;
+  }
+  /**
+   * @return string[]
+   */
+  public function getDeployParameters()
+  {
+    return $this->deployParameters;
   }
   /**
    * @param string

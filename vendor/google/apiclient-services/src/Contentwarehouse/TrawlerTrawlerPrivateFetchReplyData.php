@@ -131,6 +131,10 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
    */
   public $authenticationInfo;
   /**
+   * @var bool
+   */
+  public $bypassedHostOverfull;
+  /**
    * @var int
    */
   public $cacheAcceptableAfterDate;
@@ -153,6 +157,10 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
   /**
    * @var string
    */
+  public $credentialId;
+  /**
+   * @var string
+   */
   public $dependentFetchType;
   /**
    * @var string
@@ -166,6 +174,10 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
    * @var bool
    */
   public $isBidiStreamingFetch;
+  /**
+   * @var bool
+   */
+  public $isDedicatedHostload;
   /**
    * @var bool
    */
@@ -184,14 +196,16 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
   public $largeStoreHitLocation;
   protected $multiverseClientIdentifierType = TrawlerMultiverseClientIdentifier::class;
   protected $multiverseClientIdentifierDataType = '';
-  public $multiverseClientIdentifier;
   /**
    * @var string
    */
   public $numDroppedReplies;
   protected $originalClientParamsType = TrawlerOriginalClientParams::class;
   protected $originalClientParamsDataType = '';
-  public $originalClientParams;
+  /**
+   * @var string
+   */
+  public $prodRegion;
   /**
    * @var string
    */
@@ -206,7 +220,6 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
   public $tier;
   protected $vpcDestinationType = TrawlerLoggedVPCDestination::class;
   protected $vpcDestinationDataType = '';
-  public $vpcDestination;
 
   /**
    * @param string
@@ -517,6 +530,20 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
     return $this->authenticationInfo;
   }
   /**
+   * @param bool
+   */
+  public function setBypassedHostOverfull($bypassedHostOverfull)
+  {
+    $this->bypassedHostOverfull = $bypassedHostOverfull;
+  }
+  /**
+   * @return bool
+   */
+  public function getBypassedHostOverfull()
+  {
+    return $this->bypassedHostOverfull;
+  }
+  /**
    * @param int
    */
   public function setCacheAcceptableAfterDate($cacheAcceptableAfterDate)
@@ -589,6 +616,20 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
   /**
    * @param string
    */
+  public function setCredentialId($credentialId)
+  {
+    $this->credentialId = $credentialId;
+  }
+  /**
+   * @return string
+   */
+  public function getCredentialId()
+  {
+    return $this->credentialId;
+  }
+  /**
+   * @param string
+   */
   public function setDependentFetchType($dependentFetchType)
   {
     $this->dependentFetchType = $dependentFetchType;
@@ -641,6 +682,20 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
   public function getIsBidiStreamingFetch()
   {
     return $this->isBidiStreamingFetch;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsDedicatedHostload($isDedicatedHostload)
+  {
+    $this->isDedicatedHostload = $isDedicatedHostload;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsDedicatedHostload()
+  {
+    return $this->isDedicatedHostload;
   }
   /**
    * @param bool
@@ -739,6 +794,20 @@ class TrawlerTrawlerPrivateFetchReplyData extends \Google\Model
   public function getOriginalClientParams()
   {
     return $this->originalClientParams;
+  }
+  /**
+   * @param string
+   */
+  public function setProdRegion($prodRegion)
+  {
+    $this->prodRegion = $prodRegion;
+  }
+  /**
+   * @return string
+   */
+  public function getProdRegion()
+  {
+    return $this->prodRegion;
   }
   /**
    * @param string

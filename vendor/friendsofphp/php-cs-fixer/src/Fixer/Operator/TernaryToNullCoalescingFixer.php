@@ -26,9 +26,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class TernaryToNullCoalescingFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -51,22 +48,16 @@ final class TernaryToNullCoalescingFixer extends AbstractFixer
         return 0;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_ISSET);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
-        $issetIndexes = array_keys($tokens->findGivenKind(T_ISSET));
+        $issetIndices = array_keys($tokens->findGivenKind(T_ISSET));
 
-        while ($issetIndex = array_pop($issetIndexes)) {
+        while ($issetIndex = array_pop($issetIndices)) {
             $this->fixIsset($tokens, $issetIndex);
         }
     }
@@ -98,11 +89,17 @@ final class TernaryToNullCoalescingFixer extends AbstractFixer
             return; // some weird stuff inside the isset
         }
 
+        $issetCode = $issetTokens->generateCode();
+
+        if ('$this' === $issetCode) {
+            return; // null coalescing operator does not with $this
+        }
+
         // search what is inside the middle argument of ternary operator
         $ternaryColonIndex = $tokens->getNextTokenOfKind($ternaryQuestionMarkIndex, [':']);
         $ternaryFirstOperandTokens = $this->getMeaningfulSequence($tokens, $ternaryQuestionMarkIndex, $ternaryColonIndex);
 
-        if ($issetTokens->generateCode() !== $ternaryFirstOperandTokens->generateCode()) {
+        if ($issetCode !== $ternaryFirstOperandTokens->generateCode()) {
             return; // regardless of non-meaningful tokens, the operands are different
         }
 

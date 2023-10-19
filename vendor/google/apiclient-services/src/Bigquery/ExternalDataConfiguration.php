@@ -26,10 +26,8 @@ class ExternalDataConfiguration extends \Google\Collection
   public $autodetect;
   protected $avroOptionsType = AvroOptions::class;
   protected $avroOptionsDataType = '';
-  public $avroOptions;
   protected $bigtableOptionsType = BigtableOptions::class;
   protected $bigtableOptionsDataType = '';
-  public $bigtableOptions;
   /**
    * @var string
    */
@@ -40,21 +38,24 @@ class ExternalDataConfiguration extends \Google\Collection
   public $connectionId;
   protected $csvOptionsType = CsvOptions::class;
   protected $csvOptionsDataType = '';
-  public $csvOptions;
   /**
    * @var string[]
    */
   public $decimalTargetTypes;
+  /**
+   * @var string
+   */
+  public $fileSetSpecType;
   protected $googleSheetsOptionsType = GoogleSheetsOptions::class;
   protected $googleSheetsOptionsDataType = '';
-  public $googleSheetsOptions;
   protected $hivePartitioningOptionsType = HivePartitioningOptions::class;
   protected $hivePartitioningOptionsDataType = '';
-  public $hivePartitioningOptions;
   /**
    * @var bool
    */
   public $ignoreUnknownValues;
+  protected $jsonOptionsType = JsonOptions::class;
+  protected $jsonOptionsDataType = '';
   /**
    * @var int
    */
@@ -69,14 +70,12 @@ class ExternalDataConfiguration extends \Google\Collection
   public $objectMetadata;
   protected $parquetOptionsType = ParquetOptions::class;
   protected $parquetOptionsDataType = '';
-  public $parquetOptions;
   /**
    * @var string
    */
   public $referenceFileSchemaUri;
   protected $schemaType = TableSchema::class;
   protected $schemaDataType = '';
-  public $schema;
   /**
    * @var string
    */
@@ -185,6 +184,20 @@ class ExternalDataConfiguration extends \Google\Collection
     return $this->decimalTargetTypes;
   }
   /**
+   * @param string
+   */
+  public function setFileSetSpecType($fileSetSpecType)
+  {
+    $this->fileSetSpecType = $fileSetSpecType;
+  }
+  /**
+   * @return string
+   */
+  public function getFileSetSpecType()
+  {
+    return $this->fileSetSpecType;
+  }
+  /**
    * @param GoogleSheetsOptions
    */
   public function setGoogleSheetsOptions(GoogleSheetsOptions $googleSheetsOptions)
@@ -225,6 +238,20 @@ class ExternalDataConfiguration extends \Google\Collection
   public function getIgnoreUnknownValues()
   {
     return $this->ignoreUnknownValues;
+  }
+  /**
+   * @param JsonOptions
+   */
+  public function setJsonOptions(JsonOptions $jsonOptions)
+  {
+    $this->jsonOptions = $jsonOptions;
+  }
+  /**
+   * @return JsonOptions
+   */
+  public function getJsonOptions()
+  {
+    return $this->jsonOptions;
   }
   /**
    * @param int

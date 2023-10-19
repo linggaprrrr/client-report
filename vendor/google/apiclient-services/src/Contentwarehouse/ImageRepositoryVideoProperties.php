@@ -17,18 +17,17 @@
 
 namespace Google\Service\Contentwarehouse;
 
-class ImageRepositoryVideoProperties extends \Google\Model
+class ImageRepositoryVideoProperties extends \Google\Collection
 {
+  protected $collection_key = 'indexedVerticals';
   /**
    * @var bool
    */
   public $audioOnly;
   protected $contentBasedMetadataType = ImageRepositoryContentBasedVideoMetadata::class;
   protected $contentBasedMetadataDataType = '';
-  public $contentBasedMetadata;
   protected $crawlStateType = ImageMoosedogCrawlState::class;
   protected $crawlStateDataType = '';
-  public $crawlState;
   /**
    * @var string
    */
@@ -37,9 +36,10 @@ class ImageRepositoryVideoProperties extends \Google\Model
    * @var string
    */
   public $firstProcessingTimestampSec;
+  protected $indexedVerticalsType = ImageRepositoryVideoPropertiesVerticalIndexingInfoVideo::class;
+  protected $indexedVerticalsDataType = 'array';
   protected $inlinePlaybackType = VideoCrawlVideoInlinePlaybackMetadata::class;
   protected $inlinePlaybackDataType = '';
-  public $inlinePlayback;
   /**
    * @var string
    */
@@ -122,6 +122,20 @@ class ImageRepositoryVideoProperties extends \Google\Model
   public function getFirstProcessingTimestampSec()
   {
     return $this->firstProcessingTimestampSec;
+  }
+  /**
+   * @param ImageRepositoryVideoPropertiesVerticalIndexingInfoVideo[]
+   */
+  public function setIndexedVerticals($indexedVerticals)
+  {
+    $this->indexedVerticals = $indexedVerticals;
+  }
+  /**
+   * @return ImageRepositoryVideoPropertiesVerticalIndexingInfoVideo[]
+   */
+  public function getIndexedVerticals()
+  {
+    return $this->indexedVerticals;
   }
   /**
    * @param VideoCrawlVideoInlinePlaybackMetadata

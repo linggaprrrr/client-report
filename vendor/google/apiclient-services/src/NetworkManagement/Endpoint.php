@@ -21,17 +21,22 @@ class Endpoint extends \Google\Model
 {
   protected $appEngineVersionType = AppEngineVersionEndpoint::class;
   protected $appEngineVersionDataType = '';
-  public $appEngineVersion;
   protected $cloudFunctionType = CloudFunctionEndpoint::class;
   protected $cloudFunctionDataType = '';
-  public $cloudFunction;
   protected $cloudRunRevisionType = CloudRunRevisionEndpoint::class;
   protected $cloudRunRevisionDataType = '';
-  public $cloudRunRevision;
   /**
    * @var string
    */
   public $cloudSqlInstance;
+  /**
+   * @var string
+   */
+  public $forwardingRule;
+  /**
+   * @var string
+   */
+  public $forwardingRuleTarget;
   /**
    * @var string
    */
@@ -44,6 +49,14 @@ class Endpoint extends \Google\Model
    * @var string
    */
   public $ipAddress;
+  /**
+   * @var string
+   */
+  public $loadBalancerId;
+  /**
+   * @var string
+   */
+  public $loadBalancerType;
   /**
    * @var string
    */
@@ -120,6 +133,34 @@ class Endpoint extends \Google\Model
   /**
    * @param string
    */
+  public function setForwardingRule($forwardingRule)
+  {
+    $this->forwardingRule = $forwardingRule;
+  }
+  /**
+   * @return string
+   */
+  public function getForwardingRule()
+  {
+    return $this->forwardingRule;
+  }
+  /**
+   * @param string
+   */
+  public function setForwardingRuleTarget($forwardingRuleTarget)
+  {
+    $this->forwardingRuleTarget = $forwardingRuleTarget;
+  }
+  /**
+   * @return string
+   */
+  public function getForwardingRuleTarget()
+  {
+    return $this->forwardingRuleTarget;
+  }
+  /**
+   * @param string
+   */
   public function setGkeMasterCluster($gkeMasterCluster)
   {
     $this->gkeMasterCluster = $gkeMasterCluster;
@@ -158,6 +199,34 @@ class Endpoint extends \Google\Model
   public function getIpAddress()
   {
     return $this->ipAddress;
+  }
+  /**
+   * @param string
+   */
+  public function setLoadBalancerId($loadBalancerId)
+  {
+    $this->loadBalancerId = $loadBalancerId;
+  }
+  /**
+   * @return string
+   */
+  public function getLoadBalancerId()
+  {
+    return $this->loadBalancerId;
+  }
+  /**
+   * @param string
+   */
+  public function setLoadBalancerType($loadBalancerType)
+  {
+    $this->loadBalancerType = $loadBalancerType;
+  }
+  /**
+   * @return string
+   */
+  public function getLoadBalancerType()
+  {
+    return $this->loadBalancerType;
   }
   /**
    * @param string

@@ -26,16 +26,16 @@ class GeostoreRestrictionProto extends \Google\Collection
   public $autonomousDrivingProducts;
   protected $intersectionGroupType = GeostoreFeatureIdProto::class;
   protected $intersectionGroupDataType = '';
-  public $intersectionGroup;
   protected $metadataType = GeostoreFieldMetadataProto::class;
   protected $metadataDataType = '';
-  public $metadata;
   protected $restrictionGroupType = GeostoreFeatureIdProto::class;
   protected $restrictionGroupDataType = '';
-  public $restrictionGroup;
+  /**
+   * @var string
+   */
+  public $restrictionToken;
   protected $scheduleType = GeostoreTimeScheduleProto::class;
   protected $scheduleDataType = '';
-  public $schedule;
   /**
    * @var string
    */
@@ -46,10 +46,8 @@ class GeostoreRestrictionProto extends \Google\Collection
   public $style;
   protected $subpathType = GeostoreFeatureIdProto::class;
   protected $subpathDataType = 'array';
-  public $subpath;
   protected $temporaryDataType = Proto2BridgeMessageSet::class;
   protected $temporaryDataDataType = '';
-  public $temporaryData;
   /**
    * @var string[]
    */
@@ -60,7 +58,6 @@ class GeostoreRestrictionProto extends \Google\Collection
   public $type;
   protected $vehicleAttributeFilterType = GeostoreVehicleAttributeFilterProto::class;
   protected $vehicleAttributeFilterDataType = '';
-  public $vehicleAttributeFilter;
 
   /**
    * @param string[]
@@ -117,6 +114,20 @@ class GeostoreRestrictionProto extends \Google\Collection
   public function getRestrictionGroup()
   {
     return $this->restrictionGroup;
+  }
+  /**
+   * @param string
+   */
+  public function setRestrictionToken($restrictionToken)
+  {
+    $this->restrictionToken = $restrictionToken;
+  }
+  /**
+   * @return string
+   */
+  public function getRestrictionToken()
+  {
+    return $this->restrictionToken;
   }
   /**
    * @param GeostoreTimeScheduleProto

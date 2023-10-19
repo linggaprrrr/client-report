@@ -16,6 +16,7 @@ namespace PhpCsFixer;
 
 use PhpCsFixer\DocBlock\Annotation;
 use PhpCsFixer\DocBlock\DocBlock;
+use PhpCsFixer\DocBlock\TypeExpression;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
@@ -31,25 +32,23 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    /**
-     * @var string
-     */
-    private $classRegex = '/^\\\\?[a-zA-Z_\\x7f-\\xff](?:\\\\?[a-zA-Z0-9_\\x7f-\\xff]+)*$/';
+    private const REGEX_CLASS = '(?:\\\\?+'.TypeExpression::REGEX_IDENTIFIER
+        .'(\\\\'.TypeExpression::REGEX_IDENTIFIER.')*+)';
 
     /**
      * @var array<string, int>
      */
-    private $versionSpecificTypes = [
-        'void' => 70100,
-        'iterable' => 70100,
-        'object' => 70200,
-        'mixed' => 80000,
+    private array $versionSpecificTypes = [
+        'void' => 7_01_00,
+        'iterable' => 7_01_00,
+        'object' => 7_02_00,
+        'mixed' => 8_00_00,
     ];
 
     /**
      * @var array<string, bool>
      */
-    private $scalarTypes = [
+    private array $scalarTypes = [
         'bool' => true,
         'float' => true,
         'int' => true,
@@ -59,11 +58,8 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
     /**
      * @var array<string, bool>
      */
-    private static $syntaxValidationCache = [];
+    private static array $syntaxValidationCache = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
@@ -71,9 +67,6 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
 
     abstract protected function isSkippedType(string $type): bool;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -171,9 +164,15 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
         return $newTokens;
     }
 
+    /**
+     * @return null|array{string, bool}
+     */
     protected function getCommonTypeFromAnnotation(Annotation $annotation, bool $isReturnType): ?array
     {
         $typesExpression = $annotation->getTypeExpression();
+        if (null === $typesExpression) {
+            return null;
+        }
 
         $commonType = $typesExpression->getCommonType();
         $isNullable = $typesExpression->allowsNull();
@@ -186,7 +185,7 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
             return null;
         }
 
-        if ('static' === $commonType && (!$isReturnType || \PHP_VERSION_ID < 80000)) {
+        if ('static' === $commonType && (!$isReturnType || \PHP_VERSION_ID < 8_00_00)) {
             $commonType = 'self';
         }
 
@@ -202,7 +201,7 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
             if (false === $this->configuration['scalar_types']) {
                 return null;
             }
-        } elseif (1 !== Preg::match($this->classRegex, $commonType)) {
+        } elseif (!Preg::match('/^'.self::REGEX_CLASS.'$/', $commonType)) {
             return null;
         }
 
