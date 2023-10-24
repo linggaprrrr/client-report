@@ -141,11 +141,6 @@ class OptionsResolver implements Options
     private $prototypeIndex;
 
     /**
-     * Whether to ignore undefined options.
-     */
-    private bool $ignoreUndefined = false;
-
-    /**
      * Sets the default value of a given option.
      *
      * If the default value should be set based on other options, you can pass
@@ -542,7 +537,7 @@ class OptionsResolver implements Options
         }
 
         if ($forcePrepend) {
-            $this->normalizers[$option] ??= [];
+            $this->normalizers[$option] = $this->normalizers[$option] ?? [];
             array_unshift($this->normalizers[$option], $normalizer);
         } else {
             $this->normalizers[$option][] = $normalizer;
@@ -867,7 +862,7 @@ class OptionsResolver implements Options
         $clone = clone $this;
 
         // Make sure that no unknown options are passed
-        $diff = $this->ignoreUndefined ? [] : array_diff_key($options, $clone->defined);
+        $diff = array_diff_key($options, $clone->defined);
 
         if (\count($diff) > 0) {
             ksort($clone->defined);
@@ -878,10 +873,6 @@ class OptionsResolver implements Options
 
         // Override options set by the user
         foreach ($options as $option => $value) {
-            if ($this->ignoreUndefined && !isset($clone->defined[$option])) {
-                continue;
-            }
-
             $clone->given[$option] = true;
             $clone->defaults[$option] = $value;
             unset($clone->resolved[$option], $clone->lazy[$option]);
@@ -1027,7 +1018,9 @@ class OptionsResolver implements Options
                 $fmtActualValue = $this->formatValue($value);
                 $fmtAllowedTypes = implode('" or "', $this->allowedTypes[$option]);
                 $fmtProvidedTypes = implode('|', array_keys($invalidTypes));
-                $allowedContainsArrayType = \count(array_filter($this->allowedTypes[$option], static fn ($item) => str_ends_with($item, '[]'))) > 0;
+                $allowedContainsArrayType = \count(array_filter($this->allowedTypes[$option], static function ($item) {
+                    return str_ends_with($item, '[]');
+                })) > 0;
 
                 if (\is_array($value) && $allowedContainsArrayType) {
                     throw new InvalidOptionsException(sprintf('The option "%s" with value %s is expected to be of type "%s", but one of the elements is of type "%s".', $this->formatOptions([$option]), $fmtActualValue, $fmtAllowedTypes, $fmtProvidedTypes));
@@ -1141,7 +1134,7 @@ class OptionsResolver implements Options
 
     private function verifyTypes(string $type, mixed $value, array &$invalidTypes, int $level = 0): bool
     {
-        if (\is_array($value) && str_ends_with($type, '[]')) {
+        if (\is_array($value) && '[]' === substr($type, -2)) {
             $type = substr($type, 0, -2);
             $valid = true;
 
@@ -1220,18 +1213,6 @@ class OptionsResolver implements Options
     }
 
     /**
-     * Sets whether ignore undefined options.
-     *
-     * @return $this
-     */
-    public function setIgnoreUndefined(bool $ignore = true): static
-    {
-        $this->ignoreUndefined = $ignore;
-
-        return $this;
-    }
-
-    /**
      * Returns a string representation of the value.
      *
      * This method returns the equivalent PHP tokens for most scalar types
@@ -1241,7 +1222,7 @@ class OptionsResolver implements Options
     private function formatValue(mixed $value): string
     {
         if (\is_object($value)) {
-            return $value::class;
+            return \get_class($value);
         }
 
         if (\is_array($value)) {
@@ -1300,7 +1281,9 @@ class OptionsResolver implements Options
                 $prefix .= sprintf('[%s]', $this->prototypeIndex);
             }
 
-            $options = array_map(static fn (string $option): string => sprintf('%s[%s]', $prefix, $option), $options);
+            $options = array_map(static function (string $option) use ($prefix): string {
+                return sprintf('%s[%s]', $prefix, $option);
+            }, $options);
         }
 
         return implode('", "', $options);

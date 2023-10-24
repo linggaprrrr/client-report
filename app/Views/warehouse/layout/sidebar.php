@@ -66,6 +66,22 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('/warehouse/history-box') ?>" class="nav-link">
+                        <i class="icon-clipboard3"></i>
+                        <span>
+                            History Box
+                        </span>
+                    </a>
+                </li>
+                 <li class="nav-item">
+                    <a href="<?= base_url('/warehouse/upc-database') ?>" class="nav-link">
+                        <i class="icon-folder-search"></i>
+                        <span>
+                            UPC Database
+                        </span>
+                    </a>
+                </li>
                 <!-- <li class="nav-item">
                     <a href="<?= base_url('/warehouse/upc-database') ?>" class="nav-link">
                         <i class="icon-folder-search"></i>
@@ -82,14 +98,7 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('/warehouse/history-box') ?>" class="nav-link">
-                        <i class="icon-clipboard3"></i>
-                        <span>
-                            History Box
-                        </span>
-                    </a>
-                </li>
+               
                 <li class="nav-item">
                     <a href="<?= base_url('/warehouse/input-item') ?>" class="nav-link">
                         <i class="icon-clipboard3"></i>

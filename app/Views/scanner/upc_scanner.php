@@ -90,7 +90,7 @@
         var price = "";
         $('.upc').attr('readonly', true);
         if (upc != "") {            
-            $.get('https://api.asinscope.com/products/lookup?key=ktr8kyb7ootltxjb6um9ak77k&upc='+upc+'&domain=com', function(data) {
+            $.get('https://api.asinscope.com/products/lookup?key=lg9u9jgqqknvfnwzy2fqp68bk&upc='+upc+'&domain=com', function(data) {
                 console.log(data['items'].length);
                 if (data['items'].length > 0) {
                     $('.title_row_'+row+'').html('<strong>'+data['items']['0']['title']+'</strong>');
@@ -154,11 +154,11 @@
         });
 
         $('#noty_created').on('click', function() {
-        new Noty({
-            text: 'UPC successfully added to database.',
-            type: 'alert'
-        }).show();
-    });
+            new Noty({
+                text: 'UPC successfully added to database.',
+                type: 'alert'
+            }).show();
+        });
 
     });
 </script>

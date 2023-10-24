@@ -323,6 +323,7 @@ class UPC extends BaseController
     
     public function findUPC() {
         $upc = $this->request->getVar('upc');
+        
         $getUPC = $this->upcModel->where('upc', $upc)->get();
         $getUPC = $getUPC->getFirstRow();                
 
@@ -336,12 +337,25 @@ class UPC extends BaseController
     public function saveBox() {
         $post = $this->request->getVar();
 
-        $this->upcModel->insertBox([
-            'box_name' => $post['box'],
-            'category' => $post['category'],
-            'description' => 'BOX #'.$post['box'].'-'.$post['category'],
-            'user_id' => session()->get('user_id')      
-        ]);
+        $isExist = $this->upcModel->isExistBox($post['box']);
+        if ($isExist->getNumRows() > 0) {
+            $status = [
+                'status' => 500
+            ];
+            echo json_encode($status);    
+        } else {
+            $this->upcModel->insertBox([
+                'box_name' => $post['box'],
+                'category' => $post['category'],
+                'description' => 'BOX #'.$post['box'].'-'.$post['category'],
+                'user_id' => session()->get('user_id')      
+            ]);
+            $status = [
+                'status' => 200
+            ];
+            echo json_encode($status);
+        }
+        
     }
 
     public function saveLog() {
@@ -381,6 +395,158 @@ class UPC extends BaseController
             
         $this->upcModel->insertBoxItem($item);
         
+    }
+
+    public function exportBox() {
+        $box = $this->request->getVar('box');
+        
+        $date = date('M-d-Y');
+        $fileName = "Need to Upload - {$date}.xlsx";  
+        $spreadsheet = new Spreadsheet();
+        
+        if (empty($box)) {
+            return redirect()->back()->with('error', 'There is no box');
+        }
+        // Styling
+        $spreadsheet->getActiveSheet()->getStyle('A:A')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('B:B')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('C:C')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('D:D')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('E:E')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('F:F')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('G:G')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('H:H')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('I:I')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        
+        $spreadsheet->getActiveSheet()->getStyle('A3:I3')
+            ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A3:I3')
+            ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A3:I3')
+            ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A3:I3')
+            ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        
+        $spreadsheet->getActiveSheet()->getStyle('A3:I3')
+            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $spreadsheet->getActiveSheet()->getStyle('A3:I3')
+            ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+        $spreadsheet->getActiveSheet()->getStyle('A3:I3')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('B:B')->getNumberFormat()
+            ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+        $spreadsheet->getActiveSheet()->getStyle('F:F')->getNumberFormat()
+            ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $spreadsheet->getActiveSheet()->getStyle('G:G')->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $spreadsheet->getActiveSheet()->getStyle('H:H')->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+
+
+		$sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A3', 'FNSKU');
+		$sheet->setCellValue('B3', 'UPC/SKU');
+		$sheet->setCellValue('C3', 'ITEM DESCRIPTION');
+		$sheet->setCellValue('D3', 'CONDITION');
+		$sheet->setCellValue('E3', 'ORIGINAL QTY');
+        $sheet->setCellValue('F3', 'RETAIL VALUE');
+        $sheet->setCellValue('G3', 'TOTAL ORIGINAL RETAIL');
+        $sheet->setCellValue('H3', 'TOTAL CLIENT COST');
+        $sheet->setCellValue('I3', 'VENDOR');
+        $no = 4;
+        
+        for ($i = 0; $i < count($box); $i++) {            
+            $getBoxes = $this->upcModel->getBox($box[$i]);
+            foreach($getBoxes->getResultObject() as $row) {                
+                if ($row->item_description != 'ITEM NOT FOUND') {
+                    $sheet->setCellValue('B' . $no, $row->sku);
+                    $sheet->setCellValue('C' . $no, $row->item_description);                
+                    $sheet->setCellValue('D' . $no, $row->cond);
+                    $sheet->setCellValue('E' . $no, $row->qty);
+                    $sheet->setCellValue('F' . $no, $row->retail == 0 ? '' : $row->retail);
+                    $sheet->setCellValue('G' . $no, $row->original == 0 ? '' : $row->original);
+                    $sheet->setCellValue('H' . $no, $row->cost == 0 ? '' : $row->cost);
+                    $sheet->setCellValue('I' . $no, $row->vendor);
+
+                    // styling
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                        ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                        ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);                
+                    $no++;
+                }
+            }
+            $sheet->setCellValue('C' . $no, $row->description);                
+            $sheet->setCellValue('D' . $no, $row->box_name);
+            $sheet->setCellValue('I' . $no, date('m/d/Y', strtotime($row->date_assigned)));                            
+            
+            // styling
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+            $no++;
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+                ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
+            ->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+            $no++;
+        }
+        
+        $col = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+        for ($j = 0; $j < count($col); $j++) {
+            $spreadsheet->getActiveSheet()->getStyle($col[$j].'3:'.$col[$j].''.$no)
+                ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle($col[$j].'3:'.$col[$j].''.$no)
+                ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle($col[$j].'3:'.$col[$j].''.$no)
+                ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle($col[$j].'3:'.$col[$j].''.$no)
+                ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        }
+        
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("files/". $fileName);
+      
+        header("Content-Type: application/vnd.ms-excel");
+
+		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length:' . filesize("files/". $fileName));
+		flush();
+		readfile("files/". $fileName);
+		exit;
+       
     }
 
     public function needToUpload() {

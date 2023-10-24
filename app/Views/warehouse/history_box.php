@@ -10,19 +10,26 @@
 <div class="content">
     <div class="card">
         <div class="card-header pb-0">
-            <div class="form-group float-left" style="margin: 0;">
-                <label>
-                    <form action="<?= base_url('/warehouse/history-box') ?>" class="filter" method="get">
-                        <span>Daterange:</span>                              
-                        <?php if (!empty($date1)) : ?>                                
-                            <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y', strtotime($date1)) ?> - <?= date('m/d/Y', strtotime($date2)) ?>" style="    width: 220px; text-align: center;" readonly />
-                        <?php else : ?>
-                            <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y') ?> - <?= date('m/d/Y') ?>" style="    width: 220px; text-align: center;" readonly />
-                        <?php endif ?>
-                        <input type="hidden" name="start">
-                        <input type="hidden" name="end">
-                    </form>
-                </label>
+            <div class="form-group d-lg-flex  justify-content-lg-between" style="margin: 0;">
+                <div>
+                    <label>
+                        <form action="<?= base_url('/warehouse/history-box') ?>" class="filter" method="get">
+                            <span>Daterange:</span>                              
+                            <?php if (!empty($date1)) : ?>                                
+                                <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y', strtotime($date1)) ?> - <?= date('m/d/Y', strtotime($date2)) ?>" style="    width: 220px; text-align: center;" readonly />
+                            <?php else : ?>
+                                <input type="text" class="form-control" name="datefilter" value="<?= date('m/d/Y') ?> - <?= date('m/d/Y') ?>" style="    width: 220px; text-align: center;" readonly />
+                            <?php endif ?>
+                            <input type="hidden" name="start">
+                            <input type="hidden" name="end">
+                        </form>
+                    </label>
+                </div>
+                <div>
+
+                    <button class="btn btn-success export-button"><i class="icon-file-excel mr-2"></i>Export to Excel</button>
+                    
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -67,73 +74,76 @@
                     </div>
                 </div>  
             </div>  
-            <table class="table datatable-basic" id="myTable" style="font-size: 11px;">
-                <thead>
-                    <tr>
-                        <th class="text-center" style="width: 5%">No</th>
-                        <th class="text-center">Box Description</th>                        
-                        <th class="text-center" style="width: 10%">Total Item</th>
-                        <th class="text-center" style="width: 10%">Unknown UPC</th>
-                        <th class="text-center" style="width: 10%">Date</th>
-                        <th class="text-center" style="width: 15%">Admin</th>                        
-                    </tr>
-                </thead>
-                <tbody id="assign-body">
-                    <?php if ($boxes->getNumRows() > 0) : ?>
-                        <?php $no = 1 ?>
-                        <?php foreach ($boxes->getResultArray() as $row) : ?>
-                            <tr>
-                                <td class="text-center">
-                                    <?= $no++ ?>
-                                    <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" class="font-weight-bold box_name h6 name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
-                                        <?= $row['box_name'] ?>
-                                    </a>
-                                    <br>
-                                    <p class="desc_box_<?= $no ?>">
-                                        <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
-                                            <?php $desc = substr($row['description'], $pos + 1);     ?>
-                                            <?= $desc  ?>
-                                        <?php else : ?>
-                                            None
-                                        <?php endif ?>
-                                    </p>
-                                </td>
-                                <?php if ($row['total_item'] > 0) : ?>
+            <form id="exportForm" method="post" action="/export-box">
+                <table class="table datatable-basic" id="myTable" style="font-size: 11px;">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 5%">No</th>
+                            <th class="text-center">Box Description</th>                        
+                            <th class="text-center" style="width: 10%">Total Item</th>
+                            <th class="text-center" style="width: 10%">Unknown UPC</th>
+                            <th class="text-center" style="width: 10%">Date</th>
+                            <th class="text-center" style="width: 15%">Admin</th>    
+                            <th class="text-left" style="width: 3%"><input type="checkbox" class="check_all" /></th>                    
+                        </tr>
+                    </thead>
+                    <tbody id="assign-body">
+                        <?php if ($boxes->getNumRows() > 0) : ?>
+                            <?php $no = 1 ?>
+                            <?php foreach ($boxes->getResultArray() as $row) : ?>
+                                <tr>
                                     <td class="text-center">
-                                        <?= $row['total_item'] ?>
+                                        <?= $no++ ?>
+                                        <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
                                     </td>
-                                <?php else : ?>
                                     <td class="text-center">
-                                        -
+                                        <a href="#" class="font-weight-bold box_name h6 name_box_<?= $no ?>" data-box="<?= $row['box_name'] ?>">
+                                            <?= $row['box_name'] ?>
+                                        </a>
+                                        <br>
+                                        <p class="desc_box_<?= $no ?>">
+                                            <?php if (($pos = strpos($row['description'], "-")) !== FALSE) : ?>
+                                                <?php $desc = substr($row['description'], $pos + 1);     ?>
+                                                <?= $desc  ?>
+                                            <?php else : ?>
+                                                None
+                                            <?php endif ?>
+                                        </p>
                                     </td>
-                                <?php endif ?>
-                                <?php if ($row['unknown_upc'] > 0) : ?>
-                                    <td class="text-center text-danger">
-                                        <?= $row['unknown_upc'] ?>
-                                    </td>
-                                <?php else : ?>
+                                    <?php if ($row['total_item'] > 0) : ?>
+                                        <td class="text-center">
+                                            <?= $row['total_item'] ?>
+                                        </td>
+                                    <?php else : ?>
+                                        <td class="text-center">
+                                            -
+                                        </td>
+                                    <?php endif ?>
+                                    <?php if ($row['unknown_upc'] > 0) : ?>
+                                        <td class="text-center text-danger">
+                                            <?= $row['unknown_upc'] ?>
+                                        </td>
+                                    <?php else : ?>
+                                        <td class="text-center">
+                                            -
+                                        </td>
+                                    <?php endif ?>
                                     <td class="text-center">
-                                        -
+                                        <?= date('m/d/Y H:i:s', strtotime($row['date_assigned'])) ?>
                                     </td>
-                                <?php endif ?>
-                                <td class="text-center">
-                                    <?= date('m/d/Y', strtotime($row['date'])) ?>
-                                </td>
-                                <td class="text-center">
-                                    <?= $row['fullname'] ?>
-                                </td>
-                                <!-- <td class="text-center"> -->
-                                    <!-- <a href="" data-toggle="modal"><i class="icon-pencil7"></i></a> -->
-                                <!-- </td> -->
-                            </tr>
-                        <?php endforeach ?>
-                    <?php endif ?>
-                </tbody>
+                                    <td class="text-center">
+                                        <?= $row['fullname'] ?>
+                                    </td>
+                                    <td class="text-left">
+                                        <input type="checkbox" name="box[]" class="box_checklist" value="<?= $row['id'] ?>">
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </tbody>
 
-            </table>
+                </table>
+            </form>
         </div>
     
     </div>
@@ -218,12 +228,19 @@
             $('.filter').submit();
             
         });
+
+        $(".check_all").click(function(){
+            $('.box_checklist').prop('checked', this.checked);
+        });
     });
 
     var i = 1;
     var tempTotal = 0;
     var total = 0;
 
+    $('.export-button').on('click', function() {
+        $('#exportForm').submit()
+    });
 
     $('.box_name').on('click', function() {
         var boxName = $(this).data('box');

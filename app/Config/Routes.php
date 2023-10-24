@@ -97,6 +97,7 @@ $routes->post('search-brand2', 'Admin\Reports::searchBrand2');
 $routes->post('/add-promo','Admin\PromoCode::addPromo');
 
 $routes->get('/admin/need-to-upload', 'UPC::needToUpload');
+$routes->post('/export-box', 'UPC::exportBox');
 $routes->post('/create-need-to-upload', 'UPC::createNeedToUpload');
 $routes->get('/resubmit-upc', 'UPC::refreshUnknownUPC');
 $routes->get('/admin/extract-unlisted-upc', 'UPC::extractUnkownUPC');

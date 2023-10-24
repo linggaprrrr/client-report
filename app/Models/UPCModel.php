@@ -4,6 +4,8 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+use function PHPUnit\Framework\returnSelf;
+
 class UPCModel extends Model
 {
     protected $table = 'upc';
@@ -31,9 +33,9 @@ class UPCModel extends Model
             ->join('(SELECT box_name, COUNT(assign_report_details.sku) as total_item FROM assign_report_details WHERE item_description <> "ITEM NOT FOUND" GROUP BY box_name) as t', 't.box_name = b.box_name', 'left')
             ->join('(SELECT box_name, COUNT(assign_report_details.sku) as unknown_upc FROM assign_report_details WHERE item_description = "ITEM NOT FOUND" GROUP BY box_name) as u', 'u.box_name = b.box_name', 'left')            
             ->join('users as us', 'b.user_id = us.id')
-            ->where('date BETWEEN "'.$date1.'" AND "'.$date2.'" ')
+            ->where('date_assigned BETWEEN "'.$date1.'" AND "'.$date2.'" ')
             ->groupBy('b.id')
-            ->orderBy('b.date', 'DESC')
+            ->orderBy('b.date_assigned', 'DESC')
             ->get();
         } else {
             $date1 = date('Y-m-d 00:00:00');
@@ -44,9 +46,9 @@ class UPCModel extends Model
             ->join('(SELECT box_name, COUNT(assign_report_details.sku) as total_item FROM assign_report_details WHERE item_description <> "ITEM NOT FOUND" GROUP BY box_name) as t', 't.box_name = b.box_name', 'left')
             ->join('(SELECT box_name, COUNT(assign_report_details.sku) as unknown_upc FROM assign_report_details WHERE item_description = "ITEM NOT FOUND" GROUP BY box_name) as u', 'u.box_name = b.box_name', 'left')            
             ->join('users as us', 'b.user_id = us.id')
-            ->where('date BETWEEN "'.$date1.'" AND "'.$date2.'" ')
+            ->where('date_assigned BETWEEN "'.$date1.'" AND "'.$date2.'" ')
             ->groupBy('b.id')
-            ->orderBy('b.date', 'DESC')
+            ->orderBy('b.date_assigned', 'DESC')
             ->get();
         }
         return $query;
@@ -58,6 +60,13 @@ class UPCModel extends Model
             ->join('assign_report_details', 'assign_report_details.box_name = assign_report_box.box_name')            
             ->where('assign_report_box.id', $id)
             ->groupBy('sku')
+            ->get();
+        return $query;
+    }
+
+    public function isExistBox($box) {
+        $query = $this->db->table('assign_report_box')
+            ->where('assign_report_box.box_name', $box)
             ->get();
         return $query;
     }
@@ -92,17 +101,24 @@ class UPCModel extends Model
             $query = $this->db->table('assign_report_box')
             ->select('SUM(assign_report_details.qty) as qty, SUM(assign_report_details.original) as original, SUM(assign_report_details.cost) as cost')
                 ->join('assign_report_details', 'assign_report_details.box_name = assign_report_box.box_name')
-                ->where('date BETWEEN "'.$date1.'" AND "'.$date2.'" ')
+                ->where('date_assigned BETWEEN "'.$date1.'" AND "'.$date2.'" ')
                 ->get();
         } else {
             $query = $this->db->table('assign_report_box')
                 ->select('SUM(assign_report_details.qty) as qty, SUM(assign_report_details.original) as original, SUM(assign_report_details.cost) as cost')
                 ->join('assign_report_details', 'assign_report_details.box_name = assign_report_box.box_name')
-                ->where('date BETWEEN "'.$date1.'" AND "'.$date2.'" ')
+                ->where('date_assigned BETWEEN "'.$date1.'" AND "'.$date2.'" ')
                 ->get();
         }
 
         return $query->getFirstRow();
     }
+    
+    public function getBox($id) {
+        $query = $this->db->query("SELECT assign_report_details.*, date_assigned, assign_report_box.description FROM assign_report_box JOIN assign_report_details ON assign_report_details.box_name = assign_report_box.box_name WHERE assign_report_box.id = '$id' ");
+        return $query;
+    }
 
 }
+
+
