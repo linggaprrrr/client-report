@@ -51,6 +51,7 @@ class UPC extends BaseController
         $data = $spreadsheet->getActiveSheet()->toArray();
         $UPCList = array();
         ini_set('memory_limit','-1');
+        
         ini_set('max_execution_time', '30000');
         foreach ($data as $idx => $row) {
             if ($idx > 0 && !empty($row[0])) {
@@ -346,6 +347,7 @@ class UPC extends BaseController
         } else {
             $this->upcModel->insertBox([
                 'box_name' => $post['box'],
+                'box_dimension' => $post['dimension'],
                 'category' => $post['category'],
                 'description' => 'BOX #'.$post['box'].'-'.$post['category'],
                 'user_id' => session()->get('user_id')      
@@ -475,6 +477,7 @@ class UPC extends BaseController
                     $sheet->setCellValue('G' . $no, $row->original == 0 ? '' : $row->original);
                     $sheet->setCellValue('H' . $no, $row->cost == 0 ? '' : $row->cost);
                     $sheet->setCellValue('I' . $no, $row->vendor);
+                    $sheet->setCellValue('K' . $no, $row->box_name);
 
                     // styling
                     $spreadsheet->getActiveSheet()->getStyle('A'.$no.':I'.$no)
@@ -488,6 +491,7 @@ class UPC extends BaseController
                     $no++;
                 }
             }
+            $sheet->setCellValue('B' . $no, $row->box_dimension);  
             $sheet->setCellValue('C' . $no, $row->description);                
             $sheet->setCellValue('D' . $no, $row->box_name);
             $sheet->setCellValue('I' . $no, date('m/d/Y', strtotime($row->date_assigned)));                            
@@ -1175,6 +1179,16 @@ class UPC extends BaseController
         echo json_encode([
             'file' => $fileName,
         ]);
+    }
+
+    public function deleteItemInBox() {
+        $id = $this->request->getVar('id');
+        $this->upcModel->deleteItemInBox($id);
+    }
+
+    public function deleteBox() {
+        $id = $this->request->getVar('id');
+        $this->upcModel->deleteBox($id);
     }
 
 }

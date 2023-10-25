@@ -35,7 +35,7 @@
                                         <span class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon-drawer-in"></i></span>
                                         </span>
-                                        <input type="text" class="form-control box-name" name="box" required>
+                                        <input type="text" class="form-control box-name" name="box" placeholder="box name" required>
                                     </div>
                                 </div>    
                                 <div class="form-group">
@@ -49,6 +49,15 @@
                                             <option value="1">SHOES</option>
                                             <option value="2">CLOTHES</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Box Dimensions:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-inbox-alt"></i></span>
+                                        </span>
+                                        <input type="text" class="form-control box-dimension" name="box_dimension" placeholder="18x14x10-5lbs">
                                     </div>
                                 </div> 
                             </div>
@@ -127,6 +136,7 @@
     var audio = new Audio('/assets/beep.mp3');
     $('form#newBox').submit(function(event) {
         const boxName = $('.box-name').val();
+        const boxDimension = $('.box-dimension').val();
         cat = $('.category').val();        
         var desc = "";
         if (cat == "1") {
@@ -137,7 +147,8 @@
         event.preventDefault();
         $.post('<?= base_url('save-box') ?>', {            
             category: desc,
-            box: $('.box-name').val(),
+            box: boxName,
+            dimension: boxDimension
         }, function(data) {
             const resp = JSON.parse(data);
             if (resp['status'] == '200') {
@@ -182,6 +193,7 @@
         var itemCost = 0;
         var title = '';
         var brand = '';
+        audio.play();
         $.get('https://api.asinscope.com/products/lookup?key=lg9u9jgqqknvfnwzy2fqp68bk&upc='+upc+'&domain=com', function(data) {
             if (data['items'].length > 0) {
                 title = data['items']['0']['title'];
@@ -211,9 +223,7 @@
                             $(".client-cost").removeClass('client-cost');
                             $(".vendor-name").removeClass('vendor-name');
                     
-                            $(".upc-row").append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc"></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');
-                            audio.play();
-                            $(".upc").focus();
+                            
                             $.post('<?= base_url('save-log') ?>', {
                                 upc: upc,
                                 desc: title,
@@ -222,7 +232,8 @@
                                 category: cat,
                                 box: $('.box-name').val(),
                             }, function(data) {
-                                
+                                $(".upc-row").append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc"></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');                            
+                                $(".upc").focus();
                             });
                         } else {
                             $(".retail").val('');
@@ -237,10 +248,6 @@
                             $(".client-cost").removeClass('client-cost');
                             $(".vendor-name").removeClass('vendor-name');
                     
-                            $(".upc-row").append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc"></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');
-                            audio.play();
-                            $(".upc").focus();
-
                             $.post('<?= base_url('save-log') ?>', {
                                 upc: upc,
                                 desc: title,
@@ -249,7 +256,8 @@
                                 category: cat,
                                 box: $('.box-name').val(),
                             }, function(data) {
-                                
+                                $(".upc-row").append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc"></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');                        
+                                $(".upc").focus();
                             });
                         }
                         
@@ -266,14 +274,6 @@
                 $(".client-cost").val('$...');
                 $(".vendor-name").val('...');
 
-                $.post('<?= base_url('save-log') ?>', {
-                    upc: upc,
-                    desc: "ITEM NOT FOUND",
-                    category: cat,
-                    box: $('.box-name').val(),
-                }, function(data) {
-                   
-                });
                 $(".retail").val('');
                 $(".original-retail").val('');
                 $(".client-cost").val('');
@@ -286,15 +286,23 @@
                 $(".client-cost").removeClass('client-cost');
                 $(".vendor-name").removeClass('vendor-name');
         
-                $(".upc-row").append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc"></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');
-                audio.play();
-                $(".upc").focus();
+                
+                $.post('<?= base_url('save-log') ?>', {
+                    upc: upc,
+                    desc: "ITEM NOT FOUND",
+                    category: cat,
+                    box: $('.box-name').val(),
+                }, function(data) {
+                    $(".upc-row").append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc"></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');                
+                    $(".upc").focus();
+                });
+                
                 
             }   
             
             
         });        
-    });        
+    });          
     
     $('.box-button').click(function() {
         if (cat != '') {
@@ -302,6 +310,7 @@
             $('#box_name').html("");
             $('#modal_box').modal('show');
             $('.box-name').val("");
+            $('.box-dimension').val("");
             $('.category').val("");
             $('.upc-row').append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc" ></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');                  
             $('.box-button').html("<i class='icon-dropbox mr-2'></i>New Box");
@@ -311,6 +320,7 @@
             $('#box_name').html("");
             $('#modal_box').modal('show');
             $('.box-name').val("");
+            $('.box-dimension').val("");
             $('.category').val("");
             $('.upc-row').append('<tr class="item-list"> <td><input type="text" name="upc[]" class="form-control custom-field upc" ></td><td><input type="text" name="desc[]" class="form-control custom-field desc" readonly></td><td><input type="text" name="condition[]" class="form-control custom-field condition" readonly></td><td><input type="text" name="qty[]" class="form-control custom-field qty" readonly></td><td><input type="text" name="retail[]" class="form-control custom-field retail" readonly></td><td><input type="text" name="original-retail[]" class="form-control custom-field original-retail" readonly></td><td><input type="text" name="client-cost[]" class="form-control custom-field client-cost" readonly></td><td><input type="text" name="vendor-name[]" class="form-control custom-field vendor-name" readonly></td></tr>');
             

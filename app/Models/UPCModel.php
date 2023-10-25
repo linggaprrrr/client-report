@@ -115,8 +115,17 @@ class UPCModel extends Model
     }
     
     public function getBox($id) {
-        $query = $this->db->query("SELECT assign_report_details.*, date_assigned, assign_report_box.description FROM assign_report_box JOIN assign_report_details ON assign_report_details.box_name = assign_report_box.box_name WHERE assign_report_box.id = '$id' ");
+        $query = $this->db->query("SELECT assign_report_details.*, date_assigned, assign_report_box.box_dimension, assign_report_box.description FROM assign_report_box JOIN assign_report_details ON assign_report_details.box_name = assign_report_box.box_name WHERE assign_report_box.id = '$id' ");
         return $query;
+    }
+
+    public function deleteItemInBox($id) {
+        $this->db->query("DELETE FROM assign_report_details WHERE id = '$id' ");
+    }
+
+    public function deleteBox($id) {
+        $this->db->query("DELETE FROM assign_report_box WHERE id = '$id' ");
+        $this->db->query("DELETE assign_report_details FROM assign_report_details JOIN assign_report_box ON assign_report_box.box_name = assign_report_details.box_name WHERE assign_report_box.id = '$id' ");
     }
 
 }

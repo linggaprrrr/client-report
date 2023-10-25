@@ -75,7 +75,7 @@
                 </div>  
             </div>  
             <form id="exportForm" method="post" action="/export-box">
-                <table class="table datatable-basic" id="myTable" style="font-size: 11px;">
+                <table class="table datatable-init" id="myTable" style="font-size: 11px;">
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 5%">No</th>
@@ -84,14 +84,15 @@
                             <th class="text-center" style="width: 10%">Unknown UPC</th>
                             <th class="text-center" style="width: 10%">Date</th>
                             <th class="text-center" style="width: 15%">Admin</th>    
-                            <th class="text-left" style="width: 3%"><input type="checkbox" class="check_all" /></th>                    
+                            <th class="text-left" style="width: 3%"><input type="checkbox" class="check_all" /></th>     
+                            
                         </tr>
                     </thead>
                     <tbody id="assign-body">
                         <?php if ($boxes->getNumRows() > 0) : ?>
                             <?php $no = 1 ?>
                             <?php foreach ($boxes->getResultArray() as $row) : ?>
-                                <tr>
+                                <tr class="box-<?= $row['id'] ?>">
                                     <td class="text-center">
                                         <?= $no++ ?>
                                         <input type="hidden" name="box_id[]" value="<?= $row['id'] ?>">
@@ -135,7 +136,10 @@
                                         <?= $row['fullname'] ?>
                                     </td>
                                     <td class="text-left">
-                                        <input type="checkbox" name="box[]" class="box_checklist" value="<?= $row['id'] ?>">
+                                        <div class="d-flex justify-content-lg-between">
+                                            <input type="checkbox" name="box[]" class="box_checklist mr-4" value="<?= $row['id'] ?>">
+                                            <a href="#" data-id="<?= $row['id'] ?>" class="text-danger remove-box"><em class="icon-trash"></em></a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -173,6 +177,7 @@
                                         <th style="width: 10%;">Total Retail</th>
                                         <th style="width: 10%;">Cost</th>
                                         <th style="width: 15%;">Vendor</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="item-tbody">
@@ -232,6 +237,13 @@
         $(".check_all").click(function(){
             $('.box_checklist').prop('checked', this.checked);
         });
+
+        $('.datatable-init').DataTable({
+            "aLengthMenu": [[50, 200, 500, -1], [50, 200, 500, "All"]],
+            "iDisplayLength": 50,
+            "bInfo" : false,
+            "aaSorting": []
+        });
     });
 
     var i = 1;
@@ -269,15 +281,15 @@
                 for (var i = 0; i < item.length; i++) {
                     if (i % 2 == 0) {
                         if (item[i]['item_description'] == "ITEM NOT FOUND") {
-                            $('#item-table tbody').append('<tr><td class="text-danger"><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left text-danger">' + item[i]['item_description'] + '</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-left">-</td></tr>');
+                            $('#item-table tbody').append('<tr class="item-' + item[i]['id'] + '"><td class="text-danger"><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left text-danger">' + item[i]['item_description'] + '</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-left">-</td><td class="text-right"><a href="#" class="text-danger delete-item" data-id="'+ item[i]['id'] +'"><em class="icon-diff-removed"></em></a></td></tr>');
                         } else {
-                            $('#item-table tbody').append('<tr><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left">' + item[i]['item_description'] + '</td><td class="text-center">' + item[i]['cond'] + '</td><td class="text-center">' + item[i]['qty'] + '</td><td class="text-center">$'+item[i]['retail']+'</td><td class="text-center">$'+item[i]['original']+'</td><td class="text-center">$'+parseFloat(item[i]['cost']).toFixed(2)+'</td><td class="text-left">' + item[i]['vendor'] + '</td></tr>');
+                            $('#item-table tbody').append('<tr class="item-' + item[i]['id'] + '"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left">' + item[i]['item_description'] + '</td><td class="text-center">' + item[i]['cond'] + '</td><td class="text-center">' + item[i]['qty'] + '</td><td class="text-center">$'+item[i]['retail']+'</td><td class="text-center">$'+item[i]['original']+'</td><td class="text-center">$'+parseFloat(item[i]['cost']).toFixed(2)+'</td><td class="text-left">' + item[i]['vendor'] + '</td><td class="text-right"><a href="#" class="text-danger delete-item" data-id="'+ item[i]['id'] +'"><em class="icon-diff-removed"></em></a></td></tr>');
                         }
                     } else {
                         if (item[i]['item_description'] == "ITEM NOT FOUND") {
-                            $('#item-table tbody').append('<tr class="table-secondary"><td class="text-danger"><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left text-danger">' + item[i]['item_description'] + '</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-left">-</td></tr>');
+                            $('#item-table tbody').append('<tr class="table-secondary item-' + item[i]['id'] + '"><td class="text-danger"><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left text-danger">' + item[i]['item_description'] + '</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-center">-</td><td class="text-left">-</td><td class="text-right"><a href="#" class="text-danger delete-item" data-id="'+ item[i]['id'] +'"><em class="icon-diff-removed"></em></a></td></tr>');
                         } else {
-                            $('#item-table tbody').append('<tr class="table-secondary"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left">' + item[i]['item_description'] + '</td><td class="text-center">' + item[i]['cond'] + '</td><td class="text-center">' + item[i]['qty'] + '</td><td class="text-center">$'+item[i]['retail']+'</td><td class="text-center">$'+item[i]['original']+'</td><td class="text-center">$'+parseFloat(item[i]['cost']).toFixed(2)+'</td><td class="text-left">' + item[i]['vendor'] + '</td></tr>');
+                            $('#item-table tbody').append('<tr class="table-secondary item-' + item[i]['id'] + '"><td><input type="hidden" name="item[]" value="' + item[i]['id'] + '">' + item[i]['sku'] + '</td><td class="text-left">' + item[i]['item_description'] + '</td><td class="text-center">' + item[i]['cond'] + '</td><td class="text-center">' + item[i]['qty'] + '</td><td class="text-center">$'+item[i]['retail']+'</td><td class="text-center">$'+item[i]['original']+'</td><td class="text-center">$'+parseFloat(item[i]['cost']).toFixed(2)+'</td><td class="text-left">' + item[i]['vendor'] + '</td> <td class="text-right"><a href="#" class="text-danger delete-item" data-id="'+ item[i]['id'] +'"><em class="icon-diff-removed"></em></a></td> </tr>');
                         }                        
                     }
                 }                
@@ -299,6 +311,58 @@
         });
     });
 
+    $(document).on('click', '.delete-item', function() {
+        const id = $(this).data('id');
+        
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this item!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal("Poof! Your item has been deleted!", {
+                    icon: "success",
+                });
+                
+                $.post('/delete-item-in-box', {id: id})
+                    .done(function(data) {
+                        $('.item-' + id).remove();        
+                    })
+            } else {
+                
+            }
+            });
+    });
+
+    $(document).on('click', '.remove-box', function() {
+        const id = $(this).data('id');
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this box!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal("Poof! Your box has been deleted!", {
+                    icon: "success",
+                });
+                
+                $.post('/delete-box', {id: id})
+                    .done(function(data) {
+                        $('.box-' + id).remove();
+                    })
+            } else {
+                
+            }
+            });
+    });
+
+    
 
 
     $('#noty_created').on('click', function() {

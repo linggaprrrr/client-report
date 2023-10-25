@@ -288,6 +288,8 @@ $routes->post('/export-amazon-upc', 'UPC::amazonUPCExport');
 // scanner
 
 $routes->get('/scanner/upc', 'Warehouse\Scanner::UPCScanner');
+$routes->post('/delete-item-in-box', 'UPC::deleteItemInBox');
+$routes->post('/delete-box', 'UPC::deleteBox');
 
 
 
